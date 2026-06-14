@@ -3,7 +3,7 @@
 <header style="display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: #030712; border-bottom: 1px solid rgba(255,255,255,0.06); z-index: 9999 !important; box-sizing: border-box; width: 100%; height: 82px; position: relative;">
     
     <div class="logo-area" style="display: flex; align-items: center; gap: 12px;">
-        <img src="/images/logo.png" alt="Vakratron"  alt="Vakratron Logo" style="width: 42px; height: 42px; object-fit: contain;">
+        <img src="/images/logo.png" alt="Vakratron Logo" style="width: 42px; height: 42px; object-fit: contain;">
         <div class="logo-text">
             <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; color: #fff; margin: 0; letter-spacing: 2px;">VAKRATRON</h2>
             <span style="font-family: 'Space Grotesk', sans-serif; font-size: 0.75rem; color: #C2185B; letter-spacing: 4px; font-weight: 600; display: block; margin-top: -1px;">SYSTEMS</span>
@@ -51,6 +51,50 @@
         <a href="/contact.html" style="background: #C2185B; color: #fff; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; font-family: 'Space Grotesk', sans-serif; display: inline-block; box-shadow: 0 4px 15px rgba(194, 24, 91, 0.2); letter-spacing: 0.5px;">Get In Touch</a>
     </div>
 </header>
+
+<style>
+    /* 🎯 Console Space Specific Scoped Styling */
+    .central-nav-container:hover .console-dropdown-dashboard { 
+        opacity: 1 !important; 
+        pointer-events: auto !important; 
+        transform: translate(50%, 0) scale(1) !important; 
+        border-color: rgba(194, 24, 91, 0.6) !important;
+        transition-delay: 0s !important;
+    }
+
+    .console-dropdown-dashboard {
+        background: #030712 !important; 
+        z-index: 99999 !important;      
+        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        transition-delay: 0.15s !important;
+    }
+
+    .central-nav-container:hover .console-trigger-btn { 
+        background: rgba(194, 24, 91, 0.15) !important; 
+        border-color: rgba(194, 24, 91, 0.8) !important; 
+        box-shadow: 0 0 20px rgba(194, 24, 91, 0.3) !important; 
+    }
+    .central-nav-container:hover .arrow-icon { 
+        transform: rotate(180deg) !important; 
+    }
+    .nav-matrix-link { 
+        display: flex !important; 
+        align-items: center; 
+        gap: 10px; 
+        color: #94a3b8 !important; 
+        text-decoration: none; 
+        font-family: 'Inter', sans-serif !important; 
+        font-size: 0.85rem !important; 
+        padding: 8px 12px !important; 
+        border-radius: 6px; 
+        transition: all 0.2s; 
+    }
+    .nav-matrix-link:hover { 
+        background: rgba(255, 255, 255, 0.03) !important; 
+        color: #fff !important; 
+        padding-left: 16px !important; 
+    }
+</style>
 
 <style>
     /* 🎯 होवर करने पर ड्रॉपडाउन को रोकना और डिले देना */
