@@ -1,8 +1,27 @@
 {
-  "rewrites": [
-    { "source": "/images/(.*)", "destination": "/public/images/$1" },
-    { "source": "/api/contact", "destination": "/api/index.js" },
-    { "source": "/(.*)\\.html", "destination": "/views/$1.html" },
-    { "source": "/(.*)", "destination": "/views/index.html" }
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/images/(.*)",
+      "dest": "/public/images/$1"
+    },
+    {
+      "src": "/(.*)\\.(js|css|png|jpg|jpeg|svg|ico)",
+      "dest": "/public/$1.$2"
+    },
+    {
+      "src": "/(header.html|footer.html)",
+      "dest": "api/index.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "api/index.js"
+    }
   ]
 }
