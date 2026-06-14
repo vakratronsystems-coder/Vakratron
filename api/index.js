@@ -156,9 +156,11 @@ app.get(/(.*)/, (req, res) => {
     }
 });
 
+// ✅ Isko ekdam clean kar do, koi replace loop nahi:
 function serveFileWithGapFix(filePath, res) {
-    fs.readFile(filePath, 'utf8', (err, data) => {
-        if (err) return res.status(500).send('Server Error');
+    const html = fs.readFileSync(filePath, 'utf8');
+    res.send(html);
+}
 
         const gapFixStyle = `
 <style>
