@@ -1,40 +1,8 @@
 {
   "rewrites": [
-    {
-      "source": "/:path*",
-      "destination": "/:path*"
-    }
-  ],
-  "cleanUrls": true,
-  "trailingSlash": false
-}{
-  "version": 2,
-  "builds": [
-    {
-      "src": "**/*.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "api/index.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/images/(.*)",
-      "dest": "/images/$1"
-    },
-    {
-      "src": "/api/contact",
-      "dest": "/api/index.js"
-    },
-    {
-      "src": "/(.*)\\.html",
-      "dest": "/$1.html"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
+    { "source": "/images/(.*)", "destination": "/images/$1" },
+    { "source": "/api/contact", "destination": "/api/index.js" },
+    { "source": "/(.*)\\.html", "destination": "/$1.html" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
