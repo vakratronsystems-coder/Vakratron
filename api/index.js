@@ -13,7 +13,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Static Assets Pipeline Setup
+// Serve static assets out of the public folder mapping
 app.use(express.static(path.join(__dirname, '../public')));
 app.use('/images', express.static(path.join(__dirname, '../public/images')));
 
@@ -32,7 +32,7 @@ if (process.env.MONGO_URI) {
         .catch(err => console.error('❌ Pipeline Fault: Connection Refused.', err));
 }
 
-// SECURE FORM INGESTION ENDPOINT
+// FORM SUBMISSION PIPELINE
 app.post('/api/contact', async (req, res) => {
     try {
         const { name, email, phone, reason } = req.body;
@@ -71,14 +71,14 @@ app.post('/api/contact', async (req, res) => {
     }
 });
 
-// EXPLICIT STATIC COMPONENT BYPASS (Overlap Se Bachane Ke Liye)
+// EXPLICIT STATIC COMPONENT ISOLATION (No Overlaps, Clean Content Streams)
 app.get('/header.html', (req, res) => {
     const headerPath = path.join(__dirname, '../views/header.html');
     if (fs.existsSync(headerPath)) {
         res.setHeader('Content-Type', 'text/html');
         return res.sendFile(headerPath);
     }
-    res.status(404).send('Header component not found');
+    res.status(404).send('Header blueprint missing');
 });
 
 app.get('/footer.html', (req, res) => {
@@ -87,22 +87,22 @@ app.get('/footer.html', (req, res) => {
         res.setHeader('Content-Type', 'text/html');
         return res.sendFile(footerPath);
     }
-    res.status(404).send('Footer component not found');
+    res.status(404).send('Footer blueprint missing');
 });
 
-// Dynamic Clean HTML File Server Utility
+// Safe File Injection Engine
 function serveFileWithGapFix(filePath, res) {
     if (fs.existsSync(filePath)) {
         res.setHeader('Content-Type', 'text/html');
         return res.sendFile(filePath);
     }
-    // Fallback if specific file is missing
+    // Deep fallback layer
     const indexFallback = path.join(__dirname, '../views/index.html');
     res.setHeader('Content-Type', 'text/html');
     res.sendFile(indexFallback);
 }
 
-// ISOLATED DYNAMIC CATCH-ALL ROUTER (Sahi Page Open Karne Ke Liye)
+// CATCH-ALL ROUTER FOR STRUCTURAL VALIDATION (Opens exact requested pages)
 app.get(/(.*)/, (req, res) => {
     let requestedPage = req.params[0] ? req.params[0].replace(/^\//, '') : '';
 
@@ -110,7 +110,6 @@ app.get(/(.*)/, (req, res) => {
         return serveFileWithGapFix(path.join(__dirname, '../views/index.html'), res);
     }
 
-    // Protection to avoid component loops
     if (requestedPage === 'header.html' || requestedPage === 'footer.html') {
         return;
     }
