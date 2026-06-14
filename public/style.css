@@ -1,0 +1,1050 @@
+/* ==========================================================================
+   🌐 PREMIUM CORE & RESET STYLES
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-main: #020617;
+    --bg-surface: rgba(15, 23, 42, 0.6);
+    --border-glow: rgba(194, 24, 91, 0.3);
+    --accent-neon: #C2185B;
+    --accent-blue: #38bdf8;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --glass-gradient: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(2, 6, 23, 0.9) 100%);
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px; 
+}
+
+body {
+    background: #030d1a;
+    color: #e2e8f0;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   🛡️ ENTERPRISE NAVIGATION HEADER
+   ========================================================================== */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5%; 
+    height: 80px; 
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(3, 13, 26, 0.95); 
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-area img {
+    height: 45px;
+    width: auto;
+}
+
+.logo-text h2 {
+    font-size: 20px;
+    letter-spacing: 1.5px;
+    line-height: 1;
+    font-weight: 700;
+}
+
+.logo-text span {
+    color: #C2185B;
+    font-size: 10px;
+    letter-spacing: 3px;
+    font-weight: 700;
+}
+
+nav a {
+    color: #94a3b8;
+    text-decoration: none;
+    margin-left: 25px;
+    font-size: 15px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #C2185B;
+}
+
+.btn-nav {
+    background: rgba(194, 24, 91, 0.1);
+    color: #C2185B;
+    border: 1px solid rgba(194, 24, 91, 0.4);
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-nav:hover {
+    background: #C2185B;
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(194, 24, 91, 0.3);
+}
+
+/* ==========================================================================
+   🚀 HERO SECTION
+   ========================================================================== */
+.hero {
+    display: flex;
+    align-items: flex-start; /* 'center' ki jagah 'flex-start' taaki content upar se shuru ho */
+    justify-content: space-between;
+    /* min-height ko calc(100vh - 80px) se hatakar kam kar rahe hain */
+    min-height: auto; 
+    padding: 20px 5% 60px 5%; /* Top padding 40px se kam karke 20px kar di */
+    gap: 50px;
+    margin-top: 20px; /* Header se safe distance rakhne ke liye */
+}
+
+
+.hero-left {
+    width: 50%;
+}
+
+.hero-left .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(194, 24, 91, 0.1);
+    color: #ff4081;
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid rgba(194, 24, 91, 0.2);
+    margin-bottom: 25px;
+}
+
+.hero-left h1 {
+    font-size: 50px;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.hero-left h1 span {
+    color: #C2185B;
+    background: linear-gradient(to right, #ff4081, #C2185B);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-left p {
+    font-size: 18px;
+    color: #94a3b8;
+    margin-bottom: 35px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.btn-primary, .btn-secondary {
+    padding: 14px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: #C2185B;
+    color: #fff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background: #de1f6b;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(194, 24, 91, 0.4);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-3px);
+}
+
+.hero-right {
+    width: 45%;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-image-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.hero-right img {
+    width: 100%;
+    max-width: 580px;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ==========================================================================
+   📊 STATS SECTION
+   ========================================================================== */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    padding: 50px 5%;
+    background: linear-gradient(180deg, transparent, rgba(13, 33, 63, 0.2), transparent);
+}
+
+.stat-card {
+    background: #081526;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.stat-icon {
+    font-size: 20px;
+    color: rgba(194, 24, 91, 0.6);
+    margin-bottom: 10px;
+}
+
+.stat-card h2 {
+    color: #ffffff;
+    font-size: 46px;
+    font-weight: 700;
+}
+
+.stat-card p {
+    color: #94a3b8;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ==========================================================================
+   🧩 GLOBAL SECTIONS SPACING
+   ========================================================================== */
+.solutions, .why-us, .trust-section, .industries, .products-section, .services-section {
+    padding: 55px 5% 35px 5%; 
+}
+
+.section-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 35px auto; 
+}
+
+.section-header span {
+    color: #C2185B;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    display: block;
+    margin-bottom: 6px; 
+}
+
+.section-header h2 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 10px; 
+}
+
+.section-header p {
+    color: #94a3b8;
+    font-size: 15px;
+}
+
+/* ==========================================================================
+   📦 PRODUCTS OFFERING SECTION STYLING
+   ========================================================================== */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.offering-card {
+    background: linear-gradient(145deg, #091a30, #040f1d);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+    padding: 35px 30px;
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.offering-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(194, 24, 91, 0.4);
+    box-shadow: 0 20px 40px rgba(194, 24, 91, 0.15);
+}
+
+.offering-icon {
+    font-size: 32px;
+    color: #C2185B;
+    margin-bottom: 20px;
+}
+
+.offering-card h3 {
+    font-size: 20px;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.offering-card p {
+    color: #94a3b8;
+    font-size: 14.5px;
+    margin-bottom: 25px;
+    flex-grow: 1;
+}
+
+.brand-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 25px;
+}
+
+.brand-tags span {
+    background: rgba(255, 255, 255, 0.04);
+    color: #cbd5e1;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.service-badge {
+    align-self: flex-start;
+    background: rgba(194, 24, 91, 0.1);
+    color: #ff4081;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(194, 24, 91, 0.2);
+}
+
+/* ==========================================================================
+   ☁️ SERVICES OFFERING SECTION STYLING
+   ========================================================================== */
+.service-grid-custom {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.service-card-custom {
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+    padding: 35px 30px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    transition: all 0.3s ease;
+}
+
+.service-card-custom:hover {
+    background: rgba(194, 24, 91, 0.02);
+    border-color: rgba(194, 24, 91, 0.2);
+    transform: scale(1.02);
+}
+
+.s-icon {
+    font-size: 28px;
+    color: #ff4081;
+    background: rgba(194, 24, 91, 0.1);
+    width: 55px;
+    height: 55px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1px solid rgba(194, 24, 91, 0.15);
+}
+
+.s-content h3 {
+    font-size: 19px;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.s-content p {
+    color: #94a3b8;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   why-us SECTION
+   ========================================================================== */
+.why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.why-card {
+    background: linear-gradient(145deg, #07162c, #040e1b);
+    padding: 35px 25px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    transition: all 0.4s ease;
+}
+
+.why-icon-box {
+    width: 50px;
+    height: 50px;
+    background: rgba(194, 24, 91, 0.08);
+    color: #C2185B;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(194, 24, 91, 0.15);
+}
+
+.why-card h3 {
+    font-size: 19px;
+    margin-bottom: 12px;
+    color: #fff;
+}
+
+.why-card p {
+    color: #94a3b8;
+    font-size: 14.5px;
+}
+
+.why-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(194, 24, 91, 0.4);
+    box-shadow: 0 20px 40px rgba(194, 24, 91, 0.12);
+}
+
+/* ==========================================================================
+   🤝 TRUST & INDUSTRIES
+   ========================================================================== */
+.trust-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
+
+.trust-card {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 25px 15px;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    font-weight: 600;
+    font-size: 15px;
+    color: #cbd5e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.trust-card i {
+    color: #C2185B;
+    font-size: 16px;
+}
+
+.industry-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.industry-card {
+    background: #061426;
+    padding: 35px 25px;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 17px;
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.industry-card i {
+    font-size: 30px;
+    color: #C2185B;
+}
+
+.industry-card:hover {
+    border-color: rgba(194, 24, 91, 0.3);
+    background: #081a33;
+    transform: translateY(-4px);
+}
+
+/* ==========================================================================
+   📥 NEW: HIGH-END THEME INTEGRATED LEAD FORM STYLING
+   ========================================================================== */
+.contact-section {
+    padding: 60px 5% 80px 5%;
+}
+
+.contact-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 50px;
+    background: linear-gradient(135deg, #0b1e36 0%, #040f1c 100%);
+    padding: 50px;
+    border-radius: 24px;
+    border: 1px solid rgba(194, 24, 91, 0.15);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    align-items: center;
+}
+
+.contact-info-box h2 {
+    font-size: 36px;
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.contact-info-box p {
+    color: #94a3b8;
+    font-size: 16px;
+    margin-bottom: 35px;
+}
+
+.corporate-meta-list {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.meta-icon {
+    width: 45px;
+    height: 45px;
+    background: rgba(194, 24, 91, 0.1);
+    color: #C2185B;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    border: 1px solid rgba(194, 24, 91, 0.2);
+}
+
+.meta-item span {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #64748b;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.meta-item p a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.meta-item p a:hover {
+    color: #C2185B;
+}
+
+.meta-item .phone-link {
+    color: #ff4081;
+}
+
+.tagline-text {
+    font-size: 15px;
+    color: #cbd5e1;
+    font-weight: 500;
+}
+
+/* METALLIC FORM STYLING */
+.contact-form-wrapper {
+    background: rgba(3, 13, 26, 0.4);
+    padding: 35px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.lead-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #cbd5e1;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+    background: #051122;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 12px 16px;
+    border-radius: 8px;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: #C2185B;
+    box-shadow: 0 0 10px rgba(194, 24, 91, 0.25);
+    background: #07162c;
+}
+
+.form-group select option {
+    background: #07162c;
+    color: #ffffff;
+}
+
+.form-submit-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 14px;
+    margin-top: 10px;
+}
+
+.form-status-msg {
+    display: none;
+    font-size: 14px;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* ==========================================================================
+   🏢 FOOTER
+   ========================================================================== */
+footer {
+    background: #020810;
+    padding: 50px 5% 25px 5%;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    gap: 40px;
+}
+
+.footer-brand {
+    max-width: 450px;
+}
+
+.footer-brand h2 {
+    font-size: 22px;
+    margin-bottom: 12px;
+}
+
+.footer-brand h2 span {
+    color: #C2185B;
+    font-size: 12px;
+    display: block;
+    letter-spacing: 3px;
+}
+
+.footer-brand p {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.footer-links h4 {
+    font-size: 15px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.footer-links a {
+    display: block;
+    color: #64748b;
+    text-decoration: none;
+    font-size: 14px;
+    margin-bottom: 8px;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #C2185B;
+}
+
+.footer-bottom {
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 20px;
+    color: #475569;
+    font-size: 13px;
+}
+
+/* Roadmap Styles */
+.roadmap-container { position: relative; max-width: 900px; margin: 80px auto; }
+.roadmap-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 4px; background: rgba(255,255,255,0.05); transform: translateX(-50%); }
+#path-progress { position: absolute; top: 0; width: 100%; background: var(--accent-neon); box-shadow: 0 0 15px var(--accent-neon); }
+.milestone { margin-bottom: 80px; display: flex; justify-content: space-between; align-items: center; opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+.milestone.visible { opacity: 1; transform: translateY(0); }
+.dot { width: 20px; height: 20px; background: var(--accent-neon); border-radius: 50%; z-index: 2; border: 4px solid #020617; }
+.milestone-content { width: 45%; padding: 20px; background: rgba(15, 23, 42, 0.5); border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
+
+/* ==========================================================================
+   GLOBAL TEXT JUSTIFICATION MECHANICAL LAYER
+   ========================================================================== */
+p, .hero-left p, .why-card p, .offering-card p, .service-card-custom p, .milestone-content p {
+    text-align: justify !important;
+    text-justify: inter-word !important;
+    word-break: break-word;
+    hyphens: auto;
+}
+
+/* 📱 मोबाइल स्क्रीन्स के लिए स्पेशल सेफ्टी अलाइनमेंट */
+@media (max-width: 600px) {
+    p, .hero-left p, .why-card p, .offering-card p, .service-card-custom p, .milestone-content p {
+        text-align: left !important;
+    }
+}
+
+/* ==========================================================================
+   SOVEREIGN CENTRALIZED COMMAND CONSOLE DROPDOWN NAV (FIXED FLICKER LAYER)
+   ========================================================================== */
+.central-nav-container { 
+    position: relative; 
+    display: inline-block; 
+}
+
+/* 🕹️ ट्रिगर बटन का स्टाइल */
+.console-trigger-btn {
+    background: rgba(194, 24, 91, 0.05);
+    border: 1px solid rgba(194, 24, 91, 0.3);
+    color: #fff;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.central-nav-container:hover .console-trigger-btn {
+    background: rgba(194, 24, 91, 0.15);
+    border-color: rgba(194, 24, 91, 0.8);
+    box-shadow: 0 0 20px rgba(194, 24, 91, 0.3);
+}
+
+/* 💻 ड्रॉपडाउन डैशबोर्ड कोर फिक्स */
+.console-dropdown-dashboard {
+    position: absolute;
+    top: calc(100% - 2px); /* 🌟 FLICKER FIX: बटन और ड्रॉपडाउन के बीच का 2px का गैप लॉक किया */
+    right: 0; 
+    width: 720px; 
+    background: #030712 !important; 
+    border: 1px solid rgba(194, 24, 91, 0.25);
+    border-radius: 16px;
+    padding: 30px;
+    padding-top: 25px !important; /* 🌟 FLICKER FIX: कर्सर मूवमेंट के लिए इनविजिबल ब्रिज बनाया */
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.95);
+    
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+    z-index: 9999;
+    box-sizing: border-box;
+    margin-top: 0px !important; 
+    overflow: hidden; 
+}
+
+/* Hover Engine */
+.central-nav-container:hover .console-dropdown-dashboard {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.dashboard-col {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.dashboard-col h4 {
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin: 0 0 12px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.core-icon { color: #a855f7; }
+.capabilities-icon { color: #eab308; }
+.lab-icon { color: #C2185B; }
+
+.dashboard-col a {
+    display: flex !important;
+    align-items: center;
+    gap: 10px;
+    color: #94a3b8 !important;
+    text-decoration: none;
+    font-size: 0.9rem !important;
+    font-weight: 500;
+    padding: 8px 12px !important;
+    border-radius: 6px;
+    transition: all 0.2s ease !important;
+}
+
+.dashboard-col a:hover {
+    background: rgba(255, 255, 255, 0.03) !important;
+    color: #fff !important;
+    padding-left: 16px !important;
+}
+
+.active-panel {
+    background: rgba(194, 24, 91, 0.02);
+    border-radius: 8px;
+}
+
+.console-footer {
+    margin-top: 25px;
+    padding: 15px 30px !important; 
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.75rem;
+    color: #475569;
+    font-family: monospace;
+    display: flex !important;
+    background: #070b14 !important; 
+    margin-left: -30px;  
+    margin-right: -30px;
+    margin-bottom: -30px;
+}
+
+/* 💎 PREMIUM MATRIX GRID MECHANISM */
+.dr-matrix-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; 
+    gap: 25px;
+    margin-top: 40px;
+    width: 100%;
+}
+
+.premium-dr-card {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(2, 6, 23, 0.9) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 20px; 
+    padding: 35px 30px;
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    text-decoration: none; 
+    box-sizing: border-box;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    width: calc(33.333% - 17px);
+    min-width: 300px;
+}
+
+.premium-dr-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(56, 189, 248, 0.3);
+    box-shadow: 0 25px 50px rgba(56, 189, 248, 0.12);
+}
+
+/* ==========================================================================
+   📱 RESPONSIVE ULTRA ENGINE
+   ========================================================================== */
+@media (max-width: 1200px) {
+    .hero-left h1 { font-size: 40px; }
+    .product-grid, .service-grid-custom { grid-template-columns: repeat(2, 1fr); }
+    .contact-container { grid-template-columns: 1fr; gap: 40px; padding: 35px; }
+}
+
+@media (max-width: 992px) {
+    header { height: auto; padding: 15px 4%; }
+    nav { display: none; } 
+    .hero { flex-direction: column; text-align: center; padding-top: 40px; }
+    .hero-left, .hero-right { width: 100%; }
+    .hero-buttons { justify-content: center; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .why-grid, .industry-grid { grid-template-columns: repeat(2, 1fr); }
+    .console-dropdown-dashboard { width: 320px; right: -50px; top: 100%; }
+    .dashboard-grid { grid-template-columns: 1fr; gap: 20px; }
+    .premium-dr-card { width: calc(50% - 13px); }
+}
+
+@media (max-width: 768px) {
+    .hero-left h1 { font-size: 30px; }
+    .section-header h2 { font-size: 26px; }
+    .stats, .product-grid, .service-grid-custom, .why-grid, .trust-grid, .industry-grid { grid-template-columns: 1fr; }
+    .form-row-2 { grid-template-columns: 1fr; gap: 20px; }
+    .footer-content { flex-direction: column; text-align: center; }
+    .premium-dr-card { width: 100%; }
+}
+
+/* VAKRA-OS CONSOLE DRAWER */
+.console-drawer {
+    position: fixed;
+    bottom: -100%; 
+    left: 0;
+    width: 100%;
+    background: rgba(2, 6, 23, 0.95);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid #38bdf8;
+    padding: 40px 8%;
+    transition: bottom 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 2000;
+}
+.console-drawer.active { bottom: 0; }
+.drawer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+.matrix-item { margin-bottom: 10px; font-size: 0.9rem; color: #cbd5e1; }
+.console-trigger-fab {
+    position: fixed; bottom: 20px; right: 20px;
+    background: #C2185B; color: #fff; border: none; padding: 12px 24px;
+    border-radius: 8px; cursor: pointer; font-weight: 600; z-index: 2001;
+    transition: transform 0.3s;
+}
+.console-trigger-fab:hover { transform: scale(1.05); }
+
+/* 💎 PREMIUM COMPUTATIONAL FABRIC CARDS FIX */
+.solutions-matrix-container, 
+[class*="fabric-lab-grid"], 
+[class*="solutions-grid"] {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important; /* दोनों कार्ड्स वापस अगल-बगल आ जाएंगे */
+    gap: 30px !important;
+    max-width: 1200px !important;
+    margin: 40px auto !important;
+    padding: 0 5% !important;
+}
+
+/* 💎 PREMIUM COMPUTATIONAL FABRIC CARDS FIX */
+.solutions-matrix-container, 
+[class*="fabric-lab-grid"], 
+[class*="solutions-grid"] {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important; /* दोनों कार्ड्स वापस अगल-बगल आ जाएंगे */
+    gap: 30px !important;
+    max-width: 1200px !important;
+    margin: 40px auto !important;
+    padding: 0 5% !important;
+}
+
+/* अगर मोबाइल स्क्रीन हो तो वापस एक के नीचे एक हो जाएं */
+@media (max-width: 992px) {
+    .solutions-matrix-container, 
+    [class*="fabric-lab-grid"], 
+    [class*="solutions-grid"] {
+        grid-template-columns: 1fr !important;
+    }
+}
+/* --- GLOBAL GAP FIX FOR ALL PAGES --- */
+
+/* 1. Header ke niche se faltu space khatam karne ke liye */
+header, .header, .navbar, #header-container {
+    padding-bottom: 5px !important;
+    margin-bottom: 0px !important;
+}
+
+/* 2. Saare main pages ke content sections ko upar khichne ke liye */
+main, .hero, .main-content, #main-wrapper, section:first-of-type {
+    margin-top: -50px !important; /* Agar gap abhi bhi lage, toh isko -70px ya -80px kar dena */
+    position: relative;
+    z-index: 10;
+}

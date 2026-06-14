@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Contact Us | Vakratron Systems</title>
+    <meta name="description" content="Initiate secure data transmission regarding enterprise infrastructure deployment blueprints or comprehensive technical consultations with Vakratron Systems.">
+    <meta name="robots" content="index, follow">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-surface: rgba(15, 23, 42, 0.6);
+            --border-glow: rgba(194, 24, 91, 0.3);
+            --accent-neon: #C2185B;
+            --accent-blue: #38bdf8;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --glass-gradient: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(2, 6, 23, 0.9) 100%);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main) !important;
+            color: var(--text-primary);
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(194, 24, 91, 0.05) 0%, transparent 70%) !important;
+            background-size: 200% 200% !important;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background: transparent !important;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.002) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.002) 1px, transparent 1px) !important;
+            background-size: 50px 50px !important;
+        }
+
+        section {
+            padding: 100px 8% !important;
+            box-sizing: border-box;
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header></header>
+
+    <section id="contact" style="position: relative; padding-top: 160px !important; padding-bottom: 100px !important;">
+        
+ <script>
+    async function submitToMongoDB(event) {
+        event.preventDefault(); // Browser refresh block karein
+        
+        const button = document.getElementById('submitBtn'); 
+        const form = document.getElementById('vakratronMongoForm'); 
+        
+        // UI Loading Trigger States
+        button.innerHTML = 'Transmitting Secure Packet... <i class="fa-solid fa-spinner fa-spin" style="color:#fff;"></i>'; 
+        button.disabled = true; 
+        button.style.opacity = '0.7';
+        
+        // Direct inputs values extraction
+        const payload = {
+            name: form.querySelector('input[name="name"]').value,
+            email: form.querySelector('input[name="email"]').value,
+            phone: form.querySelector('input[name="phone"]').value,
+            reason: form.querySelector('select[name="reason"]').value
+        };
+        
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                // Premium, Client-Facing Corporate Message
+                alert('🔒 Transmission Successful!\n\nYour architectural inquiry vector has been securely received by the Vakratron Systems Core Cluster. Our engineering team will analyze your requirements and establish a communication uplink within 24 operational hours.'); 
+                form.reset(); 
+            } else {
+                alert('❌ Transmission Rejected: ' + (result.error || 'Security boundary validation fault.'));
+            }
+        } catch (error) {
+            console.error('Data pipeline error:', error); 
+            alert('❌ Transmission Failure: Unable to establish handshake with the secure backend node.'); 
+        } finally {
+            button.innerHTML = 'Transmit Secure Packet &nbsp;<i class="fa-solid fa-paper-plane"></i>'; 
+            button.disabled = false; 
+            button.style.opacity = '1'; 
+        }
+    }
+</script>
+        <div style="max-width: 1000px; margin: 0 auto; background: var(--glass-gradient); padding: 55px; border-radius: 24px; border: 1px solid rgba(194,24,91,0.25); box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8); box-sizing: border-box; position: relative; overflow: hidden;">
+            <div style="text-align: center; margin-bottom: 45px;">
+                <span style="color: #C2185B; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; display: block; margin-bottom: 10px;">Contact Interface Portal</span>
+                <h2 style="font-family: 'Poppins', sans-serif; font-size: 2.3rem; color: #fff; margin: 0 0 12px 0; font-weight: 700;">Connect With Us</h2>
+                <p style="color: #94a3b8; max-width: 580px; margin: 0 auto; font-size: 1rem; line-height: 1.6; font-weight: 300;">Initiate secure data transmission regarding enterprise infrastructure deployment blueprints or comprehensive technical consultations.</p>
+            </div>
+            
+            <form id="vakratronMongoForm" onsubmit="submitToMongoDB(event)" style="display: flex; flex-direction: column; gap: 25px; width: 100%;">
+                <div style="display: flex; gap: 25px; width: 100%; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 280px; display: flex; flex-direction: column; gap: 8px;">
+                        <label style="color: #cbd5e1; font-size: 0.9rem;">Your Full Name *</label>
+                        <input type="text" name="name" placeholder="e.g., Enter your full name" required style="width: 100%; padding: 15px 18px; background: #070d1e; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; color: #fff; box-sizing: border-box;">
+                    </div>
+                    <div style="flex: 1; min-width: 280px; display: flex; flex-direction: column; gap: 8px;">
+                        <label style="color: #cbd5e1; font-size: 0.9rem;">Email Address *</label>
+                        <input type="email" name="email" placeholder="e.g., name@company.com" required style="width: 100%; padding: 15px 18px; background: #070d1e; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; color: #fff; box-sizing: border-box;">
+                    </div>
+                </div>
+                <div style="display: flex; gap: 25px; width: 100%; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 280px; display: flex; flex-direction: column; gap: 8px;">
+                        <label style="color: #cbd5e1; font-size: 0.9rem;">Phone Number *</label>
+                        <input type="tel" name="phone" placeholder="e.g., +91 XXXXX XXXXX" required style="width: 100%; padding: 15px 18px; background: #070d1e; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; color: #fff; box-sizing: border-box;">
+                    </div>
+                    <div style="flex: 1; min-width: 280px; display: flex; flex-direction: column; gap: 8px;">
+                        <label style="color: #cbd5e1; font-size: 0.9rem;">Primary Inquiry Vector *</label>
+                        <select name="reason" required style="width: 100%; padding: 15px 18px; background: #070d1e; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; color: #fff; box-sizing: border-box;">
+                            <option value="" disabled selected>Select Operational Vector</option>
+                            <option value="AI Infrastructure & GPU Clusters Planning">AI Infrastructure & GPU Clusters Planning</option>
+                            <option value="Hybrid/Private Cloud Solutions Architecture">Hybrid/Private Cloud Solutions Architecture</option>
+                            <option value="Data Centre & Life Safety Security Design">Data Centre & Life Safety Security Design</option>
+                            <option value="General Corporate Inquiry">General Corporate Inquiry</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="width: 100%; display: flex; justify-content: center; margin-top: 15px;">
+                    <button type="submit" id="submitBtn" style="width: 100%; max-width: 420px; padding: 16px; background: linear-gradient(135deg, #C2185B 0%, #9d174d 100%); color: #fff; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.transform='translateY(-2px)';" onmouseout="this.style.transform='translateY(0)';">Transmit Secure Packet &nbsp;<i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer></footer>
+
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

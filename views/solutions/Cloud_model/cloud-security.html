@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Security & Governance | Vakratron Systems</title>
+    <meta name="description" content="Layered Zero Trust cloud security architectures, identity access management, layer-7 dedicated firewalls, and enterprise governance frameworks.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="http://127.0.0.1:5500/style.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-surface: rgba(15, 23, 42, 0.6);
+            --accent-neon: #C2185B;
+            --accent-blue: #38bdf8;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --glass-gradient: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(2, 6, 23, 0.9) 100%);
+        }
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main) !important;
+            color: var(--text-primary);
+            background-image: 
+                radial-gradient(circle at 30% 20%, rgba(194, 24, 91, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(56, 189, 248, 0.07) 0%, transparent 50%) !important;
+            background-size: 200% 200% !important;
+        }
+        body { margin: 0; padding: 0; background: transparent !important; }
+        
+        /* 👑 ENTERPRISE 1200PX MAXIMUM WIDTH COMPLIANT */
+        .main-container-fabric { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 140px 5% 100px 5%; 
+            box-sizing: border-box; 
+            width: 100%;
+        }
+        
+        .premium-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(194, 24, 91, 0.1);
+            border: 1px solid rgba(194, 24, 91, 0.3);
+            color: #f472b6;
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Poppins', sans-serif;
+        }
+        p { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.7; font-weight: 300; margin-bottom: 25px; }
+        
+        .tech-step-box {
+            background: var(--glass-gradient) !important;
+            border: 1px solid rgba(255, 255, 255, 0.04) !important;
+            border-radius: 16px !important;
+            padding: 30px !important;
+            margin: 30px 0 !important;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4) !important;
+        }
+        .tech-step-box h4 {
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            font-size: 1.15rem;
+            margin: 0 0 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+        }
+        .tech-step-box h4 i { color: var(--accent-neon); }
+        .tech-step-box p { font-size: 0.95rem; margin-bottom: 15px; color: #94a3b8; }
+        .tech-step-box ul { 
+            list-style: none; 
+            padding: 0; 
+            margin: 0; 
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px; 
+        }
+        .tech-step-box ul li { font-size: 0.95rem; color: var(--text-secondary); display: flex; align-items: center; gap: 10px; }
+        .tech-step-box ul li::before { content: "→"; color: var(--accent-neon); font-weight: bold; font-size: 1.1rem; }
+    </style>
+</head>
+<body>
+
+    <header></header>
+
+    <main class="main-container-fabric">
+
+        <span class="premium-badge">
+            <i class="fa-solid fa-user-shield"></i> Zero Trust Perimeter // Module 07
+        </span>
+
+        <h1 style="
+        font-family:'Poppins',sans-serif;
+        color:#fff;
+        font-size:2.3rem;
+        font-weight:700;
+        margin-top:10px;
+        margin-bottom:25px;
+        line-height:1.3;
+        ">
+        Cloud Security & Governance
+        </h1>
+
+        <p>
+        Security remains one of the most critical considerations in any cloud transformation initiative. Modern cloud environments must protect applications, workloads, users, networks, and data while maintaining operational agility and regulatory compliance.
+        </p>
+
+        <p>
+        Vakratron Systems implements layered security architectures that integrate identity management, network security, micro-segmentation, firewall services, secure connectivity, and governance frameworks to ensure comprehensive protection across the cloud ecosystem.
+        </p>
+
+        <p>
+        Our cloud security approach follows Zero Trust principles, ensuring every user, application, workload, and connection is continuously validated and monitored.
+        </p>
+
+        <div class="vakra-mesh-container" style="margin: 40px 0;">
+            <div class="vakra-mesh-row" style="display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap;">
+
+                <div class="vakra-mesh-card dc-primary" style="background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(194, 24, 91, 0.2); border-radius: 12px; padding: 25px; width: 280px; box-shadow: 0 10px 25px rgba(0,0,0,0.3);">
+                    <h5 style="font-family:'Poppins',sans-serif; color:#fff; font-size:1.1rem; margin:0 0 15px 0; display:flex; align-items:center; gap:10px;">
+                        <i class="fa-solid fa-user-shield" style="color:var(--accent-neon);"></i> Identity Security
+                    </h5>
+                    <div>
+                        <p style="font-size:0.75rem; color:#475569; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px; font-weight:700; margin-top:0;">Capabilities</p>
+                        <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                            <span style="background:rgba(194,24,91,0.08); border:1px solid rgba(194,24,91,0.15); color:#f472b6; padding:3px 8px; border-radius:4px; font-size:0.7rem;">Authentication</span>
+                            <span style="background:rgba(194,24,91,0.08); border:1px solid rgba(194,24,91,0.15); color:#f472b6; padding:3px 8px; border-radius:4px; font-size:0.7rem;">RBAC</span>
+                            <span style="background:rgba(194,24,91,0.08); border:1px solid rgba(194,24,91,0.15); color:#f472b6; padding:3px 8px; border-radius:4px; font-size:0.7rem;">LDAP</span>
+                            <span style="background:rgba(194,24,91,0.08); border:1px solid rgba(194,24,91,0.15); color:#f472b6; padding:3px 8px; border-radius:4px; font-size:0.7rem;">OIDC</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="vakra-mesh-pipe" style="display: flex; align-items: center; justify-content: center; gap: 10px; min-width: 200px;">
+                    <div style="height: 1px; width: 40px; background: rgba(255,255,255,0.15);"></div>
+                    <span style="font-size:0.8rem; color:#f472b6; font-weight:600; font-family: monospace; letter-spacing: 1px; background: rgba(194,24,91,0.05); border: 1px solid rgba(194,24,91,0.2); padding: 4px 12px; border-radius: 6px;">
+                        Zero Trust Security
+                    </span>
+                    <div style="height: 1px; width: 40px; background: rgba(255,255,255,0.15);"></div>
+                </div>
+
+                <div class="vakra-mesh-card dr-target" style="background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 12px; padding: 25px; width: 280px; box-shadow: 0 10px 25px rgba(0,0,0,0.3);">
+                    <h5 style="font-family:'Poppins',sans-serif; color:#fff; font-size:1.1rem; margin:0 0 15px 0; display:flex; align-items:center; gap:10px;">
+                        <i class="fa-solid fa-shield-halved" style="color:var(--accent-blue);"></i> Network Security
+                    </h5>
+                    <div>
+                        <p style="font-size:0.75rem; color:#475569; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px; font-weight:700; margin-top:0;">Capabilities</p>
+                        <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                            <span style="background:rgba(56,189,248,0.08); border:1px solid rgba(56,189,248,0.15); color:#7dd3fc; padding:3px 8px; border-radius:4px; font-size:0.7rem;">Firewall</span>
+                            <span style="background:rgba(56,189,248,0.08); border:1px solid rgba(56,189,248,0.15); color:#7dd3fc; padding:3px 8px; border-radius:4px; font-size:0.7rem;">VPN</span>
+                            <span style="background:rgba(56,189,248,0.08); border:1px solid rgba(56,189,248,0.15); color:#7dd3fc; padding:3px 8px; border-radius:4px; font-size:0.7rem;">Segmentation</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-key"></i> Identity & Access Management</h4>
+            <ul>
+                <li>User Authentication</li>
+                <li>Role-Based Access Control (RBAC)</li>
+                <li>Multi-Tenant Access Management</li>
+                <li>LDAP Integration</li>
+                <li>OIDC Integration</li>
+                <li>Centralized User Governance</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-lock"></i> Security Groups & Workload Protection</h4>
+            <p>Security groups provide distributed firewall capabilities at the workload level, enabling fine-grained access control and micro-segmentation across cloud environments.</p>
+            <ul>
+                <li>VM-Level Security Controls</li>
+                <li>Distributed Firewall Policies</li>
+                <li>East-West Traffic Protection</li>
+                <li>Application Isolation</li>
+                <li>Micro-Segmentation</li>
+                <li>Policy-Based Access Control</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-fire"></i> Shared Firewall Services</h4>
+            <p>Shared firewall services provide cost-effective protection for cloud workloads requiring secure internet connectivity and traffic filtering.</p>
+            <ul>
+                <li>Up to 1 Gbps Throughput</li>
+                <li>Network Address Translation (NAT)</li>
+                <li>IPSec VPN</li>
+                <li>SSL VPN</li>
+                <li>BGP Routing</li>
+                <li>IPv6 Support</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-building-shield"></i> Dedicated Enterprise Firewall Services</h4>
+            <p>Dedicated firewall platforms provide advanced threat protection, deep packet inspection, application awareness, and enterprise-grade security controls.</p>
+            <ul>
+                <li>Up to 10 Gbps Throughput</li>
+                <li>Layer-7 Application Security</li>
+                <li>Unified Threat Management (UTM)</li>
+                <li>Geo-Fencing Controls</li>
+                <li>Advanced Threat Protection</li>
+                <li>Transit Gateway Services</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-shield-virus"></i> Enterprise Security Platforms</h4>
+            <ul>
+                <li>Fortinet Security Solutions</li>
+                <li>Palo Alto Networks Security Platforms</li>
+                <li>Advanced Threat Detection</li>
+                <li>Application-Aware Security Policies</li>
+                <li>Network Traffic Inspection</li>
+                <li>Integrated Security Operations</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-network-wired"></i> Secure Connectivity Services</h4>
+            <ul>
+                <li>IPSec VPN Connectivity</li>
+                <li>SSL VPN Access</li>
+                <li>Hybrid Cloud Connectivity</li>
+                <li>Multi-Site Secure Networking</li>
+                <li>Remote User Access</li>
+                <li>Partner Connectivity Integration</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-scale-balanced"></i> Governance & Compliance Framework</h4>
+            <ul>
+                <li>Cloud Governance Policies</li>
+                <li>Identity Governance</li>
+                <li>Security Baselines</li>
+                <li>Compliance Monitoring</li>
+                <li>Audit Controls</li>
+                <li>Risk Management Frameworks</li>
+                <li>Operational Standards</li>
+                <li>Continuous Compliance Validation</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-user-secret"></i> Zero Trust Security Architecture</h4>
+            <p>Modern security architectures assume no implicit trust. Every access request, workload interaction, and network connection is validated before access is granted.</p>
+            <ul>
+                <li>Identity Verification</li>
+                <li>Least Privilege Access</li>
+                <li>Continuous Validation</li>
+                <li>Micro-Segmentation</li>
+                <li>Threat Containment</li>
+                <li>Risk-Based Access Controls</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-chart-line"></i> Security Benefits</h4>
+            <ul>
+                <li>Enhanced Threat Protection</li>
+                <li>Improved Regulatory Compliance</li>
+                <li>Reduced Attack Surface</li>
+                <li>Centralized Security Management</li>
+                <li>Improved Business Resilience</li>
+                <li>Better Governance & Visibility</li>
+                <li>Secure Hybrid Cloud Adoption</li>
+                <li>Future-Ready Security Foundation</li>
+            </ul>
+        </div>
+
+        <hr style="border:none;border-top:1px solid rgba(255,255,255,0.05);margin:50px 0;">
+
+    </main>
+
+    <footer></footer>
+
+    
+    
+    
+    
+
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

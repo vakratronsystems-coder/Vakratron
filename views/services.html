@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Expertise Matrix | Vakratron Systems</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-surface: rgba(15, 23, 42, 0.6);
+            --border-glow: rgba(194, 24, 91, 0.3);
+            --accent-neon: #C2185B;
+            --accent-blue: #38bdf8;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --glass-gradient: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(2, 6, 23, 0.9) 100%);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main) !important;
+            color: var(--text-primary);
+            
+            background-image: 
+                radial-gradient(circle at 50% 30%, rgba(194, 24, 91, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(56, 189, 248, 0.06) 0%, transparent 50%) !important;
+            background-size: 200% 200% !important;
+            animation: cyberBackgroundMotion 20s ease infinite alternate !important;
+        }
+
+        @keyframes cyberBackgroundMotion {
+            0% { background-position: 0% 20%; }
+            50% { background-position: 100% 80%; }
+            100% { background-position: 20% 100%; }
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background: transparent !important;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.002) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.002) 1px, transparent 1px) !important;
+            background-size: 50px 50px !important;
+        }
+
+        section {
+            padding: 100px 8% !important;
+            box-sizing: border-box;
+        }
+
+        .premium-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(194, 24, 91, 0.1);
+            border: 1px solid rgba(194, 24, 91, 0.3);
+            color: #f472b6;
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .section-header-modern {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header-modern h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 10px 0;
+            background: linear-gradient(135deg, #fff 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-header-modern p {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header></header>
+       <section class="services-section" id="services" style="position: relative; padding-top: 160px !important; padding-bottom: 100px !important;">
+        <div class="section-header-modern">
+            <span class="premium-badge"><i class="fa-solid fa-layer-group"></i> Architecture Execution Layers</span>
+            <h2>Core Services Architecture</h2>
+            <p>Next-generation cloud definitions, advanced compute deployment matrices, and autonomous business continuity solutions engineered for sovereign governance networks.</p>
+        </div>
+
+        <div class="service-grid-custom" style="display: grid; grid-template-columns: repeat(3, 11fr); gap: 35px;">
+            
+            <div class="service-card-custom" style="background: var(--bg-surface); border: 1px solid rgba(255,255,255,0.04); padding: 45px 35px; border-radius: 24px; box-shadow: 0 20px 45px rgba(0,0,0,0.4); transition: all 0.4s ease; display: flex; flex-direction: column; justify-content: space-between; min-height: 440px; box-sizing: border-box;" onmouseover="this.style.borderColor='rgba(56, 189, 248, 0.4)'; this.style.transform='translateY(-5px)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.04)'; this.style.transform='translateY(0)';" >
+                <div>
+                    <div class="s-icon" style="color: var(--accent-blue); font-size: 2.5rem; margin-bottom: 25px;"><i class="fa-solid fa-cloud-sun"></i></div>
+                    <div class="s-content">
+                        <h3 style="font-family: 'Poppins', sans-serif; font-size: 1.4rem; color: #fff; margin: 0 0 15px 0; font-weight: 600;">Enterprise Hybrid & Multi-Cloud Orchestration</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.98rem; line-height: 1.7; margin: 0 0 20px 0; font-weight: 300;">Designing and implementing cross-domain architectures spanning public hyper-scalers (AWS) and secure Private layouts.</p>
+                        <ul style="margin: 0; padding: 0 0 0 18px; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
+                            <li>AWS to Private Sovereign Cloud Migration Pipeline</li>
+                            <li>Automated AWS CLI Credential Configuration & Bedrock Model Invocation Loops</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-card-custom" style="background: var(--bg-surface); border: 1px solid rgba(255,255,255,0.04); padding: 45px 35px; border-radius: 24px; box-shadow: 0 20px 45px rgba(0,0,0,0.4); transition: all 0.4s ease; display: flex; flex-direction: column; justify-content: space-between; min-height: 440px; box-sizing: border-box;" onmouseover="this.style.borderColor='rgba(56, 189, 248, 0.4)'; this.style.transform='translateY(-5px)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.04)'; this.style.transform='translateY(0)';" >
+                <div>
+                    <div class="s-icon" style="color: var(--accent-blue); font-size: 2.5rem; margin-bottom: 25px;"><i class="fa-solid fa-server"></i></div>
+                    <div class="s-content">
+                        <h3 style="font-family: 'Poppins', sans-serif; font-size: 1.4rem; color: #fff; margin: 0 0 15px 0; font-weight: 600;">Accelerated GPU Compute & AI Factories</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.98rem; line-height: 1.7; margin: 0 0 20px 0; font-weight: 300;">Deployment matrices for raw bare-metal deep tech infrastructure provisioning scalable multi-node compute Workloads.</p>
+                        <ul style="margin: 0; padding: 0 0 0 18px; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
+                            <li>Large Scale Provisioning (Featuring NVIDIA H200 clusters)</li>
+                            <li>Advanced AI Stack Integrations (LangChain, LangGraph, Multi-Agent & RAG Architectures)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-card-custom" style="background: var(--bg-surface); border: 1px solid rgba(255,255,255,0.04); padding: 45px 35px; border-radius: 24px; box-shadow: 0 20px 45px rgba(0,0,0,0.4); transition: all 0.4s ease; display: flex; flex-direction: column; justify-content: space-between; min-height: 440px; box-sizing: border-box;" onmouseover="this.style.borderColor='rgba(56, 189, 248, 0.4)'; this.style.transform='translateY(-5px)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.04)'; this.style.transform='translateY(0)';" >
+                <div>
+                    <div class="s-icon" style="color: var(--accent-blue); font-size: 2.5rem; margin-bottom: 25px;"><i class="fa-solid fa-shield-nodes"></i></div>
+                    <div class="s-content">
+                        <h3 style="font-family: 'Poppins', sans-serif; font-size: 1.4rem; color: #fff; margin: 0 0 15px 0; font-weight: 600;">Data Centre Design & Disaster Recovery (DRaaS)</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.98rem; line-height: 1.7; margin: 0 0 20px 0; font-weight: 300;">Engineering tier-compliant structural isolation blueprints with near-zero RTO active-passive replication mechanisms.</p>
+                        <ul style="margin: 0; padding: 0 0 0 18px; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
+                            <li>Nutanix Hypervisor Active-Passive Continuous Protection Blueprinting</li>
+                            <li>Automated Cross-Hypervisor Orchestration & Secure Enterprise Cloud DR Failover Solutions</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-card-custom" style="background: var(--bg-surface); border: 1px solid rgba(255,255,255,0.04); padding: 45px 35px; border-radius: 24px; box-shadow: 0 20px 45px rgba(0,0,0,0.4); transition: all 0.4s ease; display: flex; flex-direction: column; justify-content: space-between; min-height: 440px; box-sizing: border-box;" onmouseover="this.style.borderColor='var(--border-glow)'; this.style.transform='translateY(-5px)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.04)'; this.style.transform='translateY(0)';" >
+                <div>
+                    <div class="s-icon" style="color: var(--accent-neon); font-size: 2.5rem; margin-bottom: 25px;"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                    <div class="s-content">
+                        <h3 style="font-family: 'Poppins', sans-serif; font-size: 1.4rem; color: #fff; margin: 0 0 15px 0; font-weight: 600;">SLA-Driven O&M for Data Center EMSS</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.98rem; line-height: 1.7; margin: 0 0 20px 0; font-weight: 300;">Comprehensive 24x7 Operations & Maintenance lifecycle management for mission-critical environmental facility safety assets.</p>
+                        <ul style="margin: 0; padding: 0 0 0 18px; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
+                            <li>Industrial CCTV, Surveillance Telemetry, and Unified Physical Access Controls maintenance.</li>
+                            <li>Honeywell Addressable Fire Alarm and critical early-warning smoke detection systems support.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-card-custom" style="background: var(--bg-surface); border: 1px solid rgba(255,255,255,0.04); padding: 45px 35px; border-radius: 24px; box-shadow: 0 20px 45px rgba(0,0,0,0.4); transition: all 0.4s ease; display: flex; flex-direction: column; justify-content: space-between; min-height: 440px; box-sizing: border-box;" onmouseover="this.style.borderColor='var(--border-glow)'; this.style.transform='translateY(-5px)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.04)'; this.style.transform='translateY(0)';" >
+                <div>
+                    <div class="s-icon" style="color: var(--accent-neon); font-size: 2.5rem; margin-bottom: 25px;"><i class="fa-solid fa-network-wired"></i></div>
+                    <div class="s-content">
+                        <h3 style="font-family: 'Poppins', sans-serif; font-size: 1.4rem; color: #fff; margin: 0 0 15px 0; font-weight: 600;">Core Switching, Routing & Secure Edge Delivery</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.98rem; line-height: 1.7; margin: 0 0 20px 0; font-weight: 300;">Strategic backplane loop setups, automated balancing metrics, and persistent data path sanitization deployment layers.</p>
+                        <ul style="margin: 0; padding: 0 0 0 18px; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
+                            <li>Enterprise Multi-Gigabit Switching cores and software-defined network (SD-WAN) mapping.</li>
+                            <li>Zero-Trust Next-Generation Firewall (NGFW) continuous tracking and automated threat mitigation.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-card-custom" style="background: var(--bg-surface); border: 1px solid rgba(255,255,255,0.04); padding: 45px 35px; border-radius: 24px; box-shadow: 0 20px 45px rgba(0,0,0,0.4); transition: all 0.4s ease; display: flex; flex-direction: column; justify-content: space-between; min-height: 440px; box-sizing: border-box;" onmouseover="this.style.borderColor='var(--border-glow)'; this.style.transform='translateY(-5px)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.04)'; this.style.transform='translateY(0)';" >
+                <div>
+                    <div class="s-icon" style="color: var(--accent-neon); font-size: 2.5rem; margin-bottom: 25px;"><i class="fa-solid fa-arrows-spin"></i></div>
+                    <div class="s-content">
+                        <h3 style="font-family: 'Poppins', sans-serif; font-size: 1.4rem; color: #fff; margin: 0 0 15px 0; font-weight: 600;">Workload Mobilization & Sovereign Migration</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.98rem; line-height: 1.7; margin: 0 0 20px 0; font-weight: 300;">Zero-downtime structural asset transformations, decoupling workloads from legacy vendor traps without security leaks.</p>
+                        <ul style="margin: 0; padding: 0 0 0 18px; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
+                            <li>Risk-free Physical to Virtual (P2V) hardware virtualization and state data migrations.</li>
+                            <li>Virtual to Virtual (V2V) cross-hypervisor transfers into secure, localized OpenStack structures.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer style="background: #01040f; padding: 60px 8% 30px 8%; border-top: 1px solid rgba(255,255,255,0.04); box-sizing: border-box; position: relative;">
+        <div class="footer-content" style="display: flex; justify-content: space-between; align-items: flex-start; gap: 50px; flex-wrap: wrap; margin-bottom: 40px;">
+            <div class="footer-brand" style="max-width: 450px; flex: 2;">
+                <h2 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1.5rem; font-weight: 700; margin: 0 0 15px 0; letter-spacing: 1px;">VAKRATRON <span style="color: var(--accent-neon); font-size: 0.85rem; letter-spacing: 3px; font-weight: 600; display: block; margin-top: 2px;">SYSTEMS</span></h2>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin: 0 0 25px 0;">Architecting resilient, hyper-secure, and dynamically scaled AI compute frameworks and cloud automation systems for enterprise governance matrices.</p>
+                <div class="social-channels" style="display: flex; gap: 15px; margin-bottom: 25px;">
+                    <a href="https://linkedin.com" target="_blank" style="width: 40px; height: 40px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #0077b5;"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://wa.me/919319666864" target="_blank" style="width: 40px; height: 40px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #25d366;"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="https://instagram.com" target="_blank" style="width: 40px; height: 40px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #e1306c;"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://facebook.com" target="_blank" style="width: 40px; height: 40px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #1877f2;"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.9rem; color: var(--text-secondary);"><span><i class="fa-solid fa-phone" style="color: var(--accent-neon); margin-right: 10px;"></i> +91 93196 66864</span><span><i class="fa-solid fa-envelope" style="color: var(--accent-neon); margin-right: 10px;"></i> connect@vakratronsys.com</span></div>
+            </div>
+            <div class="footer-links" style="flex: 1; min-width: 180px; display: flex; flex-direction: column; gap: 12px;">
+                <h4 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1.1rem; margin: 0 0 8px 0; font-weight: 600;">Compliance Matrix</h4>
+                <span style="color: var(--text-secondary); font-size: 0.9rem;"><i class="fa-solid fa-building" style="color: var(--accent-neon); margin-right: 8px;"></i> LLPIN: AAT-3851</span>
+                <span style="color: var(--text-secondary); font-size: 0.9rem;"><i class="fa-solid fa-certificate" style="color: var(--accent-neon); margin-right: 8px;"></i> DIPP No: DIPP247647</span>
+                <span style="color: var(--text-secondary); font-size: 0.9rem;"><i class="fa-solid fa-shield-halved" style="color: var(--accent-blue); margin-right: 8px;"></i> Data Protection Secure</span>
+            </div>
+            <div class="footer-links" style="flex: 1; min-width: 150px; display: flex; flex-direction: column; gap: 12px;">
+                <h4 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1.1rem; margin: 0 0 8px 0; font-weight: 600;">Structure Links</h4>
+                <a href="index.html" target="v_home" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Home Vector</a>
+                <a href="about.html" target="v_about" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">About Matrix</a>
+                <a href="products.html" target="v_products" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Portfolio Offerings</a>
+                <a href="services.html" target="v_services" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Expertise Matrix</a>
+                <a href="fabric.html" target="v_fabric" style="color: var(--text-secondary); text-decoration: none; font-size: 0.95rem; transition: color 0.3s; display: block;" onmouseover="this.style.color='var(--accent-neon)'" onmouseout="this.style.color='var(--text-secondary)'">Fabric Lab Matrix</a>
+                <a href="credentials.html" target="v_credentials" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Credentials Matrix</a>
+                <a href="contact.html" target="v_contact" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Contact Vector</a>
+            </div>
+        </div>
+        
+        <div style="position: absolute; bottom: 25px; right: 8%; background: rgba(255,255,255,0.05); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #f43f5e; font-size: 1.1rem; cursor: pointer;">
+            <i class="fa-solid fa-file-pdf"></i>
+        </div>
+
+        <div class="footer-bottom" style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 25px; text-align: center; font-size: 0.85rem; color: #475569;"><p style="margin:0;">&copy; 2026 Vakratron Systems LLP | New Delhi, India. All Rights Reserved.</p></div>
+    </footer>
+
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

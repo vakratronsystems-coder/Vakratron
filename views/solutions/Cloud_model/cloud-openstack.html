@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenStack Cloud Platform Services | Vakratron Systems</title>
+    <meta name="description" content="Enterprise-grade OpenStack cloud platform design, compute orchestration, software-defined networking, and high-availability frameworks.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="http://127.0.0.1:5500/style.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-surface: rgba(15, 23, 42, 0.6);
+            --accent-neon: #C2185B;
+            --accent-blue: #38bdf8;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --glass-gradient: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(2, 6, 23, 0.9) 100%);
+        }
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main) !important;
+            color: var(--text-primary);
+            background-image: 
+                radial-gradient(circle at 30% 20%, rgba(194, 24, 91, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(56, 189, 248, 0.07) 0%, transparent 50%) !important;
+            background-size: 200% 200% !important;
+        }
+        body { margin: 0; padding: 0; background: transparent !important; }
+        
+        /* 👑 ENTERPRISE 1200PX MAXIMUM WIDTH COMPLIANT */
+        .main-container-fabric { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 140px 5% 100px 5%; 
+            box-sizing: border-box; 
+            width: 100%;
+        }
+        
+        .premium-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            color: #c084fc;
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Poppins', sans-serif;
+        }
+        p { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.7; font-weight: 300; margin-bottom: 25px; }
+        
+        .tech-step-box {
+            background: var(--glass-gradient) !important;
+            border: 1px solid rgba(255, 255, 255, 0.04) !important;
+            border-radius: 16px !important;
+            padding: 30px !important;
+            margin: 30px 0 !important;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4) !important;
+        }
+        .tech-step-box h4 {
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            font-size: 1.15rem;
+            margin: 0 0 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+        }
+        .tech-step-box h4 i { color: #a855f7; } /* पर्पल टच ओपनस्टैक के लिए */
+        .tech-step-box p { font-size: 0.95rem; margin-bottom: 15px; color: #94a3b8; }
+        .tech-step-box ul { 
+            list-style: none; 
+            padding: 0; 
+            margin: 0; 
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px; 
+        }
+        .tech-step-box ul li { font-size: 0.95rem; color: var(--text-secondary); display: flex; align-items: center; gap: 10px; }
+        .tech-step-box ul li::before { content: "→"; color: #a855f7; font-weight: bold; font-size: 1.1rem; }
+    </style>
+</head>
+<body>
+
+    <header></header>
+
+    <main class="main-container-fabric">
+
+        <span class="premium-badge">
+            <i class="fa-solid fa-layer-group"></i> Open-Source Infrastructure // Module 05
+        </span>
+
+        <h1 style="
+        font-family:'Poppins',sans-serif;
+        color:#fff;
+        font-size:2.3rem;
+        font-weight:700;
+        margin-top:10px;
+        margin-bottom:25px;
+        line-height:1.3;
+        ">
+        OpenStack Cloud Platform Services
+        </h1>
+
+        <p>
+        OpenStack has emerged as one of the world's most widely adopted open-source cloud platforms for building scalable Infrastructure-as-a-Service (IaaS) environments. It enables organizations to create highly flexible, automated, and enterprise-grade cloud infrastructures without vendor lock-in.
+        </p>
+
+        <p>
+        Vakratron Systems designs, deploys, optimizes, and manages OpenStack cloud platforms capable of supporting enterprise workloads, government applications, AI infrastructure, multi-tenant environments, and mission-critical services.
+        </p>
+
+        <p>
+        Our OpenStack expertise spans compute virtualization, software-defined networking, storage architecture, identity management, automation, high availability, and cloud operations.
+        </p>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-microchip"></i> Nova – Compute Services</h4>
+            <p>Nova serves as the compute engine of the cloud platform and is responsible for provisioning, scheduling, and managing virtual machine workloads.</p>
+            <ul>
+                <li>Virtual Machine Provisioning</li>
+                <li>Resource Scheduling</li>
+                <li>Lifecycle Management</li>
+                <li>Compute Resource Allocation</li>
+                <li>Multi-Tenant Compute Services</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-user-shield"></i> Keystone – Identity & Access Management</h4>
+            <p>Keystone provides centralized authentication, authorization, tenant management, and role-based access controls across the cloud environment.</p>
+            <ul>
+                <li>Authentication Services</li>
+                <li>Authorization Controls</li>
+                <li>Role-Based Access Control</li>
+                <li>Tenant Management</li>
+                <li>LDAP Integration</li>
+                <li>OIDC Integration</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-image"></i> Glance – Image Management Services</h4>
+            <p>Glance provides centralized management of operating system images, templates, and golden image repositories used for virtual machine deployment.</p>
+            <ul>
+                <li>Golden Image Management</li>
+                <li>OS Template Repository</li>
+                <li>Image Version Control</li>
+                <li>Template Standardization</li>
+                <li>Automated Deployment Templates</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-network-wired"></i> Neutron – Software Defined Networking</h4>
+            <p>Neutron provides networking services that enable flexible, scalable, and software-defined connectivity across cloud environments.</p>
+            <ul>
+                <li>Virtual Networks</li>
+                <li>Subnets & Routing</li>
+                <li>IP Address Management</li>
+                <li>Security Groups</li>
+                <li>Network Segmentation</li>
+                <li>Multi-Tenant Networking</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-hard-drive"></i> Cinder – Enterprise Block Storage</h4>
+            <p>Cinder provides persistent block storage services for virtual machines, enterprise applications, databases, and business-critical workloads.</p>
+            <ul>
+                <li>Persistent Volumes</li>
+                <li>SSD Storage Services</li>
+                <li>NVMe Performance Storage</li>
+                <li>Volume Lifecycle Management</li>
+                <li>Application Storage Integration</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-code-branch"></i> Heat – Infrastructure Automation</h4>
+            <p>Heat enables Infrastructure-as-Code (IaC) and automated cloud provisioning through reusable templates and orchestration workflows.</p>
+            <ul>
+                <li>Infrastructure Templates</li>
+                <li>Automated Provisioning</li>
+                <li>Environment Replication</li>
+                <li>Stack Lifecycle Management</li>
+                <li>Deployment Automation</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-heart-pulse"></i> Masakari – High Availability Services</h4>
+            <p>Masakari enhances cloud resilience by automatically detecting infrastructure failures and recovering affected workloads.</p>
+            <ul>
+                <li>Hypervisor Failure Detection</li>
+                <li>Automated VM Recovery</li>
+                <li>VM Relocation</li>
+                <li>Infrastructure Resilience</li>
+                <li>Reduced Downtime</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-chart-simple"></i> Intelligent Resource Optimization</h4>
+            <p>Automated optimization services continuously monitor infrastructure utilization and improve workload placement efficiency.</p>
+            <ul>
+                <li>CPU Utilization Monitoring</li>
+                <li>Dynamic Workload Placement</li>
+                <li>Automated VM Migration</li>
+                <li>Infrastructure Balancing</li>
+                <li>Capacity Optimization</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-diagram-project"></i> Open Virtual Networking (OVN)</h4>
+            <p>OVN provides advanced software-defined networking capabilities for large-scale cloud environments.</p>
+            <ul>
+                <li>Distributed Routing</li>
+                <li>Virtual Networking</li>
+                <li>DHCP Services</li>
+                <li>NAT Services</li>
+                <li>Load Balancing</li>
+                <li>Network Security Controls</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-server"></i> Enterprise Cloud Control Services</h4>
+            <p>Modern cloud platforms rely on supporting services that ensure performance, scalability, communication, and operational reliability.</p>
+            <ul>
+                <li>RabbitMQ Messaging Services</li>
+                <li>MySQL Database Services</li>
+                <li>Memcached Performance Optimization</li>
+                <li>API Service Management</li>
+                <li>Cloud Metadata Services</li>
+                <li>Distributed Control Plane Operations</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-cubes"></i> Business Benefits of OpenStack</h4>
+            <ul>
+                <li>No Vendor Lock-In</li>
+                <li>Open Architecture</li>
+                <li>Enterprise Scalability</li>
+                <li>Extensive API Automation</li>
+                <li>Lower Licensing Costs</li>
+                <li>Multi-Tenant Support</li>
+                <li>High Availability</li>
+                <li>Future-Ready Cloud Foundation</li>
+            </ul>
+        </div>
+
+        <hr style="border:none;border-top:1px solid rgba(255,255,255,0.05);margin:50px 0;">
+
+    </main>
+
+    <footer></footer>
+
+    
+    
+    
+    
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

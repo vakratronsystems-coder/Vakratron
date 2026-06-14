@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>GPU Cluster for AI Infrastructure | Vakratron Systems</title>
+    <meta name="description" content="Explore Vakratron's deep-tech blueprint for high-performance GPU clusters, parallel storage fabrics, and advanced AI infrastructure computing.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-surface: rgba(15, 23, 42, 0.6);
+            --border-glow: rgba(194, 24, 91, 0.3);
+            --accent-neon: #C2185B;
+            --accent-blue: #38bdf8;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --glass-gradient: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(2, 6, 23, 0.9) 100%);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main) !important;
+            color: var(--text-primary);
+            
+            background-image: 
+                radial-gradient(circle at 50% 20%, rgba(194, 24, 91, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(56, 189, 248, 0.06) 0%, transparent 50%) !important;
+            background-size: 200% 200% !important;
+            animation: cyberBackgroundMotion 20s ease infinite alternate !important;
+        }
+
+        @keyframes cyberBackgroundMotion {
+            0% { background-position: 0% 20%; }
+            50% { background-position: 100% 80%; }
+            100% { background-position: 20% 100%; }
+        }
+
+        body { margin: 0; padding: 0; overflow-x: hidden; }
+        section { padding: 100px 8% !important; box-sizing: border-box; }
+
+        .premium-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(194, 24, 91, 0.1); border: 1px solid rgba(194, 24, 91, 0.3);
+            color: #f472b6; padding: 6px 16px; border-radius: 100px;
+            font-size: 0.85rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;
+        }
+
+        .master-content-card {
+            background: var(--glass-gradient);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 24px; padding: 50px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            margin-top: 40px; margin-bottom: 60px;
+        }
+
+        h3 { font-family: 'Poppins', sans-serif; color: var(--accent-blue); font-size: 1.5rem; margin-bottom: 15px; font-weight: 600; }
+        p { color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem; font-weight: 300; text-align: justify; margin-bottom: 20px; }
+
+        .tech-step-box {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 30px; border-radius: 16px; margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .tech-step-box h4 { font-family: 'Poppins', sans-serif; color: #fff; font-size: 1.25rem; margin: 0 0 15px 0; display: flex; align-items: center; gap: 12px; }
+        .tech-step-box h4 i { color: var(--accent-blue); }
+        .tech-step-box ul { margin: 15px 0 0 0; padding-left: 20px; color: var(--text-secondary); }
+        .tech-step-box li { margin-bottom: 10px; line-height: 1.6; font-size: 1rem; font-weight: 300; }
+
+        .vakra-tag-node {
+            display: inline-block; font-size: 0.75rem; background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06); color: var(--text-secondary);
+            padding: 4px 10px; border-radius: 4px; margin-right: 6px; margin-bottom: 6px;
+        }
+
+        .dr-matrix-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; margin-top: 30px; width: 100%; }
+        .premium-dr-card {
+            background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 20px; 
+            padding: 35px 30px; display: flex; flex-direction: column; justify-content: space-between;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); text-decoration: none; box-sizing: border-box;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4); width: calc(33.333% - 17px); min-width: 300px;
+        }
+        .premium-dr-card:hover { transform: translateY(-8px); border-color: rgba(56, 189, 248, 0.3); box-shadow: 0 25px 50px rgba(56, 189, 248, 0.12); }
+        .premium-dr-card.neon-hover:hover { border-color: rgba(194, 24, 91, 0.4); box-shadow: 0 25px 50px rgba(194, 24, 91, 0.15); }
+        .card-icon { width: 55px; height: 55px; background: rgba(255,255,255,0.02); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--accent-blue); margin-bottom: 25px; transition: all 0.3s; border: 1px solid rgba(255,255,255,0.05); }
+        .premium-dr-card:hover .card-icon { background: rgba(56, 189, 248, 0.1); color: var(--accent-blue); box-shadow: 0 0 15px rgba(56, 189, 248, 0.2); }
+        .premium-dr-card.neon-hover:hover .card-icon { background: rgba(194, 24, 91, 0.1); color: #f472b6; box-shadow: 0 0 15px rgba(194, 24, 91, 0.2); }
+        .card-title { font-family: 'Poppins', sans-serif; font-size: 1.3rem; color: #fff; margin: 0 0 12px 0; font-weight: 600; }
+        .card-desc { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; font-weight: 300; margin: 0 0 25px 0; text-align: justify; }
+        .card-metrics { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px; }
+        .metric-tag { font-size: 0.75rem; font-family: monospace; padding: 3px 8px; border-radius: 4px; background: rgba(2,6,23,0.5); border: 1px solid rgba(255,255,255,0.06); color: var(--text-secondary); }
+        .card-action-link { font-size: 0.9rem; font-weight: 600; color: var(--accent-blue); display: flex; align-items: center; gap: 8px; transition: all 0.2s; }
+        .premium-dr-card:hover .card-action-link { color: #fff; padding-left: 5px; }
+
+        .vakra-mesh-container { background: #030712; border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 20px; padding: 40px; margin: 40px 0; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
+        .vakra-mesh-row { display: flex; justify-content: space-between; align-items: stretch; gap: 30px; flex-wrap: wrap; }
+        .vakra-mesh-card { background: rgba(15, 23, 42, 0.6); border-radius: 14px; padding: 25px; flex: 1; min-width: 260px; box-sizing: border-box; text-align: center; }
+        .vakra-mesh-card.dc-primary { border: 1px solid rgba(56, 189, 248, 0.25); }
+        .vakra-mesh-card.dr-target { border: 1px solid rgba(194, 24, 91, 0.25); }
+        .vakra-mesh-card h5 { margin: 0 0 15px 0; font-family: 'Poppins', sans-serif; font-size: 1.1rem; color: #fff; display: flex; align-items: center; justify-content: center; gap: 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 10px; }
+        .vakra-mesh-pipe { display: flex; flex-direction: column; justify-content: center; align-items: center; min-width: 160px; flex: 0.5; text-align: center; }
+        .vakra-mesh-line { width: 100%; height: 2px; background: linear-gradient(90deg, var(--accent-blue) 0%, var(--accent-neon) 100%); position: relative; margin: 15px 0; }
+        .vakra-mesh-line::after { content: ''; position: absolute; right: 0; top: -4px; width: 0; height: 0; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 8px solid var(--accent-neon); }
+
+        .central-nav-container { position: relative; display: inline-block; }
+        .console-trigger-btn { background: rgba(194, 24, 91, 0.05); border: 1px solid rgba(194, 24, 91, 0.3); color: #fff; padding: 10px 22px; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 12px; transition: all 0.3s; }
+        .central-nav-container:hover .console-trigger-btn { background: rgba(194, 24, 91, 0.15); border-color: rgba(194, 24, 91, 0.8); box-shadow: 0 0 20px rgba(194, 24, 91, 0.3); }
+        .console-dropdown-dashboard { position: absolute; top: 100%; right: -120px; width: 780px; background: #030712 !important; border: 1px solid rgba(194, 24, 91, 0.25); border-radius: 16px; padding: 30px; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.95); opacity: 0; pointer-events: none; transform: translateY(10px) scale(0.98); transition: all 0.3s ease; z-index: 2000; margin-top: 10px; overflow: hidden; }
+        .central-nav-container:hover .console-dropdown-dashboard { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); border-color: rgba(194, 24, 91, 0.6); }
+        .dashboard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .dashboard-col { display: flex; flex-direction: column; gap: 6px; }
+        .dashboard-col h4 { font-family: 'Poppins', sans-serif; color: #fff; font-size: 0.85rem; font-weight: 700; margin: 0 0 12px 0; padding-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .dashboard-col a { display: flex !important; align-items: center; gap: 10px; color: var(--text-secondary) !important; text-decoration: none; font-size: 0.85rem !important; padding: 6px 10px !important; border-radius: 6px; transition: all 0.2s; }
+        .dashboard-col a:hover { background: rgba(255, 255, 255, 0.03) !important; color: #fff !important; padding-left: 14px !important; }
+        .console-footer { margin-top: 25px; padding: 15px 30px !important; border-top: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.75rem; color: #475569; font-family: monospace; display: flex !important; background: #070b14 !important; margin: 25px -30px -30px -30px; }
+
+        @media (max-width: 1024px) { .premium-dr-card { width: calc(50% - 13px) !important; } }
+        @media (max-width: 768px) { .premium-dr-card { width: 100% !important; } }
+    </style>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header></header>
+    <section style="padding-top: 180px !important; padding-bottom: 20px !important;">
+        <div style="max-width: 950px; margin: 0 auto; text-align: center;">
+            <span class="premium-badge"><i class="fa-solid fa-microchip"></i> High-Density AI Cluster Hub</span>
+            <h1 style="font-family: 'Poppins', sans-serif; font-size: 2.8rem; font-weight: 700; color: #fff; margin: 10px 0 20px 0; line-height: 1.2;">
+                GPU Cluster Architectures <br><span style="background: linear-gradient(135deg, #fff 30%, var(--accent-blue) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">& AI Factory Blueprints</span>
+            </h1>
+        </div>
+
+        <div class="master-content-card">
+            <h3>Executive Summary</h3>
+            <p>Artificial Intelligence is transforming every industry, from healthcare and banking to manufacturing and government services.</p>
+            <p>Modern AI workloads require significantly more computing power than traditional enterprise applications. Training large language models, computer vision systems, recommendation engines, and generative AI platforms demands specialized infrastructure designed for massive parallel processing.</p>
+            <p>GPU clusters provide the computing foundation for modern AI environments by combining high-performance accelerators, ultra-fast networking, scalable storage, and intelligent workload orchestration.</p>
+            <p>This guide explains how GPU clusters are designed, how different infrastructure components work together, and how organizations can build scalable AI platforms for future growth.</p>
+
+            <div class="tech-step-box">
+                <h4><i class="fa-solid fa-lightbulb"></i> What You Will Learn</h4>
+                <ul>
+                    <li>Why GPUs are essential for AI workloads.</li>
+                    <li>How GPU clusters are structured.</li>
+                    <li>The role of storage and networking.</li>
+                    <li>How Kubernetes supports AI platforms.</li>
+                    <li>How to size and scale GPU infrastructure.</li>
+                    <li>Common design mistakes and best practices.</li>
+                </ul>
+            </div>
+
+            <h3 style="margin-top: 40px;">Why GPU Clusters Matter</h3>
+            <p>Traditional enterprise applications are typically designed around CPUs. These workloads process tasks sequentially and are optimized for general-purpose computing.</p>
+            <p>Artificial Intelligence works differently. AI models perform millions or even billions of mathematical operations simultaneously. This level of parallel processing requires a fundamentally different architecture.</p>
+            <p>GPUs are specifically designed to perform thousands of calculations at the same time, making them ideal for AI training, inference, simulation, and scientific computing.</p>
+
+            <div class="tech-step-box">
+                <h4><i class="fa-solid fa-chart-line"></i> Growing Demand for GPU Infrastructure</h4>
+                <div style="margin-top: 15px;">
+                    <span class="vakra-tag-node">Large Language Models (LLMs)</span>
+                    <span class="vakra-tag-node">Generative AI Platforms</span>
+                    <span class="vakra-tag-node">Computer Vision Systems</span>
+                    <span class="vakra-tag-node">Recommendation Engines</span>
+                    <span class="vakra-tag-node">Scientific Research</span>
+                    <span class="vakra-tag-node">Autonomous Systems</span>
+                    <span class="vakra-tag-node">Digital Twins</span>
+                </div>
+            </div>
+
+            <div class="tech-step-box">
+                <h4><i class="fa-solid fa-triangle-exclamation"></i> The Challenge</h4>
+                <p style="margin-bottom:0;">Simply purchasing GPUs is not enough. Storage performance, network bandwidth, orchestration platforms, and cooling infrastructure all play a critical role in overall AI system performance.</p>
+            </div>
+
+            <h3 style="margin-top: 40px;">Why Traditional Infrastructure Struggles with AI</h3>
+            <p>Many organizations initially attempt to run AI workloads on traditional infrastructure designed for enterprise applications. While this may work for small experiments, it quickly becomes inefficient as models and datasets grow.</p>
+
+            <div class="vakra-mesh-container">
+                <div class="vakra-mesh-row">
+                    <div class="vakra-mesh-card dc-primary">
+                        <h5>Traditional Infrastructure</h5>
+                        <div class="vakra-sub-tier" style="background: rgba(2,6,23,0.4); border-radius:8px; padding:12px; margin-top:10px;">
+                            <span class="vakra-tag-node">Applications</span><br><i class="fa-solid fa-arrow-down" style="color:var(--accent-blue); margin:5px 0;"></i><br>
+                            <span class="vakra-tag-node">CPU Servers</span><br><i class="fa-solid fa-arrow-down" style="color:var(--accent-blue); margin:5px 0;"></i><br>
+                            <span class="vakra-tag-node">Storage</span>
+                        </div>
+                    </div>
+                    <div class="vakra-mesh-pipe">
+                        <div class="vakra-mesh-line"></div><span style="font-size:0.75rem; color:#64748b; font-family:monospace; font-weight:700;">VS</span><div class="vakra-mesh-line" style="transform: scaleX(-1);"></div>
+                    </div>
+                    <div class="vakra-mesh-card dr-target">
+                        <h5>AI Infrastructure</h5>
+                        <div class="vakra-sub-tier" style="background: rgba(2,6,23,0.4); border-radius:8px; padding:12px; margin-top:10px;">
+                            <span class="vakra-tag-node">AI Models</span><br><i class="fa-solid fa-arrow-down" style="color:var(--accent-neon); margin:5px 0;"></i><br>
+                            <span class="vakra-tag-node">GPU Cluster</span><br><i class="fa-solid fa-arrow-down" style="color:var(--accent-neon); margin:5px 0;"></i><br>
+                            <span class="vakra-tag-node">High Speed Network</span><br><i class="fa-solid fa-arrow-down" style="color:var(--accent-neon); margin:5px 0;"></i><br>
+                            <span class="vakra-tag-node">Parallel Storage</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 40px;">Understanding CPU vs GPU Computing</h3>
+            <p>The primary difference between CPUs and GPUs is how they process workloads.</p>
+
+            <div class="tech-step-box">
+                <h4><i class="fa-solid fa-table"></i> CPU vs GPU Comparison Matrix</h4>
+                <div style="overflow-x:auto;">
+                    <table style="width:100%; border-collapse:collapse; margin-top:15px;">
+                        <thead>
+                            <tr style="background:rgba(56,189,248,.08);">
+                                <th style="padding:14px; border:1px solid rgba(255,255,255,.08); text-align:left;">Feature</th>
+                                <th style="padding:14px; border:1px solid rgba(255,255,255,.08); text-align:left;">CPU</th>
+                                <th style="padding:14px; border:1px solid rgba(255,255,255,.08); text-align:left;">GPU</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td style="padding:14px; border:1px solid rgba(255,255,255,.08); font-weight:500;">Core Count</td><td style="padding:14px; border:1px solid rgba(255,255,255,.08);">Few</td><td style="padding:14px; border:1px solid rgba(255,255,255,.08); color:var(--accent-blue); font-weight:500;">Thousands</td></tr>
+                            <tr><td style="padding:14px; border:1px solid rgba(255,255,255,.08); font-weight:500;">Parallel Processing</td><td style="padding:14px; border:1px solid rgba(255,255,255,.08);">Limited</td><td style="padding:14px; border:1px solid rgba(255,255,255,.08); color:var(--accent-blue); font-weight:500;">Massive</td></tr>
+                            <tr><td style="padding:14px; border:1px solid rgba(255,255,255,.08); font-weight:500;">AI Training</td><td style="padding:14px; border:1px solid rgba(255,255,255,.08);">Poor</td><td style="padding:14px; border:1px solid rgba(255,255,255,.08); color:var(--accent-blue); font-weight:500;">Excellent</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div style="width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin-bottom: 30px; margin-top: 60px;">
+            <span class="premium-badge" style="background: rgba(56,189,248,0.1); border-color: rgba(56,189,248,0.3); color: var(--accent-blue); margin-bottom: 15px;"><i class="fa-solid fa-gears"></i> Technical Whitepapers</span>
+            <h2 style="font-family: 'Poppins', sans-serif; font-size: 2rem; font-weight: 700; color: #fff; margin: 0; line-height: 1.3;">
+                AI Cluster Continuity & <span style="background: linear-gradient(135deg, var(--accent-blue) 0%, #0284c7 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Deployment Modules</span>
+            </h2>
+        </div>
+
+      <div class="dr-matrix-grid">
+
+            <a href="GPU_AI_Cluster/gpu-components.html" class="premium-dr-card">
+                <div>
+                    <div class="card-icon"><i class="fa-solid fa-layer-group"></i></div>
+                    <h3 class="card-title">Core Cluster Components</h3>
+                    <p class="card-desc">The five foundational pillars coordinating heavy compute layers, parallel storage arrays, high-speed fabrics, and container management engines cleanly.</p>
+                </div>
+                <div>
+                    <div class="card-metrics"><span class="metric-tag">Scope: Building Blocks</span><span class="metric-tag">Fabric: Core</span></div>
+                    <span class="card-action-link">Open Specification <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+
+            <a href="GPU_AI_Cluster/gpu-network-storage.html" class="premium-dr-card neon-hover">
+                <div>
+                    <div class="card-icon" style="color: var(--accent-neon);"><i class="fa-solid fa-network-wired"></i></div>
+                    <h3 class="card-title">Network Design Fabric</h3>
+                    <p class="card-desc">Granular scale matching rules for high-density environments. Choosing the ideal interconnect layer between Ethernet, RoCE, and full InfiniBand meshes.</p>
+                </div>
+                <div>
+                    <div class="card-metrics"><span class="metric-tag">Latency: Ultra-Low</span><span class="metric-tag">Fabric: InfiniBand</span></div>
+                    <span class="card-action-link" style="color: var(--accent-neon);">Open Specification <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+            </a>
+
+            <a href="GPU_AI_Cluster/gpu-orchestration.html" class="premium-dr-card">
+                <div>
+                    <div class="card-icon"><i class="fa-solid fa-diagram-project"></i></div>
+                    <h3 class="card-title">Kubernetes for AI Control</h3>
+                    <p class="card-desc">Automating cluster distribution and job queues via container management systems. Fine-tuning multi-user containerized logic loops seamlessly.</p>
+                </div>
+                <div>
+                    <div class="card-metrics"><span class="metric-tag">Control Plane: K8s</span><span class="metric-tag">Orchestration: Auto</span></div>
+                    <span class="card-action-link">Open Specification <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+            </a>
+
+            <a href="GPU_AI_Cluster/sizing-guide.html" class="premium-dr-card neon-hover">
+                <div>
+                    <div class="card-icon" style="color: var(--accent-neon);"><i class="fa-solid fa-scale-balanced"></i></div>
+                    <h3 class="card-title">GPU Infrastructure Sizing</h3>
+                    <p class="card-desc">Clear scale recommendations categorized by workload scope, dividing Startup, Enterprise, Research Labs, and National Sovereign AI parameters perfectly.</p>
+                </div>
+                <div>
+                    <div class="card-metrics"><span class="metric-tag">Sizing: Linear</span><span class="metric-tag">Allocation: Scalable</span></div>
+                    <span class="card-action-link" style="color: var(--accent-neon);">Open Specification <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+            </a>
+            <a href="GPU_AI_Cluster/gpu-faq-conclusion.html" class="premium-dr-card">
+                <div>
+                    <div class="card-icon"><i class="fa-solid fa-circle-question"></i></div>
+                    <h3 class="card-title">Frequently Asked Questions</h3>
+                    <p class="card-desc">Direct engineering answers resolving allocation complexities, parallel block limits, fractional slicing models, and final planning summaries.</p>
+                </div>
+                <div>
+                    <div class="card-metrics"><span class="metric-tag">Queries: Engineering</span><span class="metric-tag">Resolution: Direct</span></div>
+                    <span class="card-action-link">Open Specification <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <footer style="background: #01040f; padding: 60px 8% 30px 8%; border-top: 1px solid rgba(255,255,255,0.04); box-sizing: border-box; margin-top: 60px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; flex-wrap: wrap; margin-bottom: 40px;">
+            <div style="flex: 1.5; min-width: 300px;">
+                <h2 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1.5rem; font-weight: 700; margin: 0 0 15px 0;">VAKRATRON <span style="color: var(--accent-neon); font-size: 0.85rem; display: block; letter-spacing: 3px;">SYSTEMS</span></h2>
+                <p style="font-size: 0.95rem; margin-bottom: 25px; font-weight: 300; color: var(--text-secondary);">Architecting resilient, hyper-secure AI compute frameworks and cloud automation systems.</p>
+            </div>
+            <div style="flex: 1; min-width: 150px; display: flex; flex-direction: column; gap: 12px;">
+                <h4 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1.1rem; margin: 0 0 8px 0;">Structure Links</h4>
+                <a href="../index.html" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Home Vector</a>
+                <a href="../fabric.html" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Fabric Lab Hub</a>
+            </div>
+        </div>
+        <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 25px; text-align: center; font-size: 0.85rem; color: #475569;">
+            &copy; <footer style="background: #020810; padding: 60px 8% 30px 8%; border-top: 1px solid rgba(255,255,255,0.05); box-sizing: border-box; width: 100%; clear: both; position: relative; z-index: 999; font-family: 'Inter', sans-serif;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; flex-wrap: wrap; text-align: left; max-width: 1200px; margin: 0 auto;">
+        
+        <div style="flex: 2; min-width: 280px;">
+            <h2 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1.4rem; font-weight: 700; margin: 0 0 12px 0; letter-spacing: 1px;">
+                VAKRATRON <span style="color: #C2185B; font-size: 0.8rem; letter-spacing: 3px; font-weight: 600; display: block; margin-top: 2px;">SYSTEMS</span>
+            </h2>
+            <p style="color: #64748b; font-size: 0.9rem; line-height: 1.6; margin: 0 0 20px 0; text-align: justify;">
+                Architecting resilient, hyper-secure, and dynamically scaled AI compute frameworks and cloud automation systems for enterprise governance matrices.
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 6px; font-size: 0.85rem; color: #64748b;">
+                <span><i class="fa-solid fa-phone" style="color: #C2185B; margin-right: 8px;"></i> +91 93196 66864</span>
+                <span><i class="fa-solid fa-envelope" style="color: #C2185B; margin-right: 8px;"></i> connect@vakratronsys.com</span>
+            </div>
+        </div>
+        
+        <div style="flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 10px;">
+            <h4 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1rem; margin: 0 0 5px 0; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Compliance Matrix</h4>
+            <span style="color: #64748b; font-size: 0.85rem;"><i class="fa-solid fa-building" style="color: #C2185B; margin-right: 6px;"></i> LLPIN: AAT-3851</span>
+            <span style="color: #64748b; font-size: 0.85rem;"><i class="fa-solid fa-certificate" style="color: #C2185B; margin-right: 6px;"></i> DIPP No: DIPP247647</span>
+            <span style="color: #38bdf8; font-size: 0.85rem; font-weight: 600;"><i class="fa-solid fa-shield-halved" style="margin-right: 6px;"></i> Data Protection Secure</span>
+        </div>
+        
+        <div style="flex: 1; min-width: 150px; display: flex; flex-direction: column; gap: 10px;">
+            <h4 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1rem; margin: 0 0 5px 0; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Structure Links</h4>
+            <a href="/index.html" style="color: #64748b; text-decoration: none; font-size: 0.85rem;">Home Vector</a>
+            <a href="/about.html" style="color: #64748b; text-decoration: none; font-size: 0.85rem;">About Corporate</a>
+            <a href="/products.html" style="color: #64748b; text-decoration: none; font-size: 0.85rem;">Portfolio Offerings</a>
+            <a href="/fabric.html" style="color: #38bdf8; text-decoration: none; font-size: 0.85rem; font-weight: 600;">Fabric Lab Hub</a>
+        </div>
+    </div>
+    
+    <div style="border-top: 1px solid rgba(255,255,255,0.05); margin-top: 30px; padding-top: 20px; text-align: center; font-size: 0.8rem; color: #475569;">
+        &copy; 2026 Vakratron Systems LLP | All Rights Reserved.
+    </div>
+</footer></footer>
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

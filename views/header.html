@@ -1,0 +1,180 @@
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<header style="display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: #030712; border-bottom: 1px solid rgba(255,255,255,0.06); z-index: 9999 !important; box-sizing: border-box; width: 100%; height: 82px; position: relative;">
+    
+    <div class="logo-area" style="display: flex; align-items: center; gap: 12px;">
+        <img src="/images/logo.png" alt="Vakratron"  alt="Vakratron Logo" style="width: 42px; height: 42px; object-fit: contain;">
+        <div class="logo-text">
+            <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; color: #fff; margin: 0; letter-spacing: 2px;">VAKRATRON</h2>
+            <span style="font-family: 'Space Grotesk', sans-serif; font-size: 0.75rem; color: #C2185B; letter-spacing: 4px; font-weight: 600; display: block; margin-top: -1px;">SYSTEMS</span>
+        </div>
+    </div>
+
+    <nav style="position: relative; display: flex; align-items: center;">
+        <div class="central-nav-container" style="position: relative; padding: 10px 0;">
+            <button class="console-trigger-btn" style="background: rgba(194, 24, 91, 0.05); border: 1px solid rgba(194, 24, 91, 0.3); color: #fff; padding: 10px 22px; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 12px; transition: all 0.3s;">
+                <i class="fa-solid fa-bars-staggered menu-icon" style="color: #fff;"></i>
+                <span style="font-family: 'Space Grotesk', sans-serif; letter-spacing: 1.5px; color: #fff;">COMMAND CONSOLE</span>
+                <i class="fa-solid fa-chevron-down arrow-icon" style="margin-left: 8px; font-size: 0.8rem; color: #fff; transition: transform 0.3s;"></i>
+            </button>
+            
+            <div class="console-dropdown-dashboard" style="position: absolute; top: 100%; right: 50%; transform: translate(50%, 10px) scale(0.98); width: 850px; background: #030712; border: 1px solid rgba(194, 24, 91, 0.25); border-radius: 16px; padding: 30px; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.95); opacity: 0; pointer-events: none; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); z-index: 2000; margin-top: 10px; overflow: hidden; box-sizing: border-box;">
+                <div class="dashboard-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px;">
+                    
+                    <div class="dashboard-col" style="display: flex; flex-direction: column; gap: 6px;">
+                        <h4 style="font-family: 'Space Grotesk', sans-serif; color: #fff; font-size: 0.85rem; font-weight: 700; margin: 0 0 12px 0; padding-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); letter-spacing: 1px;">CORE MATRIX</h4>
+                        <a href="/index.html" class="nav-matrix-link"><i class="fa-solid fa-house-chimney"></i> System Home</a>
+                        <a href="/about.html" class="nav-matrix-link"><i class="fa-solid fa-address-card"></i> About Corporate</a>
+                        <a href="/contact.html" class="nav-matrix-link"><i class="fa-solid fa-paper-plane"></i> Contact Interface</a>
+                    </div>
+                    
+                    <div class="dashboard-col" style="display: flex; flex-direction: column; gap: 6px;">
+                        <h4 style="font-family: 'Space Grotesk', sans-serif; color: #fff; font-size: 0.85rem; font-weight: 700; margin: 0 0 12px 0; padding-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); letter-spacing: 1px;">CAPABILITY</h4>
+                        <a href="/products.html" class="nav-matrix-link"><i class="fa-solid fa-cubes"></i> Portfolio Offerings</a>
+                        <a href="/services.html" class="nav-matrix-link"><i class="fa-solid fa-gears"></i> Expertise Matrix</a>
+                        <a href="/credentials.html" class="nav-matrix-link"><i class="fa-solid fa-building-shield"></i> Credentials Matrix</a>
+                    </div>
+                    
+                    <div class="dashboard-col" style="display: flex; flex-direction: column; gap: 6px;">
+                        <h4 style="font-family: 'Space Grotesk', sans-serif; color: #fff; font-size: 0.85rem; font-weight: 700; margin: 0 0 12px 0; padding-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); letter-spacing: 1px;">COMPUTATIONAL FABRIC</h4>
+                        <a href="/fabric.html" class="nav-matrix-link" style="color: #38bdf8 !important; font-weight: 600;"><i class="fa-solid fa-network-wired"></i> Fabric Lab Matrix</a>
+                    </div>
+                </div>
+                <div class="console-footer" style="margin-top: 25px; padding: 15px 30px; border-top: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.75rem; color: #475569; font-family: monospace; display: flex; background: #070b14; margin: 25px -30px -30px -30px;">
+                    <span><i class="fa-solid fa-terminal" style="color: #C2185B; margin-right: 6px;"></i> Status: Synced VAKRA-SYS v2.0.26</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="header-action">
+        <a href="/contact.html" style="background: #C2185B; color: #fff; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; font-family: 'Space Grotesk', sans-serif; display: inline-block; box-shadow: 0 4px 15px rgba(194, 24, 91, 0.2); letter-spacing: 0.5px;">Get In Touch</a>
+    </div>
+</header>
+
+<style>
+    /* 🎯 होवर करने पर ड्रॉपडाउन को रोकना और डिले देना */
+    .central-nav-container:hover .console-dropdown-dashboard { 
+        opacity: 1 !important; 
+        pointer-events: auto !important; 
+        transform: translate(50%, 0) scale(1) !important; 
+        border-color: rgba(194, 24, 91, 0.6) !important;
+        transition-delay: 0s !important;
+    }
+
+    /* 🎯 माउस हटने पर गायब होने में 0.15 सेकंड का स्मूथ डिले */
+    .console-dropdown-dashboard {
+        background: #030712 !important; 
+        z-index: 99999 !important;      
+        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        transition-delay: 0.15s !important;
+    }
+
+    .central-nav-container:hover .console-trigger-btn { 
+        background: rgba(194, 24, 91, 0.15) !important; 
+        border-color: rgba(194, 24, 91, 0.8) !important; 
+        box-shadow: 0 0 20px rgba(194, 24, 91, 0.3) !important; 
+    }
+    .central-nav-container:hover .arrow-icon { 
+        transform: rotate(180deg) !important; 
+    }
+    .nav-matrix-link { 
+        display: flex !important; 
+        align-items: center; 
+        gap: 10px; 
+        color: #94a3b8 !important; 
+        text-decoration: none; 
+        font-family: 'Inter', sans-serif !important; /* लिंक्स का फॉन्ट क्लीन इंटर */
+        font-size: 0.85rem !important; 
+        padding: 8px 12px !important; 
+        border-radius: 6px; 
+        transition: all 0.2s; 
+    }
+    .nav-matrix-link:hover { 
+        background: rgba(255, 255, 255, 0.03) !important; 
+        color: #fff !important; 
+        padding-left: 16px !important; 
+    }
+
+    /* ====================================================================== */
+    /* VAKRATRON SYSTEMS LLP - ULTRA UNIVERSAL LAYOUT & TYPOGRAPHY FIX        */
+    /* ====================================================================== */
+
+    /* 1. विड्थ का अचूक और फुलप्रूफ इलाज (GPU Page की तरह 1400px पर फैलाना) */
+    body > section,
+    body > main,
+    body > div:not(.console-dropdown-dashboard):not(.central-nav-container),
+    .content-card,
+    .main-content,
+    .container,
+    .content-wrapper,
+    .tech-content {
+        max-width: 1400px !important;
+        width: 92% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 2. फॉन्ट रीडेबिलिटी और ब्राइटनेस बूस्ट (High Contrast Dark Mode Typography) */
+    p, 
+    section p, 
+    div p,
+    .description,
+    li {
+        font-family: 'Inter', sans-serif !important; /* पैराग्राफ्स को हमेशा नीट एंड क्लीन इंटर रखेंगे */
+        font-size: 1.15rem !important;
+        line-height: 1.85 !important;
+        color: #f8fafc !important;
+        font-weight: 400 !important;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+    }
+
+    /* लिस्ट आइटम्स और बुलेट मैट्रिक्स */
+    li, 
+    section li {
+        font-family: 'Inter', sans-serif !important;
+        font-size: 1.12rem !important;
+        line-height: 1.8 !important;
+        color: #f1f5f9 !important;
+        margin-bottom: 12px !important;
+    }
+
+    /* ग्रिड कार्ड्स और नोड्स के अंदर का टेक्स्ट */
+    .tech-step-box p, 
+    .vakra-sub-tier p,
+    .tech-step-box li {
+        font-size: 1.1rem !important;
+        color: #cbd5e1 !important;
+    }
+
+    /* ⚡ टेस्ला सिमेंटिक हेडिंग्स ओवरराइड - सुपर प्रॉमिनेंट साइबर स्टाइल */
+    h1, .main-title { 
+        font-family: 'Space Grotesk', sans-serif !important; 
+        font-size: 3rem !important; 
+        font-weight: 700 !important; 
+        letter-spacing: 0.5px !important; 
+        color: #ffffff !important; 
+    }
+    h2 { 
+        font-family: 'Space Grotesk', sans-serif !important; 
+        font-size: 2rem !important; 
+        font-weight: 700 !important; 
+        letter-spacing: 0.5px !important; 
+        color: #ffffff !important; 
+    }
+    h3 { 
+        font-family: 'Space Grotesk', sans-serif !important; 
+        font-size: 1.6rem !important; 
+        font-weight: 600 !important; 
+        letter-spacing: 0.5px !important; 
+        color: #ffffff !important; 
+    }
+    h4, .dashboard-col h4 { 
+        font-family: 'Space Grotesk', sans-serif !important; 
+        font-size: 1.25rem !important; 
+        font-weight: 700 !important; 
+        letter-spacing: 1px !important; 
+        color: #ffffff !important; 
+    }
+</style>

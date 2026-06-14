@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Core Components & Design Principles | Vakratron Systems</title>
+    <meta name="description" content="Enterprise Cloud-Native Microservices Design Principles - Domain-Driven Design, Contract-first OpenAPI, database-per-service, and CQRS patterns.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-surface: rgba(15, 23, 42, 0.6);
+            --border-glow: rgba(244, 114, 182, 0.2);
+            --accent-blue: #38bdf8;
+            --accent-pink: #f472b6;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main) !important;
+            color: var(--text-primary);
+            background-image: 
+                radial-gradient(circle at 50% 20%, rgba(244, 114, 182, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(56, 189, 248, 0.03) 0%, transparent 50%) !important;
+            background-size: 200% 200% !important;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background: transparent !important;
+        }
+
+        /* 💎 MASTER 1200PX CENTERED LAYOUT */
+        .main-container-fabric {
+            max-width: 1200px !important;
+            margin: 0 auto;
+            padding: 140px 5% 100px 5%;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .architecture-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(244, 114, 182, 0.08);
+            border: 1px solid rgba(244, 114, 182, 0.25);
+            color: #f472b6;
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 25px;
+            font-family: monospace;
+        }
+
+        .matrix-body-text {
+            color: var(--text-secondary);
+            font-size: 1.02rem;
+            line-height: 1.7;
+            margin: 0 0 20px 0;
+            font-weight: 300;
+        }
+
+        /* 📋 PROFESSIONAL CARD SLOTS WITH FIXED GRID LISTS */
+        .tech-step-box {
+            background: var(--bg-surface);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            padding: 35px;
+            margin: 30px 0;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .tech-step-box h4 {
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tech-step-box p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0 0 20px 0;
+        }
+
+        .tech-step-box ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px 40px;
+        }
+
+        .tech-step-box li {
+            color: #cbd5e1;
+            font-size: 0.92rem;
+            line-height: 1.5;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .tech-step-box li::before {
+            content: "•";
+            color: var(--accent-pink);
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0;
+        }
+
+        /* 🌐 3-COLUMN MESH GRID (100% WORKING SYMMETRY) */
+        .vakra-mesh-container {
+            background: rgba(2, 6, 23, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            padding: 40px;
+            margin: 40px 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .vakra-mesh-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            width: 100%;
+        }
+
+        .vakra-mesh-card {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 25px;
+            box-sizing: border-box;
+        }
+
+        .dc-primary { border-left: 4px solid #38bdf8; }
+        .center-control-card { border-left: 4px solid #a855f7; }
+        .dr-target { border-left: 4px solid #f472b6; }
+
+        .vakra-mesh-card h5 {
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            font-size: 0.95rem;
+            margin: 0 0 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vakra-sub-tier {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .vakra-tag-node {
+            font-size: 0.72rem;
+            font-family: monospace;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            color: #94a3b8;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        @media (max-width: 960px) {
+            .vakra-mesh-row, .tech-step-box ul {
+                grid-template-columns: 1fr !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header></header>
+
+    <main class="main-container-fabric">
+        
+        <span class="architecture-badge">
+            <i class="fa-solid fa-sitemap"></i> Design Architecture // Core Principles
+        </span>
+
+        <h1 style="font-family:'Poppins',sans-serif; color:#fff; font-size:2.5rem; font-weight:800; margin: 0 0 25px 0; background: linear-gradient(135deg, #fff 0%, var(--text-secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            Core Components & Design Principles
+        </h1>
+        
+        <p class="matrix-body-text">
+            Successful microservices platforms require more than decomposing applications into smaller services. Enterprise architectures must be designed around scalability, resiliency, maintainability, security, observability, and operational simplicity.
+        </p>
+        <p class="matrix-body-text">
+            Vakratron Systems follows proven cloud-native architecture patterns and design principles that enable organizations to build highly scalable, loosely coupled, and resilient digital platforms capable of supporting future business growth.
+        </p>
+        <p class="matrix-body-text">
+            Our design methodologies emphasize API-first development, domain-driven architectures, event-driven communication, and operational excellence.
+        </p>
+
+        <div class="vakra-mesh-container">
+            <div class="vakra-mesh-row">
+                
+                <div class="vakra-mesh-card dc-primary">
+                    <h5><i class="fa-solid fa-layer-group" style="color: #38bdf8;"></i> Architecture</h5>
+                    <div class="vakra-sub-tier">
+                        <span class="vakra-tag-node">DDD</span>
+                        <span class="vakra-tag-node">API First</span>
+                        <span class="vakra-tag-node">Loose Coupling</span>
+                    </div>
+                </div>
+
+                <div class="vakra-mesh-card center-control-card">
+                    <h5><i class="fa-solid fa-arrows-rotate" style="color: #a855f7;"></i> Resilience</h5>
+                    <div class="vakra-sub-tier">
+                        <span class="vakra-tag-node">Circuit Breaker</span>
+                        <span class="vakra-tag-node">Retry</span>
+                        <span class="vakra-tag-node">Fault Isolation</span>
+                    </div>
+                </div>
+
+                <div class="vakra-mesh-card dr-target">
+                    <h5><i class="fa-solid fa-chart-line" style="color: #f472b6;"></i> Scalability</h5>
+                    <div class="vakra-sub-tier">
+                        <span class="vakra-tag-node">CQRS</span>
+                        <span class="vakra-tag-node">Events</span>
+                        <span class="vakra-tag-node">Auto Scale</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-sitemap" style="color: var(--accent-pink);"></i> Domain Driven Design (DDD)</h4>
+            <p>Domain Driven Design aligns application architecture with business capabilities, enabling teams to develop services that reflect real-world business domains.</p>
+            <ul>
+                <li>Business Capability Mapping</li>
+                <li>Bounded Context Design</li>
+                <li>Service Ownership Models</li>
+                <li>Business Aligned Architecture</li>
+                <li>Independent Domain Evolution</li>
+                <li>Reduced System Complexity</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-plug-circle-bolt" style="color: var(--accent-pink);"></i> API First Design</h4>
+            <p>API-first methodologies ensure services are designed around well-defined contracts before implementation begins.</p>
+            <ul>
+                <li>OpenAPI Specifications</li>
+                <li>Contract Driven Development</li>
+                <li>Developer Experience Optimization</li>
+                <li>Reusable Service Interfaces</li>
+                <li>Integration Standardization</li>
+                <li>Accelerated Development Cycles</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-database" style="color: var(--accent-pink);"></i> Database Per Service Pattern</h4>
+            <ul>
+                <li>Independent Data Ownership</li>
+                <li>Service Autonomy</li>
+                <li>Fault Isolation</li>
+                <li>Technology Flexibility</li>
+                <li>Independent Scaling</li>
+                <li>Improved Data Governance</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-link-slash" style="color: var(--accent-pink);"></i> Loose Coupling Architecture</h4>
+            <p>Services should communicate through well-defined interfaces while minimizing dependencies between components.</p>
+            <ul>
+                <li>Independent Deployments</li>
+                <li>Reduced Service Dependencies</li>
+                <li>Improved Maintainability</li>
+                <li>Faster Development Cycles</li>
+                <li>Operational Flexibility</li>
+                <li>Enhanced Resilience</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-shield" style="color: var(--accent-pink);"></i> Circuit Breaker Pattern</h4>
+            <ul>
+                <li>Failure Isolation</li>
+                <li>Graceful Service Degradation</li>
+                <li>Automated Recovery</li>
+                <li>Dependency Protection</li>
+                <li>Improved Availability</li>
+                <li>Operational Stability</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-arrows-left-right" style="color: var(--accent-pink);"></i> CQRS Architecture</h4>
+            <p>Command Query Responsibility Segregation separates read and write operations to improve scalability and performance.</p>
+            <ul>
+                <li>Read/Write Separation</li>
+                <li>Performance Optimization</li>
+                <li>Scalable Data Access</li>
+                <li>Improved Query Performance</li>
+                <li>Operational Flexibility</li>
+                <li>Distributed System Support</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-clock-rotate-left" style="color: var(--accent-pink);"></i> Event Sourcing</h4>
+            <ul>
+                <li>Immutable Event Storage</li>
+                <li>Complete Audit Trails</li>
+                <li>Historical State Reconstruction</li>
+                <li>Business Event Tracking</li>
+                <li>Compliance Support</li>
+                <li>Advanced Analytics Enablement</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-heart-pulse" style="color: var(--accent-pink);"></i> Resilience Engineering Patterns</h4>
+            <ul>
+                <li>Retry Mechanisms</li>
+                <li>Timeout Controls</li>
+                <li>Bulkhead Isolation</li>
+                <li>Fallback Strategies</li>
+                <li>Service Recovery Workflows</li>
+                <li>Fault Tolerant Operations</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-expand" style="color: var(--accent-pink);"></i> Scalability Patterns</h4>
+            <ul>
+                <li>Horizontal Scaling</li>
+                <li>Auto Scaling Services</li>
+                <li>Distributed Workloads</li>
+                <li>Load Balancing</li>
+                <li>Elastic Capacity Management</li>
+                <li>Cloud Native Growth Models</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-eye" style="color: var(--accent-pink);"></i> Observability & Monitoring</h4>
+            <ul>
+                <li>Distributed Tracing</li>
+                <li>Centralized Logging</li>
+                <li>Metrics Collection</li>
+                <li>Application Monitoring</li>
+                <li>Service Health Analytics</li>
+                <li>Operational Dashboards</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-trophy" style="color: #10b981;"></i> Architectural Outcomes</h4>
+            <ul>
+                <li>Faster Innovation Cycles</li>
+                <li>Improved Application Reliability</li>
+                <li>Enhanced Platform Scalability</li>
+                <li>Reduced Operational Risk</li>
+                <li>Independent Team Ownership</li>
+                <li>Future Ready Application Ecosystems</li>
+                <li>Cloud Native Readiness</li>
+                <li>Enterprise Grade Resilience</li>
+            </ul>
+        </div>
+
+    </main>
+
+    <footer></footer>
+
+    
+    
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

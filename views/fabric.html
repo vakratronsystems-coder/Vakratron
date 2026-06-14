@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Computational Fabric Lab | Vakratron Systems</title>
+    <meta name="description" content="Explore Vakratron Systems' Computational Fabric Lab - featuring industry-grade solutions, sovereign white papers, and advanced architectural blueprints.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-surface: rgba(15, 23, 42, 0.6);
+            --border-glow: rgba(194, 24, 91, 0.3);
+            --accent-neon: #C2185B;
+            --accent-blue: #38bdf8;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --glass-gradient: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(2, 6, 23, 0.9) 100%);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main) !important;
+            color: var(--text-primary);
+            background-image: 
+                radial-gradient(circle at 50% 20%, rgba(194, 24, 91, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(56, 189, 248, 0.06) 0%, transparent 50%) !important;
+            background-size: 200% 200% !important;
+            animation: cyberBackgroundMotion 20s ease infinite alternate !important;
+        }
+
+        @keyframes cyberBackgroundMotion {
+            0% { background-position: 0% 20%; }
+            50% { background-position: 100% 80%; }
+            100% { background-position: 20% 100%; }
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background: transparent !important;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.002) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.002) 1px, transparent 1px) !important;
+            background-size: 50px 50px !important;
+        }
+
+        .premium-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(194, 24, 91, 0.1);
+            border: 1px solid rgba(194, 24, 91, 0.3);
+            color: #f472b6;
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .section-header-modern {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header-modern h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 10px 0;
+            background: linear-gradient(135deg, #fff 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-header-modern p {
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .vakra-tier-group {
+            margin-bottom: 55px;
+            border-radius: 20px;
+            padding: 35px;
+            box-sizing: border-box;
+        }
+        
+        .vakra-tier-title-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 30px;
+            padding-bottom: 14px;
+        }
+
+        .fabric-grid {
+            display: grid !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 30px !important;
+            width: 100% !important;
+            box-sizing: border-box;
+        }
+
+        /* Responsive over-ride for 2 items in a grid row */
+        .fabric-grid.two-cols {
+            grid-template-columns: repeat(2, 1fr) !important;
+        }
+
+        .fabric-card {
+            background: var(--bg-surface);
+            border: 1px solid rgba(255,255,255,0.04);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 380px;
+            box-sizing: border-box;
+        }
+
+        .tech-tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .tech-tag {
+            font-size: 0.75rem;
+            background: rgba(56, 189, 248, 0.08);
+            border: 1px solid rgba(56, 189, 248, 0.15);
+            color: var(--accent-blue);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .vakra-tag-node {
+            display: inline-block;
+            font-size: 0.72rem;
+            background: rgba(6, 182, 212, 0.08);
+            border: 1px solid rgba(6, 182, 212, 0.18);
+            color: #22d3ee;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        .action-link {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.3s;
+            margin-top: 20px;
+        }
+
+        .purple-group { background: rgba(168, 85, 247, 0.01); border: 1px solid rgba(168, 85, 247, 0.08); }
+        .purple-group .vakra-tier-title-bar { border-bottom: 1px solid rgba(168, 85, 247, 0.18); }
+        .purple-group .fabric-card:hover { border-color: rgba(168, 85, 247, 0.45); box-shadow: 0 20px 40px rgba(168, 85, 247, 0.12); transform: translateY(-5px); }
+        .purple-group .action-link:hover { color: #c084fc; }
+
+        .yellow-group { background: rgba(234, 179, 8, 0.01); border: 1px solid rgba(234, 179, 8, 0.08); }
+        .yellow-group .vakra-tier-title-bar { border-bottom: 1px solid rgba(234, 179, 8, 0.18); }
+        .yellow-group .fabric-card:hover { border-color: rgba(234, 179, 8, 0.45); box-shadow: 0 20px 40px rgba(234, 179, 8, 0.12); transform: translateY(-5px); }
+        .yellow-group .action-link:hover { color: #fde047; }
+
+        .pink-group { background: rgba(194, 24, 91, 0.01); border: 1px solid rgba(194, 24, 91, 0.08); }
+        .pink-group .vakra-tier-title-bar { border-bottom: 1px solid rgba(194, 24, 91, 0.18); }
+        .pink-group .fabric-card:hover { border-color: rgba(194, 24, 91, 0.45); box-shadow: 0 20px 40px rgba(194, 24, 91, 0.12); transform: translateY(-5px); }
+        .pink-group .action-link:hover { color: var(--accent-neon); }
+
+        .blue-ops-group { background: rgba(14, 165, 233, 0.01); border: 1px solid rgba(14, 165, 233, 0.08); }
+        .blue-ops-group .vakra-tier-title-bar { border-bottom: 1px solid rgba(14, 165, 233, 0.18); }
+
+        .cognitive-app-group { background: rgba(6, 182, 212, 0.01); border: 1px solid rgba(6, 182, 212, 0.08); }
+        .cognitive-app-group .vakra-tier-title-bar { border-bottom: 1px solid rgba(6, 182, 212, 0.18); }
+        
+        .v-cognitive-premium-card {
+            border: 1px solid rgba(6, 182, 212, 0.15) !important;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+        .v-cognitive-premium-card:hover {
+            border-color: rgba(6, 182, 212, 0.5) !important;
+            box-shadow: 0 15px 35px rgba(6, 182, 212, 0.15) !important;
+            transform: translateY(-5px);
+        }
+        .v-cognitive-premium-card:hover .card-icon-wrapper {
+            background: rgba(6, 182, 212, 0.2) !important;
+            border-color: rgba(6, 182, 212, 0.5) !important;
+            box-shadow: 0 0 12px rgba(6, 182, 212, 0.3);
+        }
+        .v-cognitive-premium-card:hover .matrix-action-btn { color: #22d3ee !important; }
+        .v-cognitive-premium-card:hover .matrix-action-btn i { transform: translateX(5px); }
+        
+        .v-k8s-premium-card {
+            border: 1px solid rgba(14, 165, 233, 0.15) !important;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+        .v-k8s-premium-card:hover {
+            border-color: rgba(14, 165, 233, 0.5) !important;
+            box-shadow: 0 15px 35px rgba(14, 165, 233, 0.15) !important;
+            transform: translateY(-5px);
+        }
+        .v-k8s-premium-card:hover .card-icon-wrapper {
+            background: rgba(14, 165, 233, 0.2) !important;
+            border-color: rgba(14, 165, 233, 0.5) !important;
+            box-shadow: 0 0 12px rgba(14, 165, 233, 0.3);
+        }
+        .v-k8s-premium-card:hover .matrix-action-btn { color: #38bdf8 !important; }
+        .v-k8s-premium-card:hover .matrix-action-btn i { transform: translateX(5px); }
+
+        @media (max-width: 1100px) {
+            .fabric-grid, .fabric-grid.two-cols { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 768px) {
+            .fabric-grid, .fabric-grid.two-cols { grid-template-columns: 1fr !important; }
+            .section-header-modern h2 { font-size: 2rem; }
+            .vakra-tier-group { padding: 20px; }
+        }
+    </style>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+    <header></header>
+
+    <div style="max-width: 1200px; margin: 0 auto; padding: 160px 4% 100px 4%; box-sizing: border-box;">
+        
+        <div class="section-header-modern">
+            <span class="premium-badge"><i class="fa-solid fa-flask"></i> Engineering Demos</span>
+            <h2>Industry-Grade Solutions Matrix</h2>
+            <p>Live technical architecture breakdowns and sandbox evaluation blueprints deployed across high-capacity secure localized enterprise sectors.</p>
+        </div>
+
+        <div class="vakra-tier-group purple-group">
+            <div class="vakra-tier-title-bar">
+                <i class="fa-solid fa-brain" style="color: #a855f7; font-size: 1.4rem;"></i>
+                <h3 style="font-family: 'Poppins', sans-serif; color: #fff; margin: 0; font-size: 1.15rem; letter-spacing: 1px; font-weight: 700;">COGNITIVE COMPUTE NODE</h3>
+                <span style="font-family: monospace; font-size: 0.75rem; color: #a855f7; background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.2); padding: 4px 10px; border-radius: 6px; margin-left: auto; font-weight: 600; text-transform: uppercase;">AI / Infrastructure</span>
+            </div>
+
+            <div class="fabric-grid">
+                <div class="fabric-card">
+                    <div>
+                        <div style="color: #a855f7; font-size: 2rem; margin-bottom: 20px;"><i class="fa-solid fa-microchip"></i></div>
+                        <h3 style="font-family: 'Poppins', sans-serif; font-size: 1.3rem; margin: 0 0 12px 0; color: #fff;">GPU Cluster for AI</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin: 0;">Production-ready architecture managing high-density accelerators, multi-rail switching networks, and secure multi-tenant AI Factory clusters cleanly.</p>
+                        <div class="tech-tag-container">
+                            <span class="tech-tag" style="color: #c084fc; background: rgba(168, 85, 247, 0.08); border-color: rgba(168, 85, 247, 0.15);">GPU Grid Matrix</span>
+                            <span class="tech-tag" style="color: #c084fc; background: rgba(168, 85, 247, 0.08); border-color: rgba(168, 85, 247, 0.15);">AI Factory Flow</span>
+                        </div>
+                    </div>
+                    <a href="/solutions/master_gpu-cluster.html" class="action-link">Explore Cluster Blueprint <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="vakra-tier-group yellow-group">
+            <div class="vakra-tier-title-bar">
+                <i class="fa-solid fa-cloud-lock" style="color: #eab308; font-size: 1.4rem;"></i>
+                <h3 style="font-family: 'Poppins', sans-serif; color: #fff; margin: 0; font-size: 1.15rem; letter-spacing: 1px; font-weight: 700;">SOVEREIGN INTERIOR</h3>
+                <span style="font-family: monospace; font-size: 0.75rem; color: #eab308; background: rgba(234, 179, 8, 0.1); border: 1px solid rgba(234, 179, 8, 0.2); padding: 4px 10px; border-radius: 6px; margin-left: auto; font-weight: 600; text-transform: uppercase;">Cloud / Federation</span>
+            </div>
+
+            <div class="fabric-grid">
+                <div class="fabric-card">
+                    <div>
+                        <div style="color: #eab308; font-size: 2rem; margin-bottom: 20px;"><i class="fa-solid fa-cloud"></i></div>
+                        <h3 style="font-family: 'Poppins', sans-serif; font-size: 1.3rem; margin: 0 0 12px 0; color: #fff;">Cloud Solutions Matrix</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin: 0;">Comprehensive enterprise framework spanning Private KVM platforms, OpenStack infrastructure, software defined overlays (SDN), and continuous automated governance loops.</p>
+                        <div class="tech-tag-container">
+                            <span class="tech-tag" style="color: #fde047; background: rgba(234, 179, 8, 0.06); border-color: rgba(234, 179, 8, 0.15);">OpenStack IaaS</span>
+                            <span class="tech-tag" style="color: #fde047; background: rgba(234, 179, 8, 0.06); border-color: rgba(234, 179, 8, 0.15);">SDN Overlay</span>
+                            <span class="tech-tag" style="color: #fde047; background: rgba(234, 179, 8, 0.06); border-color: rgba(234, 179, 8, 0.15);">Managed Day-2</span>
+                        </div>
+                    </div>
+                    <a href="/solutions/cloud-solutions.html" class="action-link">Explore Cloud Matrix <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="vakra-tier-group pink-group">
+            <div class="vakra-tier-title-bar">
+                <i class="fa-solid fa-shield-halved" style="color: #C2185B; font-size: 1.4rem;"></i>
+                <h3 style="font-family: 'Poppins', sans-serif; color: #fff; margin: 0; font-size: 1.15rem; letter-spacing: 1px; font-weight: 700;">DYNAMIC RESILIENCE FABRIC</h3>
+                <span style="font-family: monospace; font-size: 0.75rem; color: #C2185B; background: rgba(194, 24, 91, 0.1); border: 1px solid rgba(194, 24, 91, 0.2); padding: 4px 10px; border-radius: 6px; margin-left: auto; font-weight: 600; text-transform: uppercase;">Redundancy / DRaaS</span>
+            </div>
+
+            <div class="fabric-grid">
+                <div class="fabric-card">
+                    <div>
+                        <div style="color: #C2185B; font-size: 2rem; margin-bottom: 20px;"><i class="fa-solid fa-arrows-spin"></i></div>
+                        <h3 style="font-family: 'Poppins', sans-serif; font-size: 1.3rem; margin: 0 0 12px 0; color: #fff;">Sovereign Cross-Cloud DR</h3>
+                        <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin: 0;">Deploying automated DRaaS pipelines with real-time asynchronous block replication across secure, independent cloud boundaries under strict recovery metrics.</p>
+                        <div class="tech-tag-container">
+                            <span class="tech-tag" style="color: #f472b6; background: rgba(194, 24, 91, 0.06); border-color: rgba(194, 24, 91, 0.15);">Cross-Cloud Sync</span>
+                            <span class="tech-tag" style="color: #f472b6; background: rgba(194, 24, 91, 0.06); border-color: rgba(194, 24, 91, 0.15);">DRaaS Pipeline</span>
+                        </div>
+                    </div>
+                    <a href="/solutions/master_dc-dr.html" class="action-link">Explore DR Pipeline <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="vakra-tier-group blue-ops-group">
+            <div class="vakra-tier-title-bar">
+                <i class="fa-solid fa-cubes" style="color: #0ea5e9; font-size: 1.4rem;"></i>
+                <h3 style="font-family: 'Poppins', sans-serif; color: #fff; margin: 0; font-size: 1.15rem; letter-spacing: 1px; font-weight: 700;">DISCRETE OPERATIONS & PLATFORM ENG</h3>
+                <span style="font-family: monospace; font-size: 0.75rem; color: #0ea5e9; background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(14, 165, 233, 0.2); padding: 4px 10px; border-radius: 6px; margin-left: auto; font-weight: 600; text-transform: uppercase;">Orchestration / IDP</span>
+            </div>
+
+            <div class="fabric-grid two-cols">
+                <div class="fabric-card v-k8s-premium-card" style="background: linear-gradient(135deg, rgba(14, 165, 233, 0.03) 0%, rgba(15, 23, 42, 0.7) 100%);">
+                    <div>
+                        <div class="card-icon-wrapper" style="width: 50px; height: 50px; background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(14, 165, 233, 0.25); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 22px;">
+                            <i class="fa-solid fa-cubes-stacked" style="color: #0ea5e9; font-size: 1.5rem;"></i>
+                        </div>
+                        <h3 style="font-family: 'Poppins', sans-serif; font-size: 1.35rem; margin: 0 0 10px 0; color: #ffffff; font-weight: 600; letter-spacing: 0.5px;">Platform Engineering Matrix</h3>
+                        <p style="color: #94a3b8; font-size: 0.9rem; line-height: 1.6; margin: 0 0 20px 0; font-weight: 300;">Enterprise cluster orchestration blueprints, declarative GitOps automation hubs, Zero-Trust compliance frameworks, and multi-tenant isolation layers operating at global scale.</p>
+                    </div>
+                    <div>
+                        <div class="tech-tag-container" style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px;">
+                            <span style="font-size: 0.72rem; background: rgba(14, 165, 233, 0.08); border: 1px solid rgba(14, 165, 233, 0.18); color: #38bdf8; padding: 3px 8px; border-radius: 4px; font-family: monospace;">K8s Core</span>
+                            <span style="font-size: 0.72rem; background: rgba(14, 165, 233, 0.08); border: 1px solid rgba(14, 165, 233, 0.18); color: #38bdf8; padding: 3px 8px; border-radius: 4px; font-family: monospace;">GitOps</span>
+                            <span style="font-size: 0.72rem; background: rgba(14, 165, 233, 0.08); border: 1px solid rgba(14, 165, 233, 0.18); color: #38bdf8; padding: 3px 8px; border-radius: 4px; font-family: monospace;">Zero-Trust</span>
+                        </div>
+                        <a href="/solutions/master_k8s.html" class="matrix-action-btn" style="color: #0ea5e9; text-decoration: none; font-size: 0.9rem; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;">Launch Master Matrix <i class="fa-solid fa-arrow-right-long"></i></a>
+                    </div>
+                </div>
+
+                <div class="fabric-card v-k8s-premium-card" style="background: linear-gradient(135deg, rgba(56, 189, 248, 0.02) 0%, rgba(15, 23, 42, 0.7) 100%);">
+                    <div>
+                        <div class="card-icon-wrapper" style="width: 50px; height: 50px; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 22px;">
+                            <i class="fa-solid fa-diagram-project" style="color: #38bdf8; font-size: 1.5rem;"></i>
+                        </div>
+                        <h3 style="font-family: 'Poppins', sans-serif; font-size: 1.35rem; margin: 0 0 10px 0; color: #ffffff; font-weight: 600; letter-spacing: 0.5px;">API & Microservices Architecture</h3>
+                        <p style="color: #94a3b8; font-size: 0.9rem; line-height: 1.6; margin: 0 0 20px 0; font-weight: 300;">Enterprise API strategy, decoupled microservices platforms, high-performance service mesh configurations, and async event-driven topologies.</p>
+                    </div>
+                    <div>
+                        <div class="tech-tag-container" style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px;">
+                            <span style="font-size: 0.72rem; background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.18); color: #38bdf8; padding: 3px 8px; border-radius: 4px; font-family: monospace;">API-First</span>
+                            <span style="font-size: 0.72rem; background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.18); color: #38bdf8; padding: 3px 8px; border-radius: 4px; font-family: monospace;">Microservices</span>
+                            <span style="font-size: 0.72rem; background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.18); color: #38bdf8; padding: 3px 8px; border-radius: 4px; font-family: monospace;">Event-Driven</span>
+                        </div>
+                        <a href="/solutions/master_api.html" class="matrix-action-btn" style="color: #38bdf8; text-decoration: none; font-size: 0.9rem; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;">Launch API Matrix <i class="fa-solid fa-arrow-right-long"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="vakra-tier-group cognitive-app-group">
+            <div class="vakra-tier-title-bar">
+                <i class="fa-solid fa-robot" style="color: #06b6d4; font-size: 1.4rem;"></i>
+                <h3 style="font-family: 'Poppins', sans-serif; color: #fff; margin: 0; font-size: 1.15rem; letter-spacing: 1px; font-weight: 700;">COGNITIVE APPLICATION FABRIC</h3>
+                <span style="font-family: monospace; font-size: 0.75rem; color: #06b6d4; background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.2); padding: 4px 10px; border-radius: 6px; margin-left: auto; font-weight: 600; text-transform: uppercase;">Agentic / LLM Ops</span>
+            </div>
+
+            <div class="fabric-grid two-cols">
+                <div class="fabric-card v-cognitive-premium-card" style="background: linear-gradient(135deg, rgba(6, 182, 212, 0.03) 0%, rgba(15, 23, 42, 0.7) 100%);">
+                    <div>
+                        <div class="card-icon-wrapper" style="width: 50px; height: 50px; background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.25); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 22px;">
+                            <i class="fa-solid fa-brain" style="color: #06b6d4; font-size: 1.5rem;"></i>
+                        </div>
+                        <h3 style="font-family: 'Poppins', sans-serif; font-size: 1.35rem; margin: 0 0 10px 0; color: #ffffff; font-weight: 600; letter-spacing: 0.5px;">Agentic AI & MCP Architecture</h3>
+                        <p style="color: #94a3b8; font-size: 0.9rem; line-height: 1.6; margin: 0 0 20px 0; font-weight: 300;">Multi-agent system frameworks, Model Context Protocol (MCP) integrations, stateful reasoning token control, and autonomous enterprise workflow execution.</p>
+                    </div>
+                    <div>
+                        <div class="tech-tag-container" style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px;">
+                            <span style="font-size: 0.72rem; background: rgba(6, 182, 212, 0.08); border: 1px solid rgba(6, 182, 212, 0.18); color: #22d3ee; padding: 3px 8px; border-radius: 4px; font-family: monospace;">Multi-Agent</span>
+                            <span style="font-size: 0.72rem; background: rgba(6, 182, 212, 0.08); border: 1px solid rgba(6, 182, 212, 0.18); color: #22d3ee; padding: 3px 8px; border-radius: 4px; font-family: monospace;">MCP Link</span>
+                            <span style="font-size: 0.72rem; background: rgba(6, 182, 212, 0.08); border: 1px solid rgba(6, 182, 212, 0.18); color: #22d3ee; padding: 3px 8px; border-radius: 4px; font-family: monospace;">LLMOps</span>
+                        </div>
+                        <a href="/solutions/master_agentic.html" class="matrix-action-btn" style="color: #06b6d4; text-decoration: none; font-size: 0.9rem; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;">Launch Agentic Matrix <i class="fa-solid fa-arrow-right-long"></i></a>
+                    </div>
+                </div>
+
+                <div class="fabric-card v-cognitive-premium-card" style="background: linear-gradient(135deg, rgba(6, 182, 212, 0.03) 0%, rgba(15, 23, 42, 0.7) 100%);">
+                    <div>
+                        <div class="card-icon-wrapper" style="width: 50px; height: 50px; background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.25); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 22px;">
+                            <i class="fa-solid fa-server" style="color: #06b6d4; font-size: 1.5rem;"></i>
+                        </div>
+                        <h3 style="font-family: 'Poppins', sans-serif; font-size: 1.35rem; margin: 0 0 10px 0; color: #ffffff;">Enterprise LLM Solutions</h3>
+                        <p style="color: #94a3b8; font-size: 0.9rem; line-height: 1.6; margin: 0 0 20px 0;">Private LLM platforms, sovereign AI deployments, LLMOps pipelines, and GPU-accelerated inference infrastructure for production-grade transformation.</p>
+                    </div>
+                    <div>
+                        <div class="tech-tag-container" style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px;">
+                            <span class="vakra-tag-node">Private LLM</span>
+                            <span class="vakra-tag-node">Sovereign AI</span>
+                            <span class="vakra-tag-node">LLMOps</span>
+                        </div>
+                        <a href="/solutions/master_entll.html" class="matrix-action-btn" style="color: #06b6d4; text-decoration: none; font-size: 0.9rem; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;">Explore LLM Matrix <i class="fa-solid fa-arrow-right-long"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer></footer>
+
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>
