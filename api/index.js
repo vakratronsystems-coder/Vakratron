@@ -123,5 +123,12 @@ app.get(/(.*)/, (req, res) => {
     const filePath = path.join(__dirname, '../views', requestedPage);
     serveFileWithGapFix(filePath, res);
 });
+// ====== Render Persistent Server Port Initialization ======
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`🚀 Operational Pipeline Status: Active`);
+    console.log(`📡 Cluster Engine Syncing On Port: ${PORT}`);
+});
+
 
 module.exports = app;
