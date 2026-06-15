@@ -57,13 +57,18 @@ app.post('/api/contact', async (req, res) => {
 
         // Nodemailer Pipeline Isolation (Wrapped in try-catch so mail failure doesn't block response)
         try {
-            const transporter = nodemailer.createTransport({
-                service: 'gmail',
-                auth: {
-                    user: process.env.GMAIL_USER,
-                    pass: process.env.GMAIL_APP_PASS
-                }
-            });
+           const transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465, // Explicit Secure SSL Port
+    secure: true, // Upgraded security layer protocol
+    auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_APP_PASS
+    },
+    tls: {
+        rejectUnauthorized: false // Bypasses the local machine/cloud proxy validation block
+    }
+});
 
             const mailOptions = {
                 from: `"Vakratron Core Alert Engine" <${process.env.GMAIL_USER}>`,
