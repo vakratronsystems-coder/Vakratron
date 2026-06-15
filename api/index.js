@@ -23,51 +23,76 @@ const contactSchema = new mongoose.Schema({
     email: { type: String, required: true },
     phone: { type: String, required: true },
     reason: { type: String, required: true }
-});
+}, { bufferCommands: false }); // Disable buffering to catch instant timeout faults
+
 const Contact = mongoose.models.Contact || mongoose.model('Contact', contactSchema);
 
+// GLOBAL CONNECTION POOL (With fail-safe logic)
 if (process.env.MONGO_URI) {
-    mongoose.connect(process.env.MONGO_URI)
-        .then(() => console.log('🚀 Operational Pipeline: MongoDB Atlas Handshake Secured.'))
-        .catch(err => console.error('❌ Pipeline Fault: Connection Refused.', err));
+    mongoose.connect(process.env.MONGO_URI, {
+        serverSelectionTimeoutMS: 5000 // 5 seconds configuration guardrail
+    })
+    .then(() => console.log('🚀 Operational Pipeline: MongoDB Atlas Handshake Secured.'))
+    .catch(err => console.error('❌ Pipeline Fault: Connection Refused.', err));
 }
 
 // FORM SUBMISSION PIPELINE
 app.post('/api/contact', async (req, res) => {
+    // 🛡️ Security Gatekeeper: Ensure DB Connection is fully Active (readyState === 1)
+    if (mongoose.connection.readyState !== 1) {
+        console.error('❌ Transaction Interrupted: MongoDB state is offline or connecting.');
+        return res.status(503).json({ 
+            success: false, 
+            error: "Database cluster is currently optimizing connections. Please retry in 5 seconds." 
+        });
+    }
+
     try {
         const { name, email, phone, reason } = req.body;
+        
+        // Ingest into MongoDB Cluster
         const newContact = new Contact({ name, email, phone, reason });
         await newContact.save();
+        console.log('✅ Data Cluster Ingestion: Record committed successfully.');
 
-        const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: process.env.GMAIL_USER,
-                pass: process.env.GMAIL_APP_PASS
-            }
-        });
+        // Nodemailer Pipeline Isolation (Wrapped in try-catch so mail failure doesn't block response)
+        try {
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: process.env.GMAIL_USER,
+                    pass: process.env.GMAIL_APP_PASS
+                }
+            });
 
-        const mailOptions = {
-            from: `"Vakratron Core Alert Engine" <${process.env.GMAIL_USER}>`,
-            to: process.env.GMAIL_USER,
-            subject: '🚨 New Enterprise Architectural Blueprint Request Ingested',
-            html: `
-                <div style="font-family: Arial, sans-serif; padding: 20px; background: #0f172a; color: #fff; border-radius: 8px;">
-                    <h2 style="color: #38bdf8;">⚡ Core Cluster Inbound Lead Detected</h2>
-                    <hr style="border-color: rgba(255,255,255,0.1);" />
-                    <p><strong>Client Name:</strong> ${name}</p>
-                    <p><strong>Communication Link:</strong> ${email}</p>
-                    <p><strong>Secure Phone Vector:</strong> ${phone}</p>
-                    <p><strong>Architectural Track:</strong> <span style="color: #f43f5e; font-weight: bold;">${reason}</span></p>
-                </div>
-            `
-        };
+            const mailOptions = {
+                from: `"Vakratron Core Alert Engine" <${process.env.GMAIL_USER}>`,
+                to: process.env.GMAIL_USER,
+                subject: '🚨 New Enterprise Architectural Blueprint Request Ingested',
+                html: `
+                    <div style="font-family: Arial, sans-serif; padding: 20px; background: #0f172a; color: #fff; border-radius: 8px;">
+                        <h2 style="color: #38bdf8;">⚡ Core Cluster Inbound Lead Detected</h2>
+                        <hr style="border-color: rgba(255,255,255,0.1);" />
+                        <p><strong>Client Name:</strong> ${name}</p>
+                        <p><strong>Communication Link:</strong> ${email}</p>
+                        <p><strong>Secure Phone Vector:</strong> ${phone}</p>
+                        <p><strong>Architectural Track:</strong> <span style="color: #f43f5e; font-weight: bold;">${reason}</span></p>
+                    </div>
+                `
+            };
 
-        await transporter.sendMail(mailOptions);
-        res.status(200).json({ success: true });
+            await transporter.sendMail(mailOptions);
+            console.log('📬 Alert Pipeline: Notification dispatched.');
+        } catch (mailError) {
+            console.error('⚠️ Alert Pipeline Interruption (Nodemailer Fault):', mailError.message);
+            // Notice: We do NOT throw error here, because data is already safely saved in DB!
+        }
+
+        return res.status(200).json({ success: true });
+
     } catch (error) {
-        console.error('Runtime Ingestion Defect:', error);
-        res.status(500).json({ success: false, error: error.message });
+        console.error('❌ Runtime Ingestion Defect:', error);
+        return res.status(500).json({ success: false, error: error.message });
     }
 });
 
@@ -96,7 +121,6 @@ function serveFileWithGapFix(filePath, res) {
         res.setHeader('Content-Type', 'text/html');
         return res.sendFile(filePath);
     }
-    // Deep fallback layer
     const indexFallback = path.join(__dirname, '../views/index.html');
     res.setHeader('Content-Type', 'text/html');
     res.sendFile(indexFallback);
@@ -123,12 +147,12 @@ app.get(/(.*)/, (req, res) => {
     const filePath = path.join(__dirname, '../views', requestedPage);
     serveFileWithGapFix(filePath, res);
 });
+
 // ====== Render Persistent Server Port Initialization ======
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`🚀 Operational Pipeline Status: Active`);
     console.log(`📡 Cluster Engine Syncing On Port: ${PORT}`);
 });
-
 
 module.exports = app;
