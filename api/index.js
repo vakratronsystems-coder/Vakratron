@@ -2,7 +2,6 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const mongoose = require('mongoose');
-const nodemailer = require('nodemailer');
 
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config({ path: path.join(__dirname, '../.env') });
@@ -36,7 +35,7 @@ if (process.env.MONGO_URI) {
     .catch(err => console.error('❌ Pipeline Fault: Connection Refused.', err));
 }
 
-// FORM SUBMISSION PIPELINE (Zero-Lag Asynchronous Threading)
+// FORM SUBMISSION PIPELINE (Resend HTTP API Architecture)
 app.post('/api/contact', async (req, res) => {
     try {
         const { name, email, phone, reason } = req.body;
@@ -48,56 +47,53 @@ app.post('/api/contact', async (req, res) => {
         console.log('✅ Data Cluster Ingestion: Record committed successfully.');
 
         // 2. IMMEDIATE HTTP RELEASE: Respond to frontend instantly!
-        // Iske chalte user ka button ghumna turant band ho jayega
         res.status(200).json({ success: true });
 
-        // 3. MAIL ENGINE EXECUTION ISOLATION (No Await, Background Thread)
+        // 3. ASYNCHRONOUS BACKGROUND API EMAIL DISPATCH (No SMTP Port Blocks)
         setImmediate(async () => {
-            if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASS) {
-                console.error('⚠️ Alert Pipeline Aborted: Missing environment credentials.');
+            if (!process.env.RESEND_API_KEY) {
+                console.error('⚠️ Alert Pipeline Aborted: Missing RESEND_API_KEY environment variable.');
                 return;
             }
 
             try {
-                const transporter = nodemailer.createTransport({
-                    host: 'smtp.gmail.com',
-                    port: 465,
-                    secure: true, // Upgraded SSL protocol standard
-                    auth: {
-                        user: process.env.GMAIL_USER,
-                        pass: process.env.GMAIL_APP_PASS
+                // Utilizing standard HTTPS Port 443 over API instead of legacy mail ports
+                const response = await fetch('https://api.resend.com/emails', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+                        'Content-Type': 'application/json'
                     },
-                    tls: {
-                        rejectUnauthorized: false // Bypasses explicit proxy/cloud node blocks
-                    }
+                    body: JSON.stringify({
+                        from: 'Vakratron Core <onboarding@resend.dev>', // Resend free tier sandbox domain
+                        to: 'vakratronsystems@gmail.com', // Aapka updated strict email destination
+                        subject: '🚨 New Enterprise Architectural Blueprint Request Ingested',
+                        html: `
+                            <div style="font-family: Arial, sans-serif; padding: 20px; background: #0f172a; color: #fff; border-radius: 8px;">
+                                <h2 style="color: #38bdf8;">⚡ Core Cluster Inbound Lead Detected</h2>
+                                <hr style="border-color: rgba(255,255,255,0.1);" />
+                                <p><strong>Client Name:</strong> ${name}</p>
+                                <p><strong>Communication Link:</strong> ${email}</p>
+                                <p><strong>Secure Phone Vector:</strong> ${phone}</p>
+                                <p><strong>Architectural Track:</strong> <span style="color: #f43f5e; font-weight: bold;">${reason}</span></p>
+                            </div>
+                        `
+                    })
                 });
 
-                const mailOptions = {
-                    from: `"Vakratron Core Alert Engine" <${process.env.GMAIL_USER}>`,
-                    to: process.env.GMAIL_USER,
-                    subject: '🚨 New Enterprise Architectural Blueprint Request Ingested',
-                    html: `
-                        <div style="font-family: Arial, sans-serif; padding: 20px; background: #0f172a; color: #fff; border-radius: 8px;">
-                            <h2 style="color: #38bdf8;">⚡ Core Cluster Inbound Lead Detected</h2>
-                            <hr style="border-color: rgba(255,255,255,0.1);" />
-                            <p><strong>Client Name:</strong> ${name}</p>
-                            <p><strong>Communication Link:</strong> ${email}</p>
-                            <p><strong>Secure Phone Vector:</strong> ${phone}</p>
-                            <p><strong>Architectural Track:</strong> <span style="color: #f43f5e; font-weight: bold;">${reason}</span></p>
-                        </div>
-                    `
-                };
-
-                await transporter.sendMail(mailOptions);
-                console.log('📬 Background Alert Pipeline: Notification dispatched.');
+                const data = await response.json();
+                if (response.ok) {
+                    console.log('📬 Resend API Pipeline: Notification dispatched successfully. ID:', data.id);
+                } else {
+                    console.error('⚠️ Resend API Ingestion Rejection:', data);
+                }
             } catch (mailError) {
-                console.error('⚠️ Background Notification Network Blocked:', mailError.message);
+                console.error('❌ Resend HTTP Network Fault:', mailError.message);
             }
         });
 
     } catch (error) {
         console.error('❌ Runtime Ingestion Defect:', error);
-        // Only return server fault if response wasn't already dispatched above
         if (!res.headersSent) {
             return res.status(500).json({ success: false, error: error.message });
         }
