@@ -36,6 +36,7 @@ if (process.env.MONGO_URI) {
 }
 
 // FORM SUBMISSION PIPELINE (Resend HTTP API Architecture)
+// FORM SUBMISSION PIPELINE (Resend HTTP API Architecture - Certified Domain)
 app.post('/api/contact', async (req, res) => {
     try {
         const { name, email, phone, reason } = req.body;
@@ -65,8 +66,8 @@ app.post('/api/contact', async (req, res) => {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        from: 'Vakratron Core <onboarding@resend.dev>', // Resend free tier sandbox domain
-                        to: 'vakratronsystems@gmail.com', // Aapka updated strict email destination
+                        from: 'Vakratron Core <alert@vakratronsys.com>', // 🔥 UPDATE SECURED HERE (LANDS IN INBOX)
+                        to: 'vakratronsystems@gmail.com', // Aapka official dynamic destination inbox
                         subject: '🚨 New Enterprise Architectural Blueprint Request Ingested',
                         html: `
                             <div style="font-family: Arial, sans-serif; padding: 20px; background: #0f172a; color: #fff; border-radius: 8px;">
