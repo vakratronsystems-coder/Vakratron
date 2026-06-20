@@ -12,25 +12,55 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// ⚡ GLOBAL AI CHAT MIDDLEWARE INJECTION - INTERCEPTING STATIC HTML PIPELINE
+// ⚡ UNIVERSAL CROSS-DIRECTORY FILE INTERCEPTOR
 app.use((req, res, next) => {
-    // Target any route serving layout contexts or empty directory routes (like '/')
-    if (req.path.endsWith('.html') || req.path === '/' || req.path.split('.').length === 1) {
-        if (req.path.includes('contact.html')) {
-            return next(); // Contact form routing remains fully pristine
-        }
-
-        const originalSend = res.send;
-        res.send = function (html) {
-            if (typeof html === 'string' && html.includes('</body>')) {
-                // Safely append the script block token just before closure
-                const scriptTag = '<script src="/vakra-chat.js"></script></body>';
-                html = html.replace('</body>', scriptTag);
-            }
-            originalSend.call(this, html);
-        };
+    // 1. Static assets ko directly skip karo (except HTML)
+    if (req.path.includes('.') && !req.path.endsWith('.html')) {
+        return next();
     }
-    next();
+    
+    // 2. Strict block guardrail for contact page
+    if (req.path.toLowerCase().includes('contact')) {
+        return next();
+    }
+
+    // 3. Decode URL characters to clean text mapping
+    let cleanPath = decodeURIComponent(req.path);
+    let targetFile = cleanPath === '/' ? 'index.html' : cleanPath;
+    
+    if (targetFile.startsWith('/')) targetFile = targetFile.substring(1);
+    if (!targetFile.endsWith('.html') && targetFile.length > 0) targetFile += '.html';
+
+    // 4. Trace absolute file path options across both Public and Views containers
+    const publicPath = path.join(__dirname, '../public', targetFile);
+    const viewsPath = path.join(__dirname, '../views', targetFile);
+
+    // Pehle check karo ki file views mein hai ya public folder mein
+    let finalResolvedPath = null;
+    if (fs.existsSync(viewsPath)) {
+        finalResolvedPath = viewsPath;
+    } else if (fs.existsSync(publicPath)) {
+        finalResolvedPath = publicPath;
+    }
+
+    // 5. Read and stream layout updates safely
+    if (finalResolvedPath) {
+        fs.readFile(finalResolvedPath, 'utf8', (err, htmlContent) => {
+            if (err) return next();
+
+            // Inject global script context just before body tag closure
+            if (htmlContent.includes('</body>')) {
+                const updatedHtml = htmlContent.replace(
+                    '</body>', 
+                    '<script src="/vakra-chat.js"></script></body>'
+                );
+                return res.send(updatedHtml);
+            }
+            res.send(htmlContent);
+        });
+    } else {
+        next();
+    }
 });
 
 // Serve static assets out of the public folder mapping
