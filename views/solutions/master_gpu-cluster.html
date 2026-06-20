@@ -145,34 +145,133 @@
                 From AI model development and training environments to enterprise inferencing platforms, sovereign AI deployments, private AI environments, and next-generation AI factories, we enable organizations to build secure, scalable, and future-ready AI ecosystems that accelerate innovation while maintaining governance, compliance, and operational control.
             </p>
 
-            <div class="vakra-mesh-container">
-                <div class="vakra-mesh-row">
-                    <div class="vakra-mesh-card dc-primary">
-                        <h5><i class="fa-solid fa-microchip"></i> GPU Accelerated Computing</h5>
-                        <div class="vakra-sub-tier">
-                            <span class="vakra-tag-node">H100</span>
-                            <span class="vakra-tag-node">H200</span>
-                            <span class="vakra-tag-node">L40S</span>
-                        </div>
-                    </div>
-                    <div class="vakra-mesh-card" style="border: 1px solid rgba(255,255,255,0.1);">
-                        <h5><i class="fa-solid fa-brain"></i> Enterprise AI Platforms</h5>
-                        <div class="vakra-sub-tier">
-                            <span class="vakra-tag-node">LLMs</span>
-                            <span class="vakra-tag-node">RAG</span>
-                            <span class="vakra-tag-node">GenAI</span>
-                        </div>
-                    </div>
-                    <div class="vakra-mesh-card dr-target">
-                        <h5><i class="fa-solid fa-network-wired"></i> AI Infrastructure Fabric</h5>
-                        <div class="vakra-sub-tier">
-                            <span class="vakra-tag-node">Storage</span>
-                            <span class="vakra-tag-node">Network</span>
-                            <span class="vakra-tag-node">Kubernetes</span>
-                        </div>
-                    </div>
-                </div>
+           <!-- ===================================================== -->
+<!-- HIGH-DENSITY INTERACTIVE CORE MESH SYSTEM -->
+<!-- ===================================================== -->
+<div class="vakra-mesh-container" style="
+    background: rgba(3, 7, 18, 0.6); 
+    border: 1px solid rgba(56, 189, 248, 0.08); 
+    border-radius: 24px; 
+    padding: 45px 30px; 
+    margin: 35px 0; 
+    box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.7);
+    box-sizing: border-box;
+    width: 100%;
+">
+    <div class="vakra-mesh-row" style="
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        gap: 0px; /* Data wires link spaces handled dynamically */
+        flex-wrap: wrap;
+        width: 100%;
+    ">
+        
+        <!-- CARD 1: COMPUTE CORE -->
+        <div class="vakra-interactive-node-card dc-primary" style="
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(2, 6, 23, 0.9) 100%);
+            border: 1px solid rgba(56, 189, 248, 0.2); 
+            border-radius: 16px; 
+            padding: 30px 25px; 
+            flex: 1; 
+            min-width: 260px; 
+            box-sizing: border-box;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 20px rgba(56, 189, 248, 0.03);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        ">
+            <h5 style="margin: 0 0 20px 0; font-family: 'Poppins', sans-serif; font-size: 1.15rem; color: #fff; font-weight: 600; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 12px;">
+                <i class="fa-solid fa-microchip" style="color: var(--accent-blue);"></i> GPU Compute Layer
+            </h5>
+            <div class="vakra-sub-tier" style="display: flex; gap: 8px; flex-wrap: wrap; background: transparent; padding: 0; margin: 0;">
+                <span class="vakra-tag-node-glowing" style="font-size: 0.8rem; font-family: monospace; padding: 5px 12px; border-radius: 6px; background: rgba(56, 189, 248, 0.04); border: 1px solid rgba(56, 189, 248, 0.25); color: var(--accent-blue); font-weight: 600;">H100 SXM</span>
+                <span class="vakra-tag-node-glowing" style="font-size: 0.8rem; font-family: monospace; padding: 5px 12px; border-radius: 6px; background: rgba(56, 189, 248, 0.04); border: 1px solid rgba(56, 189, 248, 0.25); color: var(--accent-blue); font-weight: 600;">H200 SXM</span>
+                <span class="vakra-tag-node-glowing" style="font-size: 0.8rem; font-family: monospace; padding: 5px 12px; border-radius: 6px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); color: var(--text-secondary);">L40S NVL</span>
             </div>
+        </div>
+
+        <!-- SYSTEM CONNECTIVITY LINE 1 -->
+        <div class="vakra-bus-wire" style="flex: 0.2; min-width: 40px; height: 2px; background: linear-gradient(90deg, var(--accent-blue) 0%, rgba(255,255,255,0.1) 100%); position: relative; display: flex; align-items: center; justify-content: center;">
+            <div style="width: 6px; height: 6px; background: var(--accent-blue); border-radius: 50%; box-shadow: 0 0 10px var(--accent-blue); animation: streamDataLeftRight 2s infinite linear;"></div>
+        </div>
+
+        <!-- CARD 2: ENTERPRISE COGNITIVE PLATFORMS -->
+        <div class="vakra-interactive-node-card" style="
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(2, 6, 23, 0.9) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            border-radius: 16px; 
+            padding: 30px 25px; 
+            flex: 1; 
+            min-width: 260px; 
+            box-sizing: border-box;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        ">
+            <h5 style="margin: 0 0 20px 0; font-family: 'Poppins', sans-serif; font-size: 1.15rem; color: #fff; font-weight: 600; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 12px;">
+                <i class="fa-solid fa-brain" style="color: #fff;"></i> Enterprise AI Frameworks
+            </h5>
+            <div class="vakra-sub-tier" style="display: flex; gap: 8px; flex-wrap: wrap; background: transparent; padding: 0; margin: 0;">
+                <span class="vakra-tag-node-glowing" style="font-size: 0.8rem; font-family: monospace; padding: 5px 12px; border-radius: 6px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255, 255, 255, 0.08); color: var(--text-secondary);">Private LLMs</span>
+                <span class="vakra-tag-node-glowing" style="font-size: 0.8rem; font-family: monospace; padding: 5px 12px; border-radius: 6px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255, 255, 255, 0.08); color: var(--text-secondary);">Secure RAG</span>
+                <span class="vakra-tag-node-glowing" style="font-size: 0.8rem; font-family: monospace; padding: 5px 12px; border-radius: 6px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255, 255, 255, 0.08); color: var(--text-secondary);">Agentic AI</span>
+            </div>
+        </div>
+
+        <!-- SYSTEM CONNECTIVITY LINE 2 -->
+        <div class="vakra-bus-wire" style="flex: 0.2; min-width: 40px; height: 2px; background: linear-gradient(90deg, rgba(255,255,255,0.1) 0%, var(--accent-neon) 100%); position: relative; display: flex; align-items: center; justify-content: center;">
+            <div style="width: 6px; height: 6px; background: var(--accent-neon); border-radius: 50%; box-shadow: 0 0 10px var(--accent-neon); animation: streamDataLeftRight 2s infinite linear; animation-delay: 0.7s;"></div>
+        </div>
+
+        <!-- CARD 3: FABRIC OVERVIEW -->
+        <div class="vakra-interactive-node-card dr-target" style="
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(2, 6, 23, 0.9) 100%);
+            border: 1px solid rgba(194, 24, 91, 0.2); 
+            border-radius: 16px; 
+            padding: 30px 25px; 
+            flex: 1; 
+            min-width: 260px; 
+            box-sizing: border-box;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 20px rgba(194, 24, 91, 0.03);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        ">
+            <h5 style="margin: 0 0 20px 0; font-family: 'Poppins', sans-serif; font-size: 1.15rem; color: #fff; font-weight: 600; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 12px;">
+                <i class="fa-solid fa-network-wired" style="color: var(--accent-neon);"></i> Infrastructure Fabric
+            </h5>
+            <div class="vakra-sub-tier" style="display: flex; gap: 8px; flex-wrap: wrap; background: transparent; padding: 0; margin: 0;">
+                <span class="vakra-tag-node-glowing" style="font-size: 0.8rem; font-family: monospace; padding: 5px 12px; border-radius: 6px; background: rgba(194, 24, 91, 0.04); border: 1px solid rgba(194, 24, 91, 0.25); color: #f472b6; font-weight: 600;">NVMe Parallel</span>
+                <span class="vakra-tag-node-glowing" style="font-size: 0.8rem; font-family: monospace; padding: 5px 12px; border-radius: 6px; background: rgba(194, 24, 91, 0.04); border: 1px solid rgba(194, 24, 91, 0.25); color: #f472b6; font-weight: 600;">InfiniBand</span>
+                <span class="vakra-tag-node-glowing" style="font-size: 0.8rem; font-family: monospace; padding: 5px 12px; border-radius: 6px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255, 255, 255, 0.08); color: var(--text-secondary);">KubernetesPlane</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    /* Data packets animation loops over interconnect matrices */
+    @keyframes streamDataLeftRight {
+        0% { left: 0%; opacity: 0.2; }
+        10% { opacity: 1; }
+        90% { opacity: 1; }
+        100% { left: 100%; opacity: 0.2; }
+    }
+
+    /* Hover modifications for full micro-scaling setups */
+    .vakra-interactive-node-card:hover {
+        transform: translateY(-5px) scale(1.01);
+        border-color: var(--accent-blue) !important;
+        box-shadow: 0 20px 45px rgba(56, 189, 248, 0.12) !important;
+    }
+    
+    .vakra-interactive-node-card.dr-target:hover {
+        border-color: var(--accent-neon) !important;
+        box-shadow: 0 20px 45px rgba(194, 24, 91, 0.15) !important;
+    }
+
+    @media (max-width: 992px) {
+        .vakra-bus-wire { display: none !important; }
+        .vakra-mesh-row { gap: 20px !important; }
+    }
+</style>
 
             <div class="tech-step-box" style="margin-bottom: 0;">
                 <h4><i class="fa-solid fa-layer-group"></i> Platform Highlights</h4>
@@ -223,7 +322,7 @@
                 </div>
             </a>
 
-            <a href="GPU_AI_Cluster//Enterprise_port.html" class="premium-dr-card">
+            <a href="GPU_AI_Cluster/Enterprise_port.html" class="premium-dr-card">
                 <div>
                     <div class="card-icon"><i class="fa-solid fa-diagram-project"></i></div>
                     <h3 class="card-title">Enterprise GPU Portfolio</h3>
@@ -639,7 +738,7 @@
                 </p>
                 
                 <div style="display: flex; gap: 15px; justify-content: center; align-items: center; flex-wrap: wrap;">
-                    <a href="/contact-us.html" style="
+                    <a href="/views/contact.html" style="
                         background: linear-gradient(135deg, var(--accent-neon) 0%, #a21449 100%);
                         color: #fff;
                         padding: 14px 28px;
@@ -652,21 +751,6 @@
                         transition: transform 0.3s, box-shadow 0.3s;
                     " onmouseover="this.style.transform='translateY(-3px)'; this.style.box_shadow='0 15px 30px rgba(194, 24, 91, 0.4)';" onmouseout="this.style.transform='translateY(0)'; this.style.box_shadow='0 10px 25px rgba(194, 24, 91, 0.3)';">
                         <i class="fa-solid fa-paper-plane" style="margin-right: 8px;"></i> Request AI Infrastructure Assessment
-                    </a>
-
-                    <a href="/architecture-blueprints.html" style="
-                        background: rgba(255, 255, 255, 0.03);
-                        color: #fff;
-                        border: 1px solid rgba(255, 255, 255, 0.1);
-                        padding: 13px 28px;
-                        border-radius: 8px;
-                        font-family: 'Poppins', sans-serif;
-                        font-size: 1rem;
-                        font-weight: 600;
-                        text-decoration: none;
-                        transition: all 0.3s;
-                    " onmouseover="this.style.background='rgba(255, 255, 255, 0.08)'; this.style.border_color='var(--accent-blue)';" onmouseout="this.style.background='rgba(255, 255, 255, 0.03)'; this.style.border_color='rgba(255, 255, 255, 0.1)';">
-                        <i class="fa-solid fa-download" style="margin-right: 8px; color: var(--accent-blue);"></i> Download Architecture Blueprint
                     </a>
                 </div>
             </div>

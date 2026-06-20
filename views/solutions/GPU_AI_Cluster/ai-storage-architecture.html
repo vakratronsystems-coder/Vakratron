@@ -124,95 +124,263 @@
             <p>
                 Enterprise AI infrastructure demands scalable, high-performance storage platforms that provide low-latency access, parallel data processing, and seamless integration with GPU clusters. Purpose-built AI storage architectures ensure that compute resources remain fully utilized while accelerating model training and production AI operations.
             </p>
-
-            <div class="tech-step-box" style="margin-top: 35px; margin-bottom: 35px;">
-                <h4><i class="fa-solid fa-diagram-project"></i> AI Storage Framework Trace</h4>
-<pre style="
-background:#070b14;
-padding:25px;
-border-radius:12px;
-border: 1px solid rgba(56, 189, 248, 0.1);
-overflow:auto;
-color:#38bdf8;
-font-size:14px;
-line-height:1.8;
-font-family: monospace;
+<!-- ===================================================== -->
+<!-- PREMIUM HIGH-THROUGHPUT AI STORAGE PIPELINE & MATRIX -->
+<!-- ===================================================== -->
+<div class="vakra-cyber-flowchart-container" style="
+    background: #030712; 
+    border: 1px solid rgba(56, 189, 248, 0.1); 
+    border-radius: 20px; 
+    padding: 40px 30px; 
+    margin: 35px 0; 
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+    box-sizing: border-box;
 ">
-Data Sources
-      │
-      ▼
-Data Lake
-      │
-      ▼
-AI Storage Platform
-      │
- ┌────┼────┐
- ▼    ▼    ▼
-Object File  Checkpoint
-Storage Storage Repository
-      │
-      ▼
-GPU Training Cluster
-      │
-      ▼
-Inference Services
-</pre>
+    <h4 style="color: #fff; font-size: 1.2rem; margin-top: 0; margin-bottom: 30px; display: flex; align-items: center; gap: 12px; font-weight: 600; justify-content: center;">
+        <i class="fa-solid fa-database" style="color: var(--accent-blue);"></i> AI Storage Framework Trace & IOPS Backplane
+    </h4>
+
+    <!-- ⚡ HIGH-SPEED PARALLEL STORAGE FLOW (DYNAMIC TREE SPLITTING ARROWS) -->
+    <svg width="100%" height="780" viewBox="0 0 500 780" fill="none" xmlns="http://www.w3.org/2000/svg" style="max-width: 500px; margin: 0 auto 40px auto; display: block;">
+        
+        <!-- Animated Running Data Streams Loops -->
+        <g stroke-width="3" stroke-linecap="round">
+            <!-- Data Sources to Data Lake -->
+            <path d="M250 80 L250 140" stroke="rgba(56, 189, 248, 0.2)"/>
+            <path d="M250 80 L250 140" stroke="#38bdf8" stroke-dasharray="8 15">
+                <animate attributeName="stroke-dashoffset" values="100;0" dur="1.5s" repeatCount="indefinite"/>
+            </path>
+
+            <!-- Data Lake to Storage Platform -->
+            <path d="M250 200 L250 260" stroke="rgba(56, 189, 248, 0.2)"/>
+            <path d="M250 200 L250 260" stroke="#38bdf8" stroke-dasharray="8 15">
+                <animate attributeName="stroke-dashoffset" values="100;0" dur="1.5s" repeatCount="indefinite"/>
+            </path>
+
+            <!-- 3-WAY TRACE SPLITTING PIPELINES -->
+            <!-- Horizontal Bridge Line -->
+            <path d="M90 300 L410 300" stroke="rgba(56, 189, 248, 0.3)"/>
+            <!-- Center Vertical Drop to Platform -->
+            <path d="M250 260 L250 300" stroke="#38bdf8"/>
+            
+            <!-- Left Branch (Object Storage Flow) -->
+            <path d="M90 300 L90 340" stroke="rgba(56, 189, 248, 0.2)"/>
+            <path d="M90 300 L90 340" stroke="#38bdf8" stroke-dasharray="6 12">
+                <animate attributeName="stroke-dashoffset" values="100;0" dur="1.8s" repeatCount="indefinite"/>
+            </path>
+
+            <!-- Center Branch (File Storage Flow - High IOPS Fast Packet) -->
+            <path d="M250 300 L250 340" stroke="rgba(194, 24, 91, 0.2)"/>
+            <path d="M250 300 L250 340" stroke="#C2185B" stroke-dasharray="8 10">
+                <animate attributeName="stroke-dashoffset" values="100;0" dur="1.2s" repeatCount="indefinite"/>
+            </path>
+
+            <!-- Right Branch (Checkpoint Flow) -->
+            <path d="M410 300 L410 340" stroke="rgba(56, 189, 248, 0.2)"/>
+            <path d="M410 300 L410 340" stroke="#38bdf8" stroke-dasharray="6 12">
+                <animate attributeName="stroke-dashoffset" values="100;0" dur="1.8s" repeatCount="indefinite"/>
+            </path>
+
+            <!-- RE-CONVERGENCE BRIDGES TO GPU TRAINING CLUSTER -->
+            <path d="M90 400 L90 430 A10 10 0 0 0 100 440 L240 440" stroke="rgba(56, 189, 248, 0.2)"/>
+            <path d="M250 400 L250 450" stroke="rgba(194, 24, 91, 0.3)"/>
+            <path d="M410 400 L410 430 A10 10 0 0 1 400 440 L260 440" stroke="rgba(56, 189, 248, 0.2)"/>
+            
+            <!-- Master Ingestion Pipeline into GPU Rack -->
+            <path d="M250 450 L250 500" stroke="#C2185B" stroke-width="4" stroke-dasharray="10 15">
+                <animate attributeName="stroke-dashoffset" values="100;0" dur="1.1s" repeatCount="indefinite"/>
+            </path>
+
+            <!-- GPU to Inference Services -->
+            <path d="M250 560 L250 620" stroke="rgba(56, 189, 248, 0.2)"/>
+            <path d="M250 560 L250 620" stroke="#38bdf8" stroke-dasharray="8 15">
+                <animate attributeName="stroke-dashoffset" values="100;0" dur="1.5s" repeatCount="indefinite"/>
+            </path>
+        </g>
+
+        <!-- Laser Token Packet Blurs -->
+        <g fill="#67e8f9">
+            <circle cx="250" cy="0" r="4">
+                <animate attributeName="cy" values="80;140" dur="1.5s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="250" cy="0" r="5" fill="#f472b6">
+                <animate attributeName="cy" values="450;500" dur="1.1s" repeatCount="indefinite"/>
+            </circle>
+        </g>
+
+        <!-- Structural Content Typography Layout -->
+        <g font-family="'Poppins', sans-serif" font-size="13" font-weight="600" text-anchor="middle">
+            <!-- Node 1 -->
+            <g class="vakra-svg-interactive">
+                <rect x="110" y="20" width="280" height="60" rx="12" fill="rgba(15, 23, 42, 0.7)" stroke="rgba(56, 189, 248, 0.25)" stroke-width="2"/>
+                <text x="250" y="55" fill="#ffffff">Enterprise Data Sources</text>
+            </g>
+            <!-- Node 2 -->
+            <g class="vakra-svg-interactive">
+                <rect x="110" y="140" width="280" height="60" rx="12" fill="rgba(15, 23, 42, 0.7)" stroke="rgba(56, 189, 248, 0.25)" stroke-width="2"/>
+                <text x="250" y="175" fill="#ffffff">Centralized Data Lake Pool</text>
+            </g>
+            <!-- Node 3 -->
+            <g class="vakra-svg-interactive">
+                <rect x="110" y="240" width="280" height="60" rx="12" fill="rgba(15, 23, 42, 0.7)" stroke="rgba(56, 189, 248, 0.25)" stroke-width="2"/>
+                <text x="250" y="275" fill="#ffffff">Unified AI Storage Platform</text>
+            </g>
+
+            <!-- BRANCH TIERS BLOCK TRIPLETS -->
+            <!-- Left Branch Node -->
+            <g class="vakra-svg-interactive">
+                <rect x="15" y="340" width="150" height="60" rx="10" fill="rgba(15, 23, 42, 0.8)" stroke="rgba(56, 189, 248, 0.2)" stroke-width="1.5"/>
+                <text x="90" y="367" fill="#ffffff" font-size="12">Object Storage</text>
+                <text x="90" y="384" fill="var(--text-secondary)" font-size="10" font-family="monospace">Raw Datasets</text>
+            </g>
+            <!-- Center Branch Node (Parallel IOPS Hot Focus) -->
+            <g class="vakra-svg-interactive">
+                <rect x="175" y="340" width="150" height="60" rx="10" fill="rgba(15, 23, 42, 0.8)" stroke="rgba(56, 189, 248, 0.2)" stroke-width="1.5"/>
+                <text x="250" y="367" fill="#ffffff" font-size="12">File Storage</text>
+                <text x="250" y="384" fill="var(--text-secondary)" font-size="10" font-family="monospace">Parallel Systems</text>
+            </g>
+            <!-- Right Branch Node -->
+            <g class="vakra-svg-interactive">
+                <rect x="335" y="340" width="150" height="60" rx="10" fill="rgba(15, 23, 42, 0.8)" stroke="rgba(56, 189, 248, 0.2)" stroke-width="1.5"/>
+                <text x="410" y="367" fill="#ffffff" font-size="12">Checkpoint Disk</text>
+                <text x="410" y="384" fill="var(--text-secondary)" font-size="10" font-family="monospace">Recovery Tier</text>
+            </g>
+
+            <!-- Master Training Cluster Node (Glow Frame Element) -->
+            <g class="vakra-svg-interactive">
+                <rect x="110" y="500" width="280" height="60" rx="12" fill="rgba(194, 24, 91, 0.04)" stroke="#C2185B" stroke-width="2" style="filter: drop-shadow(0px 0px 8px rgba(194,24,91,0.25));"/>
+                <text x="250" y="535" fill="#ffffff" font-weight="700">Distributed GPU Training Cluster</text>
+            </g>
+            <!-- Node 5 -->
+            <g class="vakra-svg-interactive">
+                <rect x="110" y="620" width="280" height="60" rx="12" fill="rgba(15, 23, 42, 0.7)" stroke="rgba(56, 189, 248, 0.25)" stroke-width="2"/>
+                <text x="250" y="655" fill="#ffffff">Inference Serving Platform</text>
+            </g>
+        </g>
+    </svg>
+
+    <!-- ===================================================== -->
+    <!-- STORAGE INGESTION SUB-NODES SPECIFICATIONS GRID -->
+    <!-- ===================================================== -->
+    <h3 style="font-family:'Poppins',sans-serif;color:var(--accent-blue);font-size:1.5rem;margin-top:20px; margin-bottom:15px; font-weight: 600; text-align: left;">
+        Storage Ingestion Nodes
+    </h3>
+
+    <!-- ROW 1 -->
+    <div class="vakra-mesh-container" style="margin-top: 15px; margin-bottom: 20px; padding: 25px;">
+        <div class="vakra-mesh-row">
+            <div class="vakra-mesh-card dc-primary" style="transition: all 0.3s ease;">
+                <h5><i class="fa-solid fa-database" style="color: var(--accent-blue);"></i> Parallel File Systems</h5>
+                <p style="font-size: 0.95rem; line-height: 1.6; text-align: justify; margin-bottom: 0; color: var(--text-secondary);">
+                    High-throughput storage architectures designed for distributed AI training, intensive HPC environments, and large-scale dataset processing configurations.
+                </p>
             </div>
-
-            <h3 style="font-family:'Poppins',sans-serif;color:var(--accent-blue);font-size:1.5rem;margin-top:40px; margin-bottom:15px; font-weight: 600;">
-                Storage Ingestion Nodes
-            </h3>
-
-            <div class="vakra-mesh-container">
-                <div class="vakra-mesh-row">
-                    <div class="vakra-mesh-card dc-primary">
-                        <h5><i class="fa-solid fa-database"></i> Parallel File Systems</h5>
-                        <p>High-throughput storage architectures designed for distributed AI training, intensive HPC environments, and large-scale dataset processing.</p>
-                    </div>
-                    <div class="vakra-mesh-card" style="border: 1px solid rgba(255,255,255,0.06);">
-                        <h5><i class="fa-solid fa-box"></i> Object Storage</h5>
-                        <p>Scalable object repositories provide centralized storage metrics for unstructured raw datasets, heavy weights model parameters, and logs.</p>
-                    </div>
-                    <div class="vakra-mesh-card dr-target">
-                        <h5><i class="fa-solid fa-folder-tree"></i> Shared File Storage</h5>
-                        <p>NFS frameworks and shared distributed file services provide collaborative baseline access to code validation matrices and tools setups.</p>
-                    </div>
-                </div>
+            <div class="vakra-mesh-card" style="border: 1px solid rgba(255,255,255,0.06); transition: all 0.3s ease;">
+                <h5><i class="fa-solid fa-box" style="color: var(--accent-blue);"></i> Object Storage</h5>
+                <p style="font-size: 0.95rem; line-height: 1.6; text-align: justify; margin-bottom: 0; color: var(--text-secondary);">
+                    Scalable object repositories provide centralized storage metrics for unstructured raw datasets, heavy weights model parameters, and logs execution.
+                </p>
             </div>
-
-            <div class="vakra-mesh-container" style="margin-top: -20px;">
-                <div class="vakra-mesh-row">
-                    <div class="vakra-mesh-card" style="border: 1px solid rgba(255,255,255,0.06);">
-                        <h5><i class="fa-solid fa-hard-drive"></i> Checkpoint Storage</h5>
-                        <p>Dedicated high-speed storage write tiers preserve running iterations checkpoints, mitigating node failure parameters seamlessly.</p>
-                    </div>
-                    <div class="vakra-mesh-card" style="border: 1px solid rgba(255,255,255,0.06);">
-                        <h5><i class="fa-solid pointer-events-none fa-layer-group"></i> Data Lake Integration</h5>
-                        <p>Enterprise platforms seamlessly interface across structured database clusters and lake pools to feed data pipelines directly.</p>
-                    </div>
-                    <div class="vakra-mesh-card" style="border: 1px solid rgba(255,255,255,0.06);">
-                        <h5><i class="fa-solid fa-brain"></i> AI Data Repositories</h5>
-                        <p>Centralized structural data lakes maintain localized vectorized repositories, embeddings spaces, and proprietary enterprise assets tracks.</p>
-                    </div>
-                </div>
+            <div class="vakra-mesh-card dr-target" style="transition: all 0.3s ease;">
+                <h5><i class="fa-solid fa-folder-tree" style="color: var(--accent-neon);"></i> Shared File Storage</h5>
+                <p style="font-size: 0.95rem; line-height: 1.6; text-align: justify; margin-bottom: 0; color: var(--text-secondary);">
+                    NFS frameworks and shared distributed file services provide collaborative baseline access to code validation matrices and tools setups.
+                </p>
             </div>
+        </div>
+    </div>
 
-            <div class="tech-step-box" style="margin-top: 40px;">
-                <h4><i class="fa-solid fa-compass-drafting"></i> Storage Design Principles</h4>
-                <ul>
-                    <li>High Throughput Data Access</li>
-                    <li>Low Latency Storage Services</li>
-                    <li>Scalable Object Storage Platforms</li>
-                    <li>Distributed File System Architecture</li>
-                    <li>Checkpoint Protection & Recovery</li>
-                    <li>Data Lifecycle Management</li>
-                    <li>Multi-Tenant Storage Isolation</li>
-                    <li>Data Governance & Compliance</li>
-                    <li>Backup & Recovery Integration</li>
-                    <li>Future Ready Capacity Expansion</li>
-                </ul>
+    <!-- ROW 2 -->
+    <div class="vakra-mesh-container" style="margin-top: -5px; margin-bottom: 30px; padding: 25px;">
+        <div class="vakra-mesh-row">
+            <div class="vakra-mesh-card" style="border: 1px solid rgba(255,255,255,0.06); transition: all 0.3s ease;">
+                <h5><i class="fa-solid fa-hard-drive" style="color: var(--accent-blue);"></i> Checkpoint Storage</h5>
+                <p style="font-size: 0.95rem; line-height: 1.6; text-align: justify; margin-bottom: 0; color: var(--text-secondary);">
+                    Dedicated high-speed storage write tiers preserve running iterations checkpoints, mitigating node failure parameters seamlessly.
+                </p>
             </div>
+            <div class="vakra-mesh-card" style="border: 1px solid rgba(255,255,255,0.06); transition: all 0.3s ease;">
+                <h5><i class="fa-solid fa-layer-group" style="color: var(--accent-blue);"></i> Data Lake Integration</h5>
+                <p style="font-size: 0.95rem; line-height: 1.6; text-align: justify; margin-bottom: 0; color: var(--text-secondary);">
+                    Enterprise platforms seamlessly interface across structured database clusters and lake pools to feed data pipelines directly.
+                </p>
+            </div>
+            <div class="vakra-mesh-card" style="border: 1px solid rgba(255,255,255,0.06); transition: all 0.3s ease;">
+                <h5><i class="fa-solid fa-brain" style="color: var(--accent-blue);"></i> AI Data Repositories</h5>
+                <p style="font-size: 0.95rem; line-height: 1.6; text-align: justify; margin-bottom: 0; color: var(--text-secondary);">
+                    Centralized structural data lakes maintain localized vectorized repositories, embeddings spaces, and proprietary enterprise assets tracks.
+                </p>
+            </div>
+        </div>
+    </div>
 
+    <!-- ===================================================== -->
+    <!-- PREMIUM STORAGE DESIGN PRINCIPLES CARD GRID -->
+    <!-- ===================================================== -->
+    <h3 style="font-family:'Poppins',sans-serif;color:var(--accent-blue);font-size:1.5rem;margin-top:40px; margin-bottom:15px; font-weight: 600; text-align: left;">
+        Storage Design Principles
+    </h3>
+    
+    <div style="margin: 20px 0 10px 0; font-family: 'Inter', sans-serif;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 15px; width: 100%;">
+            
+            <div class="vakra-check-node-item" style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(255,255,255,0.04); padding: 16px 20px; border-radius: 12px; display: flex; align-items: flex-start; gap: 14px; transition: all 0.3s ease;">
+                <i class="fa-solid fa-square-check" style="color: #34d399; font-size: 1.15rem; margin-top: 3px;"></i>
+                <span style="color: var(--text-primary); font-size: 0.95rem; line-height: 1.5; font-weight: 300;">High Throughput Massive Data Access</span>
+            </div>
+            <div class="vakra-check-node-item" style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(255,255,255,0.04); padding: 16px 20px; border-radius: 12px; display: flex; align-items: flex-start; gap: 14px; transition: all 0.3s ease;">
+                <i class="fa-solid fa-square-check" style="color: #34d399; font-size: 1.15rem; margin-top: 3px;"></i>
+                <span style="color: var(--text-primary); font-size: 0.95rem; line-height: 1.5; font-weight: 300;">Deterministic Low Latency Storage Services</span>
+            </div>
+            <div class="vakra-check-node-item" style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(255,255,255,0.04); padding: 16px 20px; border-radius: 12px; display: flex; align-items: flex-start; gap: 14px; transition: all 0.3s ease;">
+                <i class="fa-solid fa-square-check" style="color: #34d399; font-size: 1.15rem; margin-top: 3px;"></i>
+                <span style="color: var(--text-primary); font-size: 0.95rem; line-height: 1.5; font-weight: 300;">Scalable Linear Object Storage Platforms</span>
+            </div>
+            <div class="vakra-check-node-item" style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(255,255,255,0.04); padding: 16px 20px; border-radius: 12px; display: flex; align-items: flex-start; gap: 14px; transition: all 0.3s ease;">
+                <i class="fa-solid fa-square-check" style="color: #34d399; font-size: 1.15rem; margin-top: 3px;"></i>
+                <span style="color: var(--text-primary); font-size: 0.95rem; line-height: 1.5; font-weight: 300;">Distributed Shared File System Architecture</span>
+            </div>
+            <div class="vakra-check-node-item" style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(255,255,255,0.04); padding: 16px 20px; border-radius: 12px; display: flex; align-items: flex-start; gap: 14px; transition: all 0.3s ease;">
+                <i class="fa-solid fa-square-check" style="color: #34d399; font-size: 1.15rem; margin-top: 3px;"></i>
+                <span style="color: var(--text-primary); font-size: 0.95rem; line-height: 1.5; font-weight: 300;">Checkpoint Multi-Tier Protection & Fast Recovery</span>
+            </div>
+            <div class="vakra-check-node-item" style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(255,255,255,0.04); padding: 16px 20px; border-radius: 12px; display: flex; align-items: flex-start; gap: 14px; transition: all 0.3s ease;">
+                <i class="fa-solid fa-square-check" style="color: #34d399; font-size: 1.15rem; margin-top: 3px;"></i>
+                <span style="color: var(--text-primary); font-size: 0.95rem; line-height: 1.5; font-weight: 300;">Automated Data Lifecycle Management Systems</span>
+            </div>
+            <div class="vakra-check-node-item" style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(255,255,255,0.04); padding: 16px 20px; border-radius: 12px; display: flex; align-items: flex-start; gap: 14px; transition: all 0.3s ease;">
+                <i class="fa-solid fa-square-check" style="color: #34d399; font-size: 1.15rem; margin-top: 3px;"></i>
+                <span style="color: var(--text-primary); font-size: 0.95rem; line-height: 1.5; font-weight: 300;">Multi-Tenant Cryptographic Storage Isolation</span>
+            </div>
+            <div class="vakra-check-node-item" style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(255,255,255,0.04); padding: 16px 20px; border-radius: 12px; display: flex; align-items: flex-start; gap: 14px; transition: all 0.3s ease;">
+                <i class="fa-solid fa-square-check" style="color: #34d399; font-size: 1.15rem; margin-top: 3px;"></i>
+                <span style="color: var(--text-primary); font-size: 0.95rem; line-height: 1.5; font-weight: 300;">Rigorous Data Governance & Audit Compliance</span>
+            </div>
+            <div class="vakra-check-node-item" style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(255,255,255,0.04); padding: 16px 20px; border-radius: 12px; display: flex; align-items: flex-start; gap: 14px; transition: all 0.3s ease;">
+                <i class="fa-solid fa-square-check" style="color: #34d399; font-size: 1.15rem; margin-top: 3px;"></i>
+                <span style="color: var(--text-primary); font-size: 0.95rem; line-height: 1.5; font-weight: 300;">Backup Continuity & Disaster Recovery Integration</span>
+            </div>
+            <div class="vakra-check-node-item" style="background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(255,255,255,0.04); padding: 16px 20px; border-radius: 12px; display: flex; align-items: flex-start; gap: 14px; transition: all 0.3s ease;">
+                <i class="fa-solid fa-square-check" style="color: #34d399; font-size: 1.15rem; margin-top: 3px;"></i>
+                <span style="color: var(--text-primary); font-size: 0.95rem; line-height: 1.5; font-weight: 300;">Future Ready Horizontal Capacity Expansion</span>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Interaction handles natively mapped over SVG and Grid layers */
+    .vakra-svg-interactive rect { transition: all 0.3s ease; cursor: pointer; }
+    .vakra-svg-interactive:hover rect { fill: rgba(30, 41, 59, 0.9) !important; stroke: #38bdf8 !important; }
+    .vakra-mesh-card { background: rgba(15, 23, 42, 0.5) !important; }
+    .vakra-mesh-card:hover { background: rgba(15, 23, 42, 0.8) !important; transform: translateY(-4px) !important; box-shadow: 0 15px 30px rgba(0,0,0,0.4) !important; }
+    .vakra-mesh-card.dc-primary:hover { border-color: var(--accent-blue) !important; }
+    .vakra-mesh-card.dr-target:hover { border-color: var(--accent-neon) !important; }
+    .vakra-check-node-item:hover { border-color: rgba(56, 189, 248, 0.25) !important; background: rgba(15, 23, 42, 0.7) !important; }
+</style>
             <div class="tech-step-box" style="margin-top: 40px;">
                 <h4><i class="fa-solid fa-table"></i> AI Data Categories Alignment Matrix</h4>
                 <div style="overflow-x:auto;">

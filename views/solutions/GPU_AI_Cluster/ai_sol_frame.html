@@ -139,90 +139,226 @@
                 By integrating compute, networking, storage, platform services, and AI operations into a unified architecture, organizations can accelerate AI adoption while maintaining governance, operational efficiency, and business agility.
             </p>
 
-            <!-- 🕹️ ADVANCED ASCII ARCHITECTURE INTERFACE GRAPH -->
-            <div class="tech-step-box" style="margin-top: 35px; margin-bottom: 35px;">
-                <h4><i class="fa-solid fa-diagram-project"></i> Enterprise AI Platform Architecture Map</h4>
-<pre style="
-background:#070b14;
-padding:25px;
-border-radius:12px;
-border: 1px solid rgba(56, 189, 248, 0.1);
-overflow:auto;
-color:#38bdf8;
-font-size:14px;
-line-height:1.8;
-font-family: monospace;
+           <!-- ===================================================== -->
+<!-- PREMIUM GLOWING CYBER FLOWCHART INTERFACE GRAPH -->
+<!-- ===================================================== -->
+<div class="vakra-cyber-flowchart-container" style="
+    background: #030712; 
+    border: 1px solid rgba(56, 189, 248, 0.1); 
+    border-radius: 20px; 
+    padding: 40px 30px; 
+    margin: 35px 0; 
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+    box-sizing: border-box;
 ">
-Users & Applications
-        │
-        ▼
-AI Services Layer
-(LLM • RAG • GenAI • Agents)
-        │
-        ▼
-AI Platform Services
-(vLLM • KServe • Triton • APIs)
-        │
-        ▼
-Container Orchestration
-(Kubernetes • SLURM)
-        │
-        ▼
-GPU Compute Layer
-(H100 • H200 • L40S • L4)
-        │
-        ▼
-AI Storage Platform
-(Object • Parallel File System • NFS)
-        │
-        ▼
-High-Speed Network Fabric
-(InfiniBand • RoCE • 400GbE)
-        │
-        ▼
-Operations & Governance
-(BCM • Monitoring • RBAC • Security)
-</pre>
-            </div>
+    <h4 style="color: #fff; font-size: 1.2rem; margin-top: 0; margin-bottom: 30px; display: flex; align-items: center; gap: 12px; font-weight: 600;">
+        <i class="fa-solid fa-diagram-project" style="color: var(--accent-blue);"></i> Enterprise AI Platform Architecture Map
+    </h4>
 
-            <!-- 📊 MULTI-NODE SUBSYSTEM LAYERS GRID -->
-            <h3 style="font-family:'Poppins',sans-serif;color:var(--accent-blue);font-size:1.5rem;margin-top:40px; margin-bottom:15px; font-weight: 600;">
-                Subsystem Layer Specifications
-            </h3>
-            
-            <div class="vakra-mesh-container">
-                <div class="vakra-mesh-row">
-                    <div class="vakra-mesh-card dc-primary">
-                        <h5><i class="fa-solid fa-brain"></i> AI Services Layer</h5>
-                        <p>Provides AI applications including LLM platforms, enterprise search, RAG systems, agentic workflows, copilots, and advanced analytics services.</p>
-                    </div>
-                    <div class="vakra-mesh-card" style="border: 1px solid rgba(255,255,255,0.06);">
-                        <h5><i class="fa-solid fa-cubes"></i> Platform Services</h5>
-                        <p>AI model serving, inference engines, API integration layers, model registries, and deployment automation services fluidly.</p>
-                    </div>
-                    <div class="vakra-mesh-card dr-target">
-                        <h5><i class="fa-solid fa-dharmachakra"></i> Orchestration Layer</h5>
-                        <p>Kubernetes and workload schedulers provide automated deployment, scaling, lifecycle management, and resource optimization parameters.</p>
-                    </div>
-                </div>
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; max-width: 680px; margin: 0 auto; position: relative;">
+        
+        <!-- LAYER 1: USERS -->
+        <div class="vakra-node-layer shadow-lock" style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 14px 20px; width: 100%; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; transition: all 0.3s ease;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="color: var(--accent-blue); font-size: 1.1rem;"><i class="fa-solid fa-users"></i></div>
+                <span style="color: #fff; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.5px;">Users & Applications Boundary</span>
             </div>
+            <div style="font-family: monospace; font-size: 0.8rem; color: var(--text-secondary);">Enterprise Entry Points</div>
+        </div>
+        
+        <!-- DYNAMIC ARROW VECTOR -->
+        <div class="vakra-vector-arrow" style="color: var(--accent-blue); font-size: 1.1rem; animation: pulseVector 1.5s infinite; height: 24px; display: flex; align-items: center;"><i class="fa-solid fa-angle-down"></i></div>
 
-            <div class="vakra-mesh-container" style="margin-top: -20px;">
-                <div class="vakra-mesh-row">
-                    <div class="vakra-mesh-card" style="border: 1px solid rgba(255,255,255,0.06);">
-                        <h5><i class="fa-solid fa-microchip"></i> GPU Compute Layer</h5>
-                        <p>High-performance GPU infrastructure delivers accelerated compute capabilities for AI training, inferencing, simulation, and HPC workloads.</p>
-                    </div>
-                    <div class="vakra-mesh-card" style="border: 1px solid rgba(255,255,255,0.06);">
-                        <h5><i class="fa-solid fa-database"></i> Storage Layer</h5>
-                        <p>Distributed storage platforms provide high throughput access to datasets, checkpoints, model artifacts, and enterprise AI data repositories.</p>
-                    </div>
-                    <div class="vakra-mesh-card" style="border: 1px solid rgba(255,255,255,0.06);">
-                        <h5><i class="fa-solid fa-network-wired"></i> Network Fabric</h5>
-                        <p>Ultra-low latency networking enables high-speed communication between GPU nodes, storage systems, and core AI operational services.</p>
-                    </div>
-                </div>
+        <!-- LAYER 2: SERVICES ENGINE -->
+        <div class="vakra-node-layer shadow-lock" style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 14px 20px; width: 100%; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; transition: all 0.3s ease;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="color: var(--accent-blue); font-size: 1.1rem;"><i class="fa-solid fa-brain"></i></div>
+                <span style="color: #fff; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.5px;">AI Services Engine Layer</span>
             </div>
+            <div style="font-family: monospace; font-size: 0.75rem; color: #34d399; background: rgba(52, 211, 153, 0.05); border: 1px solid rgba(52, 211, 153, 0.15); padding: 2px 8px; border-radius: 4px;">LLM &bull; RAG &bull; GENAI &bull; AGENTS</div>
+        </div>
+
+        <div class="vakra-vector-arrow" style="color: var(--accent-blue); font-size: 1.1rem; animation: pulseVector 1.5s infinite; height: 24px; display: flex; align-items: center;"><i class="fa-solid fa-angle-down"></i></div>
+
+        <!-- LAYER 3: PLATFORM MIDDLEWARE -->
+        <div class="vakra-node-layer shadow-lock" style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 14px 20px; width: 100%; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; transition: all 0.3s ease;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="color: var(--accent-blue); font-size: 1.1rem;"><i class="fa-solid fa-cubes"></i></div>
+                <span style="color: #fff; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.5px;">AI Platform Runtime Services</span>
+            </div>
+            <div style="font-family: monospace; font-size: 0.8rem; color: var(--text-secondary);">vLLM &bull; KServe &bull; Triton &bull; APIs</div>
+        </div>
+
+        <div class="vakra-vector-arrow" style="color: var(--accent-blue); font-size: 1.1rem; animation: pulseVector 1.5s infinite; height: 24px; display: flex; align-items: center;"><i class="fa-solid fa-angle-down"></i></div>
+
+        <!-- LAYER 4: K8S ORCHESTRATION -->
+        <div class="vakra-node-layer shadow-lock" style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 14px 20px; width: 100%; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; transition: all 0.3s ease;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="color: var(--accent-blue); font-size: 1.1rem;"><i class="fa-solid fa-dharmachakra"></i></div>
+                <span style="color: #fff; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.5px;">Container Orchestration Plane</span>
+            </div>
+            <div style="font-family: monospace; font-size: 0.8rem; color: var(--text-secondary);">Kubernetes &bull; SLURM Scheduler</div>
+        </div>
+
+        <div class="vakra-vector-arrow" style="color: var(--accent-neon); font-size: 1.1rem; animation: pulseVector 1.5s infinite; height: 24px; display: flex; align-items: center;"><i class="fa-solid fa-angle-down"></i></div>
+
+        <!-- LAYER 5: GPU HARDWARE LAYER (PREMIUM GLOW INTERACTION CARD) -->
+        <div class="vakra-node-layer core-glowing-rack" style="background: rgba(194, 24, 91, 0.03); border: 1px solid rgba(194, 24, 91, 0.3); border-radius: 12px; padding: 16px 20px; width: 100%; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; transition: all 0.3s ease; box-shadow: 0 0 20px rgba(194, 24, 91, 0.05);">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="color: var(--accent-neon); font-size: 1.2rem; animation: pulseBeacon 2s infinite;"><i class="fa-solid fa-microchip"></i></div>
+                <span style="color: #fff; font-weight: 700; font-size: 0.95rem; letter-spacing: 0.5px; color: #fff;">GPU Accelerated Compute Grid</span>
+            </div>
+            <div style="font-family: monospace; font-size: 0.75rem; color: #fff; background: var(--accent-neon); padding: 3px 10px; border-radius: 4px; font-weight: 600; letter-spacing: 0.5px; box-shadow: 0 0 10px rgba(194, 24, 91, 0.4);">H100 • H200 • L40S • L4</div>
+        </div>
+
+        <div class="vakra-vector-arrow" style="color: var(--accent-blue); font-size: 1.1rem; animation: pulseVector 1.5s infinite; height: 24px; display: flex; align-items: center;"><i class="fa-solid fa-angle-down"></i></div>
+
+        <!-- LAYER 6: STORAGE ARCHITECTURE -->
+        <div class="vakra-node-layer shadow-lock" style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 14px 20px; width: 100%; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; transition: all 0.3s ease;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="color: var(--accent-blue); font-size: 1.1rem;"><i class="fa-solid fa-database"></i></div>
+                <span style="color: #fff; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.5px;">Parallel Storage Infrastructure</span>
+            </div>
+            <div style="font-family: monospace; font-size: 0.8rem; color: var(--text-secondary);">Object &bull; Parallel File System &bull; NFS</div>
+        </div>
+
+        <div class="vakra-vector-arrow" style="color: var(--accent-blue); font-size: 1.1rem; animation: pulseVector 1.5s infinite; height: 24px; display: flex; align-items: center;"><i class="fa-solid fa-angle-down"></i></div>
+
+        <!-- LAYER 7: NETWORK INTERCONNECT -->
+        <div class="vakra-node-layer shadow-lock" style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 14px 20px; width: 100%; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; transition: all 0.3s ease;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="color: var(--accent-blue); font-size: 1.1rem;"><i class="fa-solid fa-network-wired"></i></div>
+                <span style="color: #fff; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.5px;">High-Speed Fabric Backplane</span>
+            </div>
+            <div style="font-family: monospace; font-size: 0.8rem; color: var(--text-secondary);">InfiniBand &bull; RoCE &bull; 400GbE</div>
+        </div>
+
+        <div class="vakra-vector-arrow" style="color: var(--accent-blue); font-size: 1.1rem; animation: pulseVector 1.5s infinite; height: 24px; display: flex; align-items: center;"><i class="fa-solid fa-angle-down"></i></div>
+
+        <!-- LAYER 8: GOVERNANCE PLANES -->
+        <div class="vakra-node-layer shadow-lock" style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 14px 20px; width: 100%; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; transition: all 0.3s ease;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="color: var(--accent-blue); font-size: 1.1rem;"><i class="fa-solid fa-shield-halved"></i></div>
+                <span style="color: #fff; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.5px;">Operations, Security & Governance</span>
+            </div>
+            <div style="font-family: monospace; font-size: 0.8rem; color: var(--text-secondary);">BCM &bull; Telemetry &bull; RBAC</div>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    /* Continuous Micro-Pulse Arrows Frame */
+    @keyframes pulseVector {
+        0% { transform: translateY(0); opacity: 0.4; }
+        50% { transform: translateY(3px); opacity: 1; }
+        100% { transform: translateY(0); opacity: 0.4; }
+    }
+    
+    /* Interactive Layer Scaling on Hovers */
+    .vakra-node-layer:hover {
+        background: rgba(255, 255, 255, 0.02) !important;
+        border-color: var(--accent-blue) !important;
+        transform: scale(1.015);
+        box-shadow: 0 10px 25px rgba(56, 189, 248, 0.08) !important;
+    }
+    
+    .core-glowing-rack:hover {
+        background: rgba(194, 24, 91, 0.06) !important;
+        border-color: var(--accent-neon) !important;
+        transform: scale(1.02);
+        box-shadow: 0 12px 30px rgba(194, 24, 91, 0.2) !important;
+    }
+</style>
+
+           <!-- ===================================================== -->
+<!-- COMPLETE OPTIMIZED SUBSYSTEM LAYERS SPECIFICATIONS MATRIX -->
+<!-- ===================================================== -->
+<h3 style="font-family:'Poppins',sans-serif;color:var(--accent-blue);font-size:1.5rem;margin-top:40px; margin-bottom:15px; font-weight: 600;">
+    Subsystem Layer Specifications
+</h3>
+
+<!-- GRID ROW 1: PLATFORM MANAGEMENT & APPLICATION SERVICES -->
+<div class="vakra-mesh-container" style="margin-top: 15px; margin-bottom: 20px;">
+    <div class="vakra-mesh-row">
+        
+        <!-- CARD 1: AI SERVICES -->
+        <div class="vakra-mesh-card dc-primary" style="transition: all 0.3s ease;">
+            <h5><i class="fa-solid fa-brain" style="color: var(--accent-blue);"></i> AI Services Layer</h5>
+            <p style="font-size: 0.95rem; line-height: 1.6; text-align: justify; margin-bottom: 0;">
+                Provides AI applications including LLM platforms, enterprise search, RAG systems, agentic workflows, copilots, and advanced analytics services.
+            </p>
+        </div>
+        
+        <!-- CARD 2: PLATFORM SERVICES -->
+        <div class="vakra-mesh-card" style="border: 1px solid rgba(255,255,255,0.06); transition: all 0.3s ease;">
+            <h5><i class="fa-solid fa-cubes" style="color: var(--accent-blue);"></i> Platform Services</h5>
+            <p style="font-size: 0.95rem; line-height: 1.6; text-align: justify; margin-bottom: 0;">
+                AI model serving, inference engines, API integration layers, model registries, and deployment automation services fluidly.
+            </p>
+        </div>
+        
+        <!-- CARD 3: ORCHESTRATION -->
+        <div class="vakra-mesh-card dr-target" style="transition: all 0.3s ease;">
+            <h5><i class="fa-solid fa-dharmachakra" style="color: var(--accent-neon);"></i> Orchestration Layer</h5>
+            <p style="font-size: 0.95rem; line-height: 1.6; text-align: justify; margin-bottom: 0;">
+                Kubernetes and workload schedulers provide automated deployment, scaling, lifecycle management, and resource optimization parameters.
+            </p>
+        </div>
+
+    </div>
+</div>
+
+<!-- GRID ROW 2: HARDWARE ACCELERATION & CORE BACKBONE -->
+<div class="vakra-mesh-container" style="margin-top: -5px; margin-bottom: 40px;">
+    <div class="vakra-mesh-row">
+        
+        <!-- CARD 4: GPU COMPUTE -->
+        <div class="vakra-mesh-card" style="border: 1px solid rgba(255,255,255,0.06); transition: all 0.3s ease;">
+            <h5><i class="fa-solid fa-microchip" style="color: var(--accent-blue);"></i> GPU Compute Layer</h5>
+            <p style="font-size: 0.95rem; line-height: 1.6; text-align: justify; margin-bottom: 0;">
+                High-performance GPU infrastructure delivers accelerated compute capabilities for AI training, inferencing, simulation, and HPC workloads.
+            </p>
+        </div>
+        
+        <!-- CARD 5: STORAGE LAYER -->
+        <div class="vakra-mesh-card" style="border: 1px solid rgba(255,255,255,0.06); transition: all 0.3s ease;">
+            <h5><i class="fa-solid fa-database" style="color: var(--accent-blue);"></i> Storage Layer</h5>
+            <p style="font-size: 0.95rem; line-height: 1.6; text-align: justify; margin-bottom: 0;">
+                Distributed storage platforms provide high throughput access to datasets, checkpoints, model artifacts, and enterprise AI data repositories.
+            </p>
+        </div>
+        
+        <!-- CARD 6: NETWORK FABRIC -->
+        <div class="vakra-mesh-card" style="border: 1px solid rgba(255,255,255,0.06); transition: all 0.3s ease;">
+            <h5><i class="fa-solid fa-network-wired" style="color: var(--accent-blue);"></i> Network Fabric</h5>
+            <p style="font-size: 0.95rem; line-height: 1.6; text-align: justify; margin-bottom: 0;">
+                Ultra-low latency networking enables high-speed communication between GPU nodes, storage systems, and core AI operational services.
+            </p>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    /* Continuous layout bounds & micro interactions for all mesh cards */
+    .vakra-mesh-card {
+        background: rgba(15, 23, 42, 0.5) !important;
+    }
+    .vakra-mesh-card:hover {
+        background: rgba(15, 23, 42, 0.8) !important;
+        transform: translateY(-4px) !important;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.4) !important;
+    }
+    .vakra-mesh-card.dc-primary:hover {
+        border-color: var(--accent-blue) !important;
+    }
+    .vakra-mesh-card.dr-target:hover {
+        border-color: var(--accent-neon) !important;
+    }
+</style>
 
             <!-- CORE DESIGN PRINCIPLES BUCKET -->
             <div class="tech-step-box" style="margin-top: 40px;">

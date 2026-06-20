@@ -125,78 +125,109 @@
                 Organizations can select the most appropriate service model based on performance requirements, governance policies, workload isolation needs, and operational flexibility while maintaining access to enterprise-grade GPU accelerated infrastructure.
             </p>
 
-            <div class="vakra-mesh-container">
-                <div class="vakra-mesh-row">
-                    
-                    <div class="vakra-mesh-card dc-primary">
-                        <h5><i class="fa-solid fa-microchip" style="color: var(--accent-blue);"></i> GPU as a Service (GPUaaS)</h5>
-                        <p>On-demand access to GPU resources designed for AI training, inferencing, machine learning, analytics, and data science workloads with elastic scaling capabilities.</p>
-                        <div class="vakra-sub-tier">
-                            <span class="vakra-tag-node">Elastic</span>
-                            <span class="vakra-tag-node">Multi-Tenant</span>
-                            <span class="vakra-tag-node">Scalable</span>
-                        </div>
-                    </div>
-
-                    <div class="vakra-mesh-card" style="border: 1px solid rgba(255,255,255,0.06);">
-                        <h5><i class="fa-solid fa-server" style="color: #fff;"></i> Bare Metal as a Service (BMaaS)</h5>
-                        <p>Dedicated physical GPU infrastructure providing maximum performance, workload isolation, and complete hardware control for mission-critical AI environments.</p>
-                        <div class="vakra-sub-tier">
-                            <span class="vakra-tag-node">Dedicated</span>
-                            <span class="vakra-tag-node">High Performance</span>
-                            <span class="vakra-tag-node">Secure</span>
-                        </div>
-                    </div>
-
-                    <div class="vakra-mesh-card dr-target">
-                        <h5><i class="fa-solid fa-desktop" style="color: var(--accent-neon);"></i> GPU Virtual Machines</h5>
-                        <p>Virtualized GPU environments optimized for development, testing, AI experimentation, model validation, and departmental AI initiatives seamlessly.</p>
-                        <div class="vakra-sub-tier">
-                            <span class="vakra-tag-node">vGPU</span>
-                            <span class="vakra-tag-node">Flexible</span>
-                            <span class="vakra-tag-node">Efficient</span>
-                        </div>
-                    </div>
-
-                </div>
+          <div class="vakra-mesh-container" style="margin-top: 15px; margin-bottom: 20px;">
+    <div class="vakra-mesh-row">
+        
+        <div class="vakra-mesh-card dc-primary" style="transition: all 0.3s ease; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+                <h5><i class="fa-solid fa-microchip" style="color: var(--accent-blue);"></i> GPU as a Service (GPUaaS)</h5>
+                <p style="font-size: 0.95rem; line-height: 1.6; text-align: justify; margin-bottom: 15px; color: var(--text-secondary);">
+                    On-demand access to GPU resources designed for AI training, inferencing, machine learning, analytics, and data science workloads with elastic scaling capabilities.
+                </p>
             </div>
-
-            <div class="vakra-mesh-container" style="margin-top: -20px;">
-                <div class="vakra-mesh-row">
-                    
-                    <div class="vakra-mesh-card" style="border: 1px solid rgba(255,255,255,0.06);">
-                        <h5><i class="fa-solid fa-diagram-project" style="color: var(--accent-blue);"></i> GPU Cluster as a Service</h5>
-                        <p>Pre-integrated GPU clusters designed for large-scale AI model training, distributed computing, HPC workloads, and enterprise AI platforms.</p>
-                        <div class="vakra-sub-tier">
-                            <span class="vakra-tag-node">Multi-GPU</span>
-                            <span class="vakra-tag-node">Distributed</span>
-                            <span class="vakra-tag-node">AI Factory</span>
-                        </div>
-                    </div>
-
-                    <div class="vakra-mesh-card" style="border: 1px solid rgba(255,255,255,0.06);">
-                        <h5><i class="fa-solid fa-brain" style="color: #fff;"></i> AI Platform as a Service</h5>
-                        <p>Integrated AI platforms providing model development, training, inferencing, orchestration, monitoring, and lifecycle management capabilities.</p>
-                        <div class="vakra-sub-tier">
-                            <span class="vakra-tag-node">Kubernetes</span>
-                            <span class="vakra-tag-node">MLOps</span>
-                            <span class="vakra-tag-node">Automation</span>
-                        </div>
-                    </div>
-
-                    <div class="vakra-mesh-card" style="border: 1px solid rgba(255,255,255,0.06);">
-                        <h5><i class="fa-solid fa-building-shield" style="color: var(--accent-blue);"></i> Sovereign AI Infrastructure</h5>
-                        <p>Private AI environments designed for highly regulated industries requiring complete data localization control, compliance governance, and network security.</p>
-                        <div class="vakra-sub-tier">
-                            <span class="vakra-tag-node">Private AI</span>
-                            <span class="vakra-tag-node">Air-Gapped</span>
-                            <span class="vakra-tag-node">Governed</span>
-                        </div>
-                    </div>
-
-                </div>
+            <div class="vakra-sub-tier">
+                <span class="vakra-tag-node" style="color: var(--accent-blue); background: rgba(56,189,248,0.05);">Elastic</span>
+                <span class="vakra-tag-node">Multi-Tenant</span>
+                <span class="vakra-tag-node">Scalable</span>
             </div>
+        </div>
 
+        <div class="vakra-mesh-card" style="border: 1px solid rgba(255,255,255,0.06); transition: all 0.3s ease; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+                <h5><i class="fa-solid fa-server" style="color: #fff;"></i> Bare Metal as a Service</h5>
+                <p style="font-size: 0.95rem; line-height: 1.6; text-align: justify; margin-bottom: 15px; color: var(--text-secondary);">
+                    Dedicated physical GPU infrastructure providing maximum performance, workload isolation, and complete hardware control for mission-critical AI environments.
+                </p>
+            </div>
+            <div class="vakra-sub-tier">
+                <span class="vakra-tag-node" style="color: #fff; background: rgba(255,255,255,0.05);">Dedicated</span>
+                <span class="vakra-tag-node">High Performance</span>
+                <span class="vakra-tag-node">Secure</span>
+            </div>
+        </div>
+
+        <div class="vakra-mesh-card dr-target" style="transition: all 0.3s ease; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+                <h5><i class="fa-solid fa-desktop" style="color: var(--accent-neon);"></i> GPU Virtual Machines</h5>
+                <p style="font-size: 0.95rem; line-height: 1.6; text-align: justify; margin-bottom: 15px; color: var(--text-secondary);">
+                    Virtualized GPU environments optimized for development, testing, AI experimentation, model validation, and departmental AI initiatives seamlessly.
+                </p>
+            </div>
+            <div class="vakra-sub-tier">
+                <span class="vakra-tag-node" style="color: var(--accent-neon); background: rgba(194,24,91,0.05);">vGPU</span>
+                <span class="vakra-tag-node">Flexible</span>
+                <span class="vakra-tag-node">Efficient</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="vakra-mesh-container" style="margin-top: -5px; margin-bottom: 40px;">
+    <div class="vakra-mesh-row">
+        
+        <div class="vakra-mesh-card" style="border: 1px solid rgba(255,255,255,0.06); transition: all 0.3s ease; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+                <h5><i class="fa-solid fa-diagram-project" style="color: var(--accent-blue);"></i> GPU Cluster as a Service</h5>
+                <p style="font-size: 0.95rem; line-height: 1.6; text-align: justify; margin-bottom: 15px; color: var(--text-secondary);">
+                    Pre-integrated GPU clusters designed for large-scale AI model training, distributed computing, HPC workloads, and enterprise AI platforms blueprints.
+                </p>
+            </div>
+            <div class="vakra-sub-tier">
+                <span class="vakra-tag-node" style="color: var(--accent-blue); background: rgba(56,189,248,0.05);">Multi-GPU</span>
+                <span class="vakra-tag-node">Distributed</span>
+                <span class="vakra-tag-node">AI Factory</span>
+            </div>
+        </div>
+
+        <div class="vakra-mesh-card" style="border: 1px solid rgba(255,255,255,0.06); transition: all 0.3s ease; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+                <h5><i class="fa-solid fa-brain" style="color: #fff;"></i> AI Platform as a Service</h5>
+                <p style="font-size: 0.95rem; line-height: 1.6; text-align: justify; margin-bottom: 15px; color: var(--text-secondary);">
+                    Integrated AI platforms providing model development, training, inferencing, orchestration, monitoring, and lifecycle management capabilities.
+                </p>
+            </div>
+            <div class="vakra-sub-tier">
+                <span class="vakra-tag-node" style="color: #fff; background: rgba(255,255,255,0.05);">Kubernetes</span>
+                <span class="vakra-tag-node">MLOps</span>
+                <span class="vakra-tag-node">Automation</span>
+            </div>
+        </div>
+
+        <div class="vakra-mesh-card" style="border: 1px solid rgba(255,255,255,0.06); transition: all 0.3s ease; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+                <h5><i class="fa-solid fa-building-shield" style="color: var(--accent-blue);"></i> Sovereign AI Infrastructure</h5>
+                <p style="font-size: 0.95rem; line-height: 1.6; text-align: justify; margin-bottom: 15px; color: var(--text-secondary);">
+                    Private AI environments designed for highly regulated industries requiring complete data localization control, compliance governance, and network security.
+                </p>
+            </div>
+            <div class="vakra-sub-tier">
+                <span class="vakra-tag-node" style="color: var(--accent-blue); background: rgba(56,189,248,0.05);">Private AI</span>
+                <span class="vakra-tag-node">Air-Gapped</span>
+                <span class="vakra-tag-node">Governed</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    /* Continuous layout hovers over mesh cards */
+    .vakra-mesh-card { background: rgba(15, 23, 42, 0.5) !important; }
+    .vakra-mesh-card:hover { background: rgba(15, 23, 42, 0.8) !important; transform: translateY(-4px) !important; box-shadow: 0 15px 30px rgba(0,0,0,0.4) !important; }
+    .vakra-mesh-card.dc-primary:hover { border-color: var(--accent-blue) !important; }
+    .vakra-mesh-card.dr-target:hover { border-color: var(--accent-neon) !important; }
+</style>
             <div class="tech-step-box" style="margin-top: 40px;">
                 <h4><i class="fa-solid fa-table"></i> Recommended Deployment Models Reference</h4>
                 <div style="overflow-x:auto;">
