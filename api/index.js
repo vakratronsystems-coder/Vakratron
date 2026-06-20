@@ -12,27 +12,42 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// ⚡ UNIVERSAL CROSS-DIRECTORY FILE INTERCEPTOR
+
+// ⚡ 1. DIRECT XML SITEMAP PIPELINE BYPASS ROUTE (Strict Production Fix)
+app.use('/sitemap.xml', (req, res) => {
+    const sitemapPath = path.join(__dirname, '../public/sitemap.xml');
+    if (fs.existsSync(sitemapPath)) {
+        res.header('Content-Type', 'application/xml');
+        return res.sendFile(sitemapPath);
+    }
+    res.status(404).send('Sitemap not found');
+});
+
+// ⚡ 2. UNIVERSAL CROSS-DIRECTORY FILE INTERCEPTOR (INDEX RENDERING FIX)
 app.use((req, res, next) => {
-    // 1. Static assets ko directly skip karo (except HTML)
-   // 1. Static assets ko directly skip karo (except HTML)
-if (req.path.includes('.') && !req.path.endsWith('.html')) {
-    return next();
-}
+    // Static assets ko directly skip karo (except HTML)
+    if (req.path.includes('.') && !req.path.endsWith('.html')) {
+        return next();
+    }
 
-// 2. Strict block guardrail for contact page AND sitemap pipeline 🚨
-if (req.path.toLowerCase().includes('contact') || req.path.toLowerCase().includes('sitemap')) {
-    return next();
-}
+    // Strict block guardrail for contact page AND sitemap pipeline
+    if (req.path.toLowerCase().includes('contact') || req.path.toLowerCase().includes('sitemap')) {
+        return next();
+    }
 
-    // 3. Decode URL characters to clean text mapping
+    // Decode URL characters to clean text mapping
     let cleanPath = decodeURIComponent(req.path);
-    let targetFile = cleanPath === '/' ? 'index.html' : cleanPath;
+    
+    // Strict Index Trap Resolution Block 🚨
+    let targetFile = cleanPath;
+    if (targetFile === '/' || targetFile.toLowerCase() === '/index' || targetFile.toLowerCase() === '/index.html') {
+        targetFile = 'index.html';
+    }
     
     if (targetFile.startsWith('/')) targetFile = targetFile.substring(1);
     if (!targetFile.endsWith('.html') && targetFile.length > 0) targetFile += '.html';
 
-    // 4. Trace absolute file path options across both Public and Views containers
+    // Trace absolute file path options across both Public and Views containers
     const publicPath = path.join(__dirname, '../public', targetFile);
     const viewsPath = path.join(__dirname, '../views', targetFile);
 
@@ -44,7 +59,7 @@ if (req.path.toLowerCase().includes('contact') || req.path.toLowerCase().include
         finalResolvedPath = publicPath;
     }
 
-    // 5. Read and stream layout updates safely
+    // Read and stream layout updates safely
     if (finalResolvedPath) {
         fs.readFile(finalResolvedPath, 'utf8', (err, htmlContent) => {
             if (err) return next();
@@ -160,7 +175,7 @@ app.post('/api/chat', async (req, res) => {
             return res.status(400).json({ error: "Payload execution defect: Missing prompt token." });
         }
         
-       console.log('📡 Routing Matrix: Forwarding instruction to Gemini Core Engine...');
+        console.log('📡 Routing Matrix: Forwarding instruction to Gemini Core Engine...');
         const aiResponse = await getAIResponse(message);
         
         res.status(200).json({ response: aiResponse });
