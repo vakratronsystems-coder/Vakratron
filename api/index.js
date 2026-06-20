@@ -12,6 +12,26 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+// ⚡ GLOBAL AI CHAT MIDDLEWARE INJECTION - INTERCEPTING STATIC HTML PIPELINE
+app.use((req, res, next) => {
+    // Target any route serving layout contexts or empty directory routes (like '/')
+    if (req.path.endsWith('.html') || req.path === '/' || req.path.split('.').length === 1) {
+        if (req.path.includes('contact.html')) {
+            return next(); // Contact form routing remains fully pristine
+        }
+
+        const originalSend = res.send;
+        res.send = function (html) {
+            if (typeof html === 'string' && html.includes('</body>')) {
+                // Safely append the script block token just before closure
+                const scriptTag = '<script src="/vakra-chat.js"></script></body>';
+                html = html.replace('</body>', scriptTag);
+            }
+            originalSend.call(this, html);
+        };
+    }
+    next();
+});
 
 // Serve static assets out of the public folder mapping
 app.use(express.static(path.join(__dirname, '../public')));
