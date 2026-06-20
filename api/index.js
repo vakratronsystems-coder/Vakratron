@@ -15,14 +15,15 @@ app.use(express.urlencoded({ extended: true }));
 // ⚡ UNIVERSAL CROSS-DIRECTORY FILE INTERCEPTOR
 app.use((req, res, next) => {
     // 1. Static assets ko directly skip karo (except HTML)
-    if (req.path.includes('.') && !req.path.endsWith('.html')) {
-        return next();
-    }
-    
-    // 2. Strict block guardrail for contact page
-    if (req.path.toLowerCase().includes('contact')) {
-        return next();
-    }
+   // 1. Static assets ko directly skip karo (except HTML)
+if (req.path.includes('.') && !req.path.endsWith('.html')) {
+    return next();
+}
+
+// 2. Strict block guardrail for contact page AND sitemap pipeline 🚨
+if (req.path.toLowerCase().includes('contact') || req.path.toLowerCase().includes('sitemap')) {
+    return next();
+}
 
     // 3. Decode URL characters to clean text mapping
     let cleanPath = decodeURIComponent(req.path);
