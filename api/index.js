@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const mongoose = require('mongoose');
+const { getAIResponse } = require('../services/aiService');
 
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config({ path: path.join(__dirname, '../.env') });
@@ -35,7 +36,6 @@ if (process.env.MONGO_URI) {
     .catch(err => console.error('❌ Pipeline Fault: Connection Refused.', err));
 }
 
-// FORM SUBMISSION PIPELINE (Resend HTTP API Architecture)
 // FORM SUBMISSION PIPELINE (Resend HTTP API Architecture - Certified Domain)
 app.post('/api/contact', async (req, res) => {
     try {
@@ -98,6 +98,24 @@ app.post('/api/contact', async (req, res) => {
         if (!res.headersSent) {
             return res.status(500).json({ success: false, error: error.message });
         }
+    }
+});
+
+// 🔥 NEW SECURE AI INTERACTION ENDPOINT (Decoupled execution gateway)
+app.post('/api/chat', async (req, res) => {
+    try {
+        const { message } = req.body;
+        if (!message) {
+            return res.status(400).json({ error: "Payload execution defect: Missing prompt token." });
+        }
+        
+       console.log('📡 Routing Matrix: Forwarding instruction to Gemini Core Engine...');
+        const aiResponse = await getAIResponse(message);
+        
+        res.status(200).json({ response: aiResponse });
+    } catch (error) {
+        console.error('❌ Core Compute Fault on /api/chat:', error.message);
+        res.status(500).json({ error: "Architecture failure: Unable to compute AI response stack." });
     }
 });
 
