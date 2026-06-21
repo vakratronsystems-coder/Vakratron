@@ -1,3 +1,12 @@
+// 🪐 DYNAMIC CSS CACHE PURGE ENGINE
+(() => {
+    const cssLinks = document.querySelectorAll('link[rel="stylesheet"]');
+    cssLinks.forEach(link => {
+        if (link.href.includes('style.css')) {
+            link.href = link.href.split('?')[0] + '?v=' + Date.now();
+        }
+    });
+})();
 // 🔮 DYNAMIC FONTS MATRIX INJECTOR - RUN BEFORE COMPONENT RENDERING
 (() => {
     if (!document.getElementById('vakraGoogleFonts')) {
