@@ -1,7 +1,5 @@
 /* 🌐 IMPORTS: Premium Neo-Grotesque Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&display=swap');
 
-/* ⚙️ GLOBAL VARIABLES (Apple/Tesla Inspired Ratio) */
 :root {
     --font-heading: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;

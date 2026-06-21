@@ -1,12 +1,35 @@
-// 🪐 ULTRA FORCED CSS FRESH RELOAD ENGINE
+// 🔮 DYNAMIC CORE FONTS MATRIX INJECTOR - BYPASS SECURE SERVER CSP BLOCKS
 (() => {
+    if (!document.getElementById('vakratronGoogleFonts')) {
+        // 1. Establish ultra-fast secure handshakes
+        const preconnect1 = document.createElement('link');
+        preconnect1.rel = 'preconnect';
+        preconnect1.href = 'https://fonts.googleapis.com';
+        
+        const preconnect2 = document.createElement('link');
+        preconnect2.rel = 'preconnect';
+        preconnect2.href = 'https://fonts.gstatic.com';
+        preconnect2.crossOrigin = 'anonymous';
+        
+        // 2. Load the Premium Fonts Suite directly into Document DOM Head
+        const fontLink = document.createElement('link');
+        fontLink.id = 'vakratronGoogleFonts';
+        fontLink.rel = 'stylesheet';
+        fontLink.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&display=swap';
+        
+        document.head.appendChild(preconnect1);
+        document.head.appendChild(preconnect2);
+        document.head.appendChild(fontLink);
+    }
+
+    // 🪐 ULTRA FORCED CSS FRESH RELOAD ENGINE
     const existingCSS = document.querySelector('link[href*="style.css"]');
     if (existingCSS) {
         const freshCSS = document.createElement('link');
         freshCSS.rel = 'stylesheet';
         freshCSS.href = existingCSS.href.split('?')[0] + '?v=' + Date.now();
         document.head.appendChild(freshCSS);
-        setTimeout(() => existingCSS.remove(), 200); // Remove old styles safely
+        setTimeout(() => existingCSS.remove(), 250);
     }
 })();
 // 🔮 DYNAMIC FONTS MATRIX INJECTOR - RUN BEFORE COMPONENT RENDERING
