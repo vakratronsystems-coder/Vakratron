@@ -21,15 +21,26 @@
                 padding: 0 !important; margin: 0 !important; transform: none !important; transition: all 0.2s ease-in-out !important;
             }
             #chatTrigger:hover { transform: scale(1.08) !important; box-shadow: 0 6px 30px rgba(194, 24, 91, 0.7) !important; }
+            
+            /* 🚀 UPDATED DYNAMIC VIEWPORT MATRIX BLOCK (FIXES TOP OVERLAP/CUT FAULT) */
             .vakra-chat-window {
-                position: fixed !important; bottom: 105px !important; right: 30px !important;
-                width: 360px !important; height: 500px !important; min-width: 360px !important; min-height: 500px !important; max-width: 360px !important; max-height: 500px !important;
-                flex-basis: 360px !important; flex-grow: 0 !important; flex-shrink: 0 !important; display: none !important; flex-direction: column !important;
-                background: rgba(15, 23, 42, 0.98) !important; backdrop-filter: blur(20px) !important; -webkit-backdrop-filter: blur(20px) !important;
-                border: 1px solid rgba(194, 24, 91, 0.5) !important; box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 40px rgba(194, 24, 91, 0.2) !important;
-                border-radius: 20px !important; z-index: 99999992 !important; overflow: hidden !important; box-sizing: border-box !important;
+                position: fixed !important; 
+                bottom: 95px !important; 
+                right: 30px !important;
+                width: 380px !important; 
+                height: calc(100vh - 140px) !important; 
+                max-height: 560px !important; 
+                min-height: 380px !important;
+                flex-basis: 380px !important; flex-grow: 0 !important; flex-shrink: 0 !important; 
+                display: none !important; flex-direction: column !important;
+                background: rgba(15, 23, 42, 0.96) !important; backdrop-filter: blur(20px) !important; -webkit-backdrop-filter: blur(20px) !important;
+                border: 1px solid rgba(194, 24, 91, 0.4) !important; 
+                box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 40px rgba(194, 24, 91, 0.15) !important;
+                border-radius: 16px !important; z-index: 99999992 !important; overflow: hidden !important; box-sizing: border-box !important;
                 margin: 0 !important; padding: 0 !important; left: auto !important; top: auto !important; transform: none !important;
+                transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out !important;
             }
+            
             .vakra-chat-window.active { display: flex !important; opacity: 1 !important; pointer-events: auto !important; }
             .vakra-chat-header { background: rgba(194, 24, 91, 0.2) !important; border-bottom: 1px solid rgba(194, 24, 91, 0.4) !important; padding: 15px 20px !important; display: flex !important; align-items: center !important; justify-content: space-between !important; flex-shrink: 0 !important; }
             .vakra-chat-header h3 { margin: 0 !important; font-family: 'Poppins', sans-serif !important; font-size: 1.05rem !important; font-weight: 600 !important; color: #fff !important; display: flex !important; align-items: center !important; gap: 10px !important; }
@@ -82,7 +93,7 @@
         const inputEl = document.getElementById('chatInput');
         const messagesContainer = document.getElementById('chatMessages');
 
-        // BIND EVENT DIRECTLY FOR MAX PERFORMANCE (No framework event hijacking)
+        // BIND EVENT DIRECTLY FOR MAX PERFORMANCE
         trigger.onclick = function(e) {
             e.preventDefault();
             e.stopPropagation();
@@ -93,7 +104,6 @@
             } else {
                 windowEl.classList.add('active');
                 windowEl.style.setProperty('display', 'flex', 'important');
-                windowEl.style.setProperty('width', '360px', 'important');
                 inputEl.focus();
             }
         };

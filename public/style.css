@@ -1,3 +1,44 @@
+/* 🌐 IMPORTS: Premium Neo-Grotesque Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&display=swap');
+
+/* ⚙️ GLOBAL VARIABLES (Apple/Tesla Inspired Ratio) */
+:root {
+    --font-heading: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* 🪐 GLOBAL BODY TYPOGRAPHY CLEARANCE */
+body, p, div, span, li, a {
+    font-family: var(--font-body) !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    text-rendering: optimizeLegibility !important;
+}
+
+/* 🍎 PREMIUM BODY TEXT RENDERING (Like Apple's SF Pro text blocks) */
+p, .card-text, .description {
+    font-size: 0.95rem !important; /* Elegant 15px-16px visual window */
+    font-weight: 400 !important;
+    line-height: 1.65 !important; /* Perfect vertical flow gap for readability */
+    letter-spacing: -0.011em !important; /* Apple style slight tracking compress for premium feel */
+    color: #94a3b8 !important; /* Premium Slate/Muted Grey tint */
+}
+
+/* ⚡ PREMIUM HEADINGS RENDERING (Like Tesla Console / Apple Product Titles) */
+h1, h2, h3, h4, h5, h6, .card-title {
+    font-family: var(--font-heading) !important;
+    font-weight: 600 !important; /* Semibold look is cleaner than heavy bold */
+    line-height: 1.25 !important;
+    letter-spacing: -0.02em !important; /* Tight header tracking for sleek tech look */
+    color: #ffffff !important;
+}
+
+/* Specific adjustment for your features card title (from image_3372fe.jpg) */
+.card-title, h3 {
+    font-size: 1.45rem !important;
+    margin-bottom: 14px !important;
+}
+
 /* ==========================================================================
    🌐 PREMIUM CORE & RESET STYLES
    ========================================================================== */
