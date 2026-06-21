@@ -76,6 +76,20 @@ h1, h2, h3, h4, h5, h6, .card-title, .hero-title, .logo-text h2 {
     color: #ffffff !important;
 }
 
+/* 🔥 HERO TITLE FORCE RATIO: Ensures 'Consultancy' scales perfectly with the headline */
+.hero-left h1, .hero h1, h1 {
+    font-size: 50px !important; /* Perfect Apple/Tesla big font window */
+    font-weight: 700 !important;
+}
+
+/* Isse agar 'Consultancy' kisi span ya inner text segment mein bhi fasa hoga, toh vo force-scale ho jayega */
+.hero-left h1 *, h1 * {
+    font-size: inherit !important;
+    font-family: inherit !important;
+    font-weight: inherit !important;
+    line-height: inherit !important;
+}
+
 .card-title, h3 {
     font-size: 1.45rem !important;
     margin-bottom: 14px !important;
