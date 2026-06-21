@@ -1,5 +1,5 @@
 /* ==========================================================================
-   🪐 VAKRATRON GLOBAL TYPOGRAPHY CORE - DIRECT HTTPS INJECTION (NO JS DEPENDENCY)
+   🪐 VAKRATRON GLOBAL TYPOGRAPHY CORE - DIRECT PRODUCTION ENDPOINTS
    ========================================================================== */
 
 /* 🔤 Inter Font faces (Body & UI text) */
@@ -20,56 +20,10 @@
   src: url(https://fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLGT9Z1xlFQ.woff2) format('woff2');
 }
 
-/* ⚙️ GLOBAL VARIABLES SYSTEM */
+/* ⚙️ GLOBAL SYSTEM SYSTEM VARIABLES */
 :root {
     --font-heading: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-}
-
-/* 🪐 GLOBAL RESET & TEXT RENDERING UTILITY */
-*, *::before, *::after {
-    box-sizing: border-box;
-}
-
-body, p, div, span, li, a, td, th {
-    font-family: var(--font-body) !important;
-    -webkit-font-smoothing: antialiased !important;
-    -moz-osx-font-smoothing: grayscale !important;
-    text-rendering: optimizeLegibility !important;
-}
-
-/* 🍎 PREMIUM BODY TEXT BLOCKS */
-p, .card-text, .description {
-    font-size: 0.95rem !important; 
-    font-weight: 400 !important;
-    line-height: 1.65 !important; 
-    letter-spacing: -0.011em !important; 
-    color: #94a3b8 !important; 
-}
-
-/* ⚡ PREMIUM HEADINGS */
-h1, h2, h3, h4, h5, h6, .card-title, .hero-title {
-    font-family: var(--font-heading) !important;
-    font-weight: 600 !important; 
-    line-height: 1.25 !important;
-    letter-spacing: -0.02em !important; 
-    color: #ffffff !important;
-}
-
-.card-title, h3 {
-    font-size: 1.45rem !important;
-    margin-bottom: 14px !important;
-}
-/* ==========================================================================
-   🌐 PREMIUM CORE & RESET STYLES
-   ========================================================================== */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-:root {
     --bg-main: #020617;
     --bg-surface: rgba(15, 23, 42, 0.6);
     --border-glow: rgba(194, 24, 91, 0.3);
@@ -80,6 +34,13 @@ h1, h2, h3, h4, h5, h6, .card-title, .hero-title {
     --glass-gradient: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(2, 6, 23, 0.9) 100%);
 }
 
+/* 🪐 GLOBAL RESET & TEXT RENDERING UTILITY */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 html {
     scroll-behavior: smooth;
     scroll-padding-top: 100px; 
@@ -88,15 +49,36 @@ html {
 body {
     background: #030d1a;
     color: #e2e8f0;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body) !important;
     overflow-x: hidden;
     line-height: 1.6;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    text-rendering: optimizeLegibility !important;
 }
 
-h1, h2, h3, h4 {
-    font-family: 'Poppins', sans-serif;
-    color: #ffffff;
-    font-weight: 600;
+/* 🍎 PREMIUM BODY TEXT BLOCKS (Apple's SF Pro text blocks styling) */
+p, .card-text, .description, span, li, a, td, th {
+    font-family: var(--font-body) !important;
+    font-size: 0.95rem !important; 
+    font-weight: 400 !important;
+    line-height: 1.65 !important; 
+    letter-spacing: -0.011em !important; 
+    color: #94a3b8 !important; 
+}
+
+/* ⚡ PREMIUM HEADINGS (Tesla Console / Product Titles Style) */
+h1, h2, h3, h4, h5, h6, .card-title, .hero-title, .logo-text h2 {
+    font-family: var(--font-heading) !important;
+    font-weight: 600 !important; 
+    line-height: 1.25 !important;
+    letter-spacing: -0.02em !important; 
+    color: #ffffff !important;
+}
+
+.card-title, h3 {
+    font-size: 1.45rem !important;
+    margin-bottom: 14px !important;
 }
 
 /* ==========================================================================
@@ -177,15 +159,13 @@ nav a:hover {
    ========================================================================== */
 .hero {
     display: flex;
-    align-items: flex-start; /* 'center' ki jagah 'flex-start' taaki content upar se shuru ho */
+    align-items: flex-start; 
     justify-content: space-between;
-    /* min-height ko calc(100vh - 80px) se hatakar kam kar rahe hain */
     min-height: auto; 
-    padding: 20px 5% 60px 5%; /* Top padding 40px se kam karke 20px kar di */
+    padding: 20px 5% 60px 5%; 
     gap: 50px;
-    margin-top: 20px; /* Header se safe distance rakhne ke liye */
+    margin-top: 20px; 
 }
-
 
 .hero-left {
     width: 50%;
@@ -393,15 +373,7 @@ nav a:hover {
     margin-bottom: 20px;
 }
 
-.offering-card h3 {
-    font-size: 20px;
-    color: #fff;
-    margin-bottom: 15px;
-}
-
 .offering-card p {
-    color: #94a3b8;
-    font-size: 14.5px;
     margin-bottom: 25px;
     flex-grow: 1;
 }
@@ -484,12 +456,6 @@ nav a:hover {
     margin-bottom: 10px;
 }
 
-.s-content p {
-    color: #94a3b8;
-    font-size: 14px;
-    line-height: 1.6;
-}
-
 /* ==========================================================================
    why-us SECTION
    ========================================================================== */
@@ -525,11 +491,6 @@ nav a:hover {
     font-size: 19px;
     margin-bottom: 12px;
     color: #fff;
-}
-
-.why-card p {
-    color: #94a3b8;
-    font-size: 14.5px;
 }
 
 .why-card:hover {
@@ -600,7 +561,7 @@ nav a:hover {
 }
 
 /* ==========================================================================
-   📥 NEW: HIGH-END THEME INTEGRATED LEAD FORM STYLING
+   📥 NEW: LEAD FORM STYLING
    ========================================================================== */
 .contact-section {
     padding: 60px 5% 80px 5%;
@@ -849,14 +810,13 @@ p, .hero-left p, .why-card p, .offering-card p, .service-card-custom p, .milesto
 }
 
 /* ==========================================================================
-   SOVEREIGN CENTRALIZED COMMAND CONSOLE DROPDOWN NAV (FIXED FLICKER LAYER)
+   SOVEREIGN CENTRALIZED COMMAND CONSOLE DROPDOWN NAV
    ========================================================================== */
 .central-nav-container { 
     position: relative; 
     display: inline-block; 
 }
 
-/* 🕹️ ट्रिगर बटन का स्टाइल */
 .console-trigger-btn {
     background: rgba(194, 24, 91, 0.05);
     border: 1px solid rgba(194, 24, 91, 0.3);
@@ -879,19 +839,17 @@ p, .hero-left p, .why-card p, .offering-card p, .service-card-custom p, .milesto
     box-shadow: 0 0 20px rgba(194, 24, 91, 0.3);
 }
 
-/* 💻 ड्रॉपडाउन डैशबोर्ड कोर फिक्स */
 .console-dropdown-dashboard {
     position: absolute;
-    top: calc(100% - 2px); /* 🌟 FLICKER FIX: बटन और ड्रॉपडाउन के बीच का 2px का गैप लॉक किया */
+    top: calc(100% - 2px); 
     right: 0; 
     width: 720px; 
     background: #030712 !important; 
     border: 1px solid rgba(194, 24, 91, 0.25);
     border-radius: 16px;
     padding: 30px;
-    padding-top: 25px !important; /* 🌟 FLICKER FIX: कर्सर मूवमेंट के लिए इनविजिबल ब्रिज बनाया */
+    padding-top: 25px !important; 
     box-shadow: 0 40px 80px rgba(0, 0, 0, 0.95);
-    
     visibility: hidden;
     opacity: 0;
     transform: translateY(10px);
@@ -902,7 +860,6 @@ p, .hero-left p, .why-card p, .offering-card p, .service-card-custom p, .milesto
     overflow: hidden; 
 }
 
-/* Hover Engine */
 .central-nav-container:hover .console-dropdown-dashboard {
     visibility: visible;
     opacity: 1;
@@ -922,7 +879,7 @@ p, .hero-left p, .why-card p, .offering-card p, .service-card-custom p, .milesto
 }
 
 .dashboard-col h4 {
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--font-heading);
     color: #fff;
     font-size: 0.85rem;
     font-weight: 700;
@@ -977,7 +934,6 @@ p, .hero-left p, .why-card p, .offering-card p, .service-card-custom p, .milesto
     margin-bottom: -30px;
 }
 
-/* 💎 PREMIUM MATRIX GRID MECHANISM */
 .dr-matrix-grid {
     display: flex;
     flex-wrap: wrap;
@@ -1013,7 +969,6 @@ p, .hero-left p, .why-card p, .offering-card p, .service-card-custom p, .milesto
    📱 RESPONSIVE ULTRA ENGINE
    ========================================================================== */
 @media (max-width: 1200px) {
-    .hero-left h1 { font-size: 40px; }
     .product-grid, .service-grid-custom { grid-template-columns: repeat(2, 1fr); }
     .contact-container { grid-template-columns: 1fr; gap: 40px; padding: 35px; }
 }
@@ -1032,8 +987,6 @@ p, .hero-left p, .why-card p, .offering-card p, .service-card-custom p, .milesto
 }
 
 @media (max-width: 768px) {
-    .hero-left h1 { font-size: 30px; }
-    .section-header h2 { font-size: 26px; }
     .stats, .product-grid, .service-grid-custom, .why-grid, .trust-grid, .industry-grid { grid-template-columns: 1fr; }
     .form-row-2 { grid-template-columns: 1fr; gap: 20px; }
     .footer-content { flex-direction: column; text-align: center; }
@@ -1069,26 +1022,13 @@ p, .hero-left p, .why-card p, .offering-card p, .service-card-custom p, .milesto
 [class*="fabric-lab-grid"], 
 [class*="solutions-grid"] {
     display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important; /* दोनों कार्ड्स वापस अगल-बगल आ जाएंगे */
+    grid-template-columns: repeat(2, 1fr) !important; 
     gap: 30px !important;
     max-width: 1200px !important;
     margin: 40px auto !important;
     padding: 0 5% !important;
 }
 
-/* 💎 PREMIUM COMPUTATIONAL FABRIC CARDS FIX */
-.solutions-matrix-container, 
-[class*="fabric-lab-grid"], 
-[class*="solutions-grid"] {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important; /* दोनों कार्ड्स वापस अगल-बगल आ जाएंगे */
-    gap: 30px !important;
-    max-width: 1200px !important;
-    margin: 40px auto !important;
-    padding: 0 5% !important;
-}
-
-/* अगर मोबाइल स्क्रीन हो तो वापस एक के नीचे एक हो जाएं */
 @media (max-width: 992px) {
     .solutions-matrix-container, 
     [class*="fabric-lab-grid"], 
@@ -1096,17 +1036,15 @@ p, .hero-left p, .why-card p, .offering-card p, .service-card-custom p, .milesto
         grid-template-columns: 1fr !important;
     }
 }
-/* --- GLOBAL GAP FIX FOR ALL PAGES --- */
 
-/* 1. Header ke niche se faltu space khatam karne ke liye */
+/* --- GLOBAL GAP FIX FOR ALL PAGES --- */
 header, .header, .navbar, #header-container {
     padding-bottom: 5px !important;
     margin-bottom: 0px !important;
 }
 
-/* 2. Saare main pages ke content sections ko upar khichne ke liye */
 main, .hero, .main-content, #main-wrapper, section:first-of-type {
-    margin-top: -50px !important; /* Agar gap abhi bhi lage, toh isko -70px ya -80px kar dena */
+    margin-top: -50px !important; 
     position: relative;
     z-index: 10;
 }
