@@ -1,11 +1,13 @@
-// 🪐 DYNAMIC CSS CACHE PURGE ENGINE
+// 🪐 ULTRA FORCED CSS FRESH RELOAD ENGINE
 (() => {
-    const cssLinks = document.querySelectorAll('link[rel="stylesheet"]');
-    cssLinks.forEach(link => {
-        if (link.href.includes('style.css')) {
-            link.href = link.href.split('?')[0] + '?v=' + Date.now();
-        }
-    });
+    const existingCSS = document.querySelector('link[href*="style.css"]');
+    if (existingCSS) {
+        const freshCSS = document.createElement('link');
+        freshCSS.rel = 'stylesheet';
+        freshCSS.href = existingCSS.href.split('?')[0] + '?v=' + Date.now();
+        document.head.appendChild(freshCSS);
+        setTimeout(() => existingCSS.remove(), 200); // Remove old styles safely
+    }
 })();
 // 🔮 DYNAMIC FONTS MATRIX INJECTOR - RUN BEFORE COMPONENT RENDERING
 (() => {
