@@ -1,82 +1,160 @@
+<!-- 🌐 CORE INTEGRATIONS: FONTS & CORE GRAPHICS KIT (FONTAWESOME) -->
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <header style="display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background: #030712; border-bottom: 1px solid rgba(255,255,255,0.06); z-index: 9999 !important; box-sizing: border-box; width: 100%; height: 82px; position: relative;">
     
-    <div class="logo-area" style="display: flex; align-items: center; gap: 12px;">
-        <img src="/images/logo.png" alt="Vakratron Logo" style="width: 42px; height: 42px; object-fit: contain;">
-        <div class="logo-text">
-            <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; color: #fff; margin: 0; letter-spacing: 2px;">VAKRATRON</h2>
-            <span style="font-family: 'Space Grotesk', sans-serif; font-size: 0.75rem; color: #C2185B; letter-spacing: 4px; font-weight: 600; display: block; margin-top: -1px;">SYSTEMS</span>
-        </div>
-    </div>
-
-    <nav style="position: relative; display: flex; align-items: center;">
-        <div class="central-nav-container" style="position: relative; padding: 10px 0;">
-            <button class="console-trigger-btn" style="background: rgba(194, 24, 91, 0.05); border: 1px solid rgba(194, 24, 91, 0.3); color: #fff; padding: 10px 22px; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 12px; transition: all 0.3s;">
-                <i class="fa-solid fa-bars-staggered menu-icon" style="color: #fff;"></i>
-                <span style="font-family: 'Space Grotesk', sans-serif; letter-spacing: 1.5px; color: #fff;">COMMAND CONSOLE</span>
-                <i class="fa-solid fa-chevron-down arrow-icon" style="margin-left: 8px; font-size: 0.8rem; color: #fff; transition: transform 0.3s;"></i>
+    <!-- 🎛️ LEFT INTERFACE: COMPACT COMMAND TRIGGER WITH CONTINUOUS HOVER ZONE -->
+    <nav style="display: flex; align-items: center; min-width: 180px;">
+        <div class="central-nav-container" style="position: relative; padding: 20px 0; margin-top: -5px;">
+            <button class="console-trigger-btn" style="background: rgba(194, 24, 91, 0.03); border: 1px solid rgba(194, 24, 91, 0.25); color: #fff; width: 44px; height: 44px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s;" title="Command Console">
+                <i class="fa-solid fa-bars-staggered menu-icon" style="color: #fff; font-size: 1.1rem; transition: transform 0.3s;"></i>
             </button>
             
-            <div class="console-dropdown-dashboard" style="position: absolute; top: 100%; right: 50%; transform: translate(50%, 10px) scale(0.98); width: 850px; background: #030712; border: 1px solid rgba(194, 24, 91, 0.25); border-radius: 16px; padding: 30px; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.95); opacity: 0; pointer-events: none; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); z-index: 2000; margin-top: 10px; overflow: hidden; box-sizing: border-box;">
-                <div class="dashboard-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px;">
+            <!-- 🌐 UNIFIED 4-COLUMN CORRECTED MENU TREE -->
+            <div class="console-dropdown-dashboard" style="position: absolute; top: 75px; left: 0px; transform: translateY(10px) scale(0.98); width: 1100px; background: #030712; border: 1px solid rgba(194, 24, 91, 0.25); border-radius: 16px; padding: 35px; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.95); opacity: 0; pointer-events: none; transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1); z-index: 2000; overflow: hidden; box-sizing: border-box;">
+                <div class="dashboard-grid" style="display: grid; grid-template-columns: 0.8fr 1.3fr 1.1fr 1.1fr; gap: 25px;">
                     
-                    <div class="dashboard-col" style="display: flex; flex-direction: column; gap: 6px;">
-                        <h4 style="font-family: 'Space Grotesk', sans-serif; color: #fff; font-size: 0.85rem; font-weight: 700; margin: 0 0 12px 0; padding-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); letter-spacing: 1px;">CORE MATRIX</h4>
-                        <a href="/index.html" class="nav-matrix-link"><i class="fa-solid fa-house-chimney"></i> System Home</a>
-                        <a href="/about.html" class="nav-matrix-link"><i class="fa-solid fa-address-card"></i> About Corporate</a>
-                        <a href="/contact.html" class="nav-matrix-link"><i class="fa-solid fa-paper-plane"></i> Contact Interface</a>
+                    <!-- COLUMN 1: INTERFACE ENTRY -->
+                    <div class="dashboard-col" style="display: flex; flex-direction: column; gap: 6px; border-right: 1px solid rgba(255, 255, 255, 0.04); padding-right: 10px;">
+                        <h4 style="font-family: 'Space Grotesk', sans-serif; color: #fff; font-size: 0.85rem; font-weight: 700; margin: 0 0 12px 0; padding-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); letter-spacing: 1px;">FOUNDATION</h4>
+                        <a href="/index.html" class="nav-matrix-link" style="font-weight: 600; color: #fff !important;"><i class="fa-solid fa-house-chimney"></i> HOME</a>
+                        <a href="/about.html" class="nav-matrix-link" style="font-weight: 600; color: #fff !important; margin-top: 6px;"><i class="fa-solid fa-address-card"></i> ABOUT</a>
                     </div>
                     
-                    <div class="dashboard-col" style="display: flex; flex-direction: column; gap: 6px;">
-                        <h4 style="font-family: 'Space Grotesk', sans-serif; color: #fff; font-size: 0.85rem; font-weight: 700; margin: 0 0 12px 0; padding-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); letter-spacing: 1px;">CAPABILITY</h4>
-                        <a href="/products.html" class="nav-matrix-link"><i class="fa-solid fa-cubes"></i> Portfolio Offerings</a>
-                        <a href="/services.html" class="nav-matrix-link"><i class="fa-solid fa-gears"></i> Expertise Matrix</a>
-                        <a href="/credentials.html" class="nav-matrix-link"><i class="fa-solid fa-building-shield"></i> Credentials Matrix</a>
+                   <!-- COLUMN 2: UNIFIED SOLUTIONS HUB (CLEANED & CENTRALIZED) -->
+<div class="dashboard-col" style="display: flex; flex-direction: column; gap: 4px; border-right: 1px solid rgba(255, 255, 255, 0.04); padding-right: 15px;">
+    
+    <h4 style="font-family: 'Space Grotesk', sans-serif; color: #fff; font-size: 0.85rem; font-weight: 700; margin: 0 0 12px 0; padding-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); letter-spacing: 1px;">SOLUTIONS</h4>
+    
+    <!-- 🎯 SINGLE MASTER LINK: Saare deep links removed, sirf master page lock kar diya hai -->
+    <a href="/views/solutions.html" class="nav-matrix-link" style="font-weight: 600; color: var(--accent-blue) !important; background: rgba(56, 189, 248, 0.02); border: 1px solid rgba(56, 189, 248, 0.1); padding: 12px 16px !important; border-radius: 8px; display: flex; align-items: center; gap: 12px; transition: all 0.25s;" onmouseover="this.style.borderColor='rgba(194, 24, 91, 0.5)'; this.style.background='rgba(194, 24, 91, 0.04)';" onmouseout="this.style.borderColor='rgba(56, 189, 248, 0.1)'; this.style.background='rgba(56, 189, 248, 0.02)';">
+        <i class="fa-solid fa-layer-group" style="color: var(--accent-blue); font-size: 1rem;"></i> 
+        <span>Explore Solutions Matrix →</span>
+    </a>
+
+</div>
+                    <!-- COLUMN 3: STRATEGIC ADVISORY -->
+                    <div class="dashboard-col" style="display: flex; flex-direction: column; gap: 4px; border-right: 1px solid rgba(255, 255, 255, 0.04); padding-right: 15px;">
+                        <h4 style="font-family: 'Space Grotesk', sans-serif; color: #fff; font-size: 0.85rem; font-weight: 700; margin: 0 0 12px 0; padding-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); letter-spacing: 1px;">Strategic Technology Advisory</h4>
+                        <a href="/views/STA/tech_assess.html" class="nav-matrix-link"><i class="fa-solid fa-gavel"></i> Technology Assessments</a>
+                        <a href="/views/STA/architec_review.html" class="nav-matrix-link"><i class="fa-solid fa-magnifying-glass-chart"></i> Architecture Reviews</a>
+                        <a href="/views/STA/discover_work.html" class="nav-matrix-link"><i class="fa-solid fa-users-gear"></i> Discovery Workshops</a>
+                        <a href="/views/STA/frameworks.html" class="nav-matrix-link"><i class="fa-solid fa-folder-tree"></i> Vakratron Proprietory Framework</a>
                     </div>
+                  
                     
-                    <div class="dashboard-col" style="display: flex; flex-direction: column; gap: 6px;">
-                        <h4 style="font-family: 'Space Grotesk', sans-serif; color: #fff; font-size: 0.85rem; font-weight: 700; margin: 0 0 12px 0; padding-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); letter-spacing: 1px;">COMPUTATIONAL FABRIC</h4>
-                        <a href="/fabric.html" class="nav-matrix-link" style="color: #38bdf8 !important; font-weight: 600;"><i class="fa-solid fa-network-wired"></i> Fabric Lab Matrix</a>
+                    <!-- COLUMN 4: KNOWLEDGE & ECOSYSTEM ENDPOINTS -->
+                    <div class="dashboard-col" style="display: flex; flex-direction: column; gap: 4px;">
+                        <h4 style="font-family: 'Space Grotesk', sans-serif; color: #fff; font-size: 0.85rem; font-weight: 700; margin: 0 0 12px 0; padding-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); letter-spacing: 1px;">Knowledge Center™</h4>
+                        <a href="/views/blueprints.html" class="nav-matrix-link"><i class="fa-solid fa-diagram-project"></i> Architecture Blueprints</a>
+                        <a href="/views/whitepapers.html" class="nav-matrix-link"><i class="fa-solid fa-file-invoice"></i> Whitepapers</a>
+                        <a href="/views/reference-architectures.html" class="nav-matrix-link"><i class="fa-solid fa-map"></i> Reference Architectures</a>
+                        <a href="/views/research-insights.html" class="nav-matrix-link"><i class="fa-solid fa-graduation-cap"></i> Research Insights</a>
+                        
+                        <!-- FINAL LINK CONVERSIONS -->
+                        <h4 style="font-family: 'Space Grotesk', sans-serif; color: #fff; font-size: 0.85rem; font-weight: 700; margin: 16px 0 8px 0; padding-bottom: 4px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); letter-spacing: 1px;">SYSTEM TERMINALS</h4>
+                        <a href="/views/technology-domains.html" class="nav-matrix-link" style="color: #38bdf8 !important; font-weight: 600;"><i class="fa-solid fa-network-wired"></i> TECHNOLOGY DOMAIN</a>
+                        <a href="/contact.html" class="nav-matrix-link" style="color: #c2185b !important; font-weight: 600;"><i class="fa-solid fa-paper-plane"></i> CONTACT INTERFACE</a>
                     </div>
                 </div>
-                <div class="console-footer" style="margin-top: 25px; padding: 15px 30px; border-top: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.75rem; color: #475569; font-family: monospace; display: flex; background: #070b14; margin: 25px -30px -30px -30px;">
-                    <span><i class="fa-solid fa-terminal" style="color: #C2185B; margin-right: 6px;"></i> Status: Synced VAKRA-SYS v2.0.26</span>
+
+                <!-- CONSOLE TERMINAL FOOTER -->
+                <div class="console-footer" style="margin-top: 25px; padding: 15px 30px; border-top: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.75rem; color: #475569; font-family: monospace; display: flex; background: #070b14; margin: 25px -35px -35px -35px;">
+                    <span><i class="fa-solid fa-terminal" style="color: #C2185B; margin-right: 6px;"></i> Independent Advisory, Architecture & Modernization Practice.</span>
                 </div>
             </div>
         </div>
     </nav>
+
+    <!-- 🏢 CENTRAL INTERFACE: PROFESSIONAL RE-ENGINEERED BRAND LOGO -->
+    <div class="logo-area" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; align-items: center; gap: 14px; cursor: pointer;" onclick="window.location.href='/index.html'">
+        <img src="/images/logo.png" alt="Vakratron Logo" style="width: 40px; height: 40px; object-fit: contain; filter: drop-shadow(0 0 8px rgba(194, 24, 91, 0.25));">
+        <div class="logo-text" style="display: flex; flex-direction: column; justify-content: center;">
+            <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.45rem; font-weight: 700; color: #ffffff; margin: 0; letter-spacing: 3px; line-height: 1.1;">VAKRATRON</h2>
+            <span style="font-family: 'Space Grotesk', sans-serif; font-size: 0.72rem; color: #94a3b8; letter-spacing: 5.5px; font-weight: 500; display: block; margin-top: 2px; text-transform: uppercase; transition: color 0.3s;" class="sub-systems">SYSTEMS</span>
+        </div>
+    </div>
     
-    <div class="header-action">
+    <!-- ⚡ RIGHT INTERFACE: EXECUTIVE ACTION CTA -->
+    <div class="header-action" style="min-width: 180px; text-align: right;">
         <a href="/contact.html" style="background: #C2185B; color: #fff; text-decoration: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; font-family: 'Space Grotesk', sans-serif; display: inline-block; box-shadow: 0 4px 15px rgba(194, 24, 91, 0.2); letter-spacing: 0.5px;">Get In Touch</a>
     </div>
 </header>
 
 <style>
-    /* 🎯 Console Space Specific Scoped Styling */
-    .central-nav-container:hover .console-dropdown-dashboard { 
-        opacity: 1 !important; 
-        pointer-events: auto !important; 
-        transform: translate(50%, 0) scale(1) !important; 
-        border-color: rgba(194, 24, 91, 0.6) !important;
-        transition-delay: 0s !important;
-    }
+  /* ====================================================================== */
+/* 🛠️ MASTER HEADER OVERLAP & STACKING CONTEXT RESCUE BLOCK               */
+/* ====================================================================== */
 
-    .console-dropdown-dashboard {
-        background: #030712 !important; 
-        z-index: 99999 !important;      
-        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
-        transition-delay: 0.15s !important;
-    }
+header {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 20px 8%; 
+    background: #030712; 
+    border-bottom: 1px solid rgba(255,255,255,0.06); 
+    z-index: 99999 !important; /* High layer hierarchy over main content */
+    box-sizing: border-box; 
+    width: 100%; 
+    height: 82px; 
+    position: fixed !important; /* Changed from relative to fixed to guarantee a non-collapsing top layer */
+    top: 0;
+    left: 0;
+}
 
+/* 🎯 Main Body Baseline Sync: Injected padding to force deep tech pages down by 82px */
+main, .solution-page, .solutions-hero {
+    margin-top: 0 !important;
+    padding-top: 140px !important; /* Forces the deep pages to render exactly below the fixed header */
+    box-sizing: border-box;
+}
+
+/* 🎯 Dropdown Container Positioning Anchor */
+.console-dropdown-dashboard {
+    display: block;
+    visibility: hidden; /* Changes from opacity-only to visibility boundary lock */
+    opacity: 0;
+    pointer-events: none;
+    position: absolute; 
+    top: 62px; /* Adjusted to sit cleanly below the fixed nav height */
+    left: 0px; 
+    width: 1100px; 
+    background: #030712 !important; 
+    border: 1px solid rgba(194, 24, 91, 0.25); 
+    border-radius: 16px; 
+    padding: 35px; 
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.95); 
+    transform: translateY(10px) scale(0.98);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    z-index: 999999 !important; /* Dropdown must float above header context */
+    box-sizing: border-box;
+}
+
+/* 🎯 Hover Trigger Logic using Visibility toggles */
+.central-nav-container:hover .console-dropdown-dashboard { 
+    visibility: visible !important;
+    opacity: 1 !important; 
+    pointer-events: auto !important; 
+    transform: translateY(0) scale(1) !important; 
+    border-color: rgba(194, 24, 91, 0.6) !important;
+}
     .central-nav-container:hover .console-trigger-btn { 
-        background: rgba(194, 24, 91, 0.15) !important; 
-        border-color: rgba(194, 24, 91, 0.8) !important; 
-        box-shadow: 0 0 20px rgba(194, 24, 91, 0.3) !important; 
+        background: rgba(194, 24, 91, 0.12) !important; 
+        border-color: rgba(194, 24, 91, 0.7) !important; 
+        box-shadow: 0 0 15px rgba(194, 24, 91, 0.25) !important; 
     }
-    .central-nav-container:hover .arrow-icon { 
-        transform: rotate(180deg) !important; 
+    
+    .central-nav-container:hover .menu-icon {
+        color: #C2185B !important;
+        transform: rotate(90deg);
     }
+    
+    /* 💼 Logo Professional Interactions */
+    .logo-area:hover .sub-systems {
+        color: #C2185B !important;
+    }
+
     .nav-matrix-link { 
         display: flex !important; 
         align-items: center; 
@@ -85,7 +163,7 @@
         text-decoration: none; 
         font-family: 'Inter', sans-serif !important; 
         font-size: 0.85rem !important; 
-        padding: 8px 12px !important; 
+        padding: 7px 12px !important; 
         border-radius: 6px; 
         transition: all 0.2s; 
     }
@@ -94,131 +172,13 @@
         color: #fff !important; 
         padding-left: 16px !important; 
     }
-</style>
-
-<style>
-    /* 🎯 होवर करने पर ड्रॉपडाउन को रोकना और डिले देना */
-    .central-nav-container:hover .console-dropdown-dashboard { 
-        opacity: 1 !important; 
-        pointer-events: auto !important; 
-        transform: translate(50%, 0) scale(1) !important; 
-        border-color: rgba(194, 24, 91, 0.6) !important;
-        transition-delay: 0s !important;
+    .nav-matrix-link i {
+        font-size: 0.85rem;
+        width: 16px;
+        text-align: center;
+        color: #64748b;
     }
-
-    /* 🎯 माउस हटने पर गायब होने में 0.15 सेकंड का स्मूथ डिले */
-    .console-dropdown-dashboard {
-        background: #030712 !important; 
-        z-index: 99999 !important;      
-        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
-        transition-delay: 0.15s !important;
-    }
-
-    .central-nav-container:hover .console-trigger-btn { 
-        background: rgba(194, 24, 91, 0.15) !important; 
-        border-color: rgba(194, 24, 91, 0.8) !important; 
-        box-shadow: 0 0 20px rgba(194, 24, 91, 0.3) !important; 
-    }
-    .central-nav-container:hover .arrow-icon { 
-        transform: rotate(180deg) !important; 
-    }
-    .nav-matrix-link { 
-        display: flex !important; 
-        align-items: center; 
-        gap: 10px; 
-        color: #94a3b8 !important; 
-        text-decoration: none; 
-        font-family: 'Inter', sans-serif !important; /* लिंक्स का फॉन्ट क्लीन इंटर */
-        font-size: 0.85rem !important; 
-        padding: 8px 12px !important; 
-        border-radius: 6px; 
-        transition: all 0.2s; 
-    }
-    .nav-matrix-link:hover { 
-        background: rgba(255, 255, 255, 0.03) !important; 
-        color: #fff !important; 
-        padding-left: 16px !important; 
-    }
-
-    /* ====================================================================== */
-    /* VAKRATRON SYSTEMS LLP - ULTRA UNIVERSAL LAYOUT & TYPOGRAPHY FIX        */
-    /* ====================================================================== */
-
-    /* 1. विड्थ का अचूक और फुलप्रूफ इलाज (GPU Page की तरह 1400px पर फैलाना) */
-    body > section,
-    body > main,
-    body > div:not(.console-dropdown-dashboard):not(.central-nav-container),
-    .content-card,
-    .main-content,
-    .container,
-    .content-wrapper,
-    .tech-content {
-        max-width: 1400px !important;
-        width: 92% !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-        box-sizing: border-box !important;
-    }
-
-    /* 2. फॉन्ट रीडेबिलिटी और ब्राइटनेस बूस्ट (High Contrast Dark Mode Typography) */
-    p, 
-    section p, 
-    div p,
-    .description,
-    li {
-        font-family: 'Inter', sans-serif !important; /* पैराग्राफ्स को हमेशा नीट एंड क्लीन इंटर रखेंगे */
-        font-size: 1.15rem !important;
-        line-height: 1.85 !important;
-        color: #f8fafc !important;
-        font-weight: 400 !important;
-        text-shadow: 0 1px 2px rgba(0,0,0,0.4);
-    }
-
-    /* लिस्ट आइटम्स और बुलेट मैट्रिक्स */
-    li, 
-    section li {
-        font-family: 'Inter', sans-serif !important;
-        font-size: 1.12rem !important;
-        line-height: 1.8 !important;
-        color: #f1f5f9 !important;
-        margin-bottom: 12px !important;
-    }
-
-    /* ग्रिड कार्ड्स और नोड्स के अंदर का टेक्स्ट */
-    .tech-step-box p, 
-    .vakra-sub-tier p,
-    .tech-step-box li {
-        font-size: 1.1rem !important;
-        color: #cbd5e1 !important;
-    }
-
-    /* ⚡ टेस्ला सिमेंटिक हेडिंग्स ओवरराइड - सुपर प्रॉमिनेंट साइबर स्टाइल */
-    h1, .main-title { 
-        font-family: 'Space Grotesk', sans-serif !important; 
-        font-size: 3rem !important; 
-        font-weight: 700 !important; 
-        letter-spacing: 0.5px !important; 
-        color: #ffffff !important; 
-    }
-    h2 { 
-        font-family: 'Space Grotesk', sans-serif !important; 
-        font-size: 2rem !important; 
-        font-weight: 700 !important; 
-        letter-spacing: 0.5px !important; 
-        color: #ffffff !important; 
-    }
-    h3 { 
-        font-family: 'Space Grotesk', sans-serif !important; 
-        font-size: 1.6rem !important; 
-        font-weight: 600 !important; 
-        letter-spacing: 0.5px !important; 
-        color: #ffffff !important; 
-    }
-    h4, .dashboard-col h4 { 
-        font-family: 'Space Grotesk', sans-serif !important; 
-        font-size: 1.25rem !important; 
-        font-weight: 700 !important; 
-        letter-spacing: 1px !important; 
-        color: #ffffff !important; 
+    .nav-matrix-link:hover i {
+        color: #fff;
     }
 </style>
