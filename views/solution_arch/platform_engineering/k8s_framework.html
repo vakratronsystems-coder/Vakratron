@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kubernetes Architecture & Solution Framework | Vakratron Systems</title>
+    <meta name="description" content="Deep-tech enterprise Kubernetes infrastructure engineering - Control plane, worker nodes, etcd, container runtime, and multi-cluster HA design.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-surface: rgba(15, 23, 42, 0.6);
+            --border-glow: rgba(56, 189, 248, 0.2);
+            --accent-blue: #38bdf8;
+            --accent-pink: #f472b6;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main) !important;
+            color: var(--text-primary);
+            background-image: 
+                radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(168, 85, 247, 0.04) 0%, transparent 50%) !important;
+            background-size: 200% 200% !important;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background: transparent !important;
+        }
+
+        /* 💎 MASTER 1200PX CENTERED LAYOUT */
+        .main-container-fabric {
+            max-width: 1200px !important;
+            margin: 0 auto;
+            padding: 140px 5% 100px 5%;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .architecture-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(56, 189, 248, 0.08);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            color: #7dd3fc;
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 25px;
+            font-family: monospace;
+        }
+
+        .matrix-body-text {
+            color: var(--text-secondary);
+            font-size: 1.02rem;
+            line-height: 1.7;
+            margin: 0 0 20px 0;
+            font-weight: 300;
+        }
+
+        /* 📋 DYNAMIC TECH STEP CARD SLOTS */
+        .tech-step-box {
+            background: var(--bg-surface);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            padding: 35px;
+            margin: 30px 0;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .tech-step-box:hover {
+            border-color: rgba(56, 189, 248, 0.25);
+            box-shadow: 0 25px 45px rgba(56, 189, 248, 0.04);
+        }
+
+        .tech-step-box h4 {
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tech-step-box p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0 0 20px 0;
+        }
+
+        .tech-step-box ul {
+            margin: 0;
+            padding-left: 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px 40px;
+        }
+
+        .tech-step-box li {
+            color: #cbd5e1;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        /* 🌐 3-WAY SYMETRICAL MESH PIPE INTERACTION */
+        .vakra-mesh-container {
+            background: rgba(2, 6, 23, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            padding: 40px;
+            margin: 40px 0;
+        }
+
+        .vakra-mesh-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .vakra-mesh-card {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 22px;
+            width: 28%;
+            box-sizing: border-box;
+        }
+
+        .dc-primary { border-left: 4px solid #ef4444; }
+        .dr-target { border-left: 4px solid #10b981; }
+
+        .vakra-mesh-card h5 {
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            font-size: 0.95rem;
+            margin: 0 0 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vakra-sub-tier {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .vakra-tag-node {
+            font-size: 0.72rem;
+            font-family: monospace;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            color: #94a3b8;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        .vakra-mesh-pipe {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-grow: 1;
+            font-family: monospace;
+            white-space: nowrap;
+        }
+
+        .vakra-mesh-line {
+            height: 1px;
+            background: linear-gradient(90deg, rgba(239,68,68,0.3), rgba(16,185,129,0.3));
+            flex-grow: 1;
+        }
+
+        @media (max-width: 900px) {
+            .vakra-mesh-row, .tech-step-box ul {
+                grid-template-columns: 1fr !important;
+            }
+            .vakra-mesh-card { width: 100%; }
+            .vakra-mesh-pipe { margin: 15px 0; }
+        }
+    </style>
+
+    <!-- 🚀 UNIVERSAL SPACE & GAP OPTIMIZER FOR CRISP LAYOUTS -->
+    <style id="vakra-gap-resolver">
+        /* Forcefully shrink the top space of hero container completely */
+        html body .doc-hero, 
+        html body main .doc-hero,
+        html body [class*="hero"] {
+            min-height: auto !important;
+            padding-top: 80px !important; /* Forces layout to sit right under navbar */
+            padding-bottom: 25px !important;
+            margin-top: 0 !important;
+        }
+
+        /* Compress the sections padding dynamically */
+        html body .doc-section, 
+        html body .bp-section,
+        html body [class*="section"] {
+            padding: 30px 10% !important; /* Ultimate tight compression */
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        /* Tighten internal elements */
+        html body .cyber-diagram-canvas, 
+        html body .bp-library-grid, 
+        html body .principles-matrix-grid {
+            margin-top: 15px !important;
+        }
+        html body h2.doc-block-heading {
+            margin-top: 0 !important;
+            margin-bottom: 10px !important;
+        }
+        html body p.doc-block-paragraph {
+            margin-bottom: 10px !important;
+        }
+    </style>
+
+</head>
+<body>
+
+    <header></header>
+
+    <main class="main-container-fabric">
+        
+        <span class="architecture-badge">
+            <i class="fa-solid fa-network-wired"></i> Core Infrastructure // System Framework
+        </span>
+
+        <h1 style="font-family:'Poppins',sans-serif; color:#fff; font-size:2.5rem; font-weight:800; margin: 0 0 25px 0; background: linear-gradient(135deg, #fff 0%, var(--text-secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            Kubernetes Architecture & Solution Framework
+        </h1>
+        
+        <p class="matrix-body-text">
+            Enterprise Kubernetes platforms require more than container orchestration. They must provide scalability, resiliency, security, automation, observability, and operational governance while supporting mission-critical applications across hybrid and multi-cloud environments.
+        </p>
+        <p class="matrix-body-text">
+            Vakratron Systems designs highly available Kubernetes platforms that integrate compute, networking, storage, security, automation, and platform engineering practices into a unified cloud-native operating model.
+        </p>
+        <p class="matrix-body-text">
+            Our architecture frameworks support enterprise application modernization, microservices platforms, AI workloads, DevOps pipelines, and large-scale digital transformation initiatives.
+        </p>
+
+        <div class="vakra-mesh-container">
+            <div class="vakra-mesh-row">
+                <div class="vakra-mesh-card dc-primary">
+                    <h5><i class="fa-solid fa-users-gear" style="color: #ef4444;"></i> Users & Developers</h5>
+                    <div class="vakra-sub-tier">
+                        <span class="vakra-tag-node">Developers</span>
+                        <span class="vakra-tag-node">DevOps</span>
+                        <span class="vakra-tag-node">Platform Team</span>
+                    </div>
+                </div>
+                <div class="vakra-mesh-pipe">
+                    <div class="vakra-mesh-line"></div>
+                    <span style="font-size:0.82rem; color:var(--accent-pink); font-weight:600;">Self-Service Platform</span>
+                    <div class="vakra-mesh-line"></div>
+                </div>
+                <div class="vakra-mesh-card">
+                    <h5><i class="fa-solid fa-cubes" style="color: var(--accent-blue);"></i> Kubernetes Platform</h5>
+                    <div class="vakra-sub-tier">
+                        <span class="vakra-tag-node">Control Plane</span>
+                        <span class="vakra-tag-node">Worker Nodes</span>
+                        <span class="vakra-tag-node">Automation</span>
+                    </div>
+                </div>
+                <div class="vakra-mesh-pipe">
+                    <div class="vakra-mesh-line"></div>
+                    <span style="font-size:0.82rem; color:var(--accent-pink); font-weight:600;">Cloud Native Services</span>
+                    <div class="vakra-mesh-line"></div>
+                </div>
+                <div class="vakra-mesh-card dr-target">
+                    <h5><i class="fa-solid fa-cloud" style="color: #10b981;"></i> Infrastructure Layer</h5>
+                    <div class="vakra-sub-tier">
+                        <span class="vakra-tag-node">Private Cloud</span>
+                        <span class="vakra-tag-node">Public Cloud</span>
+                        <span class="vakra-tag-node">Hybrid Cloud</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-brain" style="color: var(--accent-blue);"></i> Kubernetes Control Plane</h4>
+            <p>The Control Plane serves as the brain of the Kubernetes platform and is responsible for cluster orchestration, workload scheduling, state management, and operational governance.</p>
+            <ul>
+                <li>Kubernetes API Server</li>
+                <li>Scheduler Services</li>
+                <li>Controller Manager</li>
+                <li>ETCD Distributed Database</li>
+                <li>Cluster State Management</li>
+                <li>Policy Enforcement</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-server" style="color: var(--accent-blue);"></i> Kubernetes API Server</h4>
+            <ul>
+                <li>Cluster Management Interface</li>
+                <li>REST API Services</li>
+                <li>Authentication & Authorization</li>
+                <li>Admission Control</li>
+                <li>Resource Validation</li>
+                <li>Platform Integration Services</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-diagram-project" style="color: var(--accent-blue);"></i> Kubernetes Scheduler</h4>
+            <p>The Scheduler intelligently places workloads across available worker nodes based on resource requirements, policies, and operational constraints.</p>
+            <ul>
+                <li>Workload Placement</li>
+                <li>Resource Optimization</li>
+                <li>Node Affinity</li>
+                <li>Anti-Affinity Policies</li>
+                <li>Capacity Utilization</li>
+                <li>Performance Optimization</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-arrows-rotate" style="color: var(--accent-blue);"></i> Controller Manager</h4>
+            <ul>
+                <li>Desired State Management</li>
+                <li>Replica Management</li>
+                <li>Node Monitoring</li>
+                <li>Service Recovery</li>
+                <li>Automated Reconciliation</li>
+                <li>Infrastructure Consistency</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-database" style="color: var(--accent-blue);"></i> ETCD Distributed Database</h4>
+            <p>ETCD stores all cluster configuration, metadata, state information, and service discovery data required for Kubernetes operations.</p>
+            <ul>
+                <li>Cluster State Storage</li>
+                <li>Configuration Repository</li>
+                <li>Service Discovery Data</li>
+                <li>High Availability Data Storage</li>
+                <li>Distributed Consensus</li>
+                <li>Fault Tolerant Operations</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-microchip" style="color: var(--accent-blue);"></i> Worker Node Architecture</h4>
+            <p>Worker nodes execute containerized applications and provide compute resources for production workloads.</p>
+            <ul>
+                <li>Kubelet Services</li>
+                <li>Container Runtime</li>
+                <li>Kube Proxy</li>
+                <li>Pod Execution</li>
+                <li>Application Hosting</li>
+                <li>Workload Scaling</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-box" style="color: var(--accent-blue);"></i> Container Runtime Layer</h4>
+            <ul>
+                <li>Containerd</li>
+                <li>CRI-O</li>
+                <li>Container Lifecycle Management</li>
+                <li>Image Execution Services</li>
+                <li>Runtime Isolation</li>
+                <li>Secure Workload Execution</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-network-wired" style="color: var(--accent-blue);"></i> Kubernetes Networking</h4>
+            <ul>
+                <li>Container Networking Interface (CNI)</li>
+                <li>Calico</li>
+                <li>Cilium</li>
+                <li>Flannel</li>
+                <li>Network Policies</li>
+                <li>Micro-Segmentation</li>
+                <li>Service Discovery</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-globe" style="color: var(--accent-blue);"></i> Ingress & Traffic Management</h4>
+            <ul>
+                <li>NGINX Ingress</li>
+                <li>HAProxy Ingress</li>
+                <li>TLS Termination</li>
+                <li>Load Balancing</li>
+                <li>Application Routing</li>
+                <li>Traffic Governance</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-hard-drive" style="color: var(--accent-blue);"></i> Persistent Storage Architecture</h4>
+            <ul>
+                <li>Persistent Volumes (PV)</li>
+                <li>Persistent Volume Claims (PVC)</li>
+                <li>CSI Drivers</li>
+                <li>Block Storage Integration</li>
+                <li>Distributed Storage Platforms</li>
+                <li>Application Data Protection</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-layer-group" style="color: var(--accent-blue);"></i> Multi-Cluster Kubernetes Design</h4>
+            <ul>
+                <li>Production Clusters</li>
+                <li>Development Clusters</li>
+                <li>Disaster Recovery Clusters</li>
+                <li>Regional Kubernetes Deployments</li>
+                <li>Centralized Governance</li>
+                <li>Unified Operations</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-heart-pulse" style="color: #10b981;"></i> High Availability Kubernetes Design</h4>
+            <p>Enterprise Kubernetes environments require resilient control plane and worker node architectures capable of sustaining component failures without service interruption.</p>
+            <ul>
+                <li>Multi-Master Architecture</li>
+                <li>ETCD Clustering</li>
+                <li>Load Balanced API Servers</li>
+                <li>Worker Node Redundancy</li>
+                <li>Automated Recovery</li>
+                <li>Business Continuity Readiness</li>
+            </ul>
+        </div>
+
+    </main>
+
+    <footer></footer>
+
+    
+    
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

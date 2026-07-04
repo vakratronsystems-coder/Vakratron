@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vakratron Proprietary Frameworks™ | Enterprise Methodologies</title>
+    
+    <!-- 🚀 Core Global UI Style Assets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ====================================================================== */
+        /* 💎 GLOBAL CANVAS & COMPACT LAYER RESETS                                */
+        /* ====================================================================== */
+        :root {
+            --bg-obsidian: #020617;
+            --accent-blue: #38bdf8;
+            --accent-pink: #c2185b;
+            --accent-purple: #a855f7;
+            --accent-emerald: #10b981;
+            --text-secondary: #94a3b8;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: var(--bg-obsidian);
+            font-family: 'Inter', sans-serif;
+            color: #f1f5f9;
+            overflow-x: hidden;
+        }
+
+        .frm-hero, .frm-section {
+            padding: 90px 8% !important;
+            max-width: 1400px;
+            margin: 0 auto !important;
+            box-sizing: border-box;
+            position: relative;
+            clear: both;
+        }
+
+        /* ====================================================================== */
+        /* 💎 SECTION 1 — HERO CANVAS LAYOUT ENGINE                              */
+        /* ====================================================================== */
+        .frm-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            padding-top: 150px !important;
+        }
+
+        .hero-aurora-glow {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 850px;
+            height: 850px;
+            background: radial-gradient(circle, rgba(194, 24, 91, 0.06) 0%, transparent 65%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero-payload-wrapper {
+            position: relative;
+            z-index: 2;
+            max-width: 950px;
+        }
+
+        .frm-trademark-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(194, 24, 91, 0.05);
+            border: 1px solid rgba(194, 24, 91, 0.25);
+            padding: 8px 22px;
+            border-radius: 100px;
+            color: #f472b6;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+        }
+
+        .hero-payload-wrapper h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.15;
+            margin: 0 0 25px 0;
+            letter-spacing: -1.5px;
+        }
+
+        .hero-payload-wrapper p {
+            font-size: 1.25rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-secondary) !important;
+            margin: 0 auto !important;
+            max-width: 880px;
+            text-align: center !important;
+        }
+
+        /* ====================================================================== */
+        /* 💎 SECTION 2 — ULTRA-COMPACT UNIFORM LAYOUT MATRIX                    */
+        /* ====================================================================== */
+        .frameworks-grid-engine {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            max-width: 1250px;
+            margin: 0 auto;
+        }
+
+        .framework-link-wrapper {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .framework-cyber-card {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.45) 0%, rgba(2, 6, 23, 0.8) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 16px;
+            padding: 32px 28px;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.4);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 380px; /* Rigidity for strict grid height uniformity */
+            box-sizing: border-box;
+        }
+
+        .card-laser-indicator {
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, var(--accent-pink), transparent);
+            opacity: 0.6;
+        }
+        .framework-link-wrapper:nth-child(even) .card-laser-indicator {
+            background: linear-gradient(90deg, var(--accent-blue), transparent);
+        }
+
+        .framework-cyber-card h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0 0 4px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .framework-cyber-card h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0 0 16px 0;
+            line-height: 1.3;
+        }
+        .framework-link-wrapper:nth-child(even) h4 { color: var(--accent-pink); }
+
+        .framework-tagline-quote {
+            border-left: 2px solid rgba(255, 255, 255, 0.1);
+            padding-left: 12px;
+            font-style: italic;
+            font-size: 0.88rem;
+            color: #cbd5e1;
+            margin-bottom: 16px;
+            line-height: 1.45;
+        }
+
+        .framework-desc-p {
+            font-size: 0.9rem !important;
+            line-height: 1.6 !important;
+            color: var(--text-secondary) !important;
+            margin: 0 0 20px 0 !important;
+            text-align: left !important;
+        }
+
+        /* Clean Explorer Action Button Hook */
+        .framework-action-trigger {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+        .framework-action-trigger i {
+            font-size: 0.75rem;
+            transition: transform 0.3s ease;
+        }
+
+        /* Card Interactive Hover Logic */
+        .framework-link-wrapper:hover .framework-cyber-card {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.55);
+            background: linear-gradient(135deg, rgba(20, 32, 58, 0.45) 0%, rgba(2, 6, 23, 0.85) 100%);
+        }
+        .framework-link-wrapper:hover .framework-action-trigger {
+            color: var(--accent-blue);
+        }
+        .framework-link-wrapper:hover .framework-action-trigger i {
+            transform: translateX(4px);
+        }
+        .framework-link-wrapper:nth-child(even):hover .framework-action-trigger {
+            color: var(--accent-pink);
+        }
+
+        /* ====================================================================== */
+        /* 💎 SECTION 3 — FUTURISTIC COMING SOON TRACK GRID                      */
+        /* ====================================================================== */
+        .coming-soon-header-wrap h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin: 0 0 6px 0;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+        .coming-soon-header-wrap p {
+            font-size: 0.95rem !important;
+            color: var(--text-secondary) !important;
+            text-align: center !important;
+            margin: 0 0 45px 0 !important;
+        }
+
+        .coming-soon-mesh-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1250px;
+            margin: 0 auto;
+        }
+
+        .coming-soon-card {
+            background: rgba(9, 13, 31, 0.3);
+            border: 1px dashed rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            padding: 24px 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .coming-soon-card h5 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #cbd5e1;
+            margin: 0;
+        }
+
+        .coming-soon-card span {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .coming-soon-card:hover {
+            border-color: rgba(168, 85, 247, 0.3);
+            background: rgba(168, 85, 247, 0.01);
+        }
+
+        /* ====================================================================== */
+        /* 💎 SECTION 4 — TRUST PILLARS MATRIX                                    */
+        /* ====================================================================== */
+        .trust-board-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.4) 0%, rgba(2, 6, 23, 0.7) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 45px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            box-sizing: border-box;
+        }
+
+        .trust-board-title h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin: 0 0 35px 0;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        .trust-pillars-matrix {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px 40px;
+        }
+
+        .trust-pillar-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 14px 20px;
+            background: rgba(9, 13, 31, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.01);
+            border-radius: 10px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-sizing: border-box;
+        }
+
+        .trust-pillar-item i {
+            color: var(--accent-emerald);
+            font-size: 1.05rem;
+            filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.3));
+        }
+
+        .trust-pillar-item span {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: #e2e8f0;
+        }
+
+        .trust-pillar-item:hover {
+            transform: translateX(5px);
+            background: rgba(16, 185, 129, 0.02);
+            border-color: rgba(16, 185, 129, 0.2);
+        }
+
+        /* Responsive Breakpoints Rules */
+        @media (max-width: 1100px) {
+            .frameworks-grid-engine { grid-template-columns: repeat(2, 1fr); }
+            .coming-soon-mesh-row { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .frameworks-grid-engine, .coming-soon-mesh-row, .trust-pillars-matrix { grid-template-columns: 1fr; }
+            .hero-payload-wrapper h1 { font-size: 2.5rem; }
+            .trust-board-wrapper { padding: 25px; }
+            .framework-cyber-card { min-height: auto; }
+        }
+    </style>
+
+    <!-- 🚀 UNIVERSAL SPACE & GAP OPTIMIZER FOR CRISP LAYOUTS -->
+    <style id="vakra-gap-resolver">
+        /* Forcefully shrink the top space of hero container completely */
+        html body .doc-hero, 
+        html body main .doc-hero,
+        html body [class*="hero"] {
+            min-height: auto !important;
+            padding-top: 80px !important; /* Forces layout to sit right under navbar */
+            padding-bottom: 25px !important;
+            margin-top: 0 !important;
+        }
+
+        /* Compress the sections padding dynamically */
+        html body .doc-section, 
+        html body .bp-section,
+        html body [class*="section"] {
+            padding: 30px 10% !important; /* Ultimate tight compression */
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        /* Tighten internal elements */
+        html body .cyber-diagram-canvas, 
+        html body .bp-library-grid, 
+        html body .principles-matrix-grid {
+            margin-top: 15px !important;
+        }
+        html body h2.doc-block-heading {
+            margin-top: 0 !important;
+            margin-bottom: 10px !important;
+        }
+        html body p.doc-block-paragraph {
+            margin-bottom: 10px !important;
+        }
+    </style>
+
+</head>
+<body>
+        <header></header>
+
+    <main class="vakra-frameworks-wrapper">
+
+        <!-- SECTION 1: HEADER HERO -->
+        <section class="frm-hero">
+            <div class="hero-aurora-glow"></div>
+            <div class="hero-payload-wrapper">
+                <div class="frm-trademark-badge"><span>Proprietary Frameworks</span></div>
+                <h1>Vakratron Proprietary Frameworks™</h1>
+                <p>
+                    Enterprise Frameworks Built From Real-World Delivery Experience. Vakratron Proprietary Frameworks™ are structured methodologies developed from enterprise consulting engagements, cloud transformations, AI modernization initiatives, disaster recovery implementations, and platform engineering projects. Each framework follows a repeatable process that reduces project risk, accelerates delivery timelines, and ensures measurable business outcomes.
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION 2: 3-COLUMN ULTRA-COMPACT DIRECTORY GRID -->
+        <section class="frm-section" style="padding-top: 20px !important;">
+            <div class="frameworks-grid-engine">
+
+                <!-- Framework 1: V-Scan -->
+                <a href="v-scan.html" class="framework-link-wrapper">
+                    <div class="framework-cyber-card">
+                        <div class="card-laser-indicator"></div>
+                        <h2>V-Scan™</h2>
+                        <h4>Vakratron Technology Assessment Framework™</h4>
+                        <div class="framework-tagline-quote">"Understand before you Transform."</div>
+                        <p class="framework-desc-p">
+                            Provides a comprehensive assessment of your existing IT landscape including infrastructure, applications, security posture, operational maturity, cost optimization opportunities, and technology readiness.
+                        </p>
+                        <div class="framework-action-trigger">Explore Framework Lifecycle <i class="fas fa-arrow-right"></i></div>
+                    </div>
+                </a>
+
+                <!-- Framework 2: V-Discover -->
+                <a href="v-discover.html" class="framework-link-wrapper">
+                    <div class="framework-cyber-card">
+                        <div class="card-laser-indicator"></div>
+                        <h2>V-Discover™</h2>
+                        <h4>Vakratron Business & Technology Discovery Framework™</h4>
+                        <div class="framework-tagline-quote">"Every successful transformation starts with understanding the business."</div>
+                        <p class="framework-desc-p">
+                            Aligns business objectives, stakeholders, operational challenges, and technical constraints before any architecture or implementation begins.
+                        </p>
+                        <div class="framework-action-trigger">Explore Framework Lifecycle <i class="fas fa-arrow-right"></i></div>
+                    </div>
+                </a>
+
+                <!-- Framework 3: V-Review -->
+                <a href="v-review.html" class="framework-link-wrapper">
+                    <div class="framework-cyber-card">
+                        <div class="card-laser-indicator"></div>
+                        <h2>V-Review™</h2>
+                        <h4>Enterprise Architecture Validation Framework™</h4>
+                        <div class="framework-tagline-quote">"Validate before you invest."</div>
+                        <p class="framework-desc-p">
+                            Performs an independent architecture assessment to identify design gaps, scalability concerns, operational risks, and security weaknesses before implementation begins.
+                        </p>
+                        <div class="framework-action-trigger">Explore Framework Lifecycle <i class="fas fa-arrow-right"></i></div>
+                    </div>
+                </a>
+
+                <!-- Framework 4: V-MAP -->
+                <a href="v-map.html" class="framework-link-wrapper">
+                    <div class="framework-cyber-card">
+                        <div class="card-laser-indicator"></div>
+                        <h2>V-MAP™</h2>
+                        <h4>Vakratron Modern Architecture Process™</h4>
+                        <div class="framework-tagline-quote">"Our flagship modernization methodology."</div>
+                        <p class="framework-desc-p">
+                            A structured architecture lifecycle that guides organizations from business discovery through architecture design, implementation, governance, and continuous optimization.
+                        </p>
+                        <div class="framework-action-trigger">Explore Framework Lifecycle <i class="fas fa-arrow-right"></i></div>
+                    </div>
+                </a>
+
+                <!-- Framework 5: V-Platform -->
+                <a href="v-platform.html" class="framework-link-wrapper">
+                    <div class="framework-cyber-card">
+                        <div class="card-laser-indicator"></div>
+                        <h2>V-Platform™</h2>
+                        <h4>Platform Engineering Framework™</h4>
+                        <div class="framework-tagline-quote">"Build enterprise platforms instead of isolated infrastructure."</div>
+                        <p class="framework-desc-p">
+                            Helps organizations design and deploy Kubernetes, container platforms, DevSecOps pipelines, Infrastructure as Code, and developer self-service capabilities.
+                        </p>
+                        <div class="framework-action-trigger">Explore Framework Lifecycle <i class="fas fa-arrow-right"></i></div>
+                    </div>
+                </a>
+
+                <!-- Framework 6: V-Cloud -->
+                <a href="v-cloud.html" class="framework-link-wrapper">
+                    <div class="framework-cyber-card">
+                        <div class="card-laser-indicator"></div>
+                        <h2>V-Cloud™</h2>
+                        <h4>Cloud Transformation Framework™</h4>
+                        <div class="framework-tagline-quote">"Accelerate secure cloud adoption."</div>
+                        <p class="framework-desc-p">
+                            Provides a structured migration strategy covering assessment, migration planning, modernization, governance, cost optimization, and cloud operations.
+                        </p>
+                        <div class="framework-action-trigger">Explore Framework Lifecycle <i class="fas fa-arrow-right"></i></div>
+                    </div>
+                </a>
+
+                <!-- Framework 7: V-Recover -->
+                <a href="v-recover.html" class="framework-link-wrapper">
+                    <div class="framework-cyber-card">
+                        <div class="card-laser-indicator"></div>
+                        <h2>V-Recover™</h2>
+                        <h4>Business Continuity Framework™</h4>
+                        <div class="framework-tagline-quote">"Business must continue—even during failure."</div>
+                        <p class="framework-desc-p">
+                            Designs Disaster Recovery and Business Continuity strategies based on Recovery Time Objectives (RTO), Recovery Point Objectives (RPO), and operational resilience.
+                        </p>
+                        <div class="framework-action-trigger">Explore Framework Lifecycle <i class="fas fa-arrow-right"></i></div>
+                    </div>
+                </a>
+
+                <!-- Framework 8: V-AI Blueprint -->
+                <a href="v-ai-blueprint.html" class="framework-link-wrapper">
+                    <div class="framework-cyber-card">
+                        <div class="card-laser-indicator"></div>
+                        <h2>V-AI Blueprint™</h2>
+                        <h4>Enterprise AI Assessment Framework™</h4>
+                        <div class="framework-tagline-quote">"Move from AI experimentation to enterprise adoption."</div>
+                        <p class="framework-desc-p">
+                            Evaluates organizational AI readiness and designs scalable AI platforms, governance models, data pipelines, and GenAI adoption strategies.
+                        </p>
+                        <div class="framework-action-trigger">Explore Framework Lifecycle <i class="fas fa-arrow-right"></i></div>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+        <!-- SECTION 3: COMING SOON -->
+        <section class="frm-section" style="background: rgba(2, 6, 23, 0.3);">
+            <div class="coming-soon-header-wrap">
+                <h2>Coming Soon</h2>
+                <p>Next Generation Vakratron Frameworks™ currently under structural validation</p>
+            </div>
+            
+            <div class="coming-soon-mesh-row">
+                <div class="coming-soon-card">
+                    <h5>V-RAG™</h5>
+                    <span>Enterprise Retrieval-Augmented Generation Framework</span>
+                </div>
+                <div class="coming-soon-card">
+                    <h5>V-MCP™</h5>
+                    <span>Model Context Protocol Integration Framework</span>
+                </div>
+                <div class="coming-soon-card">
+                    <h5>V-Agent™</h5>
+                    <span>AI Agent Development Framework</span>
+                </div>
+                <div class="coming-soon-card">
+                    <h5>V-GPU™</h5>
+                    <span>AI Infrastructure & GPU Cluster Framework</span>
+                </div>
+                <div class="coming-soon-card">
+                    <h5>V-Data™</h5>
+                    <span>Enterprise Data Modernization Framework</span>
+                </div>
+                <div class="coming-soon-card">
+                    <h5>V-Secure™</h5>
+                    <span>Zero Trust Security Framework</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: TRUST PILLARS -->
+        <section class="frm-section">
+            <div class="trust-board-wrapper">
+                <div class="trust-board-title">
+                    <h2>Why Organizations Choose Vakratron Frameworks™</h2>
+                </div>
+                <div class="trust-pillars-matrix">
+                    <div class="trust-pillar-item"><i class="fas fa-circle-check"></i> <span>Proven, repeatable methodologies</span></div>
+                    <div class="trust-pillar-item"><i class="fas fa-circle-check"></i> <span>Architecture-first consulting approach</span></div>
+                    <div class="trust-pillar-item"><i class="fas fa-circle-check"></i> <span>Vendor-neutral recommendations</span></div>
+                    <div class="trust-pillar-item"><i class="fas fa-circle-check"></i> <span>Enterprise-scale design principles</span></div>
+                    <div class="trust-pillar-item"><i class="fas fa-circle-check"></i> <span>Faster project delivery</span></div>
+                    <div class="trust-pillar-item"><i class="fas fa-circle-check"></i> <span>Reduced implementation risk</span></div>
+                    <div class="trust-pillar-item"><i class="fas fa-circle-check"></i> <span>Measurable business outcomes</span></div>
+                    <div class="trust-pillar-item"><i class="fas fa-circle-check"></i> <span>Built from real-world implementation experience</span></div>
+                </div>
+            </div>
+        </section>
+        <footer></footer>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('code') || window.location.hash.includes('access_token')) {
+            localStorage.setItem('vakra_auth_token', 'SECURE_NODE_VALIDATED_2026');
+            window.location.href = '/index.html'; 
+        }
+
+        // --- INTERACTIVE CHAT ENGINE FRONTEND ADAPTER ---
+        const trigger = document.getElementById('chatTrigger');
+        const windowEl = document.getElementById('chatWindow');
+        const closeBtn = document.getElementById('chatClose');
+        const sendBtn = document.getElementById('chatSend');
+        const inputEl = document.getElementById('chatInput');
+        const messagesContainer = document.getElementById('chatMessages');
+
+     // Toggle Widget Interface Fix
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation(); // Global layouts ko trace capture karne se roko
+            windowEl.classList.toggle('active');
+            
+            if(windowEl.classList.contains('active')) {
+                windowEl.style.setProperty('display', 'flex', 'important');
+                windowEl.style.setProperty('width', '360px', 'important');
+                inputEl.focus();
+            } else {
+                windowEl.style.setProperty('display', 'none', 'important');
+            }
+        });
+
+        closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            windowEl.classList.remove('active');
+            windowEl.style.setProperty('display', 'none', 'important');
+        });
+
+        // Message Dispatcher Pipeline
+        // Message Dispatcher Pipeline
+        async function dispatchUserPrompt() {
+            const promptValue = inputEl.value.trim();
+            if (!promptValue) return;
+
+            // Render User Bubble
+            appendBubble(promptValue, 'user');
+            inputEl.value = '';
+
+            // Inject Streaming/Typing Matrix Indicator
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'vakra-msg system';
+            typingIndicator.innerHTML = `<div class="vakra-typing"><span></span><span></span><span></span></div>`;
+            messagesContainer.appendChild(typingIndicator);
+            scrollToBottom();
+
+            try {
+                // Secure Fetch Request to local API Gateway Route
+                const apiResponse = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: promptValue })
+                });
+
+                const dataset = await apiResponse.json();
+                typingIndicator.remove(); // Evacuate typing trace
+
+                if (apiResponse.ok && dataset.response) {
+                    appendBubble(dataset.response, 'system');
+
+                    // 🚨 NEXT-LEVEL AUTOMATED FRONTEND TRIGGER START
+                    const lowerMessage = promptValue.toLowerCase();
+                    if (
+                        lowerMessage.includes('connect') || 
+                        lowerMessage.includes('talk to human') || 
+                        lowerMessage.includes('contact team') || 
+                        lowerMessage.includes('representative') || 
+                        lowerMessage.includes('connect someone') ||
+                        lowerMessage.includes('team se connect')
+                    ) {
+                        setTimeout(() => {
+                            appendBubble("⚡ System Action: Redirecting token matrix to the Sovereign Advisory Desk...", 'system');
+                            
+                            // 1.5 Seconds ka delay taaki user bot ka message padh sake, fir auto-redirect
+                            setTimeout(() => {
+                                window.location.href = 'contact.html';
+                            }, 1500);
+                        }, 1000);
+                    }
+                    // 🚨 NEXT-LEVEL AUTOMATED FRONTEND TRIGGER END
+
+                } else {
+                    appendBubble("Execution Defect: Unable to pipeline calculated tokens from LLM core.", 'system');
+                }
+
+            } catch (networkError) {
+                if(typingIndicator) typingIndicator.remove();
+                appendBubble("Network Fault: Endpoint connectivity degraded or blocked.", 'system');
+                console.error("Pipeline Transmission Error:", networkError);
+            }
+        }
+
+        function appendBubble(content, actor) {
+            const bubble = document.createElement('div');
+            bubble.className = `vakra-msg ${actor}`;
+            // safe conversion, replace newlines with line-breaks for formatting comfort
+            bubble.innerHTML = content.replace(/\n/g, '<br>');
+            messagesContainer.appendChild(bubble);
+            scrollToBottom();
+        }
+
+        function scrollToBottom() {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Trigger Listeners Setup
+        sendBtn.addEventListener('click', dispatchUserPrompt);
+        inputEl.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') dispatchUserPrompt();
+        });
+    </script>
+    <script src="/vakra-loader.js"></script>
+
+    </main>
+
+</body>
+</html>

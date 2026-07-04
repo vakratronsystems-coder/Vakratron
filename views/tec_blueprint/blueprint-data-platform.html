@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Data Platform Blueprint™ | Vakratron Systems Verified Design</title>
+    
+    <!-- 🚀 Core Global UI Style Assets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ====================================================================== */
+        /* 💎 PREMIUM OBSIDIAN THEME CORE CONFIGURATIONS                         */
+        /* ====================================================================== */
+        :root {
+            --bg-obsidian: #020617;
+            --bg-glass-card: linear-gradient(135deg, rgba(15, 23, 42, 0.45) 0%, rgba(2, 6, 23, 0.85) 100%);
+            --accent-blue: #38bdf8;
+            --accent-pink: #c2185b;
+            --accent-purple: #a855f7;
+            --accent-emerald: #10b981;
+            --text-secondary: #94a3b8;
+            --data-blueprint-gradient: linear-gradient(135deg, var(--accent-emerald) 0%, var(--accent-blue) 50%, var(--accent-purple) 100%);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: var(--bg-obsidian);
+            font-family: 'Inter', sans-serif;
+            color: #f1f5f9;
+            overflow-x: hidden;
+        }
+
+        .doc-hero, .doc-section {
+            padding: 100px 10% !important;
+            max-width: 1400px;
+            margin: 0 auto !important;
+            box-sizing: border-box;
+            position: relative;
+            clear: both;
+        }
+
+        h2.doc-block-heading {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0 0 30px 0;
+            letter-spacing: -1px;
+            position: relative;
+            display: inline-block;
+        }
+        h2.doc-block-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -8px; left: 0; width: 60px; height: 3px;
+            background: linear-gradient(90deg, var(--accent-emerald), var(--accent-blue));
+            border-radius: 2px;
+        }
+
+        p.doc-block-paragraph {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin: 0 0 25px 0;
+        }
+
+        /* Sovereign Action Triggers */
+        .vakra-btn-primary {
+            background: linear-gradient(135deg, var(--accent-emerald) 0%, var(--accent-blue) 100%);
+            color: #ffffff;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            padding: 15px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
+        }
+        .vakra-btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(16, 185, 129, 0.45);
+        }
+
+        .vakra-btn-secondary {
+            background: rgba(255, 255, 255, 0.02);
+            color: #ffffff;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            padding: 15px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .vakra-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+        }
+
+        /* ====================================================================== */
+        /* SECTION 1: HERO & METADATA REGISTRY FRAMEWORK RESETS                   */
+        /* ====================================================================== */
+        .doc-hero {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            padding-top: 170px !important;
+        }
+
+        .hero-aurora-glow {
+            position: absolute;
+            top: 40%; left: 30%;
+            transform: translate(-50%, -50%);
+            width: 900px; height: 900px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, transparent 65%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero-payload-wrapper {
+            position: relative;
+            z-index: 2;
+            max-width: 60%;
+            text-align: left;
+        }
+
+        .doc-framework-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(16, 185, 129, 0.04);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            padding: 8px 24px;
+            border-radius: 100px;
+            color: #a7f3d0;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+        }
+
+        .hero-payload-wrapper h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.15;
+            margin: 0 0 25px 0;
+            letter-spacing: -2px;
+        }
+
+        .hero-gradient-text {
+            background: var(--data-blueprint-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-prescriptive-tag {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #cbd5e1;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        /* 👑 METADATA REGISTRY BOX */
+        .vakra-metadata-registry-box {
+            position: relative;
+            z-index: 3;
+            width: 35%;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(2, 6, 23, 0.95) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.6);
+            box-sizing: border-box;
+        }
+        .metadata-header-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+        .metadata-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            font-size: 0.9rem;
+        }
+        .metadata-row:last-child { border-bottom: none; }
+        .metadata-label { color: var(--text-secondary); font-family: 'Space Grotesk', sans-serif; }
+        .metadata-value { color: #ffffff; font-weight: 500; text-align: right; }
+
+        /* ====================================================================== */
+        /* 🎨 DYNAMIC PIPELINE DIAGRAM ENGINE: ENTERPRISE DATA ARCHITECTURE       */
+        /* ====================================================================== */
+        .cyber-diagram-canvas {
+            max-width: 1000px;
+            margin: 60px auto 0 auto;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .cyber-diagram-canvas::before {
+            content: '';
+            position: absolute;
+            left: 50%; top: 0; bottom: 0; width: 2px;
+            background: linear-gradient(180deg, var(--accent-emerald) 0%, var(--accent-blue) 45%, var(--accent-purple) 75%, var(--accent-pink) 100%);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .pipeline-axis-row {
+            display: flex;
+            width: 100%;
+            margin-bottom: 35px;
+            position: relative;
+            z-index: 2;
+            box-sizing: border-box;
+        }
+        .pipeline-axis-row:nth-child(odd) { justify-content: flex-start; }
+        .pipeline-axis-row:nth-child(even) { justify-content: flex-end; }
+
+        .pipeline-track-node-dot {
+            width: 14px; height: 14px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 2px solid var(--accent-emerald);
+            position: absolute;
+            left: 50%; top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 4;
+            animation: pulseGlow 2.5s infinite ease-in-out;
+        }
+        .pipeline-axis-row:nth-child(even) .pipeline-track-node-dot { border-color: var(--accent-blue); }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; box-shadow: 0 0 8px currentColor; }
+            50% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; box-shadow: 0 0 18px currentColor; }
+        }
+
+        .pipeline-floating-tile {
+            background: var(--bg-glass-card);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 18px 26px;
+            border-radius: 12px;
+            width: 44%;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-sizing: border-box;
+        }
+
+        .pipeline-tile-index {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--accent-emerald);
+            background: rgba(16, 185, 129, 0.05);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+            width: 36px; height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .pipeline-axis-row:nth-child(even) .pipeline-tile-index {
+            color: var(--accent-blue);
+            background: rgba(56, 189, 248, 0.05);
+            border-color: rgba(56, 189, 248, 0.15);
+        }
+
+        .pipeline-tile-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .pipeline-tile-anchor { text-decoration: none; display: block; }
+        .pipeline-tile-anchor:hover .pipeline-floating-tile {
+            transform: translateY(-3px) scale(1.02);
+            border-color: rgba(255, 255, 255, 0.08);
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.4) 0%, rgba(2, 6, 23, 0.95) 100%);
+        }
+
+        /* ====================================================================== */
+        /* SECTION 5: CORE ARCHITECTURE LAYERS MATRIX GRID                        */
+        /* ====================================================================== */
+        .layers-matrix-mesh {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .layer-cyber-card {
+            background: var(--bg-glass-card);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 14px;
+            padding: 35px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .layer-card-laser {
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, var(--accent-emerald), transparent);
+            opacity: 0.4;
+        }
+
+        .layer-cyber-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0 0 12px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .layer-cyber-card p {
+            font-size: 0.98rem;
+            line-height: 1.65;
+            color: var(--text-secondary);
+            margin: 0 0 25px 0;
+        }
+
+        .layer-tags-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #475569;
+            margin-bottom: 12px;
+        }
+
+        .layer-tags-mesh { display: flex; flex-wrap: wrap; gap: 6px; }
+        .layer-mini-tag {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: #cbd5e1;
+        }
+        .layer-cyber-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.55);
+        }
+
+        /* Modular Token Prescriptive Option Grids Hooks */
+        .prescriptive-matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .prescriptive-tile-node {
+            background: rgba(15, 23, 42, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            padding: 26px;
+            border-radius: 12px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        .prescriptive-tile-node h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            color: #ffffff;
+            margin: 0 0 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .prescriptive-tile-node h4 i { color: var(--accent-emerald); font-size: 0.9rem; }
+        .prescriptive-tile-node span { font-size: 0.92rem; line-height: 1.6; color: var(--text-secondary); display: block; }
+        .prescriptive-tile-node:hover { border-color: rgba(16, 185, 129, 0.2); background: rgba(16, 185, 129, 0.01); }
+
+        /* Technology & Industry Uniform Vectors */
+        .tech-coverage-mesh-matrix {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 40px;
+        }
+
+        .tech-matrix-item {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 18px 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            color: #cbd5e1;
+            transition: all 0.3s ease;
+        }
+        .tech-matrix-item:hover {
+            background: rgba(16, 185, 129, 0.02);
+            border-color: rgba(16, 185, 129, 0.2);
+            color: var(--accent-emerald);
+            transform: scale(1.02);
+        }
+
+        .frameworks-token-row { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 35px; }
+        .framework-token-card {
+            background: rgba(16, 185, 129, 0.02);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #a7f3d0;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* INTERCONNECTED CORE KNOWLEDGE GRAPH LAYOUT */
+        .vakra-graph-library-shield {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(2, 6, 23, 0.9) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 50px;
+            margin-top: 60px;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.5);
+            box-sizing: border-box;
+        }
+        .vakra-graph-library-shield h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            color: #ffffff;
+            margin: 0 0 35px 0;
+            letter-spacing: -0.5px;
+        }
+        .graph-mesh-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .graph-mesh-node-link { text-decoration: none; display: block; }
+        .graph-mesh-card-tile {
+            background: rgba(2, 6, 23, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 22px 26px;
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-sizing: border-box;
+        }
+        .graph-mesh-card-tile h4 { font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; color: #ffffff; margin: 0 0 6px 0; }
+        .graph-mesh-card-tile span {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent-emerald);
+        }
+        .graph-mesh-node-link:hover .graph-mesh-card-tile {
+            transform: translateX(6px);
+            border-color: rgba(16, 185, 129, 0.25);
+            background: rgba(16, 185, 129, 0.01);
+        }
+
+        .notice-container-shield {
+            background: rgba(194, 24, 91, 0.01);
+            border: 1px dashed rgba(194, 24, 91, 0.18);
+            padding: 40px;
+            border-radius: 14px;
+            box-sizing: border-box;
+            margin-top: 40px;
+        }
+        .notice-container-shield h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            color: #f472b6;
+            margin: 0 0 12px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .final-cta-payload-box { text-align: center; max-width: 900px; margin: 0 auto; }
+        .final-cta-payload-box h2 { font-family: 'Space Grotesk', sans-serif; font-size: 2.8rem; color: #ffffff; margin: 0 0 20px 0; letter-spacing: -1px; }
+        .final-cta-payload-box p { font-size: 1.2rem; line-height: 1.7; color: var(--text-secondary); margin-bottom: 40px; }
+
+        @media (max-width: 1200px) {
+            .doc-hero { flex-direction: column; text-align: center; padding-top: 140px !important; }
+            .hero-payload-wrapper { max-width: 100%; text-align: center; }
+            .vakra-metadata-registry-box { width: 100%; margin-top: 30px; }
+        }
+        @media (max-width: 1100px) {
+            .layers-matrix-mesh, .prescriptive-matrix-grid, .graph-mesh-grid { grid-template-columns: repeat(2, 1fr); }
+            .tech-coverage-mesh-matrix { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 850px) {
+            .layers-matrix-mesh, .prescriptive-matrix-grid, .tech-coverage-mesh-matrix, .graph-mesh-grid { grid-template-columns: 1fr; }
+            .hero-payload-wrapper h1 { font-size: 2.6rem; }
+            .cyber-diagram-canvas::before { left: 24px; transform: none; }
+            .pipeline-track-node-dot { left: 24px; }
+            .pipeline-axis-row { justify-content: flex-end !important; }
+            .pipeline-floating-tile { width: calc(100% - 55px); }
+            .vakra-graph-library-shield, .notice-container-shield { padding: 25px; }
+        }
+    </style>
+    <!-- 🚀 UNIVERSAL SPACE & GAP OPTIMIZER FOR CRISP LAYOUTS -->
+    <style id="vakra-gap-resolver">
+        /* Forcefully shrink the top space of hero container completely */
+        html body .doc-hero, 
+        html body main .doc-hero,
+        html body [class*="hero"] {
+            min-height: auto !important;
+            padding-top: 80px !important; /* Forces layout to sit right under navbar */
+            padding-bottom: 25px !important;
+            margin-top: 0 !important;
+        }
+
+        /* Compress the sections padding dynamically */
+        html body .doc-section, 
+        html body .bp-section,
+        html body [class*="section"] {
+            padding: 30px 10% !important; /* Ultimate tight compression */
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        /* Tighten internal elements */
+        html body .cyber-diagram-canvas, 
+        html body .bp-library-grid, 
+        html body .principles-matrix-grid {
+            margin-top: 15px !important;
+        }
+        html body h2.doc-block-heading {
+            margin-top: 0 !important;
+            margin-bottom: 10px !important;
+        }
+        html body p.doc-block-paragraph {
+            margin-bottom: 10px !important;
+        }
+    </style>
+</head>
+<body>
+    <header></header>
+
+    <main class="vakra-validated-design-engine">
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 1: HERO CONTAINER & REGISTRY METADATA BOX                     -->
+        <!-- ====================================================================== -->
+        <section class="doc-hero">
+            <div class="hero-aurora-glow"></div>
+            <div class="hero-payload-wrapper">
+                <div class="doc-framework-badge"><span>Enterprise Data Reference Architecture</span></div>
+                <h1>Enterprise Data Platform <span class="hero-gradient-text">Blueprint™</span></h1>
+                <p>
+                    Building Intelligent, Scalable & Trusted Enterprise Data Foundations. Enterprise data is no longer confined to databases. Modern organizations generate data across applications, cloud services, IoT devices, AI platforms, APIs, business systems, and digital operations. The Vakratron Enterprise Data Platform Blueprint™ provides a vendor-neutral architecture for designing modern data platforms that support analytics, AI, governance, real-time processing, regulatory compliance, and enterprise decision-making.
+                </p>
+                <div class="hero-prescriptive-tag">Powered by V-MAP™ + V-Platform™</div>
+                <div class="bp-hero-btn-group" style="display: flex; gap: 20px;">
+                    <a href="/contact.html" class="vakra-btn-primary">Request Data Architecture Review <i class="fas fa-database"></i></a>
+                    <a href="/contact.html" class="vakra-btn-secondary">Talk to a Data Platform Architect <i class="fas fa-comments"></i></a>
+                </div>
+            </div>
+
+            <!-- 👑 INTERCONNECTED ARCHITECTURE METADATA REGISTRY BOX -->
+            <div class="vakra-metadata-registry-box">
+                <div class="metadata-header-title">Specification Document Node</div>
+                <div class="metadata-row"><div class="metadata-label">Blueprint ID</div><div class="metadata-value">VAB-005</div></div>
+                <div class="metadata-row"><div class="metadata-label">Category</div><div class="metadata-value">Data Engineering & AI Foundation</div></div>
+                <div class="metadata-row"><div class="metadata-label">Complexity</div><div class="metadata-value">Enterprise Core</div></div>
+                <div class="metadata-row"><div class="metadata-label">Architecture Type</div><div class="metadata-value">Vendor Neutral</div></div>
+                <div class="metadata-row"><div class="metadata-label">Deployment Model</div><div class="metadata-value">Hybrid / Lakehouse</div></div>
+                <div class="metadata-row"><div class="metadata-label">Version</div><div class="metadata-value">1.0</div></div>
+                <div class="metadata-row"><div class="metadata-label">Last Updated</div><div class="metadata-value">July 2026</div></div>
+                <div class="metadata-row" style="border-bottom: none;"><div class="metadata-label">Powered By</div><div class="metadata-value" style="color: var(--accent-emerald);">V-Platform™</div></div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 2: BUSINESS CHALLENGE                                          -->
+        <!-- ====================================================================== -->
+        <section class="doc-section" style="border-top: 1px solid rgba(255, 255, 255, 0.02);">
+            <h2 class="doc-block-heading">Business Challenge</h2>
+            <p class="doc-block-paragraph">
+                Organizations today collect massive volumes of structured, semi-structured, and unstructured data across multiple environments.
+            </p>
+            <p class="doc-block-paragraph">
+                Without a unified enterprise data architecture, organizations struggle with inconsistent data quality, fragmented storage, limited visibility, governance challenges, and increasing operational complexity. The Enterprise Data Platform Blueprint™ establishes a scalable foundation that transforms enterprise data into a trusted strategic asset supporting analytics, AI, automation, and digital transformation initiatives smoothly.
+            </p>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 3: ARCHITECTURE OBJECTIVES                                      -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <h2 class="doc-block-heading">Architecture Objectives</h2>
+            <div class="prescriptive-matrix-grid">
+                <div class="prescriptive-tile-node"><h4><i class="fas fa-folder-tree"></i> Unified Enterprise Data</h4><span>Consolidates distributed storage clusters into an abstract scalable storage layer.</span></div>
+                <div class="prescriptive-tile-node"><h4><i class="fas fa-gavel"></i> Trusted Data Governance</h4><span>Enforces hard real-time verification compliance rules matching lineage frameworks.</span></div>
+                <div class="prescriptive-tile-node"><h4><i class="fas fa-brain"></i> AI-Ready Data Architecture</h4><span>Structures data pipeline execution feeds for vector storage engines and model indexing.</span></div>
+                <div class="prescriptive-tile-node"><h4><i class="fas fa-bolt"></i> Real-Time Analytics</h4><span>Processes transactional event telemetry tracks immediately over streaming queues.</span></div>
+                <div class="prescriptive-tile-node"><h4><i class="fas fa-key"></i> Secure Data Access</h4><span>Guarantees granular rule protection maps isolating private records from exposure fields.</span></div>
+                <div class="prescriptive-tile-node"><h4><i class="fas fa-chart-line"></i> Operational Scalability</h4><span>Enables raw computation processing to extend elastically without resource blocks.</span></div>
+                <div class="prescriptive-tile-node"><h4><i class="fas fa-pie-chart"></i> Business Intelligence</h4><span>Drives structured predictive insight grids supporting strategic enterprise operations.</span></div>
+                <div class="prescriptive-tile-node"><h4><i class="fas fa-passport"></i> Regulatory Compliance</h4><span>Secures information lifecycle audits matching cross-border privacy policy mandates.</span></div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 4: ENTERPRISE DATA PLATFORM ARCHITECTURE DIAGRAM MATRIX        -->
+        <!-- ====================================================================== -->
+        <section class="doc-section" style="background: rgba(2, 6, 23, 0.35);">
+            <h2 class="doc-block-heading">Enterprise Data Platform Architecture</h2>
+            <p class="doc-block-paragraph">The programmatic lifecycle map tracing raw operational data lines through ingestion layers, storage warehouses, governance checks, and downstream analytics applications:</p>
+            
+            <div class="cyber-diagram-canvas">
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">01</div><div class="pipeline-tile-text">Enterprise Applications (ERP, CRM, IoT, APIs)</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">02</div><div class="pipeline-tile-text">Data Ingestion Layer</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">03</div><div class="pipeline-tile-text">Streaming & Integration</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">04</div><div class="pipeline-tile-text">Enterprise Data Lake</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">05</div><div class="pipeline-tile-text">Data Warehouse</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">06</div><div class="pipeline-tile-text">Metadata Catalog</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">07</div><div class="pipeline-tile-text">Governance Plane</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">08</div><div class="pipeline-tile-text">AI & Analytics Foundation</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">09</div><div class="pipeline-tile-text">Business Intelligence</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">10</div><div class="pipeline-tile-text">Monitoring Systems</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">11</div><div class="pipeline-tile-text">Security Architecture</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">12</div><div class="pipeline-tile-text">Backup & Disaster Recovery</div></div><div class="pipeline-track-node-dot"></div></div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 5: CORE ARCHITECTURE LAYERS DETAILED MATRIX                    -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <h2 class="doc-block-heading">Core Architecture Layers</h2>
+            <div class="layers-matrix-mesh">
+
+                <div class="layer-cyber-card">
+                    <div class="layer-card-laser"></div>
+                    <h3>Enterprise Data Sources</h3>
+                    <p>Captures structured, semi-structured, and unstructured enterprise information from core operational architectures and edge devices.</p>
+                    <div class="layer-tags-title">Coverage</div>
+                    <div class="layer-tags-mesh"><span class="layer-mini-tag">ERP</span><span class="layer-mini-tag">CRM</span><span class="layer-mini-tag">HRMS</span><span class="layer-mini-tag">Finance</span><span class="layer-mini-tag">IoT</span><span class="layer-mini-tag">APIs</span><span class="layer-mini-tag">Cloud Services</span></div>
+                </div>
+
+                <div class="layer-cyber-card">
+                    <div class="layer-card-laser"></div>
+                    <h3>Data Ingestion Layer</h3>
+                    <p>Responsible for collecting and integrating records from multiple enterprise points while ensuring reliable transfer buffers.</p>
+                    <div class="layer-tags-title">Coverage</div>
+                    <div class="layer-tags-mesh"><span class="layer-mini-tag">Batch Processing</span><span class="layer-mini-tag">Real-Time Streaming</span><span class="layer-mini-tag">API Integration</span><span class="layer-mini-tag">Event Collection</span><span class="layer-mini-tag">Data Synchronization</span></div>
+                </div>
+
+                <div class="layer-cyber-card">
+                    <div class="layer-card-laser"></div>
+                    <h3>Storage Layer</h3>
+                    <p>Provides highly-scalable object repositories and structural relational layers capable of supporting modern data footprints.</p>
+                    <div class="layer-tags-title">Coverage</div>
+                    <div class="layer-tags-mesh"><span class="layer-mini-tag">Data Lake</span><span class="layer-mini-tag">Data Warehouse</span><span class="layer-mini-tag">Object Storage</span><span class="layer-mini-tag">Operational Database</span><span class="layer-mini-tag">Archive</span></div>
+                </div>
+
+                <div class="layer-cyber-card">
+                    <div class="layer-card-laser"></div>
+                    <h3>Metadata & Catalog Layer</h3>
+                    <p>Maintains platform-wide indexing tracks tracking ownership classifications, lineage, and physical dataset scopes.</p>
+                    <div class="layer-tags-title">Coverage</div>
+                    <div class="layer-tags-mesh"><span class="layer-mini-tag">Metadata Management</span><span class="layer-mini-tag">Data Catalog</span><span class="layer-mini-tag">Data Lineage</span><span class="layer-mini-tag">Classification</span><span class="layer-mini-tag">Business Glossary</span></div>
+                </div>
+
+                <div class="layer-cyber-card">
+                    <div class="layer-card-laser"></div>
+                    <h3>Governance Layer</h3>
+                    <p>Ensures information assets remain secure, verified, compliant, and continuously audited throughout their lifecycle spans.</p>
+                    <div class="layer-tags-title">Coverage</div>
+                    <div class="layer-tags-mesh"><span class="layer-mini-tag">Data Policies</span><span class="layer-mini-tag">Compliance</span><span class="layer-mini-tag">Retention</span><span class="layer-mini-tag">Privacy</span><span class="layer-mini-tag">Data Quality</span><span class="layer-mini-tag">Stewardship</span></div>
+                </div>
+
+                <div class="layer-cyber-card">
+                    <div class="layer-card-laser"></div>
+                    <h3>Analytics Layer</h3>
+                    <p>Transforms raw platform collections into structured analytical metrics and business dashboard outputs smoothly.</p>
+                    <div class="layer-tags-title">Coverage</div>
+                    <div class="layer-tags-mesh"><span class="layer-mini-tag">Dashboards</span><span class="layer-mini-tag">Reporting</span><span class="layer-mini-tag">Predictive Analytics</span><span class="layer-mini-tag">Operational Intelligence</span><span class="layer-mini-tag">Business Analytics</span></div>
+                </div>
+
+                <div class="layer-cyber-card">
+                    <div class="layer-card-laser"></div>
+                    <h3>AI Enablement Layer</h3>
+                    <p>Provides verified semantic context pipelines backing advanced enterprise LLM inference frameworks and RAG engines.</p>
+                    <div class="layer-tags-title">Coverage</div>
+                    <div class="layer-tags-mesh"><span class="layer-mini-tag">Feature Store</span><span class="layer-mini-tag">Vector Data</span><span class="layer-mini-tag">AI Pipelines</span><span class="layer-mini-tag">Knowledge Sources</span><span class="layer-mini-tag">Model Training</span><span class="layer-mini-tag">Enterprise RAG</span></div>
+                </div>
+
+                <div class="layer-cyber-card">
+                    <div class="layer-card-laser"></div>
+                    <h3>Security Layer</h3>
+                    <p>Applies strict cell-level data masking filters and transport encryption methods protecting corporate storage fields.</p>
+                    <div class="layer-tags-title">Coverage</div>
+                    <div class="layer-tags-mesh"><span class="layer-mini-tag">Encryption</span><span class="layer-mini-tag">Identity</span><span class="layer-mini-tag">Masking</span><span class="layer-mini-tag">Access Control</span><span class="layer-mini-tag">Audit</span><span class="layer-mini-tag">Compliance</span></div>
+                </div>
+
+                <div class="layer-cyber-card" style="grid-column: span 2;">
+                    <div class="layer-card-laser"></div>
+                    <h3>Operations Layer</h3>
+                    <p>Orchestrates systemic health alerts, database capacity expansions, and point-in-time recovery setups dynamically.</p>
+                    <div class="layer-tags-title">Coverage</div>
+                    <div class="layer-tags-mesh"><span class="layer-mini-tag">Monitoring</span><span class="layer-mini-tag">Backup</span><span class="layer-mini-tag">Automation</span><span class="layer-mini-tag">Capacity Planning</span><span class="layer-mini-tag">Lifecycle Management</span><span class="layer-mini-tag">Disaster Recovery</span></div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 6: DEPLOYMENT MODELS                                           -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <h2 class="doc-block-heading">Deployment Models</h2>
+            <div class="tech-coverage-mesh-matrix">
+                <div class="tech-matrix-item">Enterprise Data Lake</div><div class="tech-matrix-item">Lakehouse</div>
+                <div class="tech-matrix-item">Data Warehouse</div><div class="tech-matrix-item">Hybrid Data Platform</div>
+                <div class="tech-matrix-item">Cloud Native Data Platform</div><div class="tech-matrix-item">AI Data Platform</div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 7: SECURITY CONSIDERATIONS                                    -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <h2 class="doc-block-heading">Security Considerations</h2>
+            <p class="doc-block-paragraph">Enterprise data must remain protected throughout its lifecycle.</p>
+            <div class="tech-coverage-mesh-matrix">
+                <div class="tech-matrix-item">Zero Trust Data Access</div><div class="tech-matrix-item">Encryption at Rest</div>
+                <div class="tech-matrix-item">Encryption in Transit</div><div class="tech-matrix-item">Identity Governance</div>
+                <div class="tech-matrix-item">Data Classification</div><div class="tech-matrix-item">Data Privacy</div>
+                <div class="tech-matrix-item">Compliance Monitoring</div><div class="tech-matrix-item">Audit Logging</div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 8: SCALABILITY STRATEGY                                        -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <h2 class="doc-block-heading">Scalability Strategy</h2>
+            <div class="tech-coverage-mesh-matrix">
+                <div class="tech-matrix-item">Horizontal Storage Scaling</div><div class="tech-matrix-item">Distributed Processing</div>
+                <div class="tech-matrix-item">Real-Time Streaming</div><div class="tech-matrix-item">Cloud Expansion Platforms</div>
+                <div class="tech-matrix-item">Multi Region Deployment</div><div class="tech-matrix-item">Elastic Analytics Pools</div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 9: HIGH AVAILABILITY                                           -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <h2 class="doc-block-heading">High Availability</h2>
+            <div class="tech-coverage-mesh-matrix">
+                <div class="tech-matrix-item">Distributed Storage</div><div class="tech-matrix-item">Data Replication Stacks</div>
+                <div class="tech-matrix-item">Clustered Processing</div><div class="tech-matrix-item">Automated Backups</div>
+                <div class="tech-matrix-item">Cross Region Recovery</div><div class="tech-matrix-item">Failover Orchestration</div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 10: DATA GOVERNANCE MATRIX                                     -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <h2 class="doc-block-heading">Data Governance</h2>
+            <div class="tech-coverage-mesh-matrix">
+                <div class="tech-matrix-item">Data Ownership</div><div class="tech-matrix-item">Data Quality Tracking</div>
+                <div class="tech-matrix-item">Retention Policies</div><div class="tech-matrix-item">Compliance Standards</div>
+                <div class="tech-matrix-item">Lifecycle Management</div><div class="tech-matrix-item">Business Glossary</div>
+                <div class="tech-matrix-item">Data Stewardship</div><div class="tech-matrix-item">Access Governance</div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 11: INDUSTRY APPLICATIONS                                      -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <h2 class="doc-block-heading">Industry Applications</h2>
+            <div class="tech-coverage-mesh-matrix">
+                <div class="tech-matrix-item">Financial Services</div><div class="tech-matrix-item">Government Systems</div>
+                <div class="tech-matrix-item">Healthcare</div><div class="tech-matrix-item">Retail Networks</div>
+                <div class="tech-matrix-item">Manufacturing Core</div><div class="tech-matrix-item">Telecommunications</div>
+                <div class="tech-matrix-item">Energy Infrastructure</div><div class="tech-matrix-item">Smart Cities Fabrics</div>
+                <div class="tech-matrix-item" style="grid-column: span 4;">Large Enterprises</div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 12: RELATED VAKRATRON FRAMEWORKS                               -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <h2 class="doc-block-heading">Related Vakratron Frameworks™</h2>
+            <p class="doc-block-paragraph">Powered by unified proprietary enterprise frameworks:</p>
+            <div class="frameworks-token-row">
+                <div class="framework-token-card"><i class="fas fa-sitemap"></i> V-MAP™</div>
+                <div class="framework-token-card"><i class="fas fa-cloud"></i> V-Cloud™</div>
+                <div class="framework-token-card"><i class="fas fa-brain"></i> V-AI™</div>
+                <div class="framework-token-card"><i class="fas fa-server"></i> V-Platform™</div>
+                <div class="framework-token-card"><i class="fas fa-magnifying-glass"></i> V-Review™</div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- INTERCONNECTED GRAPH KNOWLEDGE GRAPH LOOP MODULE                       -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <div class="vakra-graph-library-shield">
+                <h2>Related Enterprise Blueprints™</h2>
+                <div class="graph-mesh-grid">
+                    
+                    <a href="blueprint-cloud.html" class="graph-mesh-node-link">
+                        <div class="graph-mesh-card-tile">
+                            <h4>✓ Enterprise Hybrid Cloud Blueprint™</h4>
+                            <span>Powered by V-Cloud™ + V-MAP™</span>
+                        </div>
+                    </a>
+
+                    <a href="blueprint-kubernetes.html" class="graph-mesh-node-link">
+                        <div class="graph-mesh-card-tile">
+                            <h4>✓ Enterprise Kubernetes Platform Blueprint™</h4>
+                            <span>Powered by V-Platform™ + V-MAP™</span>
+                        </div>
+                    </a>
+
+                    <a href="blueprint-api-integration.html" class="graph-mesh-node-link">
+                        <div class="graph-mesh-card-tile">
+                            <h4>✓ Enterprise API Platform Blueprint™</h4>
+                            <span>Powered by V-Platform™ + V-MAP™</span>
+                        </div>
+                    </a>
+
+                    <a href="blueprint-ai-platform.html" class="graph-mesh-node-link">
+                        <div class="graph-mesh-card-tile">
+                            <h4>✓ Enterprise AI Platform Blueprint™</h4>
+                            <span>Powered by V-AI™ + V-MAP™</span>
+                        </div>
+                    </a>
+
+                    <a href="blueprint-zero-trust.html" class="graph-mesh-node-link">
+                        <div class="graph-mesh-card-tile">
+                            <h4>✓ Zero Trust Security Blueprint™</h4>
+                            <span>Powered by V-Review™ + V-MAP™</span>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 13: IMPORTANT NOTICE WARNING SKELETON                          -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <div class="notice-container-shield">
+                <h4><i class="fas fa-triangle-exclamation"></i> Important Notice: Conceptual Architecture Only</h4>
+                <p>
+                    The Enterprise Data Platform Blueprint™ is intended as a conceptual enterprise architecture for strategic planning, platform modernization, and technology evaluation. Detailed data models, schema design, ETL workflows, infrastructure sizing, governance policies, implementation runbooks, High-Level Designs (HLD), Low-Level Designs (LLD), and operational documentation are delivered as part of Vakratron consulting engagements based on direct enterprise scopes.
+                </p>
+            </div>
+        </section>
+
+        <!-- FINAL CTA ENGAGEMENT COMPONENT -->
+        <section class="doc-section" style="border-top: 1px solid rgba(255, 255, 255, 0.03); margin-top: 40px;">
+            <div class="final-cta-payload-box">
+                <h2>Build a Trusted Enterprise Data Foundation</h2>
+                <p>
+                    Whether you're modernizing analytics, enabling AI, consolidating enterprise data, or building a cloud-native data platform, Vakratron provides architecture-led consulting that transforms data into a strategic business asset.
+                </p>
+                <div style="display: flex; gap: 20px; justify-content: center;" class="bp-hero-btn-group">
+                    <a href="/contact.html" class="vakra-btn-primary">Request Data Platform Workshop <i class="fas fa-bolt"></i></a>
+                    <a href="/contact.html" class="vakra-btn-secondary">Speak with a Data Architect <i class="fas fa-comments"></i></a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <footer></footer>
+
+
+    <!-- 🚨 AUTOMATED INTEGRATION: INTERACTIVE CHAT ENGINE FRONTEND ADAPTER -->
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('code') || window.location.hash.includes('access_token')) {
+            localStorage.setItem('vakra_auth_token', 'SECURE_NODE_VALIDATED_2026');
+            window.location.href = '/index.html'; 
+        }
+
+        const trigger = document.getElementById('chatTrigger');
+        const windowEl = document.getElementById('chatWindow');
+        const closeBtn = document.getElementById('chatClose');
+        const sendBtn = document.getElementById('chatSend');
+        const inputEl = document.getElementById('chatInput');
+        const messagesContainer = document.getElementById('chatMessages');
+
+        if (trigger) {
+            trigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                windowEl.classList.toggle('active');
+                
+                if(windowEl.classList.contains('active')) {
+                    windowEl.style.setProperty('display', 'flex', 'important');
+                    windowEl.style.setProperty('width', '360px', 'important');
+                    inputEl.focus();
+                } else {
+                    windowEl.style.setProperty('display', 'none', 'important');
+                }
+            });
+        }
+
+        if (closeBtn) {
+            closeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                windowEl.classList.remove('active');
+                windowEl.style.setProperty('display', 'none', 'important');
+            });
+        }
+
+        async function dispatchUserPrompt() {
+            const promptValue = inputEl.value.trim();
+            if (!promptValue) return;
+
+            appendBubble(promptValue, 'user');
+            inputEl.value = '';
+
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'vakra-msg system';
+            typingIndicator.innerHTML = `<div class="vakra-typing"><span></span><span></span><span></span></div>`;
+            messagesContainer.appendChild(typingIndicator);
+            scrollToBottom();
+
+            try {
+                const apiResponse = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: promptValue })
+                });
+
+                const dataset = await apiResponse.json();
+                typingIndicator.remove();
+
+                if (apiResponse.ok && dataset.response) {
+                    appendBubble(dataset.response, 'system');
+
+                    const lowerMessage = promptValue.toLowerCase();
+                    if (
+                        lowerMessage.includes('connect') || 
+                        lowerMessage.includes('talk to human') || 
+                        lowerMessage.includes('contact team') || 
+                        lowerMessage.includes('representative') || 
+                        lowerMessage.includes('connect someone') ||
+                        lowerMessage.includes('team se connect')
+                    ) {
+                        setTimeout(() => {
+                            appendBubble("⚡ System Action: Redirecting token matrix to the Sovereign Advisory Desk...", 'system');
+                            setTimeout(() => {
+                                window.location.href = 'contact.html';
+                            }, 1500);
+                        }, 1000);
+                    }
+                } else {
+                    appendBubble("Execution Defect: Unable to pipeline calculated tokens from LLM core.", 'system');
+                }
+            } catch (networkError) {
+                if(typingIndicator) typingIndicator.remove();
+                appendBubble("Network Fault: Endpoint connectivity degraded or blocked.", 'system');
+                console.error("Pipeline Transmission Error:", networkError);
+            }
+        }
+
+        function appendBubble(content, actor) {
+            const bubble = document.createElement('div');
+            bubble.className = `vakra-msg ${actor}`;
+            bubble.innerHTML = content.replace(/\n/g, '<br>');
+            messagesContainer.appendChild(bubble);
+            scrollToBottom();
+        }
+
+        function scrollToBottom() {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        if (sendBtn) sendBtn.addEventListener('click', dispatchUserPrompt);
+        if (inputEl) {
+            inputEl.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter') dispatchUserPrompt();
+            });
+        }
+    </script>
+    <script src="/vakra-loader.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise GPU Infrastructure Blueprint™ | Vakratron Systems Verified Design</title>
+    
+    <!-- 🚀 Core Global UI Style Assets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ====================================================================== */
+        /* 💎 PREMIUM OBSIDIAN THEME CORE CONFIGURATIONS                         */
+        /* ====================================================================== */
+        :root {
+            --bg-obsidian: #020617;
+            --bg-glass-card: linear-gradient(135deg, rgba(15, 23, 42, 0.45) 0%, rgba(2, 6, 23, 0.85) 100%);
+            --accent-blue: #38bdf8;
+            --accent-pink: #c2185b;
+            --accent-purple: #a855f7;
+            --accent-emerald: #10b981;
+            --text-secondary: #94a3b8;
+            --gpu-blueprint-gradient: linear-gradient(135deg, var(--accent-pink) 0%, var(--accent-purple) 50%, var(--accent-blue) 100%);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: var(--bg-obsidian);
+            font-family: 'Inter', sans-serif;
+            color: #f1f5f9;
+            overflow-x: hidden;
+        }
+
+        .doc-hero, .doc-section {
+            padding: 100px 10% !important;
+            max-width: 1400px;
+            margin: 0 auto !important;
+            box-sizing: border-box;
+            position: relative;
+            clear: both;
+        }
+
+        h2.doc-block-heading {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0 0 30px 0;
+            letter-spacing: -1px;
+            position: relative;
+            display: inline-block;
+        }
+        h2.doc-block-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -8px; left: 0; width: 60px; height: 3px;
+            background: linear-gradient(90deg, var(--accent-pink), var(--accent-blue));
+            border-radius: 2px;
+        }
+
+        p.doc-block-paragraph {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin: 0 0 25px 0;
+        }
+
+        /* Sovereign Action Triggers */
+        .vakra-btn-primary {
+            background: linear-gradient(135deg, var(--accent-pink) 0%, #a855f7 100%);
+            color: #ffffff;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            padding: 15px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 15px rgba(194, 24, 91, 0.2);
+        }
+        .vakra-btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(194, 24, 91, 0.45);
+        }
+
+        .vakra-btn-secondary {
+            background: rgba(255, 255, 255, 0.02);
+            color: #ffffff;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            padding: 15px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .vakra-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+        }
+
+        /* ====================================================================== */
+        /* SECTION 1: HERO & METADATA REGISTRY FRAMEWORK RESETS                   */
+        /* ====================================================================== */
+        .doc-hero {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            padding-top: 170px !important;
+        }
+
+        .hero-aurora-glow {
+            position: absolute;
+            top: 40%; left: 30%;
+            transform: translate(-50%, -50%);
+            width: 900px; height: 900px;
+            background: radial-gradient(circle, rgba(194, 24, 91, 0.05) 0%, transparent 65%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero-payload-wrapper {
+            position: relative;
+            z-index: 2;
+            max-width: 60%;
+            text-align: left;
+        }
+
+        .doc-framework-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(194, 24, 91, 0.04);
+            border: 1px solid rgba(194, 24, 91, 0.2);
+            padding: 8px 24px;
+            border-radius: 100px;
+            color: #f472b6;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+        }
+
+        .hero-payload-wrapper h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.15;
+            margin: 0 0 25px 0;
+            letter-spacing: -2px;
+        }
+
+        .hero-gradient-text {
+            background: var(--gpu-blueprint-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-prescriptive-tag {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #cbd5e1;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        /* 👑 METADATA REGISTRY BOX ENGINE */
+        .vakra-metadata-registry-box {
+            position: relative;
+            z-index: 3;
+            width: 35%;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(2, 6, 23, 0.95) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.6);
+            box-sizing: border-box;
+        }
+        .metadata-header-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+        .metadata-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            font-size: 0.9rem;
+        }
+        .metadata-row:last-child { border-bottom: none; }
+        .metadata-label { color: var(--text-secondary); font-family: 'Space Grotesk', sans-serif; }
+        .metadata-value { color: #ffffff; font-weight: 500; text-align: right; }
+
+        /* ====================================================================== */
+        /* 🎨 DYNAMIC PIPELINE DIAGRAM ENGINE: GPU COMPUTE MESH TRACK              */
+        /* ====================================================================== */
+        .cyber-diagram-canvas {
+            max-width: 1000px;
+            margin: 60px auto 0 auto;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .cyber-diagram-canvas::before {
+            content: '';
+            position: absolute;
+            left: 50%; top: 0; bottom: 0; width: 2px;
+            background: linear-gradient(180deg, var(--accent-pink) 0%, var(--accent-purple) 45%, var(--accent-blue) 75%, var(--accent-emerald) 100%);
+            box-shadow: 0 0 15px rgba(194, 24, 91, 0.4);
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .pipeline-axis-row {
+            display: flex;
+            width: 100%;
+            margin-bottom: 35px;
+            position: relative;
+            z-index: 2;
+            box-sizing: border-box;
+        }
+        .pipeline-axis-row:nth-child(odd) { justify-content: flex-start; }
+        .pipeline-axis-row:nth-child(even) { justify-content: flex-end; }
+
+        .pipeline-track-node-dot {
+            width: 14px; height: 14px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 2px solid var(--accent-pink);
+            position: absolute;
+            left: 50%; top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 4;
+            animation: pulseGlow 2.5s infinite ease-in-out;
+        }
+        .pipeline-axis-row:nth-child(even) .pipeline-track-node-dot { border-color: var(--accent-blue); }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; box-shadow: 0 0 8px currentColor; }
+            50% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; box-shadow: 0 0 18px currentColor; }
+        }
+
+        .pipeline-floating-tile {
+            background: var(--bg-glass-card);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 18px 26px;
+            border-radius: 12px;
+            width: 44%;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-sizing: border-box;
+        }
+
+        .pipeline-tile-index {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--accent-pink);
+            background: rgba(194, 24, 91, 0.05);
+            border: 1px solid rgba(194, 24, 91, 0.15);
+            width: 36px; height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .pipeline-axis-row:nth-child(even) .pipeline-tile-index {
+            color: var(--accent-blue);
+            background: rgba(56, 189, 248, 0.05);
+            border-color: rgba(56, 189, 248, 0.15);
+        }
+
+        .pipeline-tile-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .pipeline-infra-boundary {
+            border-top: 1px dashed rgba(255, 255, 255, 0.08);
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+            padding: 15px 0;
+            margin: 20px 0;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #475569;
+            background: rgba(2, 6, 23, 0.6);
+        }
+
+        .pipeline-tile-anchor { text-decoration: none; display: block; }
+        .pipeline-tile-anchor:hover .pipeline-floating-tile {
+            transform: translateY(-3px) scale(1.02);
+            border-color: rgba(255, 255, 255, 0.08);
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.4) 0%, rgba(2, 6, 23, 0.95) 100%);
+        }
+
+        /* ====================================================================== */
+        /* SECTION 5: CORE ARCHITECTURE LAYERS MATRIX GRID                        */
+        /* ====================================================================== */
+        .layers-matrix-mesh {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .layer-cyber-card {
+            background: var(--bg-glass-card);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 14px;
+            padding: 35px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .layer-card-laser {
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, var(--accent-pink), transparent);
+            opacity: 0.4;
+        }
+
+        .layer-cyber-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0 0 12px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .layer-cyber-card p {
+            font-size: 0.98rem;
+            line-height: 1.65;
+            color: var(--text-secondary);
+            margin: 0 0 25px 0;
+        }
+
+        .layer-tags-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #475569;
+            margin-bottom: 12px;
+        }
+
+        .layer-tags-mesh { display: flex; flex-wrap: wrap; gap: 6px; }
+        .layer-mini-tag {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: #cbd5e1;
+        }
+        .layer-cyber-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.55);
+        }
+
+        /* Modular Token Prescriptive Option Grids Hooks */
+        .prescriptive-matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .prescriptive-tile-node {
+            background: rgba(15, 23, 42, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            padding: 26px;
+            border-radius: 12px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        .prescriptive-tile-node h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            color: #ffffff;
+            margin: 0 0 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .prescriptive-tile-node h4 i { color: var(--accent-pink); font-size: 0.9rem; }
+        .prescriptive-tile-node span { font-size: 0.92rem; line-height: 1.6; color: var(--text-secondary); display: block; }
+        .prescriptive-tile-node:hover { border-color: rgba(194, 24, 91, 0.2); background: rgba(194, 24, 91, 0.01); }
+
+        /* Technology & Industry Uniform Vectors */
+        .tech-coverage-mesh-matrix {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 40px;
+        }
+
+        .tech-matrix-item {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 18px 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            color: #cbd5e1;
+            transition: all 0.3s ease;
+        }
+        .tech-matrix-item:hover {
+            background: rgba(194, 24, 91, 0.02);
+            border-color: rgba(194, 24, 91, 0.2);
+            color: #f472b6;
+            transform: scale(1.02);
+        }
+
+        .frameworks-token-row { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 35px; }
+        .framework-token-card {
+            background: rgba(16, 185, 129, 0.02);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #a7f3d0;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* INTERCONNECTED CORE KNOWLEDGE GRAPH LAYOUT */
+        .vakra-graph-library-shield {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(2, 6, 23, 0.9) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 50px;
+            margin-top: 60px;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.5);
+            box-sizing: border-box;
+        }
+        .vakra-graph-library-shield h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            color: #ffffff;
+            margin: 0 0 35px 0;
+            letter-spacing: -0.5px;
+        }
+        .graph-mesh-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .graph-mesh-node-link { text-decoration: none; display: block; }
+        .graph-mesh-card-tile {
+            background: rgba(2, 6, 23, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 22px 26px;
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-sizing: border-box;
+        }
+        .graph-mesh-card-tile h4 { font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; color: #ffffff; margin: 0 0 6px 0; }
+        .graph-mesh-card-tile span {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent-pink);
+        }
+        .graph-mesh-node-link:hover .graph-mesh-card-tile {
+            transform: translateX(6px);
+            border-color: rgba(194, 24, 91, 0.25);
+            background: rgba(194, 24, 91, 0.01);
+        }
+
+        .notice-container-shield {
+            background: rgba(194, 24, 91, 0.01);
+            border: 1px dashed rgba(194, 24, 91, 0.18);
+            padding: 40px;
+            border-radius: 14px;
+            box-sizing: border-box;
+            margin-top: 40px;
+        }
+        .notice-container-shield h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            color: #f472b6;
+            margin: 0 0 12px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .final-cta-payload-box { text-align: center; max-width: 900px; margin: 0 auto; }
+        .final-cta-payload-box h2 { font-family: 'Space Grotesk', sans-serif; font-size: 2.8rem; color: #ffffff; margin: 0 0 20px 0; letter-spacing: -1px; }
+        .final-cta-payload-box p { font-size: 1.2rem; line-height: 1.7; color: var(--text-secondary); margin-bottom: 40px; }
+
+        @media (max-width: 1200px) {
+            .doc-hero { flex-direction: column; text-align: center; padding-top: 140px !important; }
+            .hero-payload-wrapper { max-width: 100%; text-align: center; }
+            .vakra-metadata-registry-box { width: 100%; margin-top: 30px; }
+        }
+        @media (max-width: 1100px) {
+            .layers-matrix-mesh, .prescriptive-matrix-grid, .graph-mesh-grid { grid-template-columns: repeat(2, 1fr); }
+            .tech-coverage-mesh-matrix { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 850px) {
+            .layers-matrix-mesh, .prescriptive-matrix-grid, .tech-coverage-mesh-matrix, .graph-mesh-grid { grid-template-columns: 1fr; }
+            .hero-payload-wrapper h1 { font-size: 2.6rem; }
+            .cyber-diagram-canvas::before { left: 24px; transform: none; }
+            .pipeline-track-node-dot { left: 24px; }
+            .pipeline-axis-row { justify-content: flex-end !important; }
+            .pipeline-floating-tile { width: calc(100% - 55px); }
+            .vakra-graph-library-shield, .notice-container-shield { padding: 25px; }
+        }
+    </style>
+    <!-- 🚀 UNIVERSAL SPACE & GAP OPTIMIZER FOR CRISP LAYOUTS -->
+    <style id="vakra-gap-resolver">
+        /* Forcefully shrink the top space of hero container completely */
+        html body .doc-hero, 
+        html body main .doc-hero,
+        html body [class*="hero"] {
+            min-height: auto !important;
+            padding-top: 80px !important; /* Forces layout to sit right under navbar */
+            padding-bottom: 25px !important;
+            margin-top: 0 !important;
+        }
+
+        /* Compress the sections padding dynamically */
+        html body .doc-section, 
+        html body .bp-section,
+        html body [class*="section"] {
+            padding: 30px 10% !important; /* Ultimate tight compression */
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        /* Tighten internal elements */
+        html body .cyber-diagram-canvas, 
+        html body .bp-library-grid, 
+        html body .principles-matrix-grid {
+            margin-top: 15px !important;
+        }
+        html body h2.doc-block-heading {
+            margin-top: 0 !important;
+            margin-bottom: 10px !important;
+        }
+        html body p.doc-block-paragraph {
+            margin-bottom: 10px !important;
+        }
+    </style>
+</head>
+<body>
+    <header></header>
+
+    <main class="vakra-validated-design-engine">
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 1: HERO CONTAINER & REGISTRY METADATA BOX                     -->
+        <!-- ====================================================================== -->
+        <section class="doc-hero">
+            <div class="hero-aurora-glow"></div>
+            <div class="hero-payload-wrapper">
+                <div class="doc-framework-badge"><span>Accelerated Compute Reference Design</span></div>
+                <h1>Enterprise GPU Infrastructure <span class="hero-gradient-text">Blueprint™</span></h1>
+                <p>
+                    Designing High-Performance AI Compute Platforms for Enterprise Innovation. Artificial Intelligence has fundamentally changed enterprise infrastructure requirements. Traditional compute environments are no longer sufficient to support modern AI workloads, large language models, computer vision, data science, and accelerated analytics. The Vakratron Enterprise GPU Infrastructure Blueprint™ provides a vendor-neutral architecture for designing scalable, high-performance AI compute platforms capable of supporting enterprise training, inference, research, and next-generation AI initiatives.
+                </p>
+                <div class="hero-prescriptive-tag">Powered by V-Platform™ + V-AI Blueprint™</div>
+                <div class="bp-hero-btn-group" style="display: flex; gap: 20px;">
+                    <a href="/contact.html" class="vakra-btn-primary">Request AI Infrastructure Assessment <i class="fas fa-microchip"></i></a>
+                    <a href="/contact.html" class="vakra-btn-secondary">Talk to an AI Infrastructure Architect <i class="fas fa-comments"></i></a>
+                </div>
+            </div>
+
+            <!-- 👑 INTERCONNECTED ARCHITECTURE METADATA REGISTRY BOX -->
+            <div class="vakra-metadata-registry-box">
+                <div class="metadata-header-title">Specification Document Node</div>
+                <div class="metadata-row"><div class="metadata-label">Blueprint ID</div><div class="metadata-value">VAB-008</div></div>
+                <div class="metadata-row"><div class="metadata-label">Category</div><div class="metadata-value">Platform Engineering</div></div>
+                <div class="metadata-row"><div class="metadata-label">Complexity</div><div class="metadata-value">Enterprise</div></div>
+                <div class="metadata-row"><div class="metadata-label">Architecture Type</div><div class="metadata-value">Vendor Neutral</div></div>
+                <div class="metadata-row"><div class="metadata-label">Deployment Model</div><div class="metadata-value">Hybrid / Multi Cloud</div></div>
+                <div class="metadata-row"><div class="metadata-label">Version</div><div class="metadata-value">1.0</div></div>
+                <div class="metadata-row"><div class="metadata-label">Last Updated</div><div class="metadata-value">July 2026</div></div>
+                <div class="metadata-row" style="border-bottom: none;"><div class="metadata-label">Powered By</div><div class="metadata-value" style="color: var(--accent-pink);">V-Platform™</div></div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 2: BUSINESS CHALLENGE                                          -->
+        <!-- ====================================================================== -->
+        <section class="doc-section" style="border-top: 1px solid rgba(255, 255, 255, 0.02);">
+            <h2 class="doc-block-heading">Business Challenge</h2>
+            <p class="doc-block-paragraph">
+                Modern AI initiatives demand significantly more than GPU servers. Enterprise AI platforms require high-speed networking, scalable storage, intelligent workload orchestration, efficient resource sharing, security, monitoring, and operational governance.
+            </p>
+            <p class="doc-block-paragraph">
+                Without a structured architecture, organizations often face infrastructure bottlenecks, inefficient GPU utilization, rising operational costs, and limited scalability. The Enterprise GPU Infrastructure Blueprint™ establishes a standardized foundation for building enterprise-grade AI infrastructure capable of supporting present and future AI workloads.
+            </p>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 3: ARCHITECTURE OBJECTIVES                                      -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <h2 class="doc-block-heading">Architecture Objectives</h2>
+            <div class="prescriptive-matrix-grid">
+                <div class="prescriptive-tile-node"><h4><i class="fas fa-bolt"></i> High Performance Computing</h4><span>Maximizes non-blocking execution paths across low-latency acceleration modules.</span></div>
+                <div class="prescriptive-tile-node"><h4><i class="fas fa-chart-pie"></i> GPU Resource Optimization</h4><span>Enforces hard fractional scheduling boundaries eliminating idle computing waste patterns.</span></div>
+                <div class="prescriptive-tile-node"><h4><i class="fas fa-brain"></i> AI Ready Infrastructure</h4><span>Integrates high-throughput parallel pipelines feeding real-time context token layers.</span></div>
+                <div class="prescriptive-tile-node"><h4><i class="fas fa-expand"></i> Scalable Compute Architecture</h4><span>Allows linear expansions of hardware resource pools crossing abstract cluster scopes.</span></div>
+                <div class="prescriptive-tile-node"><h4><i class="fas fa-calendar-check"></i> Intelligent Workload Scheduling</h4><span>Orchestrates dynamic model priority routing matrices maximizing system run queues.</span></div>
+                <div class="prescriptive-tile-node"><h4><i class="fas fa-shield-halved"></i> Enterprise Security</h4><span>Embeds tenant isolation and multi-level data protection keys directly at the core.</span></div>
+                <div class="prescriptive-tile-node"><h4><i class="fas fa-eye"></i> Operational Visibility</h4><span>Tracks precise hardware metrics, chip thermal margins, and memory saturation traces.</span></div>
+                <div class="prescriptive-tile-node"><h4><i class="fas fa-forward"></i> Future AI Expansion</h4><span>Establishes abstract vendor-neutral routing layers prepared for next-generation hardware shifts.</span></div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 4: ENTERPRISE GPU ARCHITECTURE DIAGRAM MODULE                  -->
+        <!-- ====================================================================== -->
+        <section class="doc-section" style="background: rgba(2, 6, 23, 0.35);">
+            <h2 class="doc-block-heading">Enterprise GPU Infrastructure Architecture</h2>
+            <p class="doc-block-paragraph">The verified processing pipeline routing user workflows through platform orchestration software down to raw accelerated compute and high-speed storage fabrics:</p>
+            
+            <div class="cyber-diagram-canvas">
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">01</div><div class="pipeline-tile-text">AI Users / Data Scientists</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">02</div><div class="pipeline-tile-text">Identity & Access</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">03</div><div class="pipeline-tile-text">AI Portal (Jupyter, IDEs)</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">04</div><div class="pipeline-tile-text">AI Gateway Interface</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">05</div><div class="pipeline-tile-text">Kubernetes AI Platform Core</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">06</div><div class="pipeline-tile-text">Advanced GPU Scheduler</div></div><div class="pipeline-track-node-dot"></div></div>
+                
+                <div class="pipeline-infra-boundary">── Accelerated GPU Compute Cluster Fleet (GPU Nodes | Inference Nodes | Training Nodes) ──</div>
+                
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">07</div><div class="pipeline-tile-text">High Speed Fabric (RDMA/Interconnect)</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">08</div><div class="pipeline-tile-text">Parallel Enterprise Storage</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">09</div><div class="pipeline-tile-text">Distributed Object Storage</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">10</div><div class="pipeline-tile-text">Training Datasets Vault</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">11</div><div class="pipeline-tile-text">Central Monitoring Stack</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">12</div><div class="pipeline-tile-text">Backup & High Availability DR</div></div><div class="pipeline-track-node-dot"></div></div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 5: CORE ARCHITECTURE LAYERS DETAILED MATRIX                    -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <h2 class="doc-block-heading">Core Architecture Layers</h2>
+            <div class="layers-matrix-mesh">
+
+                <div class="layer-cyber-card">
+                    <div class="layer-card-laser"></div>
+                    <h3>AI Access Layer</h3>
+                    <p>Provides secure sandbox environments and system interfaces for enterprise AI users, data scientists, and connected application endpoints.</p>
+                    <div class="layer-tags-title">Coverage</div>
+                    <div class="layer-tags-mesh"><span class="layer-mini-tag">AI Portal</span><span class="layer-mini-tag">APIs</span><span class="layer-mini-tag">Jupyter</span><span class="layer-mini-tag">AI Applications</span><span class="layer-mini-tag">Business Systems</span></div>
+                </div>
+
+                <div class="layer-cyber-card">
+                    <div class="layer-card-laser"></div>
+                    <h3>AI Platform Layer</h3>
+                    <p>Orchestrates systemic pipeline lifecycles tracking running training tracks, model routing, and fractional GPU scheduling operations.</p>
+                    <div class="layer-tags-title">Coverage</div>
+                    <div class="layer-tags-mesh"><span class="layer-mini-tag">Model Serving</span><span class="layer-mini-tag">Inference</span><span class="layer-mini-tag">Training</span><span class="layer-mini-tag">Notebook Platform</span><span class="layer-mini-tag">Workflow Automation</span><span class="layer-mini-tag">GPU Scheduling</span></div>
+                </div>
+
+                <div class="layer-cyber-card">
+                    <div class="layer-card-laser"></div>
+                    <h3>GPU Compute Layer</h3>
+                    <p>Delivers high-density accelerated chip clusters optimized mathematically to execute demanding mathematical deep-learning algorithms.</p>
+                    <div class="layer-tags-title">Coverage</div>
+                    <div class="layer-tags-mesh"><span class="layer-mini-tag">GPU Clusters</span><span class="layer-mini-tag">Training Nodes</span><span class="layer-mini-tag">Inference Nodes</span><span class="layer-mini-tag">Accelerated Compute</span><span class="layer-mini-tag">Resource Pools</span></div>
+                </div>
+
+                <div class="layer-cyber-card">
+                    <div class="layer-card-laser"></div>
+                    <h3>High-Speed Networking Layer</h3>
+                    <p>Maintains high-throughput zero-copy data channels bypassing standard operating system network stack limitations.</p>
+                    <div class="layer-tags-title">Coverage</div>
+                    <div class="layer-tags-mesh"><span class="layer-mini-tag">High-Speed Ethernet</span><span class="layer-mini-tag">RDMA over Converged Fabric</span><span class="layer-mini-tag">Low-Latency Fabric</span><span class="layer-mini-tag">Network Segmentation</span><span class="layer-mini-tag">Traffic Optimization</span></div>
+                </div>
+
+                <div class="layer-cyber-card">
+                    <div class="layer-card-laser"></div>
+                    <h3>Enterprise Storage Layer</h3>
+                    <p>Establishes parallel read/write data blocks capable of saturating direct calculation pipelines during model checkpoint cycles.</p>
+                    <div class="layer-tags-title">Coverage</div>
+                    <div class="layer-tags-mesh"><span class="layer-mini-tag">Object Storage</span><span class="layer-mini-tag">Parallel Storage</span><span class="layer-mini-tag">File Storage</span><span class="layer-mini-tag">Dataset Repository</span><span class="layer-mini-tag">Model Repository</span><span class="layer-mini-tag">Archive</span></div>
+                </div>
+
+                <div class="layer-cyber-card">
+                    <div class="layer-card-laser"></div>
+                    <h3>Data Services Layer</h3>
+                    <p>Supports low-latency preprocessing pipelines sanitizing corporate text, graph, and file arrays for vector storage injection.</p>
+                    <div class="layer-tags-title">Coverage</div>
+                    <div class="layer-tags-mesh"><span class="layer-mini-tag">Data Lake</span><span class="layer-mini-tag">ETL</span><span class="layer-mini-tag">Metadata</span><span class="layer-mini-tag">Feature Store</span><span class="layer-mini-tag">Data Pipelines</span><span class="layer-mini-tag">Vector Data</span></div>
+                </div>
+
+                <div class="layer-cyber-card">
+                    <div class="layer-card-laser"></div>
+                    <h3>Security Layer</h3>
+                    <p>Enforces tenant hardware namespace isolation filters and access walls safeguarding high-value models from parameters theft.</p>
+                    <div class="layer-tags-title">Coverage</div>
+                    <div class="layer-tags-mesh"><span class="layer-mini-tag">Identity</span><span class="layer-mini-tag">RBAC</span><span class="layer-mini-tag">Secrets</span><span class="layer-mini-tag">Encryption</span><span class="layer-mini-tag">Audit</span><span class="layer-mini-tag">Compliance</span></div>
+                </div>
+
+                <div class="layer-cyber-card">
+                    <div class="layer-card-laser"></div>
+                    <h3>Observability Layer</h3>
+                    <p>Yields precise tracing views matching programmatic training loss curves with actual physical chip energy bounds.</p>
+                    <div class="layer-tags-title">Coverage</div>
+                    <div class="layer-tags-mesh"><span class="layer-mini-tag">Metrics</span><span class="layer-mini-tag">GPU Monitoring</span><span class="layer-mini-tag">Capacity Analytics</span><span class="layer-mini-tag">Performance</span><span class="layer-mini-tag">Logging</span><span class="layer-mini-tag">Alerting</span></div>
+                </div>
+
+                <div class="layer-cyber-card" style="grid-column: span 2;">
+                    <div class="layer-card-laser"></div>
+                    <h3>Operations Layer</h3>
+                    <p>Drives continuous automated bare-metal provisioning and state drift monitoring across high-density computing clusters.</p>
+                    <div class="layer-tags-title">Coverage</div>
+                    <div class="layer-tags-mesh"><span class="layer-mini-tag">Automation</span><span class="layer-mini-tag">Infrastructure as Code</span><span class="layer-mini-tag">Provisioning</span><span class="layer-mini-tag">Capacity Planning</span><span class="layer-mini-tag">Backup</span><span class="layer-mini-tag">Disaster Recovery</span></div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 6: DEPLOYMENT MODELS                                           -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <h2 class="doc-block-heading">Deployment Models</h2>
+            <div class="tech-coverage-mesh-matrix">
+                <div class="tech-matrix-item">Private AI Infrastructure</div><div class="tech-matrix-item">Hybrid AI Platform</div>
+                <div class="tech-matrix-item">Research Clusters</div><div class="tech-matrix-item">Enterprise AI Cloud</div>
+                <div class="tech-matrix-item">Inference Platform</div><div class="tech-matrix-item">Training Platform</div>
+                <div class="tech-matrix-item" style="grid-column: span 2;">Government AI Infrastructure</div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 7: INFRASTRUCTURE DESIGN PRINCIPLES                             -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <h2 class="doc-block-heading">Infrastructure Design Principles</h2>
+            <div class="tech-coverage-mesh-matrix">
+                <div class="tech-matrix-item">GPU Resource Efficiency</div><div class="tech-matrix-item">Scalable Compute Architecture</div>
+                <div class="tech-matrix-item">Storage Performance</div><div class="tech-matrix-item">Network Optimization</div>
+                <div class="tech-matrix-item">Operational Automation</div><div class="tech-matrix-item">Security by Design</div>
+                <div class="tech-matrix-item">Observability First</div><div class="tech-matrix-item">Business Continuity</div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 8: SCALABILITY STRATEGY                                        -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <h2 class="doc-block-heading">Scalability Strategy</h2>
+            <p class="doc-block-paragraph">Enterprise AI platforms must evolve with increasing models, users, and datasets.</p>
+            <div class="tech-coverage-mesh-matrix">
+                <div class="tech-matrix-item">GPU Pool Expansion</div><div class="tech-matrix-item">Storage Growth</div>
+                <div class="tech-matrix-item">Additional AI Clusters</div><div class="tech-matrix-item">Multi Site AI</div>
+                <div class="tech-matrix-item">Cloud Bursting</div><div class="tech-matrix-item">Distributed AI</div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 9: HIGH AVAILABILITY                                           -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <h2 class="doc-block-heading">High Availability</h2>
+            <div class="tech-coverage-mesh-matrix">
+                <div class="tech-matrix-item">Redundant AI Control Plane</div><div class="tech-matrix-item">Multiple GPU Pools</div>
+                <div class="tech-matrix-item">Distributed Storage</div><div class="tech-matrix-item">HA Networking</div>
+                <div class="tech-matrix-item">Load Balancing</div><div class="tech-matrix-item">Cross Site Recovery</div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 10: AI INFRASTRUCTURE GOVERNANCE                               -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <h2 class="doc-block-heading">AI Infrastructure Governance</h2>
+            <div class="tech-coverage-mesh-matrix">
+                <div class="tech-matrix-item">Resource Allocation</div><div class="tech-matrix-item">GPU Scheduling Policies</div>
+                <div class="tech-matrix-item">Model Lifecycle</div><div class="tech-matrix-item">Infrastructure Standards</div>
+                <div class="tech-matrix-item">Security Policies</div><div class="tech-matrix-item">Capacity Governance</div>
+                <div class="tech-matrix-item">Operational Procedures</div><div class="tech-matrix-item">Lifecycle Management</div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 11: INDUSTRY APPLICATIONS                                      -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <h2 class="doc-block-heading">Industry Applications</h2>
+            <div class="tech-coverage-mesh-matrix">
+                <div class="tech-matrix-item">Artificial Intelligence</div><div class="tech-matrix-item">Financial Services</div>
+                <div class="tech-matrix-item">Healthcare</div><div class="tech-matrix-item">Research Core</div>
+                <div class="tech-matrix-item">Manufacturing</div><div class="tech-matrix-item">Telecommunications</div>
+                <div class="tech-matrix-item">Government</div><div class="tech-matrix-item">Higher Education</div>
+                <div class="tech-matrix-item" style="grid-column: span 4;">Automotive</div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 12: RELATED VAKRATRON FRAMEWORKS                               -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <h2 class="doc-block-heading">Related Vakratron Frameworks™</h2>
+            <p class="doc-block-paragraph">Powered by unified proprietary enterprise frameworks:</p>
+            <div class="frameworks-token-row">
+                <div class="framework-token-card"><i class="fas fa-microchip"></i> V-AI Blueprint™</div>
+                <div class="framework-token-card"><i class="fas fa-server"></i> V-Platform™</div>
+                <div class="framework-token-card"><i class="fas fa-sitemap"></i> V-MAP™</div>
+                <div class="framework-token-card"><i class="fas fa-cloud"></i> V-Cloud™</div>
+                <div class="framework-token-card"><i class="fas fa-rotate"></i> V-Recover™</div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- KNOWLEDGE GRAPH MATRIX ARCHITECTURE LOOP                               -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <div class="vakra-graph-library-shield">
+                <h2>Related Enterprise Blueprints™</h2>
+                <div class="graph-mesh-grid">
+                    
+                    <a href="blueprint-cloud.html" class="graph-mesh-node-link">
+                        <div class="graph-mesh-card-tile">
+                            <h4>✓ Enterprise Hybrid Cloud Blueprint™</h4>
+                            <span>Powered by V-Cloud™ + V-MAP™</span>
+                        </div>
+                    </a>
+
+                    <a href="blueprint-kubernetes.html" class="graph-mesh-node-link">
+                        <div class="graph-mesh-card-tile">
+                            <h4>✓ Enterprise Kubernetes Platform Blueprint™</h4>
+                            <span>Powered by V-Platform™ + V-MAP™</span>
+                        </div>
+                    </a>
+
+                    <a href="blueprint-api-integration.html" class="graph-mesh-node-link">
+                        <div class="graph-mesh-card-tile">
+                            <h4>✓ Enterprise API Platform Blueprint™</h4>
+                            <span>Powered by V-Platform™ + V-MAP™</span>
+                        </div>
+                    </a>
+
+                    <a href="blueprint-ai-platform.html" class="graph-mesh-node-link">
+                        <div class="graph-mesh-card-tile">
+                            <h4>✓ Enterprise AI Platform Blueprint™</h4>
+                            <span>Powered by V-AI Blueprint™ + V-MAP™</span>
+                        </div>
+                    </a>
+
+                    <a href="blueprint-data-platform.html" class="graph-mesh-node-link">
+                        <div class="graph-mesh-card-tile">
+                            <h4>✓ Enterprise Data Platform Blueprint™</h4>
+                            <span>Powered by V-Platform™ + V-MAP™</span>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 13: IMPORTANT NOTICE WARNING SKELETON                          -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <div class="notice-container-shield">
+                <h4><i class="fas fa-triangle-exclamation"></i> Important Notice: Conceptual Architecture Only</h4>
+                <p>
+                    The Enterprise GPU Infrastructure Blueprint™ is intended as a strategic reference architecture for planning AI infrastructure and enterprise GPU platforms. Detailed GPU sizing, cluster design, rack layouts, networking topology, storage performance analysis, HLD, LLD, deployment automation, infrastructure bill of materials (BOM), and operational runbooks are delivered through Vakratron consulting engagements based on direct organization blueprints.
+                </p>
+            </div>
+        </section>
+
+        <!-- FINAL CTA ENGAGEMENT COMPONENT -->
+        <section class="doc-section" style="border-top: 1px solid rgba(255, 255, 255, 0.03); margin-top: 40px;">
+            <div class="final-cta-payload-box">
+                <h2>Build AI Infrastructure That Scales with Your Business</h2>
+                <p>
+                    Whether you're deploying enterprise AI, building GPU clusters, enabling GenAI, or modernizing high-performance compute environments, Vakratron provides architecture-led consulting that transforms AI infrastructure into a strategic business capability.
+                </p>
+                <div style="display: flex; gap: 20px; justify-content: center;" class="bp-hero-btn-group">
+                    <a href="/contact.html" class="vakra-btn-primary">Request AI Infrastructure Workshop <i class="fas fa-bolt"></i></a>
+                    <a href="/contact.html" class="vakra-btn-secondary">Speak with an AI Infrastructure Architect <i class="fas fa-comments"></i></a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <footer></footer>
+
+
+    <!-- 🚨 AUTOMATED INTEGRATION: INTERACTIVE CHAT ENGINE FRONTEND ADAPTER -->
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('code') || window.location.hash.includes('access_token')) {
+            localStorage.setItem('vakra_auth_token', 'SECURE_NODE_VALIDATED_2026');
+            window.location.href = '/index.html'; 
+        }
+
+        const trigger = document.getElementById('chatTrigger');
+        const windowEl = document.getElementById('chatWindow');
+        const closeBtn = document.getElementById('chatClose');
+        const sendBtn = document.getElementById('chatSend');
+        const inputEl = document.getElementById('chatInput');
+        const messagesContainer = document.getElementById('chatMessages');
+
+        if (trigger) {
+            trigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                windowEl.classList.toggle('active');
+                
+                if(windowEl.classList.contains('active')) {
+                    windowEl.style.setProperty('display', 'flex', 'important');
+                    windowEl.style.setProperty('width', '360px', 'important');
+                    inputEl.focus();
+                } else {
+                    windowEl.style.setProperty('display', 'none', 'important');
+                }
+            });
+        }
+
+        if (closeBtn) {
+            closeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                windowEl.classList.remove('active');
+                windowEl.style.setProperty('display', 'none', 'important');
+            });
+        }
+
+        async function dispatchUserPrompt() {
+            const promptValue = inputEl.value.trim();
+            if (!promptValue) return;
+
+            appendBubble(promptValue, 'user');
+            inputEl.value = '';
+
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'vakra-msg system';
+            typingIndicator.innerHTML = `<div class="vakra-typing"><span></span><span></span><span></span></div>`;
+            messagesContainer.appendChild(typingIndicator);
+            scrollToBottom();
+
+            try {
+                const apiResponse = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: promptValue })
+                });
+
+                const dataset = await apiResponse.json();
+                typingIndicator.remove();
+
+                if (apiResponse.ok && dataset.response) {
+                    appendBubble(dataset.response, 'system');
+
+                    const lowerMessage = promptValue.toLowerCase();
+                    if (
+                        lowerMessage.includes('connect') || 
+                        lowerMessage.includes('talk to human') || 
+                        lowerMessage.includes('contact team') || 
+                        lowerMessage.includes('representative') || 
+                        lowerMessage.includes('connect someone') ||
+                        lowerMessage.includes('team se connect')
+                    ) {
+                        setTimeout(() => {
+                            appendBubble("⚡ System Action: Redirecting token matrix to the Sovereign Advisory Desk...", 'system');
+                            setTimeout(() => {
+                                window.location.href = 'contact.html';
+                            }, 1500);
+                        }, 1000);
+                    }
+                } else {
+                    appendBubble("Execution Defect: Unable to pipeline calculated tokens from LLM core.", 'system');
+                }
+            } catch (networkError) {
+                if(typingIndicator) typingIndicator.remove();
+                appendBubble("Network Fault: Endpoint connectivity degraded or blocked.", 'system');
+                console.error("Pipeline Transmission Error:", networkError);
+            }
+        }
+
+        function appendBubble(content, actor) {
+            const bubble = document.createElement('div');
+            bubble.className = `vakra-msg ${actor}`;
+            bubble.innerHTML = content.replace(/\n/g, '<br>');
+            messagesContainer.appendChild(bubble);
+            scrollToBottom();
+        }
+
+        function scrollToBottom() {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        if (sendBtn) sendBtn.addEventListener('click', dispatchUserPrompt);
+        if (inputEl) {
+            inputEl.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter') dispatchUserPrompt();
+            });
+        }
+    </script>
+    <script src="/vakra-loader.js"></script>
+
+</body>
+</html>

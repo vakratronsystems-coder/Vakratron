@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backup & Restore Strategy | Sovereign DC-DR</title>
+    <meta name="description" content="A simple and clear overview of OpenStack Cinder backups and decentralized object storage recovery.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-surface: rgba(15, 23, 42, 0.6);
+            --border-glow: rgba(56, 189, 248, 0.2);
+            --accent-blue: #38bdf8;
+            --accent-neon: #C2185B;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --glass-gradient: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(2, 6, 23, 0.9) 100%);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            background-image: radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.05) 0%, transparent 50%);
+        }
+
+        body { margin: 0; padding: 0; overflow-x: hidden; }
+        section { padding: 120px 8% 60px 8%; box-sizing: border-box; }
+        
+        .content-card {
+            background: var(--glass-gradient);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 24px; padding: 50px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            margin-top: 30px;
+        }
+
+        h1, h2, h3 { font-family: 'Poppins', sans-serif; color: #fff; }
+        p { color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem; font-weight: 300; text-align: justify; margin-bottom: 20px; }
+        
+        .tech-badge {
+            background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.25);
+            color: var(--accent-blue); padding: 6px 14px; border-radius: 6px; font-family: monospace; font-size: 0.85rem;
+        }
+
+        .tech-step-box {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .tech-step-box h4 {
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            font-size: 1.25rem;
+            margin: 0 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tech-step-box h4 i { color: var(--accent-blue); }
+        .tech-step-box ul { margin: 15px 0 0 0; padding-left: 20px; color: var(--text-secondary); }
+        .tech-step-box li { margin-bottom: 10px; line-height: 1.6; font-size: 1rem; font-weight: 300; }
+        .tech-step-box strong { color: #fff; font-weight: 500; }
+
+        .meta-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 30px 0;
+        }
+        .meta-item {
+            background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.03);
+            padding: 20px; border-radius: 12px; text-align: center;
+        }
+        .meta-item label { display: block; font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+        .meta-item span { font-size: 1.3rem; font-weight: 600; color: #fff; font-family: 'Poppins', sans-serif; }
+
+        .vakra-tag-node {
+            display: inline-block; font-size: 0.75rem; background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06); color: var(--text-secondary);
+            padding: 3px 8px; border-radius: 4px; margin-right: 5px; margin-bottom: 5px;
+        }
+
+        /* 📊 VISUAL MESH CONTAINER */
+        .vakra-mesh-container {
+            background: #030712; border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px; padding: 40px; margin: 40px 0; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        .vakra-mesh-row { display: flex; justify-content: space-between; align-items: stretch; gap: 30px; flex-wrap: wrap; }
+        .vakra-mesh-card { background: rgba(15, 23, 42, 0.6); border-radius: 14px; padding: 25px; flex: 1; min-width: 260px; box-sizing: border-box; }
+        .vakra-mesh-card.dc-primary { border: 1px solid rgba(56, 189, 248, 0.25); }
+        .vakra-mesh-card.dr-target { border: 1px solid rgba(194, 24, 91, 0.25); }
+        .vakra-mesh-card h5 { margin: 0 0 15px 0; font-family: 'Poppins', sans-serif; font-size: 1.1rem; color: #fff; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 10px; }
+        .vakra-sub-tier { background: rgba(2, 6, 23, 0.4); border: 1px solid rgba(255, 255, 255, 0.03); border-radius: 8px; padding: 12px; margin-bottom: 12px; }
+        .vakra-sub-tier p { margin: 0 0 6px 0; font-size: 0.85rem; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 6px; }
+        .vakra-mesh-pipe { display: flex; flex-direction: column; justify-content: center; align-items: center; min-width: 160px; flex: 0.5; text-align: center; }
+        .vakra-mesh-line { width: 100%; height: 2px; background: linear-gradient(90deg, var(--accent-blue) 0%, var(--accent-neon) 100%); position: relative; margin: 15px 0; }
+        .vakra-mesh-line::after { content: ''; position: absolute; right: 0; top: -4px; width: 0; height: 0; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 8px solid var(--accent-neon); }
+
+        /* 🕹️ COMMAND CONSOLE NAV */
+        .central-nav-container { position: relative; display: inline-block; }
+        .console-trigger-btn {
+            background: rgba(194, 24, 91, 0.05); border: 1px solid rgba(194, 24, 91, 0.3);
+            color: #fff; padding: 10px 22px; border-radius: 8px; font-size: 0.9rem; font-weight: 600;
+            cursor: pointer; display: flex; align-items: center; gap: 12px; transition: all 0.3s;
+        }
+        .console-dropdown-dashboard {
+            position: absolute; top: 100%; right: -120px; width: 780px; background: #030712;
+            border: 1px solid rgba(194, 24, 91, 0.25); border-radius: 16px; padding: 30px;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.95); opacity: 0; pointer-events: none;
+            transform: translateY(10px) scale(0.98); transition: all 0.3s ease; z-index: 2000; margin-top: 10px;
+        }
+        .central-nav-container:hover .console-trigger-btn { background: rgba(194, 24, 91, 0.15); border-color: rgba(194, 24, 91, 0.8); }
+        .central-nav-container:hover .console-dropdown-dashboard { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
+        .dashboard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .dashboard-col { display: flex; flex-direction: column; gap: 6px; }
+        .dashboard-col h4 { font-family: 'Poppins', sans-serif; color: #fff; font-size: 0.85rem; font-weight: 700; margin: 0 0 12px 0; padding-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .dashboard-col a { display: flex; align-items: center; gap: 10px; color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; }
+        .dashboard-col a:hover { background: rgba(255, 255, 255, 0.03); color: #fff; padding-left: 14px; }
+    </style>
+    <link rel="stylesheet" href="../../style.css">
+
+    <!-- 🚀 UNIVERSAL SPACE & GAP OPTIMIZER FOR CRISP LAYOUTS -->
+    <style id="vakra-gap-resolver">
+        /* Forcefully shrink the top space of hero container completely */
+        html body .doc-hero, 
+        html body main .doc-hero,
+        html body [class*="hero"] {
+            min-height: auto !important;
+            padding-top: 80px !important; /* Forces layout to sit right under navbar */
+            padding-bottom: 25px !important;
+            margin-top: 0 !important;
+        }
+
+        /* Compress the sections padding dynamically */
+        html body .doc-section, 
+        html body .bp-section,
+        html body [class*="section"] {
+            padding: 30px 10% !important; /* Ultimate tight compression */
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        /* Tighten internal elements */
+        html body .cyber-diagram-canvas, 
+        html body .bp-library-grid, 
+        html body .principles-matrix-grid {
+            margin-top: 15px !important;
+        }
+        html body h2.doc-block-heading {
+            margin-top: 0 !important;
+            margin-bottom: 10px !important;
+        }
+        html body p.doc-block-paragraph {
+            margin-bottom: 10px !important;
+        }
+    </style>
+
+</head>
+<body>
+    <header></header>
+    <section>
+        <div style="margin-bottom: 20px;">
+            <a href="/solutions/master_dc-dr.html" style="color: var(--accent-blue); text-decoration: none; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 6px;">
+    <i class="fa-solid fa-chevron-left"></i> Architecture Matrix Hub</a>
+
+        <h1 style="font-size: 2.5rem; font-weight: 700; margin: 10px 0 10px 0;">Backup & Restore Architecture</h1>
+        <div style="display: flex; gap: 10px; margin-bottom: 30px;">
+            <span class="tech-badge">OpenStack Cinder</span>
+            <span class="tech-badge">Decentralized Object Storage</span>
+        </div>
+
+        <div class="meta-grid">
+            <div class="meta-item" style="border-top: 3px solid #f59e0b;">
+                <label>Recovery Point Objective</label>
+                <span>Hours</span>
+            </div>
+            <div class="meta-item" style="border-top: 3px solid #ef4444;">
+                <label>Recovery Time Objective</label>
+                <span>Hours to Days</span>
+            </div>
+            <div class="meta-item" style="border-top: 3px solid #10b981;">
+                <label>Cost Factor</label>
+                <span>Low</span>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <h3 style="font-family:'Poppins',sans-serif;color:var(--accent-blue);font-size:1.5rem;margin-bottom:15px;font-weight:600;">
+                Model 1: Backup and Restore
+            </h3>
+
+            <p>
+                Backup and Restore is the simplest and most cost-effective disaster recovery model.
+            </p>
+
+            <p>
+                In this approach, applications and data are periodically backed up and stored in a secondary location. When a disaster occurs, infrastructure is rebuilt and data is restored from backups.
+            </p>
+
+            <div class="vakra-mesh-container">
+                <div class="vakra-mesh-row">
+                    <div class="vakra-mesh-card dc-primary">
+                        <h5><i class="fa-solid fa-building"></i> Production</h5>
+                        <div class="vakra-sub-tier">
+                            <span class="vakra-tag-node">Applications</span>
+                            <span class="vakra-tag-node">Database</span>
+                            <span class="vakra-tag-node">Storage</span>
+                        </div>
+                    </div>
+
+                    <div class="vakra-mesh-pipe">
+                        <div class="vakra-mesh-line"></div>
+                        <span style="font-size:0.85rem;color:#f472b6;font-weight:600;">Backup Process</span>
+                        <div class="vakra-mesh-line"></div>
+                    </div>
+
+                    <div class="vakra-mesh-card dr-target">
+                        <h5><i class="fa-solid fa-hard-drive"></i> Backup Repository</h5>
+                        <div class="vakra-sub-tier">
+                            <span class="vakra-tag-node">Snapshots</span>
+                            <span class="vakra-tag-node">Backups</span>
+                            <span class="vakra-tag-node">Images</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tech-step-box">
+                <h4><i class="fa-solid fa-circle-check"></i> Advantages</h4>
+                <ul>
+                    <li>Lowest infrastructure cost because backup servers remain idle.</li>
+                    <li>Simple deployment model that requires no continuous synchronizations.</li>
+                    <li>Easy to manage using standard OpenStack Cinder crontab scheduling.</li>
+                    <li>Suitable for non-critical workloads, logs, and development testing sets.</li>
+                </ul>
+            </div>
+
+            <div class="tech-step-box">
+                <h4><i class="fa-solid fa-circle-xmark"></i> Limitations</h4>
+                <ul>
+                    <li>Longest recovery time because entire block lines must be re-copied.</li>
+                    <li>Higher data loss risk corresponding directly to your last backup interval.</li>
+                    <li>Mostly manual recovery process to restore images and re-mount compute hosts.</li>
+                    <li>Not suitable for mission-critical databases or financial systems.</li>
+                </ul>
+            </div>
+
+            <div class="tech-step-box">
+                <h4><i class="fa-solid fa-bullseye"></i> Typical Recovery Targets</h4>
+                <ul>
+                    <li><strong>RPO (Recovery Point Objective):</strong> Hours</li>
+                    <li><strong>RTO (Recovery Time Objective):</strong> Hours to Days</li>
+                    <li><strong>Cost Metric:</strong> Low</li>
+                </ul>
+            </div>
+
+            <div class="tech-step-box">
+                <h4><i class="fa-solid fa-industry"></i> Recommended For</h4>
+                <ul>
+                    <li>Small business environments</li>
+                    <li>Development and testing infrastructure setups</li>
+                    <li>Historical data and corporate archive workloads</li>
+                    <li>Internal non-customer facing utilities</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background: #01040f; padding: 40px 8%; border-top: 1px solid rgba(255,255,255,0.04); text-align: center; font-size: 0.85rem; color: #475569;">
+        &copy; <footer style="background: #020810; padding: 60px 8% 30px 8%; border-top: 1px solid rgba(255,255,255,0.05); box-sizing: border-box; width: 100%; clear: both; position: relative; z-index: 999; font-family: 'Inter', sans-serif;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; flex-wrap: wrap; text-align: left; max-width: 1200px; margin: 0 auto;">
+        
+        <div style="flex: 2; min-width: 280px;">
+            <h2 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1.4rem; font-weight: 700; margin: 0 0 12px 0; letter-spacing: 1px;">
+                VAKRATRON <span style="color: #C2185B; font-size: 0.8rem; letter-spacing: 3px; font-weight: 600; display: block; margin-top: 2px;">SYSTEMS</span>
+            </h2>
+            <p style="color: #64748b; font-size: 0.9rem; line-height: 1.6; margin: 0 0 20px 0; text-align: justify;">
+                Architecting resilient, hyper-secure, and dynamically scaled AI compute frameworks and cloud automation systems for enterprise governance matrices.
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 6px; font-size: 0.85rem; color: #64748b;">
+                <span><i class="fa-solid fa-phone" style="color: #C2185B; margin-right: 8px;"></i> +91 93196 66864</span>
+                <span><i class="fa-solid fa-envelope" style="color: #C2185B; margin-right: 8px;"></i> connect@vakratronsys.com</span>
+            </div>
+        </div>
+        
+        <div style="flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 10px;">
+            <h4 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1rem; margin: 0 0 5px 0; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Compliance Matrix</h4>
+            <span style="color: #64748b; font-size: 0.85rem;"><i class="fa-solid fa-building" style="color: #C2185B; margin-right: 6px;"></i> LLPIN: AAT-3851</span>
+            <span style="color: #64748b; font-size: 0.85rem;"><i class="fa-solid fa-certificate" style="color: #C2185B; margin-right: 6px;"></i> DIPP No: DIPP247647</span>
+            <span style="color: #38bdf8; font-size: 0.85rem; font-weight: 600;"><i class="fa-solid fa-shield-halved" style="margin-right: 6px;"></i> Data Protection Secure</span>
+        </div>
+        
+        <div style="flex: 1; min-width: 150px; display: flex; flex-direction: column; gap: 10px;">
+            <h4 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1rem; margin: 0 0 5px 0; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Structure Links</h4>
+            <a href="/index.html" style="color: #64748b; text-decoration: none; font-size: 0.85rem;">Home Vector</a>
+            <a href="/about.html" style="color: #64748b; text-decoration: none; font-size: 0.85rem;">About Corporate</a>
+            <a href="/products.html" style="color: #64748b; text-decoration: none; font-size: 0.85rem;">Portfolio Offerings</a>
+            <a href="/fabric.html" style="color: #38bdf8; text-decoration: none; font-size: 0.85rem; font-weight: 600;">Fabric Lab Hub</a>
+        </div>
+    </div>
+    
+    <div style="border-top: 1px solid rgba(255,255,255,0.05); margin-top: 30px; padding-top: 20px; text-align: center; font-size: 0.8rem; color: #475569;">
+        &copy; 2026 Vakratron Systems LLP | All Rights Reserved.
+    </div>
+</footer></footer>
+
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

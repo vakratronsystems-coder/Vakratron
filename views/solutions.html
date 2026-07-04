@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Enterprise Solutions Matrix | Vakratron Systems</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-surface: rgba(15, 23, 42, 0.6);
+            --border-glow: rgba(194, 24, 91, 0.3);
+            --accent-neon: #C2185B;
+            --accent-blue: #38bdf8;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --glass-gradient: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(2, 6, 23, 0.9) 100%);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main) !important;
+            color: var(--text-primary);
+            background-image: 
+                radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(194, 24, 91, 0.07) 0%, transparent 50%) !important;
+            background-size: 200% 200% !important;
+            animation: cyberBackgroundMotion 20s ease infinite alternate !important;
+        }
+
+        @keyframes cyberBackgroundMotion {
+            0% { background-position: 0% 20%; }
+            50% { background-position: 100% 80%; }
+            100% { background-position: 20% 100%; }
+        }
+
+        /* 🎯 FIX 1: Body spacing fixed header ke compensation ke liye reset ki */
+        body {
+            margin: 0;
+            padding: 82px 0 0 0 !important; /* Header height offset */
+            overflow-x: hidden;
+            background: transparent !important;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.002) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.002) 1px, transparent 1px) !important;
+            background-size: 50px 50px !important;
+            box-sizing: border-box;
+        }
+
+        section {
+            padding: 80px 8% !important;
+            box-sizing: border-box;
+        }
+
+        .premium-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(194, 24, 91, 0.06);
+            border: 1px solid rgba(194, 24, 91, 0.25);
+            color: #f472b6;
+            padding: 8px 18px;
+            border-radius: 100px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 25px;
+        }
+
+        .solutions-hero {
+            text-align: center;
+            padding-top: 60px !important; 
+            padding-bottom: 40px !important;
+        }
+
+        .solutions-hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 15px 0;
+            color: #fff;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        .solutions-hero h1 span {
+            background: linear-gradient(135deg, #fff 30%, var(--accent-neon) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+        }
+
+        .solutions-hero p {
+            color: var(--text-secondary);
+            max-width: 780px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        /* 🎯 FIX 2: UNIFIED ANTI-CRUSH GRID ENGINE (Renamed to completely avoid style.css clashes) */
+        .vakra-matrix-engine {
+            display: grid !important;
+            grid-template-columns: repeat(3, minmax(300px, 1fr)) !important; /* Solid horizontal 3-card grid lock */
+            gap: 30px !important;
+            padding-top: 20px;
+            width: 100% !important;
+            box-sizing: border-box !important;
+        }
+
+        @media (max-width: 1150px) {
+            .vakra-matrix-engine { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 768px) {
+            .vakra-matrix-engine { grid-template-columns: 1fr !important; }
+        }
+
+        /* 🎯 FIX 3: Flex container parameters override safety */
+        .offering-card {
+            background: var(--glass-gradient) !important;
+            border: 1px solid rgba(255, 255, 255, 0.04) !important;
+            padding: 40px 32px !important;
+            border-radius: 20px !important;
+            box-shadow: 0 30px 60px -20px rgba(0,0,0,0.8) !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
+            min-height: 540px !important;
+            box-sizing: border-box !important;
+            width: 100% !important; 
+            position: relative !important;
+        }
+
+        .offering-card:hover {
+            border-color: rgba(194, 24, 91, 0.5) !important;
+            transform: translateY(-6px) !important;
+            box-shadow: 0 40px 80px -20px rgba(194, 24, 91, 0.15) !important;
+        }
+
+        .offering-icon {
+            width: 52px;
+            height: 52px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-blue);
+            font-size: 1.35rem;
+            margin-bottom: 25px;
+            transition: all 0.3s;
+        }
+
+        .offering-card:hover .offering-icon {
+            background: rgba(194, 24, 91, 0.1);
+            border-color: rgba(194, 24, 91, 0.4);
+            color: #fff;
+        }
+
+        .card-tag {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--accent-blue);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .offering-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            color: #fff;
+            margin: 0 0 14px 0;
+            font-weight: 600;
+        }
+
+        .offering-card p {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            line-height: 1.6;
+            margin: 0 0 25px 0;
+            font-weight: 400;
+        }
+
+        .brand-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 25px;
+        }
+
+        .brand-tags span {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.72rem;
+            color: #94a3b8;
+        }
+
+        .solution-btn {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #fff;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 12px 20px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+            letter-spacing: 0.5px;
+        }
+
+        .solution-btn:hover {
+            background: var(--accent-neon);
+            border-color: var(--accent-neon);
+            box-shadow: 0 4px 15px rgba(194, 24, 91, 0.3);
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- 🚀 UNIVERSAL SPACE & GAP OPTIMIZER FOR CRISP LAYOUTS -->
+    <style id="vakra-gap-resolver">
+        /* Forcefully shrink the top space of hero container completely */
+        html body .doc-hero, 
+        html body main .doc-hero,
+        html body [class*="hero"] {
+            min-height: auto !important;
+            padding-top: 80px !important; /* Forces layout to sit right under navbar */
+            padding-bottom: 25px !important;
+            margin-top: 0 !important;
+        }
+
+        /* Compress the sections padding dynamically */
+        html body .doc-section, 
+        html body .bp-section,
+        html body [class*="section"] {
+            padding: 30px 10% !important; /* Ultimate tight compression */
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        /* Tighten internal elements */
+        html body .cyber-diagram-canvas, 
+        html body .bp-library-grid, 
+        html body .principles-matrix-grid {
+            margin-top: 15px !important;
+        }
+        html body h2.doc-block-heading {
+            margin-top: 0 !important;
+            margin-bottom: 10px !important;
+        }
+        html body p.doc-block-paragraph {
+            margin-bottom: 10px !important;
+        }
+    </style>
+
+</head>
+<body>
+
+    <header></header>
+        
+    <section class="solutions-hero">
+        <div class="premium-badge">
+            <i class="fas fa-layer-group"></i> ENTERPRISE SOLUTIONS MATRIX
+        </div>
+        <h1>Enterprise Technology <span>Solutions Framework</span></h1>
+        <p>Comprehensive architecture, modernization, and transformation solutions spanning Cloud, AI Infrastructure, Platform Engineering, Disaster Recovery, Enterprise AI, and Intelligent Automation ecosystems.</p>
+    </section>
+
+    <section class="solutions-grid-wrapper" style="padding-top: 0px !important;">
+        <div class="vakra-matrix-engine">
+            
+            <div class="offering-card" id="cloud-solutions">
+                <div>
+                    <div class="offering-icon"><i class="fas fa-cloud"></i></div>
+                    <div class="card-tag">CLOUD / MODERNIZATION</div>
+                    <h3>Cloud Solutions</h3>
+                    <p>Architecting scalable private, hybrid, and multi-cloud environments designed to accelerate modernization, improve agility, and optimize enterprise infrastructure operations.</p>
+                </div>
+                <div>
+                    <div class="brand-tags"><span>Private Cloud</span><span>Hybrid Cloud</span><span>Multi Cloud</span></div>
+                    <a href="/views/portfolio/cloud-solutions.html" class="solution-btn">Explore Architecture →</a>
+                </div>
+            </div>
+
+            <div class="offering-card" id="disaster-recovery">
+                <div>
+                    <div class="offering-icon" style="color: var(--accent-neon);"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div class="card-tag">COMPLIANCE / AVAILABILITY</div>
+                    <h3>Disaster Recovery</h3>
+                    <p>Designing resilient structural frameworks and active-passive architectures to guarantee zero-data leak replication and non-disruptive automated failover paths.</p>
+                </div>
+                <div>
+                    <div class="brand-tags"><span>Active-Passive</span><span>Automated Failover</span><span>Zero-Data Leak</span></div>
+                    <a href="portfolio/dr-solutions.html" class="solution-btn">Explore Architecture →</a>
+                </div>
+            </div>
+
+            <div class="offering-card" id="kubernetes">
+                <div>
+                    <div class="offering-icon"><i class="fa-solid fa-cubes"></i></div>
+                    <div class="card-tag">CONTAINERIZATION / ORCHESTRATION</div>
+                    <h3>Kubernetes & Platform Eng.</h3>
+                    <p>Deploying production-grade orchestration topologies, service meshes, and GitOps-driven automated deployment pipes for absolute cloud-native isolation.</p>
+                </div>
+                <div>
+                    <div class="brand-tags"><span>K8s Cluster</span><span>Service Mesh</span><span>GitOps Pipelines</span></div>
+                    <a href="portfolio/kubernetes-platform.html" class="solution-btn">Explore Architecture →</a>
+                </div>
+            </div>
+
+            <div class="offering-card" id="api-microservices">
+                <div>
+                    <div class="offering-icon"><i class="fa-solid fa-network-wired"></i></div>
+                    <div class="card-tag">DECOUPLED / INTEGRATION</div>
+                    <h3>API & Microservices</h3>
+                    <p>Engineering lightweight distributed microservices planes structured through strict API gateways to handle microsecond transaction multi-tenant scaling.</p>
+                </div>
+                <div>
+                    <div class="brand-tags"><span>API Gateway</span><span>Distributed Mesh</span><span>Low Latency</span></div>
+                    <a href="portfolio/api-microservices.html" class="solution-btn">Explore Architecture →</a>
+                </div>
+            </div>
+
+            <div class="offering-card" id="ai-infrastructure">
+                <div>
+                    <div class="offering-icon" style="color: var(--accent-neon);"><i class="fa-solid fa-microchip"></i></div>
+                    <div class="card-tag">ACCELERATED COMPUTE</div>
+                    <h3>AI Infra & GPU Cloud</h3>
+                    <p>Provisioning high-density parallel compute fabrics utilizing enterprise NVIDIA multi-GPU arrays configured for heavy-payload foundation models.</p>
+                </div>
+                <div>
+                    <div class="brand-tags"><span>NVIDIA HGX / DGX</span><span>Parallel Compute</span><span>Tensor Fabrics</span></div>
+                    <a href="portfolio/ai-gpu-cloud.html" class="solution-btn">Explore Architecture →</a>
+                </div>
+            </div>
+
+            <div class="offering-card" id="enterprise-llm">
+                <div>
+                    <div class="offering-icon"><i class="fa-solid fa-brain"></i></div>
+                    <div class="card-tag">GENERATIVE COGNITION</div>
+                    <h3>Enterprise LLM Solutions</h3>
+                    <p>Fine-tuning and deploying private internal Large Language Models within sovereign network frames to lock logic isolation without corporate data leaks.</p>
+                </div>
+                <div>
+                    <div class="brand-tags"><span>Model Fine-Tuning</span><span>Private Context</span><span>Sovereign Enclosures</span></div>
+                    <a href="portfolio/enterprise-llm.html" class="solution-btn">Explore Architecture →</a>
+                </div>
+            </div>
+
+            <div class="offering-card" id="rag-solutions">
+                <div>
+                    <div class="offering-icon"><i class="fa-solid fa-database"></i></div>
+                    <div class="card-tag">KNOWLEDGE RETRIEVAL</div>
+                    <h3>RAG Solutions</h3>
+                    <p>Configuring highly precise Retrieval-Augmented Generation matrices linked with active enterprise vector datastores for secure context-aware logic.</p>
+                </div>
+                <div>
+                    <div class="brand-tags"><span>Vector Datastores</span><span>Semantic Chunking</span><span>Context Extraction</span></div>
+                    <a href="portfolio/rag-solutions.html" class="solution-btn">Explore Architecture →</a>
+                </div>
+            </div>
+
+            <div class="offering-card" id="agentic-ai">
+                <div>
+                    <div class="offering-icon" style="color: var(--accent-neon);"><i class="fa-solid fa-robot"></i></div>
+                    <div class="card-tag">AUTONOMOUS ECOSYSTEMS</div>
+                    <h3>Agentic AI & MCP Systems</h3>
+                    <p>Architecting multi-agent orchestrations powered by structured Model Context Protocol configurations to automate enterprise production loops end-to-end.</p>
+                </div>
+                <div>
+                    <div class="brand-tags"><span>Multi-Agent Mesh</span><span>MCP Protocol</span><span>Autonomous Loops</span></div>
+                    <a href="portfolio/agentic-ai.html" class="solution-btn">Explore Architecture →</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="why-vakratron" style="position: relative; padding: 60px 8% !important; border-top: 1px solid rgba(255, 255, 255, 0.04); background: radial-gradient(circle at 50% 100%, rgba(194, 24, 91, 0.03) 0%, transparent 60%);">
+        <div class="section-header" style="text-align: center; margin-bottom: 40px;">
+            <div class="premium-badge"><i class="fas fa-bolt"></i> TRUSTED ARCHITECTURE PRACTICE</div>
+            <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.3rem; font-weight: 700; margin: 12px 0; color: #fff; letter-spacing: -0.5px;">Why Organizations Choose <span style="background: linear-gradient(135deg, #fff 40%, var(--accent-neon) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: block; margin-top: 5px;">Vakratron</span></h2>
+            <p style="color: var(--text-secondary); max-width: 780px; margin: 0 auto; font-size: 1rem; line-height: 1.6; font-weight: 400; font-family: 'Inter', sans-serif;">Independent architecture, advisory, and modernization expertise focused on delivering business-aligned technology outcomes across Cloud, AI Infrastructure, Platform Engineering, and Disaster Recovery.</p>
+        </div>
+
+        <div class="why-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+            <div class="why-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.03); padding: 28px 24px; border-radius: 16px; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); box-sizing: border-box;" onmouseover="this.style.borderColor='rgba(56, 189, 248, 0.3)'; this.style.transform='translateY(-5px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.03)'; this.style.transform='translateY(0)';">
+                <div class="why-icon" style="width: 44px; height: 44px; background: rgba(56, 189, 248, 0.04); border: 1px solid rgba(56, 189, 248, 0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--accent-blue); font-size: 1.1rem; margin-bottom: 18px;"><i class="fas fa-scale-balanced"></i></div>
+                <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; color: #fff; margin: 0 0 10px 0; font-weight: 600; letter-spacing: -0.2px;">Vendor Neutral Advisory</h3>
+                <p style="color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.5; margin: 0; font-weight: 400;">Technology decisions guided by business requirements, performance objectives, and long-term sustainability — not vendor incentives.</p>
+            </div>
+
+            <div class="why-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.03); padding: 28px 24px; border-radius: 16px; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); box-sizing: border-box;" onmouseover="this.style.borderColor='rgba(194, 24, 91, 0.4)'; this.style.transform='translateY(-5px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.03)'; this.style.transform='translateY(0)';">
+                <div class="why-icon" style="width: 44px; height: 44px; background: rgba(194, 24, 91, 0.04); border: 1px solid rgba(194, 24, 91, 0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--accent-neon); font-size: 1.1rem; margin-bottom: 18px;"><i class="fas fa-drafting-compass"></i></div>
+                <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; color: #fff; margin: 0 0 10px 0; font-weight: 600; letter-spacing: -0.2px;">Architecture First</h3>
+                <p style="color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.5; margin: 0; font-weight: 400;">Every engagement begins with assessments, architecture blueprints, and strategic planning before implementation.</p>
+            </div>
+
+            <div class="why-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.03); padding: 28px 24px; border-radius: 16px; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); box-sizing: border-box;" onmouseover="this.style.borderColor='rgba(56, 189, 248, 0.3)'; this.style.transform='translateY(-5px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.03)'; this.style.transform='translateY(0)';">
+                <div class="why-icon" style="width: 44px; height: 44px; background: rgba(56, 189, 248, 0.04); border: 1px solid rgba(56, 189, 248, 0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--accent-blue); font-size: 1.1rem; margin-bottom: 18px;"><i class="fas fa-layer-group"></i></div>
+                <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; color: #fff; margin: 0 0 10px 0; font-weight: 600; letter-spacing: -0.2px;">Multi-Domain Expertise</h3>
+                <p style="color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.5; margin: 0; font-weight: 400;">Unified expertise spanning Cloud, Kubernetes, AI Infrastructure, Enterprise LLMs, Platform Engineering, and Disaster Recovery.</p>
+            </div>
+
+            <div class="why-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.03); padding: 28px 24px; border-radius: 16px; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); box-sizing: border-box;" onmouseover="this.style.borderColor='rgba(194, 24, 91, 0.4)'; this.style.transform='translateY(-5px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.03)'; this.style.transform='translateY(0)';">
+                <div class="why-icon" style="width: 44px; height: 44px; background: rgba(194, 24, 91, 0.04); border: 1px solid rgba(194, 24, 91, 0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--accent-neon); font-size: 1.1rem; margin-bottom: 18px;"><i class="fas fa-building-shield"></i></div>
+                <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; color: #fff; margin: 0 0 10px 0; font-weight: 600; letter-spacing: -0.2px;">Enterprise Focused</h3>
+                <p style="color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.5; margin: 0; font-weight: 400;">Designed around scalability, governance, resilience, and operational excellence for mission-critical enterprise environments.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="delivery-framework" style="position: relative; padding: 60px 8% !important; border-top: 1px solid rgba(255, 255, 255, 0.04); background: transparent;">
+        <div class="section-header" style="text-align: center; margin-bottom: 45px;">
+            <div class="premium-badge"><i class="fas fa-route"></i> DELIVERY METHODOLOGY</div>
+            <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.3rem; font-weight: 700; margin: 12px 0; color: #fff; letter-spacing: -0.5px;">Our Consulting & <span style="background: linear-gradient(135deg, #fff 40%, var(--accent-blue) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: block; margin-top: 5px;">Architecture Framework</span></h2>
+            <p style="color: var(--text-secondary); max-width: 780px; margin: 0 auto; font-size: 1rem; line-height: 1.6; font-weight: 400; font-family: 'Inter', sans-serif;">A structured engagement model designed to transform business requirements into scalable, secure, and future-ready technology architectures.</p>
+        </div>
+
+        <div class="framework-timeline" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; position: relative;">
+            <div class="framework-step" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.02); padding: 25px 20px; border-radius: 14px; position: relative; transition: all 0.3s ease; box-sizing: border-box;" onmouseover="this.style.borderColor='var(--accent-blue)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.02)'; this.style.transform='translateY(0)';">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+                    <div class="step-icon" style="width: 40px; height: 40px; background: rgba(56, 189, 248, 0.04); border: 1px solid rgba(56, 189, 248, 0.15); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--accent-blue); font-size: 1rem;"><i class="fas fa-search"></i></div>
+                    <div class="step-number" style="font-family: 'Space Grotesk', sans-serif; font-size: 1.6rem; font-weight: 700; color: rgba(255, 255, 255, 0.03); line-height: 1;">01</div>
+                </div>
+                <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; color: #fff; margin: 0 0 8px 0; font-weight: 600;">Discovery</h3>
+                <p style="color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.82rem; line-height: 1.5; margin: 0; font-weight: 400;">Understanding business objectives, current challenges, operational constraints, and transformation goals.</p>
+            </div>
+
+            <div class="framework-step" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.02); padding: 25px 20px; border-radius: 14px; position: relative; transition: all 0.3s ease; box-sizing: border-box;" onmouseover="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.02)'; this.style.transform='translateY(0)';">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+                    <div class="step-icon" style="width: 40px; height: 40px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 1rem;"><i class="fas fa-chart-line"></i></div>
+                    <div class="step-number" style="font-family: 'Space Grotesk', sans-serif; font-size: 1.6rem; font-weight: 700; color: rgba(255, 255, 255, 0.03); line-height: 1;">02</div>
+                </div>
+                <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; color: #fff; margin: 0 0 8px 0; font-weight: 600;">Assessment</h3>
+                <p style="color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.82rem; line-height: 1.5; margin: 0; font-weight: 400;">Evaluating infrastructure, platforms, applications, security posture, and operational maturity.</p>
+            </div>
+
+            <div class="framework-step" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.02); padding: 25px 20px; border-radius: 14px; position: relative; transition: all 0.3s ease; box-sizing: border-box;" onmouseover="this.style.borderColor='var(--accent-neon)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.02)'; this.style.transform='translateY(0)';">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+                    <div class="step-icon" style="width: 40px; height: 40px; background: rgba(194, 24, 91, 0.04); border: 1px solid rgba(194, 24, 91, 0.15); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--accent-neon); font-size: 1rem;"><i class="fas fa-compass-drafting"></i></div>
+                    <div class="step-number" style="font-family: 'Space Grotesk', sans-serif; font-size: 1.6rem; font-weight: 700; color: rgba(255, 255, 255, 0.03); line-height: 1;">03</div>
+                </div>
+                <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; color: #fff; margin: 0 0 8px 0; font-weight: 600;">Architecture</h3>
+                <p style="color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.82rem; line-height: 1.5; margin: 0; font-weight: 400;">Defining target-state architectures aligned with business, performance, and governance requirements.</p>
+            </div>
+
+            <div class="framework-step" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.02); padding: 25px 20px; border-radius: 14px; position: relative; transition: all 0.3s ease; box-sizing: border-box;" onmouseover="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.02)'; this.style.transform='translateY(0)';">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+                    <div class="step-icon" style="width: 40px; height: 40px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 1rem;"><i class="fas fa-sitemap"></i></div>
+                    <div class="step-number" style="font-family: 'Space Grotesk', sans-serif; font-size: 1.6rem; font-weight: 700; color: rgba(255, 255, 255, 0.03); line-height: 1;">04</div>
+                </div>
+                <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; color: #fff; margin: 0 0 8px 0; font-weight: 600;">Blueprint</h3>
+                <p style="color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.82rem; line-height: 1.5; margin: 0; font-weight: 400;">Delivering implementation-ready architecture blueprints, design standards, and operational models.</p>
+            </div>
+
+            <div class="framework-step" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.02); padding: 25px 20px; border-radius: 14px; position: relative; transition: all 0.3s ease; box-sizing: border-box;" onmouseover="this.style.borderColor='var(--accent-blue)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.02)'; this.style.transform='translateY(0)';">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+                    <div class="step-icon" style="width: 40px; height: 40px; background: rgba(56, 189, 248, 0.04); border: 1px solid rgba(56, 189, 248, 0.15); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--accent-blue); font-size: 1rem;"><i class="fas fa-rocket"></i></div>
+                    <div class="step-number" style="font-family: 'Space Grotesk', sans-serif; font-size: 1.6rem; font-weight: 700; color: rgba(255, 255, 255, 0.03); line-height: 1;">05</div>
+                </div>
+                <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; color: #fff; margin: 0 0 8px 0; font-weight: 600;">Execution Guidance</h3>
+                <p style="color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.82rem; line-height: 1.5; margin: 0; font-weight: 400;">Supporting execution through architecture reviews, governance controls, and modernization oversight.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section" style="position: relative; padding: 60px 8% 80px 8% !important; border-top: 1px solid rgba(255, 255, 255, 0.04); background: radial-gradient(circle at 50% 0%, rgba(194, 24, 91, 0.04) 0%, transparent 70%); display: flex; justify-content: center; width: 100%; box-sizing: border-box;">
+        <div class="cta-container" style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(3, 7, 18, 0.95) 100%); border: 1px solid rgba(194, 24, 91, 0.2); border-radius: 20px; padding: 50px 40px; text-align: center; max-width: 950px; width: 100%; box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255,255,255,0.05); box-sizing: border-box; position: relative; overflow: hidden;">
+            <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(255, 255, 255, 0.001) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.001) 1px, transparent 1px); background-size: 30px 30px; pointer-events: none; opacity: 0.5;"></div>
+            <div style="position: relative; z-index: 2;">
+                <div class="premium-badge" style="margin-bottom: 18px;"><i class="fas fa-rocket"></i> ENGAGE WITH VAKRATRON</div>
+                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 700; margin: 0 0 15px 0; color: #fff; letter-spacing: -0.5px; line-height: 1.2;">Ready To Modernize Your <span style="background: linear-gradient(135deg, #38bdf8 30%, var(--accent-neon) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: block; margin-top: 6px;">Technology Landscape?</span></h2>
+                <p style="color: var(--text-secondary); max-width: 760px; margin: 0 auto 30px auto; font-size: 1rem; line-height: 1.6; font-weight: 400; font-family: 'Inter', sans-serif;">Partner with Vakratron Systems to assess, architect, and transform your cloud, AI, and digital infrastructure initiatives through structured advisory and architecture-led modernization frameworks.</p>
+                <div class="cta-actions" style="display: flex; justify-content: center; align-items: center; gap: 16px; flex-wrap: wrap;">
+                    <a href="/contact.html" class="cta-primary" style="font-family: 'Space Grotesk', sans-serif; font-size: 0.88rem; font-weight: 600; color: #fff; text-decoration: none; background: var(--accent-neon); border: 1px solid var(--accent-neon); padding: 14px 28px; border-radius: 8px; display: inline-flex; align-items: center; gap: 10px; transition: all 0.25s; box-shadow: 0 4px 20px rgba(194, 24, 91, 0.25); letter-spacing: 0.5px;" onmouseover="this.style.background='#9e1147'; this.style.borderColor='#9e1147'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='var(--accent-neon)'; this.style.borderColor='var(--accent-neon)'; this.style.transform='translateY(0)';">Schedule Discovery Workshop <i class="fas fa-arrow-right" style="font-size: 0.85rem;"></i></a>
+                    <a href="/contact.html" class="cta-secondary" style="font-family: 'Space Grotesk', sans-serif; font-size: 0.88rem; font-weight: 600; color: #94a3b8; text-decoration: none; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); padding: 14px 28px; border-radius: 8px; display: inline-flex; align-items: center; transition: all 0.25s; letter-spacing: 0.5px;" onmouseover="this.style.background='rgba(255, 255, 255, 0.05)'; this.style.borderColor='rgba(255, 255, 255, 0.15)'; this.style.color='#fff'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='rgba(255, 255, 255, 0.02)'; this.style.borderColor='rgba(255, 255, 255, 0.08)'; this.style.color='#94a3b8'; this.style.transform='translateY(0)';">Request Architecture Assessment</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer></footer>
+
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

@@ -1,0 +1,372 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High-Performance AI Compute & GPU Orchestration | Vakratron Systems</title>
+    <meta name="description" content="Bare-metal AI infrastructure, HGX H100/H200 cluster layouts, InfiniBand fabric engineering, and Kubernetes-driven multi-instance GPU partitioning.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-surface: rgba(15, 23, 42, 0.6);
+            --border-glow: rgba(6, 182, 212, 0.2);
+            --accent-blue: #06b6d4;
+            --accent-pink: #f472b6;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main) !important;
+            color: var(--text-primary);
+            background-image: 
+                radial-gradient(circle at 50% 20%, rgba(6, 182, 212, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(168, 85, 247, 0.04) 0%, transparent 50%) !important;
+            background-size: 200% 200% !important;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background: transparent !important;
+        }
+
+        /* 💎 MASTER 1200PX CENTERED LAYOUT */
+        .main-container-fabric {
+            max-width: 1200px !important;
+            margin: 0 auto;
+            padding: 140px 5% 100px 5%;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .architecture-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(6, 182, 212, 0.08);
+            border: 1px solid rgba(6, 182, 212, 0.25);
+            color: #22d3ee;
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 25px;
+            font-family: monospace;
+        }
+
+        .matrix-body-text {
+            color: var(--text-secondary);
+            font-size: 1.02rem;
+            line-height: 1.7;
+            margin: 0 0 20px 0;
+            font-weight: 300;
+        }
+
+        /* 📋 PROFESSIONAL CARD SLOTS WITH FIXED GRID LISTS */
+        .tech-step-box {
+            background: var(--bg-surface);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            padding: 35px;
+            margin: 30px 0;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .tech-step-box h4 {
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tech-step-box p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0 0 20px 0;
+        }
+
+        /* सूचियों का पैरेलल 2-कॉलम ग्रिड */
+        .tech-step-box ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px 40px;
+        }
+
+        .tech-step-box li {
+            color: #cbd5e1;
+            font-size: 0.92rem;
+            line-height: 1.5;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .tech-step-box li::before {
+            content: "•";
+            color: var(--accent-blue);
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0;
+        }
+
+        /* 🌐 3-COLUMN MESH GRID (100% WORKING SYMMETRY) */
+        .vakra-mesh-container {
+            background: rgba(2, 6, 23, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            padding: 40px;
+            margin: 40px 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .vakra-mesh-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            width: 100%;
+            gap: 25px;
+        }
+
+        .vakra-mesh-card {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 22px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .dc-primary { border-left: 4px solid #ef4444; }
+        .dr-target { border-left: 4px solid #10b981; }
+
+        .vakra-mesh-card h5 {
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            font-size: 0.95rem;
+            margin: 0 0 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vakra-sub-tier {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .vakra-tag-node {
+            font-size: 0.72rem;
+            font-family: monospace;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            color: #94a3b8;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        @media (max-width: 960px) {
+            .vakra-mesh-row, .tech-step-box ul {
+                grid-template-columns: 1fr !important;
+            }
+        }
+    </style>
+    <!-- 🚀 UNIVERSAL SPACE & GAP OPTIMIZER FOR CRISP LAYOUTS -->
+    <style id="vakra-gap-resolver">
+        /* Forcefully shrink the top space of hero container completely */
+        html body .doc-hero, 
+        html body main .doc-hero,
+        html body [class*="hero"] {
+            min-height: auto !important;
+            padding-top: 80px !important; /* Forces layout to sit right under navbar */
+            padding-bottom: 25px !important;
+            margin-top: 0 !important;
+        }
+
+        /* Compress the sections padding dynamically */
+        html body .doc-section, 
+        html body .bp-section,
+        html body [class*="section"] {
+            padding: 30px 10% !important; /* Ultimate tight compression */
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        /* Tighten internal elements */
+        html body .cyber-diagram-canvas, 
+        html body .bp-library-grid, 
+        html body .principles-matrix-grid {
+            margin-top: 15px !important;
+        }
+        html body h2.doc-block-heading {
+            margin-top: 0 !important;
+            margin-bottom: 10px !important;
+        }
+        html body p.doc-block-paragraph {
+            margin-bottom: 10px !important;
+        }
+    </style>
+
+</head><body>
+
+    <header></header>
+
+    <main class="main-container-fabric">
+        
+        <span class="architecture-badge">
+            <i class="fa-solid fa-microchip"></i> Bare-Metal Compute // Ultra-Performance
+        </span>
+
+        <h1 style="font-family:'Poppins',sans-serif; color:#fff; font-size:2.5rem; font-weight:800; margin: 0 0 25px 0; background: linear-gradient(135deg, #fff 0%, var(--text-secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            High-Performance AI Compute & GPU Orchestration
+        </h1>
+        
+        <p class="matrix-body-text">
+            Production enterprise LLM inference and deep-learning operations require specialized hardware acceleration structures. Deploying massive AI topologies demands a complete elimination of visualization layer penalties through optimized bare-metal scheduling and non-blocking fabric grids.
+        </p>
+        <p class="matrix-body-text">
+            Vakratron Systems engineers bare-metal AI infrastructure topologies utilizing state-of-the-art HGX node grids. Our deployments orchestrate raw compute pools directly into scalable Kubernetes control nodes, mapping dynamic token workloads without compute throat bottlenecks.
+        </p>
+
+        <div class="vakra-mesh-container">
+            <div class="vakra-mesh-row">
+                
+                <div class="vakra-mesh-card dc-primary">
+                    <h5><i class="fa-solid fa-microchip" style="color: #ef4444;"></i> Hardware Layer</h5>
+                    <div class="vakra-sub-tier">
+                        <span class="vakra-tag-node">HGX H200</span>
+                        <span class="vakra-tag-node">SXM5</span>
+                        <span class="vakra-tag-node">NVLink</span>
+                    </div>
+                </div>
+
+                <div class="vakra-mesh-card" style="border-left: 4px solid var(--accent-blue);">
+                    <h5><i class="fa-solid fa-network-wired" style="color: var(--accent-blue);"></i> Fabrics & Nodes</h5>
+                    <div class="vakra-sub-tier">
+                        <span class="vakra-tag-node">InfiniBand</span>
+                        <span class="vakra-tag-node">RoCE v2</span>
+                        <span class="vakra-tag-node">GPUDirect</span>
+                    </div>
+                </div>
+
+                <div class="vakra-mesh-card dr-target">
+                    <h5><i class="fa-solid fa-dharmachakra" style="color: #10b981;"></i> Logic Routing</h5>
+                    <div class="vakra-sub-tier">
+                        <span class="vakra-tag-node">MIG</span>
+                        <span class="vakra-tag-node">K8s Pods</span>
+                        <span class="vakra-tag-node">vLLM Cluster</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-microchip" style="color: var(--accent-blue);"></i> Next-Gen NVIDIA HGX Platforms</h4>
+            <ul>
+                <li>NVIDIA HGX H100 / H200 SXM Accelerator Layouts</li>
+                <li>Ultra-High Bandwidth HBM3e On-Board Memory Nodes</li>
+                <li>Direct Node-Level NVLink System Interconnects</li>
+                <li>SXM5 Form-Factor Native Baseboard Signal Integration</li>
+                <li>Elimination of Hypervisor Overhead Penalties</li>
+                <li>Optimized Thermal & Peak Wattage Draw Enforcements</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-network-wired" style="color: var(--accent-blue);"></i> High-Speed Interconnect Fabric</h4>
+            <ul>
+                <li>Non-Blocking NVIDIA Quantum InfiniBand Layouts</li>
+                <li>Low-Overhead RDMA over Converged Ethernet (RoCE v2)</li>
+                <li>GPUDirect RDMA Direct Peer Node Data Streaming</li>
+                <li>High-Throughput Local PCI-e Gen 5 Bus Topologies</li>
+                <li>Minimized Inter-Node Latency Collective Communications</li>
+                <li>Ultra-Scale High-Bandwidth Core Switch Fabric Merges</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-server" style="color: var(--accent-blue);"></i> Dynamic GPU Partitioning</h4>
+            <ul>
+                <li>Hardware-Level Multi-Instance GPU (MIG) Slicing</li>
+                <li>Isolated VRAM & Compute Failure Domain Allocations</li>
+                <li>Multi-Tenant Micro-Inference Endpoint Security</li>
+                <li>Fractional Instance Allotment for Lighter Workloads</li>
+                <li>Dynamic Real-Time Re-Partitioning Run Policies</li>
+                <li>Hardware-Enforced Predictable Multi-Model Execution</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-dharmachakra" style="color: var(--accent-blue);"></i> Kubernetes Device Orchestration</h4>
+            <ul>
+                <li>NVIDIA GPU Operator Native Cluster Orchestration</li>
+                <li>Automated Device Capability Discovery & Scheduling</li>
+                <li>Isolated Token-Safe Pod Container Execution Ecosystems</li>
+                <li>Elastic Horizontal Pod Autoscaling (HPA) via Telemetry</li>
+                <li>Optimized Node Affinity & Toleration Balancing Rules</li>
+                <li>Automated Device Driver Live Update Rolling Rings</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-database" style="color: var(--accent-blue);"></i> High-Performance AI Storage Grids</h4>
+            <ul>
+                <li>GPUDirect Storage (GDS) Direct-to-VRAM File Streaming</li>
+                <li>Ultra-Low Latency NVMe-over-Fabrics (NVMe-oF) Arrays</li>
+                <li>Distributed High-Throughput Parallel File Systems</li>
+                <li>Dynamic Ingestion Weight Caching Pipeline States</li>
+                <li>Near-Zero IOPS Bottlenecks During Hot Token Swaps</li>
+                <li>Redundant Multi-Path High-Availability Data Storage</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-chart-line" style="color: var(--accent-blue);"></i> Compute Efficiency Metrics</h4>
+            <ul>
+                <li>Real-Time Hardware SM Compute Utilization Monitoring</li>
+                <li>Active VRAM Allocation & Leakage Tracking Matrices</li>
+                <li>Inter-Node Fabric Transport Error Rate Telemetry</li>
+                <li>Time-To-First-Token (TTFT) Server Ingestion Bounds</li>
+                <li>Accurate Departmental Compute Time Billing Extraction</li>
+                <li>Predictive Cluster Capacity Bottleneck Analysis Reporting</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-trophy" style="color: #10b981;"></i> Operational Performance Outcomes</h4>
+            <ul>
+                <li>Maximized Infrastructure Return on Compute Assets</li>
+                <li>Sub-Millisecond Inter-Node Communication Latencies</li>
+                <li>100% Insulated Hardware Multi-Tenant Partitioning Security</li>
+                <li>Zero-Downtime High-Availability Fault Tolerance</li>
+                <li>Sustained Peak Tokens-Per-Second Fleet Performance</li>
+                <li>Future-Proofed Modular Bare-Metal Compute Scale Ready</li>
+            </ul>
+        </div>
+
+    </main>
+
+    <footer></footer>
+
+    
+        <script src="/vakra-loader.js"></script>
+</body></html>

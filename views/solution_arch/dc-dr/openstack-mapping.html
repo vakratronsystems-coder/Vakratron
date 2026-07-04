@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How OpenStack Supports DR | Sovereign DC-DR</title>
+    <meta name="description" content="A clear and simple component mapping guide showing how native OpenStack modules power infrastructure disaster recovery frameworks.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-surface: rgba(15, 23, 42, 0.6);
+            --border-glow: rgba(56, 189, 248, 0.2);
+            --accent-blue: #38bdf8;
+            --accent-neon: #C2185B;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --glass-gradient: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(2, 6, 23, 0.9) 100%);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            background-image: radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.05) 0%, transparent 50%);
+        }
+
+        body { margin: 0; padding: 0; overflow-x: hidden; }
+        section { padding: 120px 8% 60px 8%; box-sizing: border-box; }
+        
+        .content-card {
+            background: var(--glass-gradient);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 24px; padding: 50px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            margin-top: 30px;
+        }
+
+        h1, h2, h3 { font-family: 'Poppins', sans-serif; color: #fff; }
+        p { color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem; font-weight: 300; text-align: justify; margin-bottom: 20px; }
+        
+        .tech-badge {
+            background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.25);
+            color: var(--accent-blue); padding: 6px 14px; border-radius: 6px; font-family: monospace; font-size: 0.85rem;
+        }
+
+        .tech-step-box {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .tech-step-box h4 {
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            font-size: 1.25rem;
+            margin: 0 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tech-step-box h4 i { color: var(--accent-blue); }
+        .tech-step-box ul { margin: 15px 0 0 0; padding-left: 20px; color: var(--text-secondary); }
+        
+        /* Table Dynamic Rows styling */
+        table tbody tr {
+            transition: background 0.3s;
+        }
+        table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        /* 🕹️ COMMAND CONSOLE NAV */
+        .central-nav-container { position: relative; display: inline-block; }
+        .console-trigger-btn {
+            background: rgba(194, 24, 91, 0.05); border: 1px solid rgba(194, 24, 91, 0.3);
+            color: #fff; padding: 10px 22px; border-radius: 8px; font-size: 0.9rem; font-weight: 600;
+            cursor: pointer; display: flex; align-items: center; gap: 12px; transition: all 0.3s;
+        }
+        .console-dropdown-dashboard {
+            position: absolute; top: 100%; right: -120px; width: 780px; background: #030712;
+            border: 1px solid rgba(194, 24, 91, 0.25); border-radius: 16px; padding: 30px;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.95); opacity: 0; pointer-events: none;
+            transform: translateY(10px) scale(0.98); transition: all 0.3s ease; z-index: 2000; margin-top: 10px;
+        }
+        .central-nav-container:hover .console-trigger-btn { background: rgba(194, 24, 91, 0.15); border-color: rgba(194, 24, 91, 0.8); }
+        .central-nav-container:hover .console-dropdown-dashboard { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
+        .dashboard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .dashboard-col { display: flex; flex-direction: column; gap: 6px; }
+        .dashboard-col h4 { font-family: 'Poppins', sans-serif; color: #fff; font-size: 0.85rem; font-weight: 700; margin: 0 0 12px 0; padding-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .dashboard-col a { display: flex; align-items: center; gap: 10px; color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; }
+        .dashboard-col a:hover { background: rgba(255, 255, 255, 0.03); color: #fff; padding-left: 14px; }
+    </style>
+    <link rel="stylesheet" href="../../style.css">
+
+    <!-- 🚀 UNIVERSAL SPACE & GAP OPTIMIZER FOR CRISP LAYOUTS -->
+    <style id="vakra-gap-resolver">
+        /* Forcefully shrink the top space of hero container completely */
+        html body .doc-hero, 
+        html body main .doc-hero,
+        html body [class*="hero"] {
+            min-height: auto !important;
+            padding-top: 80px !important; /* Forces layout to sit right under navbar */
+            padding-bottom: 25px !important;
+            margin-top: 0 !important;
+        }
+
+        /* Compress the sections padding dynamically */
+        html body .doc-section, 
+        html body .bp-section,
+        html body [class*="section"] {
+            padding: 30px 10% !important; /* Ultimate tight compression */
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        /* Tighten internal elements */
+        html body .cyber-diagram-canvas, 
+        html body .bp-library-grid, 
+        html body .principles-matrix-grid {
+            margin-top: 15px !important;
+        }
+        html body h2.doc-block-heading {
+            margin-top: 0 !important;
+            margin-bottom: 10px !important;
+        }
+        html body p.doc-block-paragraph {
+            margin-bottom: 10px !important;
+        }
+    </style>
+
+</head>
+<body>
+    <header></header>
+       <section>
+        <div style="margin-bottom: 20px;">
+            <a href="/solutions/master_dc-dr.html" style="color: var(--accent-blue); text-decoration: none; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 6px;"><i class="fa-solid fa-chevron-left"></i> Architecture Matrix Hub</a>
+        </div>
+
+        <h1 style="font-size: 2.5rem; font-weight: 700; margin: 10px 0 10px 0;">OpenStack Component Integration</h1>
+        <div style="display: flex; gap: 10px; margin-bottom: 30px;">
+            <span class="tech-badge">Sovereign Architecture</span>
+            <span class="tech-badge">Native Cloud Controls</span>
+        </div>
+
+        <div class="content-card">
+            <h3 style="font-family:'Poppins',sans-serif;color:var(--accent-blue);font-size:1.5rem;margin-bottom:15px; font-weight:600;">
+                How OpenStack Supports Disaster Recovery
+            </h3>
+
+            <p>
+                OpenStack provides multiple services that help organizations design resilient disaster recovery architectures.
+            </p>
+
+            <p>
+                Each service plays a specific role in compute recovery, storage replication, networking continuity, and infrastructure automation.
+            </p>
+
+            <div class="tech-step-box" style="margin-top: 35px;">
+                <h4><i class="fa-solid fa-diagram-project"></i> OpenStack Component Mapping</h4>
+                <div style="overflow-x:auto;">
+                    <table style="width:100%; border-collapse:collapse; margin-top:15px;">
+                        <thead>
+                            <tr style="background:rgba(56,189,248,.08);">
+                                <th style="padding:14px; border:1px solid rgba(255,255,255,.08); text-align:left; color: #fff; font-weight:600;">Component</th>
+                                <th style="padding:14px; border:1px solid rgba(255,255,255,.08); text-align:left; color: #fff; font-weight:600;">Role in Disaster Recovery</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding:14px; border:1px solid rgba(255,255,255,.08); font-weight:500;">Nova</td>
+                                <td style="padding:14px; border:1px solid rgba(255,255,255,.08);">Compute recovery and VM availability</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:14px; border:1px solid rgba(255,255,255,.08); font-weight:500;">Ceph</td>
+                                <td style="padding:14px; border:1px solid rgba(255,255,255,.08);">Storage replication and data protection</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:14px; border:1px solid rgba(255,255,255,.08); font-weight:500;">Neutron</td>
+                                <td style="padding:14px; border:1px solid rgba(255,255,255,.08);">Network continuity and connectivity</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:14px; border:1px solid rgba(255,255,255,.08); font-weight:500;">Keystone</td>
+                                <td style="padding:14px; border:1px solid rgba(255,255,255,.08);">Identity and access management</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:14px; border:1px solid rgba(255,255,255,.08); font-weight:500;">Heat</td>
+                                <td style="padding:14px; border:1px solid rgba(255,255,255,.08);">Infrastructure automation</td>
+                            </tr>
+                            <tr>
+                                <td style="padding:14px; border:1px solid rgba(255,255,255,.08); font-weight:500;">Ansible</td>
+                                <td style="padding:14px; border:1px solid rgba(255,255,255,.08);">Recovery orchestration and failover automation</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <footer style="background: #01040f; padding: 40px 8%; border-top: 1px solid rgba(255,255,255,0.04); text-align: center; font-size: 0.85rem; color: #475569;">
+        &copy; <footer style="background: #020810; padding: 60px 8% 30px 8%; border-top: 1px solid rgba(255,255,255,0.05); box-sizing: border-box; width: 100%; clear: both; position: relative; z-index: 999; font-family: 'Inter', sans-serif;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; flex-wrap: wrap; text-align: left; max-width: 1200px; margin: 0 auto;">
+        
+        <div style="flex: 2; min-width: 280px;">
+            <h2 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1.4rem; font-weight: 700; margin: 0 0 12px 0; letter-spacing: 1px;">
+                VAKRATRON <span style="color: #C2185B; font-size: 0.8rem; letter-spacing: 3px; font-weight: 600; display: block; margin-top: 2px;">SYSTEMS</span>
+            </h2>
+            <p style="color: #64748b; font-size: 0.9rem; line-height: 1.6; margin: 0 0 20px 0; text-align: justify;">
+                Architecting resilient, hyper-secure, and dynamically scaled AI compute frameworks and cloud automation systems for enterprise governance matrices.
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 6px; font-size: 0.85rem; color: #64748b;">
+                <span><i class="fa-solid fa-phone" style="color: #C2185B; margin-right: 8px;"></i> +91 93196 66864</span>
+                <span><i class="fa-solid fa-envelope" style="color: #C2185B; margin-right: 8px;"></i> connect@vakratronsys.com</span>
+            </div>
+        </div>
+        
+        <div style="flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 10px;">
+            <h4 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1rem; margin: 0 0 5px 0; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Compliance Matrix</h4>
+            <span style="color: #64748b; font-size: 0.85rem;"><i class="fa-solid fa-building" style="color: #C2185B; margin-right: 6px;"></i> LLPIN: AAT-3851</span>
+            <span style="color: #64748b; font-size: 0.85rem;"><i class="fa-solid fa-certificate" style="color: #C2185B; margin-right: 6px;"></i> DIPP No: DIPP247647</span>
+            <span style="color: #38bdf8; font-size: 0.85rem; font-weight: 600;"><i class="fa-solid fa-shield-halved" style="margin-right: 6px;"></i> Data Protection Secure</span>
+        </div>
+        
+        <div style="flex: 1; min-width: 150px; display: flex; flex-direction: column; gap: 10px;">
+            <h4 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1rem; margin: 0 0 5px 0; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Structure Links</h4>
+            <a href="/index.html" style="color: #64748b; text-decoration: none; font-size: 0.85rem;">Home Vector</a>
+            <a href="/about.html" style="color: #64748b; text-decoration: none; font-size: 0.85rem;">About Corporate</a>
+            <a href="/products.html" style="color: #64748b; text-decoration: none; font-size: 0.85rem;">Portfolio Offerings</a>
+            <a href="/fabric.html" style="color: #38bdf8; text-decoration: none; font-size: 0.85rem; font-weight: 600;">Fabric Lab Hub</a>
+        </div>
+    </div>
+    
+    <div style="border-top: 1px solid rgba(255,255,255,0.05); margin-top: 30px; padding-top: 20px; text-align: center; font-size: 0.8rem; color: #475569;">
+        &copy; 2026 Vakratron Systems LLP | All Rights Reserved.
+    </div>
+</footer>
+    </footer>
+
+
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

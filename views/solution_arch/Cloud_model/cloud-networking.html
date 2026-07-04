@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Architecture & SDN | Vakratron Systems</title>
+    <meta name="description" content="Programmable software-defined networking, VXLAN overlay architectures, micro-segmentation, and zero-trust corporate enterprise network isolation loops.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="http://127.0.0.1:5500/style.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-surface: rgba(15, 23, 42, 0.6);
+            --accent-neon: #C2185B;
+            --accent-blue: #38bdf8;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --glass-gradient: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(2, 6, 23, 0.9) 100%);
+        }
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main) !important;
+            color: var(--text-primary);
+            background-image: 
+                radial-gradient(circle at 30% 20%, rgba(194, 24, 91, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(56, 189, 248, 0.07) 0%, transparent 50%) !important;
+            background-size: 200% 200% !important;
+        }
+        body { margin: 0; padding: 0; background: transparent !important; }
+        
+        /* 👑 ENTERPRISE 1200PX MAXIMUM WIDTH COMPLIANT */
+        .main-container-fabric { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 140px 5% 100px 5%; 
+            box-sizing: border-box; 
+            width: 100%;
+        }
+        
+        .premium-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            color: #7dd3fc;
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Poppins', sans-serif;
+        }
+        p { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.7; font-weight: 300; margin-bottom: 25px; }
+        
+        .tech-step-box {
+            background: var(--glass-gradient) !important;
+            border: 1px solid rgba(255, 255, 255, 0.04) !important;
+            border-radius: 16px !important;
+            padding: 30px !important;
+            margin: 30px 0 !important;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4) !important;
+        }
+        .tech-step-box h4 {
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            font-size: 1.15rem;
+            margin: 0 0 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+        }
+        .tech-step-box h4 i { color: var(--accent-blue); }
+        .tech-step-box p { font-size: 0.95rem; margin-bottom: 15px; color: #94a3b8; }
+        .tech-step-box ul { 
+            list-style: none; 
+            padding: 0; 
+            margin: 0; 
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px; 
+        }
+        .tech-step-box ul li { font-size: 0.95rem; color: var(--text-secondary); display: flex; align-items: center; gap: 10px; }
+        .tech-step-box ul li::before { content: "→"; color: var(--accent-blue); font-weight: bold; font-size: 1.1rem; }
+    </style>
+
+    <!-- 🚀 UNIVERSAL SPACE & GAP OPTIMIZER FOR CRISP LAYOUTS -->
+    <style id="vakra-gap-resolver">
+        /* Forcefully shrink the top space of hero container completely */
+        html body .doc-hero, 
+        html body main .doc-hero,
+        html body [class*="hero"] {
+            min-height: auto !important;
+            padding-top: 80px !important; /* Forces layout to sit right under navbar */
+            padding-bottom: 25px !important;
+            margin-top: 0 !important;
+        }
+
+        /* Compress the sections padding dynamically */
+        html body .doc-section, 
+        html body .bp-section,
+        html body [class*="section"] {
+            padding: 30px 10% !important; /* Ultimate tight compression */
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        /* Tighten internal elements */
+        html body .cyber-diagram-canvas, 
+        html body .bp-library-grid, 
+        html body .principles-matrix-grid {
+            margin-top: 15px !important;
+        }
+        html body h2.doc-block-heading {
+            margin-top: 0 !important;
+            margin-bottom: 10px !important;
+        }
+        html body p.doc-block-paragraph {
+            margin-bottom: 10px !important;
+        }
+    </style>
+
+</head>
+<body>
+
+    <header></header>
+
+    <main class="main-container-fabric">
+
+        <span class="premium-badge">
+            <i class="fa-solid fa-network-wired"></i> Programmable Network Layer // Module 06
+        </span>
+
+        <h1 style="
+        font-family:'Poppins',sans-serif;
+        color:#fff;
+        font-size:2.3rem;
+        font-weight:700;
+        margin-top:10px;
+        margin-bottom:25px;
+        line-height:1.3;
+        ">
+        Network Architecture & Software Defined Networking
+        </h1>
+
+        <p>
+        Modern cloud environments require highly scalable, secure, and programmable networking architectures capable of supporting multi-tenant workloads, application segmentation, hybrid connectivity, and business continuity requirements.
+        </p>
+
+        <p>
+        Software Defined Networking (SDN) enables organizations to decouple network services from physical infrastructure, allowing centralized control, automation, and rapid provisioning of networking resources across cloud environments.
+        </p>
+
+        <p>
+        Vakratron Systems designs cloud networking architectures that provide secure connectivity, network isolation, workload mobility, and enterprise-grade scalability while simplifying operational management.
+        </p>
+
+        <div class="vakra-mesh-container" style="margin: 40px 0;">
+            <div class="vakra-mesh-row" style="display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap;">
+
+                <div class="vakra-mesh-card dc-primary" style="background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 12px; padding: 25px; width: 280px; box-shadow: 0 10px 25px rgba(0,0,0,0.3);">
+                    <h5 style="font-family:'Poppins',sans-serif; color:#fff; font-size:1.1rem; margin:0 0 15px 0; display:flex; align-items:center; gap:10px;">
+                        <i class="fa-solid fa-network-wired" style="color:var(--accent-blue);"></i> Virtual Networking
+                    </h5>
+                    <div>
+                        <p style="font-size:0.75rem; color:#475569; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px; font-weight:700; margin-top:0;">Services</p>
+                        <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                            <span style="background:rgba(56,189,248,0.08); border:1px solid rgba(56,189,248,0.15); color:#7dd3fc; padding:3px 8px; border-radius:4px; font-size:0.7rem;">Networks</span>
+                            <span style="background:rgba(56,189,248,0.08); border:1px solid rgba(56,189,248,0.15); color:#7dd3fc; padding:3px 8px; border-radius:4px; font-size:0.7rem;">Subnets</span>
+                            <span style="background:rgba(56,189,248,0.08); border:1px solid rgba(56,189,248,0.15); color:#7dd3fc; padding:3px 8px; border-radius:4px; font-size:0.7rem;">Routers</span>
+                            <span style="background:rgba(56,189,248,0.08); border:1px solid rgba(56,189,248,0.15); color:#7dd3fc; padding:3px 8px; border-radius:4px; font-size:0.7rem;">IP Management</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="vakra-mesh-pipe" style="display: flex; align-items: center; justify-content: center; gap: 10px; min-width: 230px;">
+                    <div style="height: 1px; width: 30px; background: rgba(255,255,255,0.15);"></div>
+                    <span style="font-size:0.8rem; color:#f472b6; font-weight:600; font-family: monospace; letter-spacing: 1px; background: rgba(194,24,91,0.05); border: 1px solid rgba(194,24,91,0.2); padding: 4px 12px; border-radius: 6px;">
+                        Software Defined Control
+                    </span>
+                    <div style="height: 1px; width: 30px; background: rgba(255,255,255,0.15);"></div>
+                </div>
+
+                <div class="vakra-mesh-card dr-target" style="background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(194, 24, 91, 0.2); border-radius: 12px; padding: 25px; width: 280px; box-shadow: 0 10px 25px rgba(0,0,0,0.3);">
+                    <h5 style="font-family:'Poppins',sans-serif; color:#fff; font-size:1.1rem; margin:0 0 15px 0; display:flex; align-items:center; gap:10px;">
+                        <i class="fa-solid fa-shield-halved" style="color:var(--accent-neon);"></i> Security & Connectivity
+                    </h5>
+                    <div>
+                        <p style="font-size:0.75rem; color:#475569; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px; font-weight:700; margin-top:0;">Services</p>
+                        <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                            <span style="background:rgba(194,24,91,0.08); border:1px solid rgba(194,24,91,0.15); color:#f472b6; padding:3px 8px; border-radius:4px; font-size:0.7rem;">Security Groups</span>
+                            <span style="background:rgba(194,24,91,0.08); border:1px solid rgba(194,24,91,0.15); color:#f472b6; padding:3px 8px; border-radius:4px; font-size:0.7rem;">NAT</span>
+                            <span style="background:rgba(194,24,91,0.08); border:1px solid rgba(194,24,91,0.15); color:#f472b6; padding:3px 8px; border-radius:4px; font-size:0.7rem;">VPN</span>
+                            <span style="background:rgba(194,24,91,0.08); border:1px solid rgba(194,24,91,0.15); color:#f472b6; padding:3px 8px; border-radius:4px; font-size:0.7rem;">Micro-Segmentation</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-diagram-project"></i> Software Defined Networking (SDN)</h4>
+            <ul>
+                <li>Centralized Network Management</li>
+                <li>Automated Network Provisioning</li>
+                <li>Multi-Tenant Network Isolation</li>
+                <li>Programmable Networking Services</li>
+                <li>Dynamic Resource Allocation</li>
+                <li>Policy-Based Connectivity</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-globe"></i> Virtual Network Services</h4>
+            <p>Cloud networking services provide logical network separation while enabling secure communication between workloads, applications, and business services.</p>
+            <ul>
+                <li>Virtual Networks</li>
+                <li>Subnets</li>
+                <li>Virtual Routers</li>
+                <li>IP Address Management</li>
+                <li>DHCP Services</li>
+                <li>Network Segmentation</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-sitemap"></i> Network Virtualization Technologies</h4>
+            <div style="overflow-x:auto; background: rgba(2, 6, 23, 0.4); border: 1px solid rgba(255,255,255,0.03); border-radius: 12px; margin-top: 15px;">
+                <table style="width:100%; border-collapse:collapse; color: var(--text-secondary); font-size:0.95rem;">
+                    <thead>
+                        <tr style="background:rgba(56,189,248,.08); color: #fff; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <th style="padding:14px; text-align:left; font-family:'Poppins',sans-serif; font-weight:600;">Technology</th>
+                            <th style="padding:14px; text-align:left; font-family:'Poppins',sans-serif; font-weight:600;">Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.03);">
+                            <td style="padding:14px; font-weight:600; color:#fff;">VLAN</td>
+                            <td style="padding:14px;">Layer-2 Network Segmentation</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid rgba(255,255,255,0.03);">
+                            <td style="padding:14px; font-weight:600; color:#fff;">VXLAN</td>
+                            <td style="padding:14px;">Large Scale Overlay Networking</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:14px; font-weight:600; color:#fff;">GENEVE</td>
+                            <td style="padding:14px;">Advanced Virtual Network Encapsulation</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-lock"></i> Security Groups & Micro-Segmentation</h4>
+            <p>Security groups act as distributed firewalls that control traffic at the workload level, enabling zero-trust security architectures and workload isolation.</p>
+            <ul>
+                <li>Workload-Level Security</li>
+                <li>East-West Traffic Control</li>
+                <li>Policy-Based Access Rules</li>
+                <li>Application Segmentation</li>
+                <li>Micro-Segmentation</li>
+                <li>Zero Trust Enforcement</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-route"></i> Routing, NAT & Connectivity Services</h4>
+            <ul>
+                <li>Dynamic Routing</li>
+                <li>Network Address Translation (NAT)</li>
+                <li>Internet Gateway Services</li>
+                <li>Private Connectivity</li>
+                <li>Hybrid Cloud Integration</li>
+                <li>Multi-Site Networking</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-building-shield"></i> Enterprise Connectivity Options</h4>
+            <ul>
+                <li>Internet Connectivity</li>
+                <li>MPLS Integration</li>
+                <li>Point-to-Point Connectivity</li>
+                <li>Dedicated Internet Leased Lines</li>
+                <li>IPSec VPN</li>
+                <li>Hybrid Cloud Connectivity</li>
+                <li>Bring Your Own IP (BYOIP)</li>
+                <li>Bring Your Own Connectivity (BYOC)</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-chart-line"></i> Networking Benefits</h4>
+            <ul>
+                <li>Improved Network Agility</li>
+                <li>Enhanced Security Controls</li>
+                <li>Simplified Network Operations</li>
+                <li>Faster Service Provisioning</li>
+                <li>Scalable Multi-Tenant Architecture</li>
+                <li>Improved Business Continuity</li>
+                <li>Hybrid Cloud Readiness</li>
+                <li>Future-Ready Network Foundation</li>
+            </ul>
+        </div>
+
+        <hr style="border:none;border-top:1px solid rgba(255,255,255,0.05);margin:50px 0;">
+
+    </main>
+
+    <footer></footer>
+
+    
+    
+    
+    
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Deployment Models | Vakratron Systems</title>
+    <meta name="description" content="Technical comparison matrix and advantage parameters for Private, Public, and Hybrid cloud deployment models.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="http://127.0.0.1:5500/style.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-surface: rgba(15, 23, 42, 0.6);
+            --accent-neon: #C2185B;
+            --accent-blue: #38bdf8;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --glass-gradient: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(2, 6, 23, 0.9) 100%);
+        }
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main) !important;
+            color: var(--text-primary);
+            background-image: 
+                radial-gradient(circle at 30% 20%, rgba(194, 24, 91, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(56, 189, 248, 0.07) 0%, transparent 50%) !important;
+            background-size: 200% 200% !important;
+        }
+        body { margin: 0; padding: 0; background: transparent !important; }
+        .main-container-fabric { max-width: 1200px; margin: 0 auto; padding: 140px 5% 100px 5%; box-sizing: border-box; width: 100%; }
+        .premium-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(194, 24, 91, 0.1);
+            border: 1px solid rgba(194, 24, 91, 0.3);
+            color: #f472b6;
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Poppins', sans-serif;
+        }
+        p { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.7; font-weight: 300; margin-bottom: 25px; }
+        .tech-step-box {
+            background: var(--glass-gradient) !important;
+            border: 1px solid rgba(255, 255, 255, 0.04) !important;
+            border-radius: 16px !important;
+            padding: 30px !important;
+            margin: 30px 0 !important;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4) !important;
+        }
+        .tech-step-box h4 {
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            font-size: 1.15rem;
+            margin: 0 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+        }
+        .tech-step-box h4 i { color: var(--accent-blue); }
+        .tech-step-box ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+        .tech-step-box ul li { font-size: 0.95rem; color: var(--text-secondary); display: flex; align-items: center; gap: 10px; }
+        .tech-step-box ul li::before { content: "→"; color: var(--accent-neon); font-weight: bold; font-size: 1.1rem; }
+    </style>
+
+    <!-- 🚀 UNIVERSAL SPACE & GAP OPTIMIZER FOR CRISP LAYOUTS -->
+    <style id="vakra-gap-resolver">
+        /* Forcefully shrink the top space of hero container completely */
+        html body .doc-hero, 
+        html body main .doc-hero,
+        html body [class*="hero"] {
+            min-height: auto !important;
+            padding-top: 80px !important; /* Forces layout to sit right under navbar */
+            padding-bottom: 25px !important;
+            margin-top: 0 !important;
+        }
+
+        /* Compress the sections padding dynamically */
+        html body .doc-section, 
+        html body .bp-section,
+        html body [class*="section"] {
+            padding: 30px 10% !important; /* Ultimate tight compression */
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        /* Tighten internal elements */
+        html body .cyber-diagram-canvas, 
+        html body .bp-library-grid, 
+        html body .principles-matrix-grid {
+            margin-top: 15px !important;
+        }
+        html body h2.doc-block-heading {
+            margin-top: 0 !important;
+            margin-bottom: 10px !important;
+        }
+        html body p.doc-block-paragraph {
+            margin-bottom: 10px !important;
+        }
+    </style>
+
+</head>
+<body>
+
+    <header></header>
+
+    <main class="main-container-fabric">
+
+        <span class="premium-badge">
+            <i class="fa-solid fa-cubes"></i> Architecture Matrix // Module 02
+        </span>
+
+        <h1 style="
+        font-family:'Poppins',sans-serif;
+        font-size:2.3rem;
+        font-weight:700;
+        color:#fff;
+        margin-top:10px;
+        margin-bottom:25px;
+        line-height:1.3;
+        ">
+        Cloud Deployment Models
+        </h1>
+
+        <p>
+        There is no single cloud model that fits every organization. Business requirements, security policies, compliance obligations, workload characteristics, and operational objectives determine the most suitable deployment strategy.
+        </p>
+
+        <p>
+        Modern enterprises typically adopt Private Cloud, Public Cloud, or Hybrid Cloud architectures depending on their operational and regulatory requirements.
+        </p>
+
+        <div class="vakra-mesh-container" style="margin: 40px 0;">
+            <div class="vakra-mesh-row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+
+                <div class="vakra-mesh-card dc-primary" style="background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(194, 24, 91, 0.2); border-radius: 12px; padding: 25px 20px;">
+                    <h5 style="font-family:'Poppins',sans-serif; color:#fff; font-size:1.1rem; margin:0 0 15px 0; display:flex; align-items:center; gap:10px;">
+                        <i class="fa-solid fa-lock" style="color:var(--accent-neon);"></i> Private Cloud
+                    </h5>
+                    <div style="margin-bottom: 15px;">
+                        <p style="font-size:0.75rem; color:#475569; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; font-weight:700; margin-top:0;">Key Characteristics</p>
+                        <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                            <span style="background:rgba(194,24,91,0.08); border:1px solid rgba(194,24,91,0.15); color:#f472b6; padding:3px 8px; border-radius:4px; font-size:0.7rem;">Dedicated Infrastructure</span>
+                            <span style="background:rgba(194,24,91,0.08); border:1px solid rgba(194,24,91,0.15); color:#f472b6; padding:3px 8px; border-radius:4px; font-size:0.7rem;">Full Control</span>
+                        </div>
+                    </div>
+                    <div>
+                        <p style="font-size:0.75rem; color:#475569; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; font-weight:700; margin-top:0;">Ideal For</p>
+                        <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                            <span style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); color:var(--text-secondary); padding:3px 8px; border-radius:4px; font-size:0.7rem;">Government</span>
+                            <span style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); color:var(--text-secondary); padding:3px 8px; border-radius:4px; font-size:0.7rem;">Defense</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="vakra-mesh-card" style="background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 25px 20px;">
+                    <h5 style="font-family:'Poppins',sans-serif; color:#fff; font-size:1.1rem; margin:0 0 15px 0; display:flex; align-items:center; gap:10px;">
+                        <i class="fa-solid fa-cloud-arrow-up" style="color:#eab308;"></i> Hybrid Cloud
+                    </h5>
+                    <div style="margin-bottom: 15px;">
+                        <p style="font-size:0.75rem; color:#475569; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; font-weight:700; margin-top:0;">Key Characteristics</p>
+                        <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                            <span style="background:rgba(234,179,8,0.08); border:1px solid rgba(234,179,8,0.15); color:#fde047; padding:3px 8px; border-radius:4px; font-size:0.7rem;">Workload Mobility</span>
+                            <span style="background:rgba(234,179,8,0.08); border:1px solid rgba(234,179,8,0.15); color:#fde047; padding:3px 8px; border-radius:4px; font-size:0.7rem;">Integrated DR</span>
+                        </div>
+                    </div>
+                    <div>
+                        <p style="font-size:0.75rem; color:#475569; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; font-weight:700; margin-top:0;">Ideal For</p>
+                        <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                            <span style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); color:var(--text-secondary); padding:3px 8px; border-radius:4px; font-size:0.7rem;">Enterprise IT</span>
+                            <span style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); color:var(--text-secondary); padding:3px 8px; border-radius:4px; font-size:0.7rem;">AI Workloads</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="vakra-mesh-card dr-target" style="background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 12px; padding: 25px 20px;">
+                    <h5 style="font-family:'Poppins',sans-serif; color:#fff; font-size:1.1rem; margin:0 0 15px 0; display:flex; align-items:center; gap:10px;">
+                        <i class="fa-solid fa-globe" style="color:var(--accent-blue);"></i> Public Cloud
+                    </h5>
+                    <div style="margin-bottom: 15px;">
+                        <p style="font-size:0.75rem; color:#475569; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; font-weight:700; margin-top:0;">Key Characteristics</p>
+                        <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                            <span style="background:rgba(56,189,248,0.08); border:1px solid rgba(56,189,248,0.15); color:#7dd3fc; padding:3px 8px; border-radius:4px; font-size:0.7rem;">Elastic Scale</span>
+                            <span style="background:rgba(56,189,248,0.08); border:1px solid rgba(56,189,248,0.15); color:#7dd3fc; padding:3px 8px; border-radius:4px; font-size:0.7rem;">Global Reach</span>
+                        </div>
+                    </div>
+                    <div>
+                        <p style="font-size:0.75rem; color:#475569; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; font-weight:700; margin-top:0;">Ideal For</p>
+                        <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                            <span style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); color:var(--text-secondary); padding:3px 8px; border-radius:4px; font-size:0.7rem;">Startups</span>
+                            <span style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); color:var(--text-secondary); padding:3px 8px; border-radius:4px; font-size:0.7rem;">DevOps</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-lightbulb"></i> Private Cloud Advantages</h4>
+            <ul>
+                <li>Complete infrastructure ownership and control.</li>
+                <li>Enhanced security and compliance management.</li>
+                <li>Predictable performance.</li>
+                <li>No dependency on public cloud providers.</li>
+                <li>Ideal for sensitive workloads and regulated industries.</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-bolt"></i> Public Cloud Advantages</h4>
+            <ul>
+                <li>Rapid deployment of applications and services.</li>
+                <li>Virtually unlimited scalability.</li>
+                <li>Lower upfront investment.</li>
+                <li>Global infrastructure availability.</li>
+                <li>Consumption-based pricing models.</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-diagram-project"></i> Hybrid Cloud Advantages</h4>
+            <ul>
+                <li>Combines security of private cloud with scalability of public cloud.</li>
+                <li>Supports workload portability.</li>
+                <li>Enables cloud bursting during peak demand.</li>
+                <li>Improves business continuity and disaster recovery.</li>
+                <li>Optimizes infrastructure investments.</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-table"></i> Deployment Model Comparison</h4>
+            <div style="overflow-x:auto;">
+                <table style="width:100%; border-collapse:collapse; margin-top:15px; color: var(--text-secondary); font-size: 0.95rem;">
+                    <thead>
+                        <tr style="background:rgba(56,189,248,.08); color: #fff;">
+                            <th style="padding:14px; border:1px solid rgba(255,255,255,.08); text-align:left;">Parameter</th>
+                            <th style="padding:14px; border:1px solid rgba(255,255,255,.08); text-align:left;">Private Cloud</th>
+                            <th style="padding:14px; border:1px solid rgba(255,255,255,.08); text-align:left;">Public Cloud</th>
+                            <th style="padding:14px; border:1px solid rgba(255,255,255,.08); text-align:left;">Hybrid Cloud</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding:14px; border:1px solid rgba(255,255,255,.08); color:#fff; font-weight:600;">Control</td>
+                            <td style="padding:14px; border:1px solid rgba(255,255,255,.08);">Very High</td>
+                            <td style="padding:14px; border:1px solid rgba(255,255,255,.08);">Medium</td>
+                            <td style="padding:14px; border:1px solid rgba(255,255,255,.08);">High</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:14px; border:1px solid rgba(255,255,255,.08); color:#fff; font-weight:600;">Scalability</td>
+                            <td style="padding:14px; border:1px solid rgba(255,255,255,.08);">High</td>
+                            <td style="padding:14px; border:1px solid rgba(255,255,255,.08);">Very High</td>
+                            <td style="padding:14px; border:1px solid rgba(255,255,255,.08);">Very High</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:14px; border:1px solid rgba(255,255,255,.08); color:#fff; font-weight:600;">Security</td>
+                            <td style="padding:14px; border:1px solid rgba(255,255,255,.08);">Very High</td>
+                            <td style="padding:14px; border:1px solid rgba(255,255,255,.08);">High</td>
+                            <td style="padding:14px; border:1px solid rgba(255,255,255,.08);">Very High</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:14px; border:1px solid rgba(255,255,255,.08); color:#fff; font-weight:600;">Cost Model</td>
+                            <td style="padding:14px; border:1px solid rgba(255,255,255,.08);">CapEx</td>
+                            <td style="padding:14px; border:1px solid rgba(255,255,255,.08);">OpEx</td>
+                            <td style="padding:14px; border:1px solid rgba(255,255,255,.08);">Mixed</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <footer></footer>
+
+    
+    
+    
+    
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Architecture Blueprints™ | Vakratron Systems</title>
+    
+    <!-- 🚀 Core Global UI Style Assets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ====================================================================== */
+        /* 💎 GLOBAL CANVAS & RE-ENGINEERED BRAND THEME VARIABLES                  */
+        /* ====================================================================== */
+        :root {
+            --bg-obsidian: #020617;
+            --accent-blue: #38bdf8;
+            --accent-pink: #c2185b;
+            --accent-purple: #a855f7;
+            --accent-emerald: #10b981;
+            --text-secondary: #94a3b8;
+            --blueprint-glow: linear-gradient(135deg, var(--accent-blue) 0%, #a855f7 50%, var(--accent-pink) 100%);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: var(--bg-obsidian);
+            font-family: 'Inter', sans-serif;
+            color: #f1f5f9;
+            overflow-x: hidden;
+        }
+
+        .bp-hero, .bp-section {
+            padding: 90px 8% !important;
+            max-width: 1400px;
+            margin: 0 auto !important;
+            box-sizing: border-box;
+            position: relative;
+            clear: both;
+        }
+
+        /* Generic Core Buttons Blueprint */
+        .vakra-btn-primary {
+            background: linear-gradient(135deg, var(--accent-pink) 0%, #a855f7 100%);
+            color: #ffffff;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            padding: 14px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .vakra-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(194, 24, 91, 0.4);
+        }
+
+        .vakra-btn-secondary {
+            background: rgba(255, 255, 255, 0.03);
+            color: #ffffff;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            padding: 14px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+        }
+        .vakra-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* ====================================================================== */
+        /* SECTION 1: HERO CANVAS DISPLAY LAYER                                   */
+        /* ====================================================================== */
+        .bp-hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            padding-top: 160px !important;
+        }
+
+        .bp-ambient-glow {
+            position: absolute;
+            top: 35%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 900px; height: 900px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.06) 0%, transparent 65%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .bp-hero-payload {
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+        }
+
+        .bp-trademark-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(56, 189, 248, 0.05);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            padding: 8px 22px;
+            border-radius: 100px;
+            color: var(--accent-blue);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 35px;
+        }
+
+        .bp-hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.1;
+            margin: 0 0 25px 0;
+            letter-spacing: -2px;
+        }
+
+        .bp-gradient-trigger {
+            background: var(--blueprint-glow);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .bp-hero-p {
+            font-size: 1.35rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-secondary) !important;
+            margin: 0 auto 30px auto !important;
+            max-width: 850px;
+        }
+
+        .bp-hero-subtitle {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #e2e8f0;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .bp-hero-btn-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* ====================================================================== */
+        /* SECTION 2: WHAT IS AN ARCHITECTURE BLUEPRINT                           */
+        /* ====================================================================== */
+        .bp-definition-box {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.4) 0%, rgba(2, 6, 23, 0.7) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.5);
+            box-sizing: border-box;
+        }
+
+        .bp-definition-box h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.2rem;
+            color: #ffffff;
+            margin: 0 0 20px 0;
+            letter-spacing: -1px;
+        }
+
+        .bp-definition-box p {
+            font-size: 1.1rem;
+            line-height: 1.75;
+            color: var(--text-secondary);
+            margin: 0 0 20px 0;
+        }
+        .bp-definition-box p:last-child { margin: 0; }
+
+        /* ====================================================================== */
+        /* SECTION 3: ANIMATED PREMIUM TILES GRID HIGH-DENSITY INTERFACE          */
+        /* ====================================================================== */
+        .lib-section-title {
+            text-align: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            color: #ffffff;
+            margin-bottom: 50px;
+            letter-spacing: -1px;
+        }
+
+        .bp-library-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .bp-tile-anchor {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .vakra-premium-tile {
+            position: relative;
+            background: radial-gradient(circle at top left, rgba(30, 41, 59, 0.45), rgba(2, 6, 23, 0.9));
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 14px;
+            padding: 32px 28px;
+            overflow: hidden;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            min-height: 440px;
+            box-shadow: inset 0 1px 1px rgba(255,255,255,0.03), 0 10px 30px rgba(0,0,0,0.4);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-sizing: border-box;
+        }
+
+        /* 🔥 Dynamic Conic Laser Border Stream Animation Engine */
+        .tile-laser-stream {
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: conic-gradient(from 0deg, transparent 75%, var(--accent-blue) 92%, var(--accent-pink) 100%);
+            animation: rotateLaser 5s linear infinite;
+            opacity: 0;
+            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1;
+            pointer-events: none;
+        }
+        .bp-tile-anchor:nth-child(even) .tile-laser-stream {
+            background: conic-gradient(from 0deg, transparent 75%, var(--accent-pink) 92%, var(--accent-blue) 100%);
+        }
+
+        /* 🔐 Internal Masking Layer Shield */
+        .tile-internal-shield {
+            position: absolute;
+            top: 1px; left: 1px; right: 1px; bottom: 1px;
+            background: #020617;
+            border-radius: 13px;
+            z-index: 2;
+            transition: background 0.4s ease;
+        }
+
+        /* 🚀 Core Payload Display Layer */
+        .tile-payload-core {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            flex-grow: 1;
+        }
+
+        .tile-payload-core h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0 0 12px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .tile-payload-core p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin: 0 0 22px 0;
+        }
+
+        .bp-coverage-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #475569;
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            padding-bottom: 6px;
+        }
+
+        .bp-coverage-tags-mesh {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 25px;
+        }
+
+        .bp-tag {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            color: #cbd5e1;
+        }
+
+        .bp-card-action-trigger {
+            margin-top: auto;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        .bp-card-action-trigger i { font-size: 0.75rem; transition: transform 0.3s ease; }
+
+        /* Tile Interactive Hover Overrides */
+        @keyframes rotateLaser { 100% { transform: rotate(360deg); } }
+
+        .bp-tile-anchor:hover .vakra-premium-tile {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.65), 0 0 15px rgba(56, 189, 248, 0.1);
+        }
+        .bp-tile-anchor:hover .tile-laser-stream { opacity: 1; }
+        .bp-tile-anchor:hover .tile-internal-shield { background: linear-gradient(135deg, #090d24 0%, #020617 100%); }
+        .bp-tile-anchor:hover .bp-card-action-trigger { color: var(--accent-blue); }
+        .bp-tile-anchor:nth-child(even):hover .bp-card-action-trigger { color: var(--accent-pink); }
+        .bp-tile-anchor:hover .bp-card-action-trigger i { transform: translateX(4px); }
+
+        /* ====================================================================== */
+        /* SECTION 4: VAKRATRON ARCHITECTURE PRINCIPLES GRID                      */
+        /* ====================================================================== */
+        .principles-section-title {
+            text-align: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            color: #ffffff;
+            margin-bottom: 60px;
+        }
+
+        .principles-matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            max-width: 1250px;
+            margin: 0 auto;
+        }
+
+        .principle-core-node {
+            background: rgba(15, 23, 42, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            padding: 30px;
+            border-radius: 12px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        .principle-core-node h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            color: #ffffff;
+            margin: 0 0 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .principle-core-node h3 i { color: var(--accent-purple); font-size: 1.1rem; }
+
+        .principle-core-node p {
+            font-size: 0.92rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .principle-core-node:hover {
+            border-color: rgba(168, 85, 247, 0.2);
+            background: rgba(168, 85, 247, 0.01);
+        }
+
+        /* ====================================================================== */
+        /* SECTION 5: METHODOLOGY VERTICAL PROGRESS TIMELINE                      */
+        /* ====================================================================== */
+        .method-section-title {
+            text-align: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+        .method-section-sub {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 60px;
+            font-size: 1.1rem;
+        }
+
+        .methodology-timeline-track {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+        .methodology-timeline-track::before {
+            content: '';
+            position: absolute;
+            left: 50%; top: 0; bottom: 0; width: 2px;
+            background: linear-gradient(180deg, var(--accent-blue) 0%, var(--accent-purple) 50%, var(--accent-pink) 100%);
+            transform: translateX(-50%);
+        }
+
+        .timeline-step-block {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 35px;
+            position: relative;
+        }
+        .timeline-step-block:nth-child(odd) { flex-direction: row-reverse; }
+
+        .timeline-step-dot {
+            width: 14px; height: 14px;
+            background: #ffffff;
+            border: 3px solid var(--accent-purple);
+            border-radius: 50%;
+            position: absolute;
+            left: 50%; top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+            box-shadow: 0 0 10px var(--accent-purple);
+        }
+
+        .timeline-card-content {
+            width: 45%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 20px 25px;
+            border-radius: 12px;
+            box-sizing: border-box;
+            backdrop-filter: blur(10px);
+        }
+        .timeline-card-content h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            color: #ffffff;
+            margin: 0;
+        }
+
+        /* ====================================================================== */
+        /* SECTION 6: TECHNOLOGY COVERAGE MESH MATRIX GRID                         */
+        /* ====================================================================== */
+        .tech-section-title {
+            text-align: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.3rem;
+            color: #ffffff;
+            margin-bottom: 50px;
+        }
+
+        .tech-coverage-matrix-mesh {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tech-mesh-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 18px 22px;
+            border-radius: 10px;
+            text-align: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        .tech-mesh-item:hover {
+            background: rgba(56, 189, 248, 0.03);
+            border-color: rgba(56, 189, 248, 0.2);
+            transform: scale(1.02);
+            color: var(--accent-blue);
+        }
+
+        /* ====================================================================== */
+        /* SECTION 7: WHY ORGANIZATIONS CHOOSE VAKRATRON                          */
+        /* ====================================================================== */
+        .why-bp-board {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.45) 0%, rgba(2, 6, 23, 0.8) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+            box-sizing: border-box;
+        }
+
+        .why-bp-board h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            color: #ffffff;
+            margin: 0 0 40px 0;
+            text-align: center;
+        }
+
+        .why-bp-pillars {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px 40px;
+        }
+
+        .why-pillar-node {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 14px 20px;
+            background: rgba(9, 13, 31, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.01);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .why-pillar-node i {
+            color: var(--accent-emerald);
+            font-size: 1.1rem;
+            filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.3));
+        }
+
+        .why-pillar-node span {
+            font-size: 1rem;
+            color: #e2e8f0;
+        }
+
+        .why-pillar-node:hover {
+            transform: translateX(5px);
+            border-color: rgba(16, 185, 129, 0.2);
+            background: rgba(16, 185, 129, 0.02);
+        }
+
+        /* ====================================================================== */
+        /* SECTION 8: IMPORTANT NOTICE WARNING SIGNALS                            */
+        /* ====================================================================== */
+        .bp-notice-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(194, 24, 91, 0.02);
+            border: 1px dashed rgba(194, 24, 91, 0.2);
+            padding: 40px;
+            border-radius: 14px;
+            box-sizing: border-box;
+        }
+
+        .bp-notice-container h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            color: #f472b6;
+            margin: 0 0 12px 0;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .bp-notice-container p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        /* ====================================================================== */
+        /* FINAL CTA BLOCK MODULE                                                 */
+        /* ====================================================================== */
+        .bp-final-cta-wrap {
+            text-align: center;
+            max-width: 900px;
+            margin: 40px auto 0 auto;
+        }
+
+        .bp-final-cta-wrap h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.8rem;
+            color: #ffffff;
+            margin: 0 0 20px 0;
+            letter-spacing: -1px;
+        }
+
+        .bp-final-cta-wrap p {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+
+        /* Responsive Configuration Overrides */
+        @media (max-width: 1150px) {
+            .bp-library-grid { grid-template-columns: repeat(2, 1fr); }
+            .tech-coverage-matrix-mesh { grid-template-columns: repeat(3, 1fr); }
+            .principles-matrix-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .bp-library-grid, .tech-coverage-matrix-mesh, .principles-matrix-grid, .why-bp-pillars { grid-template-columns: 1fr; }
+            .bp-hero h1 { font-size: 2.6rem; }
+            .bp-hero-btn-group { flex-direction: column; gap: 12px; }
+            .methodology-timeline-track::before { left: 20px; }
+            .timeline-step-dot { left: 20px; }
+            .timeline-step-block { flex-direction: row !important; justify-content: flex-end; }
+            .timeline-card-content { width: calc(100% - 45px); }
+            .bp-definition-box, .why-bp-board, .bp-notice-container { padding: 25px; }
+            .vakra-premium-tile { min-height: auto; }
+        }
+    </style>
+    <!-- 🚀 UNIVERSAL SPACE & GAP OPTIMIZER FOR CRISP LAYOUTS -->
+    <style id="vakra-gap-resolver">
+        /* Forcefully shrink the top space of hero container completely */
+        html body .doc-hero, 
+        html body main .doc-hero,
+        html body [class*="hero"] {
+            min-height: auto !important;
+            padding-top: 80px !important; /* Forces layout to sit right under navbar */
+            padding-bottom: 25px !important;
+            margin-top: 0 !important;
+        }
+
+        /* Compress the sections padding dynamically */
+        html body .doc-section, 
+        html body .bp-section,
+        html body [class*="section"] {
+            padding: 30px 10% !important; /* Ultimate tight compression */
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        /* Tighten internal elements */
+        html body .cyber-diagram-canvas, 
+        html body .bp-library-grid, 
+        html body .principles-matrix-grid {
+            margin-top: 15px !important;
+        }
+        html body h2.doc-block-heading {
+            margin-top: 0 !important;
+            margin-bottom: 10px !important;
+        }
+        html body p.doc-block-paragraph {
+            margin-bottom: 10px !important;
+        }
+    </style>
+</head>
+<body>
+    <header></header>
+
+    <main class="vakra-blueprints-master">
+
+        <!-- SECTION 1: HERO CONTAINER -->
+        <section class="bp-hero">
+            <div class="bp-ambient-glow"></div>
+            <div class="bp-hero-payload">
+                <div class="bp-trademark-badge"><span>Architecture Reference Library</span></div>
+                <h1>Enterprise Architecture <span class="bp-gradient-trigger">Blueprints™</span></h1>
+                <p class="bp-hero-p">
+                    Proven Enterprise Architecture Designs for Modern Technology Platforms. Enterprise transformation begins with architecture—not implementation. Vakratron Architecture Blueprints™ provide structured, vendor-neutral reference designs that help organizations plan, validate, and modernize complex technology environments with confidence.
+                </p>
+                <div class="bp-hero-subtitle">Architecture First. Technology Second.</div>
+                <div class="bp-hero-btn-group">
+                    <a href="#blueprint-catalog" class="vakra-btn-primary">Explore Blueprint Library <i class="fas fa-layer-group"></i></a>
+                    <a href="/contact.html" class="vakra-btn-secondary">Request Architecture Workshop <i class="fas fa-bolt"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: WHAT IS AN ARCHITECTURE BLUEPRINT -->
+        <section class="bp-section">
+            <div class="bp-definition-box">
+                <h2>What is an Architecture Blueprint?</h2>
+                <p>
+                    An Architecture Blueprint is a high-level design framework that defines how enterprise technology components interact to deliver scalable, secure, and resilient business capabilities.
+                </p>
+                <p>
+                    Unlike implementation documents, Architecture Blueprints focus on design principles, logical architecture, technology domains, and enterprise best practices—providing organizations with a strategic foundation before detailed solution design begins. Every Vakratron Blueprint™ is developed using real-world consulting experience and follows an architecture-first approach aligned with enterprise modernization initiatives.
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION 3: RE-ENGINEERED PREMIUM ANIMATED TILES CATALOG -->
+        <section class="bp-section" id="blueprint-catalog">
+            <h2 class="lib-section-title">Enterprise Blueprint Library</h2>
+            <div class="bp-library-grid">
+
+                <!-- Tile 1: Cloud -->
+                <a href="/views/tec_blueprint/blueprint-cloud.html" class="bp-tile-anchor">
+                    <div class="vakra-premium-tile">
+                        <div class="tile-laser-stream"></div>
+                        <div class="tile-internal-shield"></div>
+                        <div class="tile-payload-core">
+                            <h2>☁ Enterprise Cloud Blueprint™</h2>
+                            <p>Build secure, scalable and governed hybrid cloud environments.</p>
+                            <div class="bp-coverage-title">Coverage</div>
+                            <div class="bp-coverage-tags-mesh">
+                                <span class="bp-tag">Hybrid Cloud</span><span class="bp-tag">Landing Zones</span>
+                                <span class="bp-tag">Cloud Networking</span><span class="bp-tag">Identity</span>
+                                <span class="bp-tag">Governance</span><span class="bp-tag">FinOps</span>
+                                <span class="bp-tag">Cloud Security</span>
+                            </div>
+                            <div class="bp-card-action-trigger">Explore Blueprint Lifecycle <i class="fas fa-arrow-right"></i></div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Tile 2: AI Platform -->
+                <a href="/views/tec_blueprint/blueprint-ai-platform.html" class="bp-tile-anchor">
+                    <div class="vakra-premium-tile">
+                        <div class="tile-laser-stream"></div>
+                        <div class="tile-internal-shield"></div>
+                        <div class="tile-payload-core">
+                            <h2>🤖 Enterprise AI Platform Blueprint™</h2>
+                            <p>Design enterprise AI platforms capable of supporting LLMs, GPU infrastructure, RAG systems, AI governance, and intelligent automation.</p>
+                            <div class="bp-coverage-title">Coverage</div>
+                            <div class="bp-coverage-tags-mesh">
+                                <span class="bp-tag">Private AI</span><span class="bp-tag">GPU Clusters</span>
+                                <span class="bp-tag">Inference</span><span class="bp-tag">AI Gateway</span>
+                                <span class="bp-tag">Vector Database</span><span class="bp-tag">Prompt Management</span>
+                            </div>
+                            <div class="bp-card-action-trigger">Explore Blueprint Lifecycle <i class="fas fa-arrow-right"></i></div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Tile 3: Kubernetes -->
+                <a href="/views/tec_blueprint/blueprint-kubernetes.html" class="bp-tile-anchor">
+                    <div class="vakra-premium-tile">
+                        <div class="tile-laser-stream"></div>
+                        <div class="tile-internal-shield"></div>
+                        <div class="tile-payload-core">
+                            <h2>☸ Kubernetes Platform Blueprint™</h2>
+                            <p>Enterprise-grade platform engineering built around Kubernetes, GitOps, automation, observability, and developer experience.</p>
+                            <div class="bp-coverage-title">Coverage</div>
+                            <div class="bp-coverage-tags-mesh">
+                                <span class="bp-tag">Containers</span><span class="bp-tag">GitOps</span>
+                                <span class="bp-tag">Service Mesh</span><span class="bp-tag">Observability</span>
+                                <span class="bp-tag">IaC</span><span class="bp-tag">Platform Engineering</span>
+                            </div>
+                            <div class="bp-card-action-trigger">Explore Blueprint Lifecycle <i class="fas fa-arrow-right"></i></div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Tile 4: Zero Trust Security -->
+                <a href="/views/tec_blueprint/blueprint-zero-trust.html" class="bp-tile-anchor">
+                    <div class="vakra-premium-tile">
+                        <div class="tile-laser-stream"></div>
+                        <div class="tile-internal-shield"></div>
+                        <div class="tile-payload-core">
+                            <h2>🔐 Zero Trust Security Blueprint™</h2>
+                            <p>Design modern security architectures based on Zero Trust principles with integrated identity, governance, and compliance.</p>
+                            <div class="bp-coverage-title">Coverage</div>
+                            <div class="bp-coverage-tags-mesh">
+                                <span class="bp-tag">IAM</span><span class="bp-tag">PAM</span>
+                                <span class="bp-tag">SOC</span><span class="bp-tag">SIEM</span>
+                                <span class="bp-tag">Network Security</span><span class="bp-tag">Compliance</span>
+                            </div>
+                            <div class="bp-card-action-trigger">Explore Blueprint Lifecycle <i class="fas fa-arrow-right"></i></div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Tile 5: Enterprise Data Platform -->
+                <a href="/views/tec_blueprint/blueprint-data-platform.html" class="bp-tile-anchor">
+                    <div class="vakra-premium-tile">
+                        <div class="tile-laser-stream"></div>
+                        <div class="tile-internal-shield"></div>
+                        <div class="tile-payload-core">
+                            <h2>¼ Enterprise Data Platform Blueprint™</h2>
+                            <p>Modern architectures for enterprise data lakes, object storage, analytics, streaming, and AI-ready data platforms.</p>
+                            <div class="bp-coverage-title">Coverage</div>
+                            <div class="bp-coverage-tags-mesh">
+                                <span class="bp-tag">Data Lake</span><span class="bp-tag">Warehouse</span>
+                                <span class="bp-tag">Streaming</span><span class="bp-tag">Backup</span>
+                                <span class="bp-tag">Governance</span><span class="bp-tag">AI Data Pipeline</span>
+                            </div>
+                            <div class="bp-card-action-trigger">Explore Blueprint Lifecycle <i class="fas fa-arrow-right"></i></div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Tile 6: Disaster Recovery -->
+                <a href="/views/tec_blueprint/blueprint-disaster-recovery.html" class="bp-tile-anchor">
+                    <div class="vakra-premium-tile">
+                        <div class="tile-laser-stream"></div>
+                        <div class="tile-internal-shield"></div>
+                        <div class="tile-payload-core">
+                            <h2>🌍 Disaster Recovery Blueprint™</h2>
+                            <p>Business continuity architectures designed around high availability, replication, recovery automation, and operational resilience.</p>
+                            <div class="bp-coverage-title">Coverage</div>
+                            <div class="bp-coverage-tags-mesh">
+                                <span class="bp-tag">Backup</span><span class="bp-tag">Replication</span>
+                                <span class="bp-tag">Failover</span><span class="bp-tag">Recovery</span>
+                                <span class="bp-tag">BCP</span><span class="bp-tag">Testing</span>
+                            </div>
+                            <div class="bp-card-action-trigger">Explore Blueprint Lifecycle <i class="fas fa-arrow-right"></i></div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Tile 7: API & Integration -->
+                <a href="/views/tec_blueprint/blueprint-api-integration.html" class="bp-tile-anchor">
+                    <div class="vakra-premium-tile">
+                        <div class="tile-laser-stream"></div>
+                        <div class="tile-internal-shield"></div>
+                        <div class="tile-payload-core">
+                            <h2>🌐 API & Integration Blueprint™</h2>
+                            <p>Enterprise API architectures enabling secure integration between applications, cloud platforms, and AI services.</p>
+                            <div class="bp-coverage-title">Coverage</div>
+                            <div class="bp-coverage-tags-mesh">
+                                <span class="bp-tag">API Gateway</span><span class="bp-tag">Event Bus</span>
+                                <span class="bp-tag">Microservices</span><span class="bp-tag">Integration</span>
+                                <span class="bp-tag">Identity</span><span class="bp-tag">Messaging</span>
+                            </div>
+                            <div class="bp-card-action-trigger">Explore Blueprint Lifecycle <i class="fas fa-arrow-right"></i></div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Tile 8: AI Infrastructure & GPU -->
+                <a href="/views/tec_blueprint/blueprint-gpu-infrastructure.html" class="bp-tile-anchor">
+                    <div class="vakra-premium-tile">
+                        <div class="tile-laser-stream"></div>
+                        <div class="tile-internal-shield"></div>
+                        <div class="tile-payload-core">
+                            <h2>⚡ AI Infrastructure & GPU Blueprint™</h2>
+                            <p>Reference architecture for enterprise GPU clusters supporting AI training, inference, and accelerated computing.</p>
+                            <div class="bp-coverage-title">Coverage</div>
+                            <div class="bp-coverage-tags-mesh">
+                                <span class="bp-tag">GPU Fabric</span><span class="bp-tag">NVLink</span>
+                                <span class="bp-tag">InfiniBand</span><span class="bp-tag">High Speed Storage</span>
+                                <span class="bp-tag">Private LLM</span><span class="bp-tag">AI Cluster</span>
+                            </div>
+                            <div class="bp-card-action-trigger">Explore Blueprint Lifecycle <i class="fas fa-arrow-right"></i></div>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+        <!-- SECTION 4: VAKRATRON ARCHITECTURE PRINCIPLES -->
+        <section class="bp-section">
+            <h2 class="principles-section-title">Vakratron Architecture Principles™</h2>
+            <div class="principles-matrix-grid">
+                <div class="principle-core-node">
+                    <h3><i class="fas fa-sitemap"></i> Architecture Before Implementation</h3>
+                    <p>Every successful technology transformation starts with validated architecture—not infrastructure procurement.</p>
+                </div>
+                <div class="principle-core-node">
+                    <h3><i class="fas fa-scale-balanced"></i> Vendor Neutral Design</h3>
+                    <p>Technology recommendations are based on business outcomes rather than vendor preference.</p>
+                </div>
+                <div class="principle-core-node">
+                    <h3><i class="fas fa-shield-halved"></i> Secure by Design</h3>
+                    <p>Security controls are embedded into architecture from the first design decision.</p>
+                </div>
+                <div class="principle-core-node">
+                    <h3><i class="fas fa-cloud-sun"></i> Cloud Agnostic</h3>
+                    <p>Blueprints support private cloud, hybrid cloud, multi-cloud, and sovereign cloud deployments.</p>
+                </div>
+                <div class="principle-core-node">
+                    <h3><i class="fas fa-robot"></i> Automation First</h3>
+                    <p>Operational automation is treated as a core architecture component—not an afterthought.</p>
+                </div>
+                <div class="principle-core-node">
+                    <h3><i class="fas fa-chart-line"></i> Enterprise Scalability</h3>
+                    <p>Architectures are designed for future growth, operational resilience, and long-term maintainability.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: BLUEPRINT DEVELOPMENT METHODOLOGY TIMELINE -->
+        <section class="bp-section" style="background: rgba(2, 6, 23, 0.35);">
+            <h2 class="method-section-title">Blueprint Development Methodology™</h2>
+            <div class="method-section-sub">A repeatable framework tracking lifecycle steps systematically</div>
+            
+            <div class="methodology-timeline-track">
+                <div class="timeline-step-block"><div class="timeline-step-dot"></div><div class="timeline-card-content"><h4>Business Objectives</h4></div></div>
+                <div class="timeline-step-block"><div class="timeline-step-dot"></div><div class="timeline-card-content"><h4>Current State Assessment</h4></div></div>
+                <div class="timeline-step-block"><div class="timeline-step-dot"></div><div class="timeline-card-content"><h4>Architecture Discovery</h4></div></div>
+                <div class="timeline-step-block"><div class="timeline-step-dot"></div><div class="timeline-card-content"><h4>Technology Evaluation</h4></div></div>
+                <div class="timeline-step-block"><div class="timeline-step-dot"></div><div class="timeline-card-content"><h4>Reference Design</h4></div></div>
+                <div class="timeline-step-block"><div class="timeline-step-dot"></div><div class="timeline-card-content"><h4>Security Validation</h4></div></div>
+                <div class="timeline-step-block"><div class="timeline-step-dot"></div><div class="timeline-card-content"><h4>Architecture Review</h4></div></div>
+                <div class="timeline-step-block"><div class="timeline-step-dot"></div><div class="timeline-card-content"><h4>Implementation Planning</h4></div></div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: TECHNOLOGY COVERAGE GRID -->
+        <section class="bp-section">
+            <h2 class="tech-section-title">Technology Coverage</h2>
+            <div class="tech-coverage-matrix-mesh">
+                <div class="tech-mesh-item">AI Infrastructure</div><div class="tech-mesh-item">Cloud</div>
+                <div class="tech-mesh-item">Virtualization</div><div class="tech-mesh-item">Storage</div>
+                <div class="tech-mesh-item">Networking</div><div class="tech-mesh-item">Cyber Security</div>
+                <div class="tech-mesh-item">Platform Engineering</div><div class="tech-mesh-item">Containers</div>
+                <div class="tech-mesh-item">Kubernetes</div><div class="tech-mesh-item">GPU Computing</div>
+                <div class="tech-mesh-item">Observability</div><div class="tech-mesh-item">Automation</div>
+                <div class="tech-mesh-item">Disaster Recovery</div><div class="tech-mesh-item">Database</div>
+                <div class="tech-mesh-item">Data Platform</div><div class="tech-mesh-item">Enterprise Applications</div>
+                <div class="tech-mesh-item">API Platform</div><div class="tech-mesh-item">Identity</div>
+                <div class="tech-mesh-item">DevSecOps</div><div class="tech-mesh-item">AI Governance</div>
+            </div>
+        </section>
+
+        <!-- SECTION 7: WHY ORGANIZATIONS CHOOSE VAKRATRON -->
+        <section class="bp-section">
+            <div class="why-bp-board">
+                <h2>Why Organizations Choose Vakratron Architecture Blueprints™</h2>
+                <div class="why-bp-pillars">
+                    <div class="why-pillar-node"><i class="fas fa-circle-check"></i> <span>Architecture-first consulting approach</span></div>
+                    <div class="why-pillar-node"><i class="fas fa-circle-check"></i> <span>Vendor-neutral technology recommendations</span></div>
+                    <div class="why-pillar-node"><i class="fas fa-circle-check"></i> <span>Proven enterprise design patterns</span></div>
+                    <div class="why-pillar-node"><i class="fas fa-circle-check"></i> <span>Reduced implementation risk</span></div>
+                    <div class="why-pillar-node"><i class="fas fa-circle-check"></i> <span>Faster solution planning</span></div>
+                    <div class="why-pillar-node"><i class="fas fa-circle-check"></i> <span>Enterprise security best practices</span></div>
+                    <div class="why-pillar-node"><i class="fas fa-circle-check"></i> <span>Cloud and AI modernization ready</span></div>
+                    <div class="why-pillar-node"><i class="fas fa-circle-check"></i> <span>Built from real-world consulting engagements</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 8: IMPORTANT NOTICE WARNING PLATFORM -->
+        <section class="bp-section">
+            <div class="bp-notice-container">
+                <h4><i class="fas fa-triangle-exclamation"></i> Important Notice: Conceptual Architecture Only</h4>
+                <p>
+                    The Architecture Blueprints available within the Vakratron Knowledge Library are intended for strategic planning, architecture visualization, and technology evaluation purposes. Detailed High-Level Designs (HLD), Low-Level Designs (LLD), sizing reports, implementation runbooks, migration strategies, security hardening guides, and production deployment documentation are delivered as part of Vakratron consulting engagements.
+                </p>
+            </div>
+        </section>
+
+        <!-- FINAL CTA ENGAGEMENT COMPONENT -->
+        <section class="bp-section" style="border-top: 1px solid rgba(255, 255, 255, 0.03);">
+            <div class="bp-final-cta-wrap">
+                <h2>Ready to Build Your Enterprise Architecture?</h2>
+                <p>
+                    Whether you're modernizing infrastructure, adopting AI, migrating to the cloud, or designing a Kubernetes platform, Vakratron helps organizations move from concept to production using proven architecture methodologies and enterprise best practices.
+                </p>
+                <div class="bp-hero-btn-group">
+                    <a href="frameworks.html" class="vakra-btn-primary">Explore Vakratron Frameworks™ <i class="fas fa-network-wired"></i></a>
+                    <a href="/contact.html" class="vakra-btn-secondary">Talk to an Enterprise Architect <i class="fas fa-comments"></i></a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <footer></footer>
+
+
+    <!-- 🚨 AUTOMATED INTEGRATION: INTERACTIVE CHAT ENGINE FRONTEND ADAPTER -->
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('code') || window.location.hash.includes('access_token')) {
+            localStorage.setItem('vakra_auth_token', 'SECURE_NODE_VALIDATED_2026');
+            window.location.href = '/index.html'; 
+        }
+
+        const trigger = document.getElementById('chatTrigger');
+        const windowEl = document.getElementById('chatWindow');
+        const closeBtn = document.getElementById('chatClose');
+        const sendBtn = document.getElementById('chatSend');
+        const inputEl = document.getElementById('chatInput');
+        const messagesContainer = document.getElementById('chatMessages');
+
+        if (trigger) {
+            trigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                windowEl.classList.toggle('active');
+                
+                if(windowEl.classList.contains('active')) {
+                    windowEl.style.setProperty('display', 'flex', 'important');
+                    windowEl.style.setProperty('width', '360px', 'important');
+                    inputEl.focus();
+                } else {
+                    windowEl.style.setProperty('display', 'none', 'important');
+                }
+            });
+        }
+
+        if (closeBtn) {
+            closeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                windowEl.classList.remove('active');
+                windowEl.style.setProperty('display', 'none', 'important');
+            });
+        }
+
+        async function dispatchUserPrompt() {
+            const promptValue = inputEl.value.trim();
+            if (!promptValue) return;
+
+            appendBubble(promptValue, 'user');
+            inputEl.value = '';
+
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'vakra-msg system';
+            typingIndicator.innerHTML = `<div class="vakra-typing"><span></span><span></span><span></span></div>`;
+            messagesContainer.appendChild(typingIndicator);
+            scrollToBottom();
+
+            try {
+                const apiResponse = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: promptValue })
+                });
+
+                const dataset = await apiResponse.json();
+                typingIndicator.remove();
+
+                if (apiResponse.ok && dataset.response) {
+                    appendBubble(dataset.response, 'system');
+
+                    const lowerMessage = promptValue.toLowerCase();
+                    if (
+                        lowerMessage.includes('connect') || 
+                        lowerMessage.includes('talk to human') || 
+                        lowerMessage.includes('contact team') || 
+                        lowerMessage.includes('representative') || 
+                        lowerMessage.includes('connect someone') ||
+                        lowerMessage.includes('team se connect')
+                    ) {
+                        setTimeout(() => {
+                            appendBubble("⚡ System Action: Redirecting token matrix to the Sovereign Advisory Desk...", 'system');
+                            setTimeout(() => {
+                                window.location.href = 'contact.html';
+                            }, 1500);
+                        }, 1000);
+                    }
+                } else {
+                    appendBubble("Execution Defect: Unable to pipeline calculated tokens from LLM core.", 'system');
+                }
+            } catch (networkError) {
+                if(typingIndicator) typingIndicator.remove();
+                appendBubble("Network Fault: Endpoint connectivity degraded or blocked.", 'system');
+                console.error("Pipeline Transmission Error:", networkError);
+            }
+        }
+
+        function appendBubble(content, actor) {
+            const bubble = document.createElement('div');
+            bubble.className = `vakra-msg ${actor}`;
+            bubble.innerHTML = content.replace(/\n/g, '<br>');
+            messagesContainer.appendChild(bubble);
+            scrollToBottom();
+        }
+
+        function scrollToBottom() {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        if (sendBtn) sendBtn.addEventListener('click', dispatchUserPrompt);
+        if (inputEl) {
+            inputEl.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter') dispatchUserPrompt();
+            });
+        }
+    </script>
+    <script src="/vakra-loader.js"></script>
+
+</body>
+</html>

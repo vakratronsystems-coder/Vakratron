@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kubernetes & Platform Engineering Architecture | Vakratron Systems</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-surface: rgba(15, 23, 42, 0.6);
+            --border-glow: rgba(194, 24, 91, 0.3);
+            --accent-neon: #C2185B;
+            --accent-blue: #38bdf8;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --glass-gradient: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(2, 6, 23, 0.9) 100%);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main) !important;
+            color: var(--text-primary);
+            background-image: 
+                radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(194, 24, 91, 0.07) 0%, transparent 50%) !important;
+            background-size: 200% 200% !important;
+            animation: cyberBackgroundMotion 20s ease infinite alternate !important;
+        }
+
+        @keyframes cyberBackgroundMotion {
+            0% { background-position: 0% 20%; }
+            50% { background-position: 100% 80%; }
+            100% { background-position: 20% 100%; }
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background: transparent !important;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.002) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.002) 1px, transparent 1px) !important;
+            background-size: 50px 50px !important;
+        }
+
+      section {
+    padding: 50px 8% !important;     /* Top/Bottom padding ko balanced kiya */
+    box-sizing: border-box;
+}
+
+        .premium-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(194, 24, 91, 0.06);
+            border: 1px solid rgba(194, 24, 91, 0.25);
+            color: #f472b6;
+            padding: 8px 18px;
+            border-radius: 100px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 25px;
+        }
+
+       .solution-hero, .solutions-hero {
+    padding-top: 60px !important;    /* Pehle jo 140px/150px tha use kam kiya */
+    padding-bottom: 40px !important;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+        .solution-hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin: 15px 0;
+            color: #fff;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        .solution-hero h1 span {
+            background: linear-gradient(135deg, #fff 30%, var(--accent-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .solution-hero p {
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary, .btn-secondary {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.25s;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: var(--accent-neon);
+            border: 1px solid var(--accent-neon);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(194, 24, 91, 0.25);
+        }
+
+        .btn-primary:hover {
+            background: #9e1147;
+            border-color: #9e1147;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #94a3b8;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- 🚀 UNIVERSAL SPACE & GAP OPTIMIZER FOR CRISP LAYOUTS -->
+    <style id="vakra-gap-resolver">
+        /* Forcefully shrink the top space of hero container completely */
+        html body .doc-hero, 
+        html body main .doc-hero,
+        html body [class*="hero"] {
+            min-height: auto !important;
+            padding-top: 80px !important; /* Forces layout to sit right under navbar */
+            padding-bottom: 25px !important;
+            margin-top: 0 !important;
+        }
+
+        /* Compress the sections padding dynamically */
+        html body .doc-section, 
+        html body .bp-section,
+        html body [class*="section"] {
+            padding: 30px 10% !important; /* Ultimate tight compression */
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        /* Tighten internal elements */
+        html body .cyber-diagram-canvas, 
+        html body .bp-library-grid, 
+        html body .principles-matrix-grid {
+            margin-top: 15px !important;
+        }
+        html body h2.doc-block-heading {
+            margin-top: 0 !important;
+            margin-bottom: 10px !important;
+        }
+        html body p.doc-block-paragraph {
+            margin-bottom: 10px !important;
+        }
+    </style>
+
+</head>
+<body>
+
+    <!-- 📥 DYNAMIC HEADER PLACEHOLDER -->
+    <header></header>
+        
+    <main class="solution-page">
+
+        <!-- 🚀 KUBERNETES HERO INTERFACE -->
+        <section class="solution-hero">
+            <div class="premium-badge">
+                <i class="fas fa-dharmachakra"></i> KUBERNETES & PLATFORM ENGINEERING
+            </div>
+            <h1>Modern Platform Architecture For <span>Cloud Native Scale</span></h1>
+            <p>Helping organizations design, assess, and modernize container platforms, platform engineering practices, and cloud-native operating models.</p>
+            <div class="hero-actions">
+                <a href="contact.html" class="btn-primary">Schedule Platform Assessment</a>
+                <a href="contact.html" class="btn-secondary">Talk To An Architect</a>
+            </div>
+        </section>
+
+        <!-- 🛡️ CHALLENGES SECTION: PREMIUM CLOUD-NATIVE MATRIX -->
+        <section class="solution-challenges" style="position: relative; padding: 60px 8% !important; border-top: 1px solid rgba(255, 255, 255, 0.04); background: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.02) 0%, transparent 60%);">
+            
+            <div class="section-header" style="text-align: center; margin-bottom: 45px;">
+                <div class="premium-badge">
+                    <i class="fa-solid fa-bug-slash"></i> PLATFORM OPTIMIZATION DEFENSE
+                </div>
+                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; font-weight: 700; margin: 0 0 12px 0; color: #fff; letter-spacing: -0.5px;">
+                    Common Platform Challenges <span style="color: var(--accent-neon);">We Help Solve</span>
+                </h2>
+                <p style="color: var(--text-secondary); max-width: 740px; margin: 0 auto; font-size: 1rem; line-height: 1.6; font-family: 'Inter', sans-serif;">
+                    Organizations often struggle with operational complexity, governance bottlenecks, fragmented developer experiences, and platform scalability while adopting Kubernetes at enterprise scale.
+                </p>
+            </div>
+
+            <!-- 📊 HORIZONTAL Symmetrical 4-COLUMN INLINE GRID ENGINE -->
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 100%; box-sizing: border-box;">
+                
+                <!-- CARD 1: PLATFORM FRAGMENTATION -->
+                <div class="info-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.04); padding: 30px 24px; border-radius: 16px; box-shadow: 0 30px 60px -20px rgba(0,0,0,0.7); display: flex; flex-direction: column; justify-content: flex-start; min-height: 250px; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); box-sizing: border-box; position: relative;" onmouseover="this.style.borderColor='rgba(56, 189, 248, 0.4)'; this.style.transform='translateY(-6px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.04)'; this.style.transform='translateY(0)';">
+                    <div style="width: 44px; height: 42px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--accent-blue); font-size: 1rem; margin-bottom: 18px;">
+                        <i class="fa-solid fa-network-wired"></i>
+                    </div>
+                    <div style="font-family: 'Space Grotesk', sans-serif; font-size: 0.7rem; font-weight: 600; color: var(--accent-blue); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px;">STANDARDIZATION</div>
+                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; color: #fff; margin: 0 0 10px 0; font-weight: 600;">Platform Fragmentation</h3>
+                    <p style="color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.5; margin: 0; font-weight: 400;">Multiple isolated clusters and multi-cloud environments running completely stripped of consistent standards, compliance matrices, and central governance blueprints.</p>
+                </div>
+
+                <!-- CARD 2: KUBERNETES COMPLEXITY -->
+                <div class="info-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.04); padding: 30px 24px; border-radius: 16px; box-shadow: 0 30px 60px -20px rgba(0,0,0,0.7); display: flex; flex-direction: column; justify-content: flex-start; min-height: 250px; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); box-sizing: border-box; position: relative;" onmouseover="this.style.borderColor='rgba(194, 24, 91, 0.5)'; this.style.transform='translateY(-6px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.04)'; this.style.transform='translateY(0)';">
+                    <div style="width: 44px; height: 42px; background: rgba(194, 24, 91, 0.04); border: 1px solid rgba(194, 24, 91, 0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--accent-neon); font-size: 1rem; margin-bottom: 18px;">
+                        <i class="fa-solid fa-cubes"></i>
+                    </div>
+                    <div style="font-family: 'Space Grotesk', sans-serif; font-size: 0.7rem; font-weight: 600; color: var(--accent-neon); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px;">LIFECYCLE MANAGEMENT</div>
+                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; color: #fff; margin: 0 0 10px 0; font-weight: 600;">K8s Complexity</h3>
+                    <p style="color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.5; margin: 0; font-weight: 400;">Intensive operational overhead across software-defined core routing service meshes, automated rolling upgrades, boundary nodes configuration, and security baselines execution.</p>
+                </div>
+
+                <!-- CARD 3: DEVELOPER EXPERIENCE -->
+                <div class="info-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.04); padding: 30px 24px; border-radius: 16px; box-shadow: 0 30px 60px -20px rgba(0,0,0,0.7); display: flex; flex-direction: column; justify-content: flex-start; min-height: 250px; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); box-sizing: border-box; position: relative;" onmouseover="this.style.borderColor='rgba(56, 189, 248, 0.4)'; this.style.transform='translateY(-6px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.04)'; this.style.transform='translateY(0)';">
+                    <div style="width: 44px; height: 42px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--accent-blue); font-size: 1rem; margin-bottom: 18px;">
+                        <i class="fa-solid fa-code-pull-request"></i>
+                    </div>
+                    <div style="font-family: 'Space Grotesk', sans-serif; font-size: 0.7rem; font-weight: 600; color: var(--accent-blue); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px;">SELF SERVICE DEVX</div>
+                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; color: #fff; margin: 0 0 10px 0; font-weight: 600;">Developer Experience</h3>
+                    <p style="color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.5; margin: 0; font-weight: 400;">Severely decelerated pipeline deployment speeds due to a distinct lack of automated, abstract IDP self-service resource allocation parameters.</p>
+                </div>
+
+                <!-- CARD 4: GOVERNANCE & SECURITY -->
+                <div class="info-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.04); padding: 30px 24px; border-radius: 16px; box-shadow: 0 30px 60px -20px rgba(0,0,0,0.7); display: flex; flex-direction: column; justify-content: flex-start; min-height: 250px; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); box-sizing: border-box; position: relative;" onmouseover="this.style.borderColor='rgba(194, 24, 91, 0.5)'; this.style.transform='translateY(-6px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.04)'; this.style.transform='translateY(0)';">
+                    <div style="width: 44px; height: 42px; background: rgba(194, 24, 91, 0.04); border: 1px solid rgba(194, 24, 91, 0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--accent-neon); font-size: 1rem; margin-bottom: 18px;">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div style="font-family: 'Space Grotesk', sans-serif; font-size: 0.7rem; font-weight: 600; color: var(--accent-neon); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px;">ZERO TRUST AUDIT</div>
+                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; color: #fff; margin: 0 0 10px 0; font-weight: 600;">Governance & Security</h3>
+                    <p style="color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.5; margin: 0; font-weight: 400;">Complex barriers mapping granular RBAC models, policy validation engine rules, and threat isolation perimeters smoothly across multi-tenant runtimes.</p>
+                </div>
+            </div>
+        </section>
+        <!-- ====================================================================== -->
+        <!-- 🖼️ VISUAL REFERENCE ARCHITECTURE & PLATFORM ENGINEERING BLUEPRINT      -->
+        <!-- ====================================================================== -->
+        <section class="architecture-preview" style="position: relative; padding: 60px 8% !important; border-top: 1px solid rgba(255, 255, 255, 0.04); display: flex; flex-direction: column; align-items: center;">
+            <div class="section-header" style="text-align: center; margin-bottom: 40px; width: 100%;">
+                <div class="premium-badge" style="color: var(--accent-blue); background: rgba(56, 189, 248, 0.05); border-color: rgba(56, 189, 248, 0.2);">
+                    <i class="fas fa-sitemap"></i> CLOUD-NATIVE MATRIX
+                </div>
+                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; font-weight: 700; margin: 0 0 12px 0; color: #fff; letter-spacing: -0.5px;">Reference Architecture View</h2>
+                <p style="color: var(--text-secondary); max-width: 740px; margin: 0 auto; font-size: 1rem; line-height: 1.6; font-family: 'Inter', sans-serif;">
+                    Enterprise Grade logical blueprint mapping modular platform layers, control plane isolation, and end-to-end GitOps delivery topologies.
+                </p>
+            </div>
+
+            <!-- Image Container with Precision Structural Borders -->
+            <div class="architecture-container" style="width: 100%; max-width: 1150px; background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(194, 24, 91, 0.15); border-radius: 20px; padding: 24px; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6); box-sizing: border-box; display: flex; justify-content: center; align-items: center; overflow: hidden; margin-bottom: 25px;">
+                <img src="/images/k8s.png" alt="Kubernetes and Platform Engineering Reference Architecture Blueprint" class="architecture-image" style="width: 100%; height: auto; object-fit: contain; border-radius: 12px;">
+            </div>
+
+            <!-- 🏢 4-LINE ARCHITECTURE OVERVIEW SUMMARY -->
+            <div class="architecture-overview" style="max-width: 850px; width: 100%; margin: 15px auto 25px auto; box-sizing: border-box; text-align: left;">
+                <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; color: #fff; margin: 0 0 10px 0; font-weight: 600; letter-spacing: -0.3px;">Architecture Overview</h3>
+                <p style="color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.92rem; line-height: 1.6; margin: 0; font-weight: 400;">
+                    Modern cloud-native operations demand a modular separation between self-service platform execution paths and standard core runtime planes to streamline developer workflows. 
+                    Vakratron architects highly resilient Kubernetes cluster environments incorporating central control node loads balancing, production-grade service meshes, and GitOps-driven automation pipes. 
+                    Our blueprint hardlocks security and governance boundaries via native policy enforcement engines (OPA/Kyverno) alongside strict namespace isolation mechanisms across stateful storage grids. 
+                    This unified engineering lifecycle converts complex decoupled containers patterns into predictable, robust, and highly scalable enterprise platform operations.
+                </p>
+            </div>
+
+            <!-- Bottom Note Callout -->
+            <div class="architecture-note" style="font-family: 'Inter', sans-serif; font-size: 0.88rem; line-height: 1.6; color: #64748b; background: rgba(56, 189, 248, 0.03); border: 1px dashed rgba(56, 189, 248, 0.2); padding: 16px 24px; border-radius: 100px; max-width: 850px; width: 100%; box-sizing: border-box; display: flex; align-items: center; gap: 12px;">
+                <i class="fas fa-info-circle" style="color: var(--accent-blue); font-size: 1.1rem;"></i>
+                <span>This logical reference architecture is for engineering guidance only. Final runtime structures are tailored around multi-tenant workload constraints, infrastructure choices, and security baseline frameworks.</span>
+            </div>
+        </section>
+        <!-- 📈 ADVISORY APPROACH SECTION: PLATFORM ENGINEERING STRATEGY FLOW -->
+        <section class="advisory-framework" style="border-top: 1px solid rgba(255, 255, 255, 0.04); background: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.02) 0%, transparent 60%); padding: 60px 8% !important;">
+            <div class="section-header" style="text-align: center; margin-bottom: 40px;">
+                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; font-weight: 700; margin: 0 0 10px 0; color: #fff; letter-spacing: -0.5px;">
+                    How We Approach <span style="color: var(--accent-blue);">Platform Engineering</span>
+                </h2>
+            </div>
+
+            <!-- 🔄 LINEAR PROGRESSION FLOW ENGINE -->
+            <div class="framework-flow" style="display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; box-sizing: border-box;">
+                
+                <div class="flow-box" style="background: var(--glass-gradient); border: 1px solid rgba(56, 189, 248, 0.15); padding: 14px 20px; border-radius: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 500; color: #fff; text-align: center;">
+                    Business Requirements
+                </div>
+                <div class="flow-arrow" style="color: var(--accent-neon); font-weight: 700; font-size: 1.1rem;"><i class="fa-solid fa-arrow-right"></i></div>
+
+                <div class="flow-box" style="background: var(--glass-gradient); border: 1px solid rgba(56, 189, 248, 0.15); padding: 14px 20px; border-radius: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 500; color: #fff; text-align: center;">
+                    Current Platform Review
+                </div>
+                <div class="flow-arrow" style="color: var(--accent-neon); font-weight: 700; font-size: 1.1rem;"><i class="fa-solid fa-arrow-right"></i></div>
+
+                <div class="flow-box" style="background: var(--glass-gradient); border: 1px solid rgba(56, 189, 248, 0.15); padding: 14px 20px; border-radius: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 500; color: #fff; text-align: center;">
+                    Application Assessment
+                </div>
+                <div class="flow-arrow" style="color: var(--accent-neon); font-weight: 700; font-size: 1.1rem;"><i class="fa-solid fa-arrow-right"></i></div>
+
+                <div class="flow-box" style="background: var(--glass-gradient); border: 1px solid rgba(56, 189, 248, 0.15); padding: 14px 20px; border-radius: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 500; color: #fff; text-align: center;">
+                    Platform Strategy
+                </div>
+                <div class="flow-arrow" style="color: var(--accent-neon); font-weight: 700; font-size: 1.1rem;"><i class="fa-solid fa-arrow-right"></i></div>
+
+                <div class="flow-box" style="background: var(--glass-gradient); border: 1px solid rgba(56, 189, 248, 0.15); padding: 14px 20px; border-radius: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 500; color: #fff; text-align: center;">
+                    Target Architecture
+                </div>
+                <div class="flow-arrow" style="color: var(--accent-neon); font-weight: 700; font-size: 1.1rem;"><i class="fa-solid fa-arrow-right"></i></div>
+
+                <div class="flow-box" style="background: var(--glass-gradient); border: 1px solid rgba(56, 189, 248, 0.15); padding: 14px 20px; border-radius: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 500; color: #fff; text-align: center;">
+                    Roadmap & Governance
+                </div>
+            </div>
+        </section>
+        <!-- 📦 DELIVERABLES SECTION: WHAT WE DELIVER MATRIX -->
+        <section class="deliverables-section" style="border-top: 1px solid rgba(255, 255, 255, 0.04); padding: 60px 8% !important;">
+            <div class="section-header" style="text-align: center; margin-bottom: 40px;">
+                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; font-weight: 700; margin: 0 0 10px 0; color: #fff; letter-spacing: -0.5px;">What We Deliver</h2>
+            </div>
+
+            <!-- 📊 3-COLUMN STARK INLINE GRID FOR DELIVERABLES -->
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; box-sizing: border-box;">
+                <div class="deliverable-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.02); padding: 25px 22px; border-radius: 14px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 12px; box-sizing: border-box; transition: all 0.3s ease;" onmouseover="this.style.borderColor='rgba(56, 189, 248, 0.3)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.02)'; this.style.transform='translateY(0)';">
+                    <i class="fa-solid fa-list-check" style="color: var(--accent-blue); font-size: 0.95rem;"></i> Platform Assessment
+                </div>
+                <div class="deliverable-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.02); padding: 25px 22px; border-radius: 14px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 12px; box-sizing: border-box; transition: all 0.3s ease;" onmouseover="this.style.borderColor='rgba(56, 189, 248, 0.3)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.02)'; this.style.transform='translateY(0)';">
+                    <i class="fa-solid fa-diagram-project" style="color: var(--accent-blue); font-size: 0.95rem;"></i> Kubernetes Architecture Blueprint
+                </div>
+                <div class="deliverable-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.02); padding: 25px 22px; border-radius: 14px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 12px; box-sizing: border-box; transition: all 0.3s ease;" onmouseover="this.style.borderColor='rgba(56, 189, 248, 0.3)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.02)'; this.style.transform='translateY(0)';">
+                    <i class="fa-solid fa-map-location-dot" style="color: var(--accent-blue); font-size: 0.95rem;"></i> Landing Zone Design
+                </div>
+                <div class="deliverable-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.02); padding: 25px 22px; border-radius: 14px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 12px; box-sizing: border-box; transition: all 0.3s ease;" onmouseover="this.style.borderColor='rgba(56, 189, 248, 0.3)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.02)'; this.style.transform='translateY(0)';">
+                    <i class="fa-solid fa-chess-knight" style="color: var(--accent-blue); font-size: 0.95rem;"></i> Container Platform Strategy
+                </div>
+                <div class="deliverable-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.02); padding: 25px 22px; border-radius: 14px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 12px; box-sizing: border-box; transition: all 0.3s ease;" onmouseover="this.style.borderColor='rgba(56, 189, 248, 0.3)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.02)'; Lazy loading logic mapping;" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.02)'; this.style.transform='translateY(0)';">
+                    <i class="fa-solid fa-shield-halved" style="color: var(--accent-blue); font-size: 0.95rem;"></i> Security & Governance Framework
+                </div>
+                <div class="deliverable-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.02); padding: 25px 22px; border-radius: 14px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 12px; box-sizing: border-box; transition: all 0.3s ease;" onmouseover="this.style.borderColor='rgba(56, 189, 248, 0.3)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.02)'; this.style.transform='translateY(0)';">
+                    <i class="fa-solid fa-route" style="color: var(--accent-blue); font-size: 0.95rem;"></i> Implementation Roadmap
+                </div>
+            </div>
+        </section>
+
+        <!-- 🛡️ WHY VAKRATRON SECTION: OPERATIONAL STABILITY MATRIX -->
+        <section class="why-vakratron" style="border-top: 1px solid rgba(255, 255, 255, 0.04); background: radial-gradient(circle at 50% 100%, rgba(194, 24, 91, 0.02) 0%, transparent 60%); padding: 60px 8% !important;">
+            <div class="section-header" style="text-align: center; margin-bottom: 40px;">
+                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; font-weight: 700; margin: 0 0 10px 0; color: #fff; letter-spacing: -0.5px;">Why Vakratron</h2>
+            </div>
+
+            <!-- 📊 PREMIUM 4-COLUMN INLINE GRID INTERFACE -->
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 100%; box-sizing: border-box;">
+                <div class="info-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.04); padding: 30px 24px; border-radius: 16px; min-height: 230px; box-sizing: border-box; transition: all 0.3s ease;" onmouseover="this.style.borderColor='rgba(194, 24, 91, 0.5)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.04)'; this.style.transform='translateY(0)';">
+                    <div style="width: 42px; height: 40px; background: rgba(56, 189, 248, 0.04); border: 1px solid rgba(56, 189, 248, 0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--accent-blue); font-size: 1rem; margin-bottom: 18px;"><i class="fas fa-scale-balanced"></i></div>
+                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; color: #fff; margin: 0 0 10px 0; font-weight: 600;">Vendor Neutral</h3>
+                    <p style="color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.5; margin: 0;">Orchestration recommendations driven fully by native cluster performance objectives and budget constraints.</p>
+                </div>
+                <div class="info-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.04); padding: 30px 24px; border-radius: 16px; min-height: 230px; box-sizing: border-box; transition: all 0.3s ease;" onmouseover="this.style.borderColor='rgba(194, 24, 91, 0.5)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.04)'; this.style.transform='translateY(0)';">
+                    <div style="width: 42px; height: 40px; background: rgba(194, 24, 91, 0.04); border: 1px solid rgba(194, 24, 91, 0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--accent-neon); font-size: 1rem; margin-bottom: 18px;"><i class="fas fa-drafting-compass"></i></div>
+                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; color: #fff; margin: 0 0 10px 0; font-weight: 600;">Architecture First</h3>
+                    <p style="color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.5; margin: 0;">Deep-dive environment reviews, node configuration modeling, and blueprint design standards finalized before deployments.</p>
+                </div>
+                <div class="info-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.04); padding: 30px 24px; border-radius: 16px; min-height: 230px; box-sizing: border-box; transition: all 0.3s ease;" onmouseover="this.style.borderColor='rgba(194, 24, 91, 0.5)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.04)'; this.style.transform='translateY(0)';">
+                    <div style="width: 42px; height: 40px; background: rgba(56, 189, 248, 0.04); border: 1px solid rgba(56, 189, 248, 0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--accent-blue); font-size: 1rem; margin-bottom: 18px;"><i class="fas fa-building-shield"></i></div>
+                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; color: #fff; margin: 0 0 10px 0; font-weight: 600;">Enterprise Focused</h3>
+                    <p style="color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.5; margin: 0;">Topologies structured layout around high-availability control planes, immutable security controls, and absolute container isolation layers.</p>
+                </div>
+                <div class="info-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.04); padding: 30px 24px; border-radius: 16px; min-height: 230px; box-sizing: border-box; transition: all 0.3s ease;" onmouseover="this.style.borderColor='rgba(194, 24, 91, 0.5)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.04)'; this.style.transform='translateY(0)';">
+                    <div style="width: 42px; height: 40px; background: rgba(194, 24, 91, 0.04); border: 1px solid rgba(194, 24, 91, 0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--accent-neon); font-size: 1rem; margin-bottom: 18px;"><i class="fas fa-bullseye"></i></div>
+                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; color: #fff; margin: 0 0 10px 0; font-weight: 600;">Outcome Driven</h3>
+                    <p style="color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.5; margin: 0;">Platform pipelines tightly engineered to enforce rapid GitOps delivery, streamlined self-service DevX metrics, and resilient operational states.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 🎯 FINAL CTA SECTION: CLOUD-NATIVE EXECUTIVE ENGAGEMENT -->
+        <section class="final-cta" style="border-top: 1px solid rgba(255, 255, 255, 0.04); background: radial-gradient(circle at 50% 0%, rgba(194, 24, 91, 0.03) 0%, transparent 70%); display: flex; justify-content: center; width: 100%; box-sizing: border-box; padding: 60px 8% 80px 8% !important;">
+            <div style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(3, 7, 18, 0.95) 100%); border: 1px solid rgba(194, 24, 91, 0.2); border-radius: 20px; padding: 50px 40px; text-align: center; max-width: 950px; width: 100%; box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8); box-sizing: border-box;">
+                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.3rem; font-weight: 700; margin: 0 0 15px 0; color: #fff; letter-spacing: -0.5px;">Planning Your Container Platform Journey?</h2>
+                <p style="color: var(--text-secondary); max-width: 720px; margin: 0 auto 30px auto; font-size: 1rem; line-height: 1.6; font-family: 'Inter', sans-serif;">Engage with Vakratron's architecture advisory team to define a secure, standardized, and production-grade Kubernetes engine blueprint roadmap.</p>
+                <div class="hero-actions">
+                    <a href="contact.html" class="btn-primary">Schedule Discovery Workshop</a>
+                    <a href="contact.html" class="btn-secondary">Request Assessment</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 📥 DYNAMIC FOOTER PLACEHOLDER -->
+    <footer></footer>
+
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

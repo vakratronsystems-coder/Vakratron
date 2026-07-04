@@ -1,0 +1,1857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Independent Enterprise Architecture Reviews | Vakratron Systems</title>
+    
+    <!-- 🚀 Core Global UI Style Assets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ====================================================================== */
+        /* 💎 CORE BRAND VARIABLES & SYSTEM GLOBAL RESETS                        */
+        /* ====================================================================== */
+        :root {
+            --bg-obsidian: #020617;
+            --accent-blue: #38bdf8;
+            --accent-pink: #c2185b;
+            --text-secondary: #94a3b8;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: var(--bg-obsidian);
+            font-family: 'Inter', sans-serif;
+            color: #f1f5f9;
+            overflow-x: hidden;
+        }
+
+        /* Smooth Spacing Matrix for Strict Sections */
+        .solution-hero, .solution-section {
+            padding: 80px 8% !important;
+            max-width: 1300px;
+            margin: 0 auto !important;
+            box-sizing: border-box;
+            position: relative;
+            clear: both;
+        }
+
+        /* ====================================================================== */
+        /* 💎 HERO BLOCK STYLING ENGINE                                          */
+        /* ====================================================================== */
+        .solution-hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            padding-top: 140px !important;
+        }
+
+        .hero-cosmic-glow {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.07) 0%, transparent 65%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero-content-payload {
+            position: relative;
+            z-index: 2;
+            max-width: 950px;
+        }
+
+        /* Elite Enterprise Badge Link Style */
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(56, 189, 248, 0.06);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            padding: 6px 16px;
+            border-radius: 100px;
+            color: var(--accent-blue);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.1);
+        }
+
+        .solution-hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.6rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.15;
+            margin: 0 0 25px 0;
+            letter-spacing: -1px;
+        }
+
+        .gradient-text-trigger {
+            background: linear-gradient(135deg, var(--accent-blue) 0%, #a855f7 50%, var(--accent-pink) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .solution-hero p {
+            font-size: 1.2rem !important;
+            line-height: 1.8 !important;
+            color: var(--text-secondary) !important;
+            margin: 0 auto 40px auto !important;
+            max-width: 780px;
+            text-align: center !important;
+        }
+
+        /* Action Buttons Matrix */
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--accent-pink);
+            color: #ffffff;
+            border: none;
+            box-shadow: 0 8px 25px rgba(194, 24, 91, 0.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(194, 24, 91, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--accent-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.15);
+        }
+
+        .cta-mega-btn, .architect-talk-btn {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            padding: 16px 36px;
+            border-radius: 10px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        /* Fluid Mobile Adaptation Rules */
+        @media (max-width: 768px) {
+            .solution-hero {
+                padding: 100px 4% 60px 4% !important;
+                min-height: auto;
+/            }
+            .solution-hero h1 { font-size: 2.3rem; }
+            .solution-hero p { font-size: 1rem !important; }
+            .hero-actions { flex-direction: column; width: 100%; }
+            .cta-mega-btn, .architect-talk-btn { width: 100%; justify-content: center; box-sizing: border-box; }
+        }
+        /* ====================================================================== */
+        /* 💎 SECTION 2 — ASYMMETRICAL TYPOGRAPHY & CHECKLIST GRID ENGINE        */
+        /* ====================================================================== */
+        .solution-section {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03) !important;
+            padding: 90px 8% !important; 
+        }
+
+        .section-header h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 55px !important;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        /* 🚀 Symmetrical Rigid Grid Setup */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 65px !important; 
+            align-items: center !important; 
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Left Side Text Container (Maintains Compact Center Alignment) */
+        .overview-grid > div:first-child {
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+            gap: 32px !important; 
+            height: auto; 
+            padding: 0 !important;
+            background: none !important;
+            border: none !important;
+            box-shadow: none !important;
+            backdrop-filter: none !important;
+            box-sizing: border-box;
+        }
+
+        /* Premium Executive Typography Design (Dono text blocks ka color ek jaisa match karne ke liye fix) */
+        .overview-grid p {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.25rem !important; /* Uniform smooth reading size */
+            line-height: 1.85 !important;
+            color: #e2e8f0 !important; /* 🚀 FIXED: Dono paragraphs ab is ultra-premium, crisp slate off-white color ko direct share karenge */
+            margin: 0;
+            text-align: left;
+            font-weight: 400;
+        }
+
+        /* Humne yahan se override rule hata diya hai taaki color divide na ho */
+        .overview-grid p:first-child {
+            /* Pure inheritance from parent grid typography */
+        }
+
+        /* Right Checklist Container Matrix */
+        .checklist-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .checklist-item {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.4) 0%, rgba(2, 6, 23, 0.6) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 16px 22px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-sizing: border-box;
+        }
+
+        .check-icon {
+            color: var(--accent-blue);
+            font-size: 1rem;
+            filter: drop-shadow(0 0 4px rgba(56, 189, 248, 0.3));
+            transition: all 0.3s ease;
+        }
+
+        .checklist-item span {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: #ffffff;
+            text-align: left;
+        }
+
+        /* Premium Hover Actions */
+        .checklist-item:hover {
+            transform: translateX(6px) scale(1.01);
+            background: linear-gradient(135deg, rgba(20, 32, 58, 0.5) 0%, rgba(2, 6, 23, 0.7) 100%);
+            border-color: rgba(56, 189, 248, 0.25);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .checklist-item:hover .check-icon {
+            color: var(--accent-pink);
+            filter: drop-shadow(0 0 8px rgba(194, 24, 91, 0.6));
+            transform: scale(1.1);
+        }
+
+        /* Mobile Flow Adaptability */
+        @media (max-width: 992px) {
+            .overview-grid {
+                grid-template-columns: 1fr;
+                gap: 45px !important;
+            }
+        }
+        /* ====================================================================== */
+        /* 💎 SECTION 3 — ARCHITECTURAL CARDS GRID ENGINE                         */
+        /* ====================================================================== */
+        .reviews-matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Precise 3-Column Grid Balance */
+            gap: 25px;
+            align-items: stretch;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .review-premium-card {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.4) 0%, rgba(2, 6, 23, 0.7) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 35px 28px;
+            border-radius: 16px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Top Isometric Laser Border Strips */
+        .card-edge-accent {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            opacity: 0.7;
+        }
+        .card-edge-accent.blue-edge { background: linear-gradient(90deg, var(--accent-blue), transparent); }
+        .card-edge-accent.pink-edge { background: linear-gradient(90deg, var(--accent-pink), transparent); }
+
+        /* Icon Spheres */
+        .review-icon-sphere {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 22px;
+            transition: all 0.3s ease;
+        }
+
+        .review-premium-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin: 0 0 12px 0;
+            letter-spacing: -0.3px;
+        }
+
+        .review-premium-card p {
+            font-size: 0.88rem !important;
+            line-height: 1.6 !important;
+            color: var(--text-secondary) !important;
+            margin: 0 !important;
+            text-align: left !important;
+            flex-grow: 1;
+        }
+
+        /* 🔥 PREMIUM INTERACTIVE EFFECTS */
+        .review-premium-card:hover {
+            border-color: rgba(255, 255, 255, 0.1) !important;
+            transform: translateY(-6px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(135deg, rgba(20, 32, 58, 0.4) 0%, rgba(2, 6, 23, 0.8) 100%);
+        }
+
+        .review-premium-card:hover .review-icon-sphere {
+            color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .review-premium-card:hover .card-edge-accent {
+            opacity: 1;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 992px) {
+            .reviews-matrix-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 650px) {
+            .reviews-matrix-grid { grid-template-columns: 1fr; }
+        }
+        /* ====================================================================== */
+        /* 💎 SECTION 4 — LIVE ANIMATED REVIEW FRAMEWORK ENGINE                   */
+        /* ====================================================================== */
+        .consulting-workflow-container {
+            max-width: 900px;
+            margin: 50px auto 20px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        /* Connecting Direction Flow Vectors */
+        .flow-arrow-connector {
+            font-size: 1.6rem;
+            margin: 12px 0;
+            background: linear-gradient(180deg, var(--accent-blue) 0%, var(--accent-pink) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 4px rgba(56, 189, 248, 0.4));
+            animation: pipelineLaserPulse 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes pipelineLaserPulse {
+            0% { transform: translateY(-3px) scale(0.95); opacity: 0.4; filter: drop-shadow(0 0 2px var(--accent-blue)); }
+            50% { transform: translateY(4px) scale(1.1); opacity: 1; filter: drop-shadow(0 0 8px var(--accent-pink)); }
+            100% { transform: translateY(-3px) scale(0.95); opacity: 0.4; filter: drop-shadow(0 0 2px var(--accent-blue)); }
+        }
+
+        .workflow-hub-row {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            box-sizing: border-box;
+            animation: nodeRevealReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        @keyframes nodeRevealReveal {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Glassmorphic Pipeline Cards */
+        .hub-box {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(2, 6, 23, 0.8) 100%);
+            padding: 22px 30px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 550px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .hub-box.border-blue { border: 1px solid rgba(56, 189, 248, 0.25); }
+        .hub-box.border-pink { border: 1px solid rgba(194, 24, 91, 0.25); }
+
+        .hub-badge {
+            position: absolute;
+            top: -11px;
+            left: 30px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .badge-blue { background: rgba(0, 0, 0, 0.8); border: 1px solid var(--accent-blue); color: var(--accent-blue); }
+        .badge-pink { background: rgba(0, 0, 0, 0.8); border: 1px solid var(--accent-pink); color: #f472b6; }
+
+        .hub-box h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            color: #ffffff;
+            margin: 0 0 6px 0;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .hub-box p {
+            font-size: 0.85rem !important;
+            line-height: 1.5 !important;
+            color: var(--text-secondary) !important;
+            margin: 0 !important;
+            text-align: center !important;
+        }
+
+        /* 🚀 ADVANCED METRIC SUB-SYSTEM INTERNAL PROCESSING CORE */
+        .engine-master-box {
+            background: linear-gradient(135deg, rgba(20, 30, 55, 0.5) 0%, rgba(2, 6, 23, 0.8) 100%);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            padding: 30px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 750px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .engine-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+
+        .engine-header i {
+            color: var(--accent-pink);
+            font-size: 1.4rem;
+            animation: engineRadarScan 2.5s linear infinite;
+        }
+
+        @keyframes engineRadarScan {
+            0% { transform: rotate(0deg); filter: drop-shadow(0 0 2px var(--accent-pink)); }
+            50% { filter: drop-shadow(0 0 10px var(--accent-pink)); }
+            100% { transform: rotate(360deg); filter: drop-shadow(0 0 2px var(--accent-pink)); }
+        }
+
+        .engine-header h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.35rem;
+            color: #fff;
+            margin: 0;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        .engine-matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .matrix-tag {
+            background: rgba(9, 13, 31, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 12px 8px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: engineTagPulse 4s infinite ease-in-out;
+        }
+
+        .matrix-tag:nth-child(odd) { animation-delay: 1.5s; }
+        .matrix-tag:nth-child(3n) { animation-delay: 2.5s; }
+
+        @keyframes engineTagPulse {
+            0%, 100% { border-color: rgba(255, 255, 255, 0.04); background: rgba(9, 13, 31, 0.7); }
+            50% { border-color: rgba(56, 189, 248, 0.2); background: rgba(56, 189, 248, 0.03); color: #fff; }
+        }
+
+        /* 👑 ULTIMATE FINAL DELIVERABLE OUTPUT LOCK */
+        .hub-box.final-master-node {
+            border: 1px solid var(--accent-pink);
+            background: linear-gradient(135deg, rgba(194, 24, 91, 0.05) 0%, rgba(2, 6, 23, 0.9) 100%);
+            box-shadow: 0 15px 40px rgba(194, 24, 91, 0.15);
+            max-width: 600px;
+        }
+        .badge-final { background: var(--accent-pink); border: 1px solid var(--accent-pink); color: #fff; animation: finalBadgeGlow 2s infinite alternate; }
+        .hub-box.final-master-node h3 { color: #fff; font-size: 1.3rem; }
+
+        @keyframes finalBadgeGlow {
+            0% { box-shadow: 0 0 5px rgba(194, 24, 91, 0.4); }
+            100% { box-shadow: 0 0 15px rgba(194, 24, 91, 0.8); }
+        }
+
+        /* 🔥 ULTRA-SMOOTH HOVER ENGINE CONTROLS */
+        .hub-box:hover {
+            transform: translateY(-4px) scale(1.015);
+            box-shadow: 0 15px 35px rgba(56, 189, 248, 0.2);
+            border-color: var(--accent-blue) !important;
+        }
+        .hub-box:hover h3 { color: var(--accent-blue); }
+        
+        .hub-box.border-pink:hover {
+            box-shadow: 0 15px 35px rgba(194, 24, 91, 0.2);
+            border-color: var(--accent-pink) !important;
+        }
+        .hub-box.border-pink:hover h3 { color: #f472b6; }
+
+        .matrix-tag:hover {
+            border-color: var(--accent-pink) !important;
+            background: rgba(194, 24, 91, 0.1) !important;
+            color: #fff !important;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(194, 24, 91, 0.3);
+        }
+        
+        .engine-master-box:hover {
+            border-color: var(--accent-pink);
+            box-shadow: 0 20px 45px rgba(194, 24, 91, 0.15);
+        }
+
+        @media (max-width: 768px) {
+            .engine-matrix-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        /* ====================================================================== */
+        /* 💎 SECTION 5 — WHAT YOU RECEIVE GRID ENGINE                            */
+        /* ====================================================================== */
+        .deliverables-matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            align-items: stretch;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .deliverable-premium-card {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.5) 0%, rgba(2, 6, 23, 0.8) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 40px 28px 30px 28px;
+            border-radius: 16px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        /* Top Action Tags inside deliverables cards */
+        .deliv-accent-pill {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .deliv-accent-pill.blue-pill { background: rgba(56, 189, 248, 0.08); border: 1px solid var(--accent-blue); color: var(--accent-blue); }
+        .deliv-accent-pill.pink-pill { background: rgba(194, 24, 91, 0.08); border: 1px solid var(--accent-pink); color: #f472b6; }
+
+        /* Icon Wrapper Setup */
+        .deliverable-icon-box {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .deliverable-premium-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin: 0 0 10px 0;
+            letter-spacing: -0.3px;
+        }
+
+        .deliverable-premium-card p {
+            font-size: 0.85rem !important;
+            line-height: 1.55 !important;
+            color: var(--text-secondary) !important;
+            margin: 0 !important;
+            text-align: left !important;
+            flex-grow: 1;
+        }
+
+        /* 🔥 DELIVERABLE INTERACTIVE HOVER CONTROLS */
+        .deliverable-premium-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(56, 189, 248, 0.2) !important;
+            box-shadow: 0 15px 40px rgba(56, 189, 248, 0.08);
+            background: linear-gradient(135deg, rgba(16, 28, 54, 0.5) 0%, rgba(2, 6, 23, 0.8) 100%);
+        }
+
+        .deliverable-premium-card:hover .deliverable-icon-box {
+            color: #ffffff;
+            border-color: var(--accent-blue);
+            background: rgba(56, 189, 248, 0.05);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+        }
+
+        .deliverable-premium-card:has(.pink-pill):hover {
+            border-color: rgba(194, 24, 91, 0.3) !important;
+            box-shadow: 0 15px 40px rgba(194, 24, 91, 0.08);
+            background: linear-gradient(135deg, rgba(28, 14, 36, 0.5) 0%, rgba(2, 6, 23, 0.8) 100%);
+        }
+
+        .deliverable-premium-card:has(.pink-pill):hover .deliverable-icon-box {
+            border-color: var(--accent-pink);
+            background: rgba(194, 24, 91, 0.05);
+            box-shadow: 0 0 15px rgba(194, 24, 91, 0.2);
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 992px) {
+            .deliverables-matrix-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 650px) {
+            .deliverables-matrix-grid { grid-template-columns: 1fr; }
+        }
+        /* ====================================================================== */
+        /* 💎 SECTION 6 — CONSULTING REVIEW ENGINE CSS SYSTEMS                     */
+        /* ====================================================================== */
+        .spec-input-border {
+            border: 1px solid rgba(56, 189, 248, 0.2) !important;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.4) 0%, rgba(2, 6, 23, 0.7) 100%) !important;
+        }
+        
+        .spec-engine-border {
+            border: 1px solid rgba(194, 24, 91, 0.3) !important;
+            background: linear-gradient(135deg, rgba(24, 12, 34, 0.4) 0%, rgba(2, 6, 23, 0.8) 100%) !important;
+        }
+
+        .layers-grid-modifier {
+            grid-template-columns: repeat(4, 1fr) !important;
+        }
+
+        .layer-tag {
+            background: rgba(15, 23, 42, 0.5) !important;
+            border-color: rgba(255, 255, 255, 0.03) !important;
+            color: #e2e8f0 !important;
+            font-weight: 600 !important;
+        }
+
+        /* Hover Enhancements Specific to Engine Pipeline */
+        .spec-input-border:hover {
+            border-color: var(--accent-blue) !important;
+            box-shadow: 0 15px 40px rgba(56, 189, 248, 0.1) !important;
+        }
+
+        .spec-engine-border:hover {
+            border-color: var(--accent-pink) !important;
+            box-shadow: 0 15px 40px rgba(194, 24, 91, 0.12) !important;
+        }
+
+        .layer-tag:hover {
+            border-color: rgba(56, 189, 248, 0.3) !important;
+            background: rgba(56, 189, 248, 0.04) !important;
+            color: #fff !important;
+        }
+
+        @media (max-width: 768px) {
+            .layers-grid-modifier {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+        }
+        /* ====================================================================== */
+        /* 💎 SECTION 7 — WHY VAKRATRON GRID ENGINE                               */
+        /* ====================================================================== */
+        .why-vakratron-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* Sharp 4-Column Horizon Balance */
+            gap: 20px;
+            align-items: stretch;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .trust-premium-card {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.4) 0%, rgba(2, 6, 23, 0.7) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 35px 24px;
+            border-radius: 14px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: relative;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        /* Micro Left Hairline Indicators */
+        .trust-side-line {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+        .trust-side-line.line-blue { background: linear-gradient(180deg, var(--accent-blue), transparent); }
+        .trust-side-line.line-pink { background: linear-gradient(180deg, var(--accent-pink), transparent); }
+
+        /* Icon Container */
+        .trust-icon-box {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .trust-premium-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin: 0 0 10px 0;
+            letter-spacing: -0.3px;
+        }
+
+        .trust-premium-card p {
+            font-size: 0.88rem !important;
+            line-height: 1.6 !important;
+            color: var(--text-secondary) !important;
+            margin: 0 !important;
+            text-align: left !important;
+            flex-grow: 1;
+        }
+
+        /* 🔥 TRUST CARD INTERACTIVE EFFECTS */
+        .trust-premium-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.08) !important;
+            background: linear-gradient(135deg, rgba(20, 32, 58, 0.4) 0%, rgba(2, 6, 23, 0.75) 100%);
+        }
+
+        .trust-premium-card:hover .trust-side-line {
+            opacity: 1;
+            width: 4px;
+        }
+
+        .trust-premium-card:has(.line-blue):hover .trust-icon-box {
+            color: var(--accent-blue);
+            filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.5));
+        }
+
+        .trust-premium-card:has(.line-pink):hover .trust-icon-box {
+            color: var(--accent-pink);
+            filter: drop-shadow(0 0 8px rgba(194, 24, 91, 0.5));
+        }
+
+        /* Fluid Layout Breakpoints */
+        @media (max-width: 992px) {
+            .why-vakratron-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 580px) {
+            .why-vakratron-grid { grid-template-columns: 1fr; }
+        }
+        /* ====================================================================== */
+        /* 💎 SECTION 8 — FINAL CALL TO ACTION BANNER ENGINE                      */
+        /* ====================================================================== */
+        .final-cta-section {
+            padding: 100px 8% !important;
+            background: linear-gradient(135deg, #020617 0%, #090d23 100%) !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.02) !important;
+            border-bottom: none !important; /* Page closure reset */
+            overflow: hidden;
+            text-align: center;
+        }
+
+        /* Fluid Radiant Back-Layer Aurora Mesh */
+        .cta-ambient-aura {
+            position: absolute;
+            bottom: -50%;
+            left: 50%;
+            transform: translate(-50%, 0);
+            width: 800px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(194, 24, 91, 0.08) 0%, rgba(56, 189, 248, 0.04) 50%, transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .cta-inner-payload {
+            position: relative;
+            z-index: 2;
+            max-width: 880px;
+            margin: 0 auto;
+        }
+
+        .cta-inner-payload h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.6rem;
+            font-weight: 700;
+            line-height: 1.25;
+            color: #ffffff;
+            margin: 0 0 20px 0;
+            letter-spacing: -0.8px;
+        }
+
+        .cta-inner-payload p {
+            font-size: 1.15rem !important;
+            line-height: 1.75 !important;
+            color: var(--text-secondary) !important;
+            margin: 0 auto 45px auto !important;
+            max-width: 720px;
+            text-align: center !important;
+        }
+
+        /* Precise Row Separation Grid Matrix */
+        .cta-action-cluster {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        /* Dynamic Hover Overrides for Bottom Module */
+        .final-cta-section .cta-mega-btn:hover {
+            box-shadow: 0 15px 40px rgba(194, 24, 91, 0.45) !important;
+        }
+
+        .final-cta-section .architect-talk-btn:hover {
+            box-shadow: 0 15px 40px rgba(56, 189, 248, 0.2) !important;
+        }
+
+        /* Mobile Scale Compatibility */
+        @media (max-width: 768px) {
+            .final-cta-section {
+                padding: 70px 4% !important;
+            }
+            .cta-inner-payload h2 {
+                font-size: 1.85rem;
+            }
+            .cta-inner-payload p {
+                font-size: 1rem !important;
+                margin-bottom: 35px !important;
+            }
+            .cta-action-cluster {
+                flex-direction: column;
+                width: 100%;
+            }
+        }
+        /* ====================================================================== */
+        /* 💎 ADDITIONAL SECTION — COVERAGE MATRIX ENGINE                          */
+        /* ====================================================================== */
+        .matrix-board-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.5) 0%, rgba(2, 6, 23, 0.8) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            box-sizing: border-box;
+        }
+
+        .matrix-board-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 22px;
+            margin-bottom: 30px;
+        }
+
+        .matrix-board-icon {
+            font-size: 2rem;
+            color: var(--accent-blue);
+            filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.3));
+        }
+
+        .matrix-board-header h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin: 0 0 4px 0;
+            letter-spacing: -0.3px;
+        }
+
+        .matrix-board-header p {
+            font-size: 0.9rem !important;
+            color: var(--text-secondary) !important;
+            margin: 0 !important;
+            text-align: left !important;
+        }
+
+        /* 🚀 Highly scannable 2-Column Table Grid */
+        .matrix-status-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px 30px; /* Uniform horizontal & vertical breathing room */
+        }
+
+        .matrix-status-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 18px;
+            background: rgba(9, 13, 31, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-sizing: border-box;
+        }
+
+        .matrix-domain-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: #e2e8f0;
+        }
+
+        .matrix-status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* Neon Active Status Indicators */
+        .status-active i {
+            color: #10b981; /* Premium Emerald Active Tick */
+            font-size: 1.1rem;
+            filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.4));
+            transition: all 0.3s ease;
+        }
+
+        .status-active span {
+            color: #10b981;
+        }
+
+        /* 🔥 SMOOTH HOVER STATES */
+        .matrix-status-row:hover {
+            border-color: rgba(56, 189, 248, 0.2);
+            background: rgba(56, 189, 248, 0.03);
+            transform: translateX(4px);
+        }
+
+        .matrix-status-row:hover .status-active i {
+            filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.8)) scale(1.1);
+        }
+
+        /* Responsive Breakpoint for Single-Column on Mobile Devices */
+        @media (max-width: 768px) {
+            .matrix-status-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            .matrix-board-container {
+                padding: 22px;
+            }
+        }
+    </style>
+    
+
+    <!-- 🚀 UNIVERSAL SPACE & GAP OPTIMIZER FOR CRISP LAYOUTS -->
+    <style id="vakra-gap-resolver">
+        /* Forcefully shrink the top space of hero container completely */
+        html body .doc-hero, 
+        html body main .doc-hero,
+        html body [class*="hero"] {
+            min-height: auto !important;
+            padding-top: 80px !important; /* Forces layout to sit right under navbar */
+            padding-bottom: 25px !important;
+            margin-top: 0 !important;
+        }
+
+        /* Compress the sections padding dynamically */
+        html body .doc-section, 
+        html body .bp-section,
+        html body [class*="section"] {
+            padding: 30px 10% !important; /* Ultimate tight compression */
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        /* Tighten internal elements */
+        html body .cyber-diagram-canvas, 
+        html body .bp-library-grid, 
+        html body .principles-matrix-grid {
+            margin-top: 15px !important;
+        }
+        html body h2.doc-block-heading {
+            margin-top: 0 !important;
+            margin-bottom: 10px !important;
+        }
+        html body p.doc-block-paragraph {
+            margin-bottom: 10px !important;
+        }
+    </style>
+
+</head>
+<body>
+   <header></header>
+
+
+    <!-- ====================================================================== -->
+    <!-- 💎 MAIN INTERACTIVE PAYLOAD INGESTION VIEW                             -->
+    <!-- ====================================================================== -->
+    <main class="architecture-reviews-wrapper">
+
+        <!-- SECTION 1: HERO MODULE -->
+        <section class="solution-hero">
+            <div class="hero-cosmic-glow"></div>
+            
+            <div class="hero-content-payload">
+                <div class="section-badge">
+                    <i class="fas fa-compass-drafting"></i>
+                    <span>Architecture Reviews</span>
+                </div>
+                
+                <h1>
+                    Independent Enterprise 
+                    <span class="gradient-text-trigger">Architecture Reviews</span>
+                </h1>
+                
+                <p>
+                    Helping organizations evaluate existing technology architectures, identify design risks, validate scalability, optimize investments and establish future-ready enterprise platforms through independent reviews.
+                </p>
+                
+                <div class="hero-actions">
+                    <a href="contact.html" class="btn-primary cta-mega-btn">
+                        <i class="fas fa-calendar-days" style="margin-right: 8px;"></i> Schedule Architecture Review
+                    </a>
+                    <a href="contact.html" class="btn-secondary architect-talk-btn">
+                        <i class="fas fa-user-tie" style="margin-right: 8px;"></i> Talk To An Architect
+                    </a>
+                </div>
+            </div>
+        </section>
+        <!-- ====================================================================== -->
+        <!-- 💎 SECTION 2 — WHY ARCHITECTURE REVIEWS MATTER MATRIX                  -->
+        <!-- ====================================================================== -->
+        <section class="solution-section">
+            <div class="section-header">
+                <h2>Why Independent Architecture Reviews Matter</h2>
+            </div>
+
+            <div class="overview-grid">
+                <!-- Left Content Area (Pure Sleek Typography Style) -->
+                <div>
+                    <p>
+                        Technology platforms evolve continuously, but enterprise architectures often remain unchanged for years. As business requirements grow, architectures may become difficult to scale, expensive to operate or unable to support future innovation.
+                    </p>
+                    <p>
+                        Vakratron performs structured architecture reviews to identify technical risks, validate design decisions and recommend improvements aligned with business objectives.
+                    </p>
+                </div>
+
+                <!-- Right Content Area (Premium Checklist Framework) -->
+                <div class="checklist-container">
+                    <div class="checklist-item">
+                        <i class="fas fa-shield-halved check-icon"></i>
+                        <span>Validate Existing Design</span>
+                    </div>
+                    <div class="checklist-item">
+                        <i class="fas fa-shield-halved check-icon"></i>
+                        <span>Identify Hidden Risks</span>
+                    </div>
+                    <div class="checklist-item">
+                        <i class="fas fa-shield-halved check-icon"></i>
+                        <span>Optimize Performance</span>
+                    </div>
+                    <div class="checklist-item">
+                        <i class="fas fa-shield-halved check-icon"></i>
+                        <span>Improve Scalability</span>
+                    </div>
+                    <div class="checklist-item">
+                        <i class="fas fa-shield-halved check-icon"></i>
+                        <span>Strengthen Security</span>
+                    </div>
+                    <div class="checklist-item">
+                        <i class="fas fa-shield-halved check-icon"></i>
+                        <span>Reduce Operational Complexity</span>
+                    </div>
+                    <div class="checklist-item">
+                        <i class="fas fa-shield-halved check-icon"></i>
+                        <span>Future-Proof Technology Investments</span>
+                    </div>
+                    <div class="checklist-item">
+                        <i class="fas fa-shield-halved check-icon"></i>
+                        <span>Executive Decision Support</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ====================================================================== -->
+        <!-- 💎 SECTION 3 — WHAT WE REVIEW ARCHITECTURAL CARDS MESH                 -->
+        <!-- ====================================================================== -->
+        <section class="solution-section" style="background: rgba(2, 6, 23, 0.2);">
+            <div class="section-header">
+                <h2>Architecture Review Domains</h2>
+            </div>
+
+            <div class="reviews-matrix-grid">
+                <!-- Card 1: Infrastructure Architecture -->
+                <div class="review-premium-card">
+                    <div class="card-edge-accent blue-edge"></div>
+                    <div class="review-icon-sphere">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3>Infrastructure Architecture</h3>
+                    <p>Compute, virtualization, storage, networking and enterprise infrastructure.</p>
+                </div>
+
+                <!-- Card 2: Cloud Architecture -->
+                <div class="review-premium-card">
+                    <div class="card-edge-accent pink-edge"></div>
+                    <div class="review-icon-sphere">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3>Cloud Architecture</h3>
+                    <p>Landing zones, governance, identity, connectivity and resiliency.</p>
+                </div>
+
+                <!-- Card 3: AI Infrastructure -->
+                <div class="review-premium-card">
+                    <div class="card-edge-accent blue-edge"></div>
+                    <div class="review-icon-sphere">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3>AI Infrastructure</h3>
+                    <p>GPU platforms, inference, training and AI scalability.</p>
+                </div>
+
+                <!-- Card 4: Kubernetes Platforms -->
+                <div class="review-premium-card">
+                    <div class="card-edge-accent pink-edge"></div>
+                    <div class="review-icon-sphere">
+                        <i class="fas fa-cubes"></i>
+                    </div>
+                    <h3>Kubernetes Platforms</h3>
+                    <p>Cluster architecture, networking and platform engineering.</p>
+                </div>
+
+                <!-- Card 5: Disaster Recovery -->
+                <div class="review-premium-card">
+                    <div class="card-edge-accent blue-edge"></div>
+                    <div class="review-icon-sphere">
+                        <i class="fas fa-shield-cataclysm"></i>
+                    </div>
+                    <h3>Disaster Recovery</h3>
+                    <p>Recovery strategy, replication and business continuity.</p>
+                </div>
+
+                <!-- Card 6: Security Architecture -->
+                <div class="review-premium-card">
+                    <div class="card-edge-accent pink-edge"></div>
+                    <div class="review-icon-sphere">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Security Architecture</h3>
+                    <p>Identity, Zero Trust, encryption and governance.</p>
+                </div>
+
+                <!-- Card 7: Integration Architecture -->
+                <div class="review-premium-card">
+                    <div class="card-edge-accent blue-edge"></div>
+                    <div class="review-icon-sphere">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3>Integration Architecture</h3>
+                    <p>API ecosystems, microservices and enterprise integration.</p>
+                </div>
+
+                <!-- Card 8: Operations & Observability -->
+                <div class="review-premium-card">
+                    <div class="card-edge-accent pink-edge"></div>
+                    <div class="review-icon-sphere">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Operations & Observability</h3>
+                    <p>Monitoring, automation, backup and operational excellence.</p>
+                </div>
+            </div>
+        </section>
+        <!-- ====================================================================== -->
+        <!-- 💎 ADDITIONAL SECTION — PREMIUM REVIEW COVERAGE MATRIX                 -->
+        <!-- ====================================================================== -->
+        <section class="solution-section" style="background: rgba(2, 6, 23, 0.4); padding-top: 50px !important; padding-bottom: 50px !important;">
+            <div class="matrix-board-container">
+                <div class="matrix-board-header">
+                    <i class="fas fa-clipboard-list-check matrix-board-icon"></i>
+                    <div>
+                        <h3>Review Coverage Matrix</h3>
+                        <p>Comprehensive evaluation status across all critical enterprise operational layers.</p>
+                    </div>
+                </div>
+                
+                <div class="matrix-status-grid">
+                    <!-- Row 1: Infrastructure -->
+                    <div class="matrix-status-row">
+                        <span class="matrix-domain-name">Infrastructure</span>
+                        <div class="matrix-status-indicator status-active">
+                            <i class="fas fa-circle-check"></i> <span>Included</span>
+                        </div>
+                    </div>
+
+                    <!-- Row 2: Cloud -->
+                    <div class="matrix-status-row">
+                        <span class="matrix-domain-name">Cloud</span>
+                        <div class="matrix-status-indicator status-active">
+                            <i class="fas fa-circle-check"></i> <span>Included</span>
+                        </div>
+                    </div>
+
+                    <!-- Row 3: AI Platform -->
+                    <div class="matrix-status-row">
+                        <span class="matrix-domain-name">AI Platform</span>
+                        <div class="matrix-status-indicator status-active">
+                            <i class="fas fa-circle-check"></i> <span>Included</span>
+                        </div>
+                    </div>
+
+                    <!-- Row 4: Kubernetes -->
+                    <div class="matrix-status-row">
+                        <span class="matrix-domain-name">Kubernetes</span>
+                        <div class="matrix-status-indicator status-active">
+                            <i class="fas fa-circle-check"></i> <span>Included</span>
+                        </div>
+                    </div>
+
+                    <!-- Row 5: Security -->
+                    <div class="matrix-status-row">
+                        <span class="matrix-domain-name">Security</span>
+                        <div class="matrix-status-indicator status-active">
+                            <i class="fas fa-circle-check"></i> <span>Included</span>
+                        </div>
+                    </div>
+
+                    <!-- Row 6: Disaster Recovery -->
+                    <div class="matrix-status-row">
+                        <span class="matrix-domain-name">Disaster Recovery</span>
+                        <div class="matrix-status-indicator status-active">
+                            <i class="fas fa-circle-check"></i> <span>Included</span>
+                        </div>
+                    </div>
+
+                    <!-- Row 7: APIs & Integration -->
+                    <div class="matrix-status-row">
+                        <span class="matrix-domain-name">APIs & Integration</span>
+                        <div class="matrix-status-indicator status-active">
+                            <i class="fas fa-circle-check"></i> <span>Included</span>
+                        </div>
+                    </div>
+
+                    <!-- Row 8: Operations -->
+                    <div class="matrix-status-row">
+                        <span class="matrix-domain-name">Operations</span>
+                        <div class="matrix-status-indicator status-active">
+                            <i class="fas fa-circle-check"></i> <span>Included</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ====================================================================== -->
+        <!-- 💎 SECTION 4 — INTERACTIVE ARCHITECTURE REVIEW FRAMEWORK               -->
+        <!-- ====================================================================== -->
+        <section class="solution-section" style="background: rgba(2, 6, 23, 0.4);">
+            <div class="section-header">
+                <h2>Our Architecture Review Framework</h2>
+            </div>
+
+            <div class="consulting-workflow-container">
+                
+                <!-- Node 1: Business Objectives -->
+                <div class="workflow-hub-row">
+                    <div class="hub-box border-blue">
+                        <div class="hub-badge badge-blue">Initiation</div>
+                        <h3>Business Objectives</h3>
+                        <p>Aligning structural assessment bounds with enterprise scaling metrics and revenue goals.</p>
+                    </div>
+                </div>
+
+                <div class="flow-arrow-connector"><i class="fas fa-arrow-down-long"></i></div>
+
+                <!-- Node 2: Current Architecture Discovery -->
+                <div class="workflow-hub-row">
+                    <div class="hub-box border-pink">
+                        <div class="hub-badge badge-pink">Discovery</div>
+                        <h3>Current Architecture Discovery</h3>
+                        <p>Granular automated and manual telemetry collection across active clusters, networks, and data storage.</p>
+                    </div>
+                </div>
+
+                <div class="flow-arrow-connector"><i class="fas fa-arrow-down-long"></i></div>
+
+                <!-- Node 3: Technical Validation -->
+                <div class="workflow-hub-row">
+                    <div class="hub-box border-blue">
+                        <div class="hub-badge badge-blue">Audit</div>
+                        <h3>Technical Validation</h3>
+                        <p>Deep-dive verification of structural design configurations, failover layers, and resource policies.</p>
+                    </div>
+                </div>
+
+                <div class="flow-arrow-connector"><i class="fas fa-arrow-down-long"></i></div>
+
+                <!-- Node 4: Performance Analysis (Advanced Processing Engine Container) -->
+                <div class="workflow-hub-row">
+                    <div class="engine-master-box">
+                        <div class="engine-header">
+                            <i class="fas fa-microchip-ai pulse-icon"></i>
+                            <h3>Performance Analysis Engine</h3>
+                        </div>
+                        <!-- Internal Real-Time Evaluation Parameter Grid -->
+                        <div class="engine-matrix-grid">
+                            <div class="matrix-tag">IOPS Metrics</div>
+                            <div class="matrix-tag">Latency Bounds</div>
+                            <div class="matrix-tag">Throughput Data</div>
+                            <div class="matrix-tag">Compute Scaling</div>
+                            <div class="matrix-tag">Network Flow</div>
+                            <div class="matrix-tag">Storage Leaks</div>
+                            <div class="matrix-tag">API Response</div>
+                            <div class="matrix-tag">Failover Speed</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-arrow-connector"><i class="fas fa-arrow-down-long"></i></div>
+
+                <!-- Node 5: Risk & Gap Assessment -->
+                <div class="workflow-hub-row">
+                    <div class="hub-box border-pink">
+                        <div class="hub-badge badge-pink">Evaluation</div>
+                        <h3>Risk & Gap Assessment</h3>
+                        <p>Isolating runtime architectural flaws, single points of failure, and security deployment leaks.</p>
+                    </div>
+                </div>
+
+                <div class="flow-arrow-connector"><i class="fas fa-arrow-down-long"></i></div>
+
+                <!-- Node 6: Target Architecture Recommendations -->
+                <div class="workflow-hub-row">
+                    <div class="hub-box border-blue">
+                        <div class="hub-badge badge-blue">Strategy</div>
+                        <h3>Target Architecture Recommendations</h3>
+                        <p>Formulating target infrastructure blueprints, modern platform engineering steps, and licensing paths.</p>
+                    </div>
+                </div>
+
+                <div class="flow-arrow-connector"><i class="fas fa-arrow-down-long"></i></div>
+
+                <!-- Node 7: Executive Review Report -->
+                <div class="workflow-hub-row" style="margin-bottom: 0;">
+                    <div class="hub-box final-master-node">
+                        <div class="hub-badge badge-final">Deliverable</div>
+                        <h3><i class="fas fa-file-signature"></i> Executive Review Report</h3>
+                        <p>C-Suite ready engineering documentation detailing technical risk scores, modernizations, and cost impact calculations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ====================================================================== -->
+        <!-- 💎 SECTION 5 — WHAT YOU RECEIVE DELIVERABLES GRID MESH                 -->
+        <!-- ====================================================================== -->
+        <section class="solution-section" style="background: rgba(2, 6, 23, 0.2);">
+            <div class="section-header">
+                <h2>What You Receive</h2>
+            </div>
+
+            <div class="deliverables-matrix-grid">
+                <!-- Card 1: Architecture Review Report -->
+                <div class="deliverable-premium-card">
+                    <div class="deliv-accent-pill blue-pill">Technical Asset</div>
+                    <div class="deliverable-icon-box">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <h3>Architecture Review Report</h3>
+                    <p>Comprehensive technical documentation auditing all infrastructure layers, design specs, and system integrations.</p>
+                </div>
+
+                <!-- Card 2: Executive Summary -->
+                <div class="deliverable-premium-card">
+                    <div class="deliv-accent-pill pink-pill">C-Suite Ready</div>
+                    <div class="deliverable-icon-box">
+                        <i class="fas fa-file-invoice"></i>
+                    </div>
+                    <h3>Executive Summary</h3>
+                    <p>High-level operational overview summarizing technical health status and major transformation findings for business leaders.</p>
+                </div>
+
+                <!-- Card 3: Risk Heatmap -->
+                <div class="deliverable-premium-card">
+                    <div class="deliv-accent-pill blue-pill">Critical Matrix</div>
+                    <div class="deliverable-icon-box">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h3>Risk Heatmap</h3>
+                    <p>Visual priority matrix isolating exact single points of failure, scaling boundaries, and security vulnerabilities.</p>
+                </div>
+
+                <!-- Card 4: Gap Analysis -->
+                <div class="deliverable-premium-card">
+                    <div class="deliv-accent-pill pink-pill">Analysis</div>
+                    <div class="deliverable-icon-box">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Gap Analysis</h3>
+                    <p>Granular operational mapping highlighting the delta between your current infrastructure state and ideal cloud industry compliance standards.</p>
+                </div>
+
+                <!-- Card 5: Optimization Recommendations -->
+                <div class="deliverable-premium-card">
+                    <div class="deliv-accent-pill blue-pill">Strategy</div>
+                    <div class="deliverable-icon-box">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3>Optimization Recommendations</h3>
+                    <p>Actionable cost cutting blueprints, capacity right-sizing tips, and architectural modifications to maximize your tech investment.</p>
+                </div>
+
+                <!-- Card 6: Technology Roadmap -->
+                <div class="deliverable-premium-card">
+                    <div class="deliv-accent-pill pink-pill">Phase Blueprint</div>
+                    <div class="deliverable-icon-box">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <h3>Technology Roadmap</h3>
+                    <p>A structured, phased lifecycle roadmap defining implementation stages, execution tracks, and resource mapping timelines.</p>
+                </div>
+
+                <!-- Card 7: Governance Recommendations -->
+                <div class="deliverable-premium-card">
+                    <div class="deliv-accent-pill blue-pill">Compliance</div>
+                    <div class="deliverable-icon-box">
+                        <i class="fas fa-gavel"></i>
+                    </div>
+                    <h3>Governance Recommendations</h3>
+                    <p>Identity rules, access frameworks, configuration guidelines, and modern architectural guardrails to ensure lasting compliance.</p>
+                </div>
+
+                <!-- Card 8: Presentation for Leadership -->
+                <div class="deliverable-premium-card">
+                    <div class="deliv-accent-pill pink-pill">Executive Presentation</div>
+                    <div class="deliverable-icon-box">
+                        <i class="fas fa-display"></i>
+                    </div>
+                    <h3>Presentation for Leadership</h3>
+                    <p>Polished C-level presentation mapping key financial metrics, risk mitigations, and strategic engineering roadmaps for rapid buy-in.</p>
+                </div>
+            </div>
+        </section>
+        <!-- ====================================================================== -->
+        <!-- 💎 SECTION 6 — CONSULTING REVIEW ENGINE INTERACTIVE PIPELINE           -->
+        <!-- ====================================================================== -->
+        <section class="solution-section" style="background: rgba(2, 6, 23, 0.4);">
+            <div class="section-header">
+                <h2>The Consulting Review Engine Workflow</h2>
+            </div>
+
+            <div class="consulting-workflow-container">
+                
+                <!-- Node 1: Existing Enterprise Architecture Master Input Wrapper -->
+                <div class="workflow-hub-row">
+                    <div class="engine-master-box spec-input-border">
+                        <div class="engine-header">
+                            <i class="fas fa-network-wired pulse-icon"></i>
+                            <h3>Existing Enterprise Architecture</h3>
+                        </div>
+                        <!-- Ingestion Layers Distribution Grid -->
+                        <div class="engine-matrix-grid layers-grid-modifier">
+                            <div class="matrix-tag layer-tag">Infrastructure</div>
+                            <div class="matrix-tag layer-tag">Cloud</div>
+                            <div class="matrix-tag layer-tag">Applications</div>
+                            <div class="matrix-tag layer-tag">AI</div>
+                            <div class="matrix-tag layer-tag">Kubernetes</div>
+                            <div class="matrix-tag layer-tag">Security</div>
+                            <div class="matrix-tag layer-tag">Networking</div>
+                            <div class="matrix-tag layer-tag">Operations</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-arrow-connector"><i class="fas fa-arrow-down-long"></i></div>
+
+                <!-- Node 2: Core Vakratron Review Engine Process Grid -->
+                <div class="workflow-hub-row">
+                    <div class="engine-master-box spec-engine-border">
+                        <div class="engine-header">
+                            <i class="fas fa-microchip pulse-icon" style="color: var(--accent-pink); animation: engineRadarScan 3s linear infinite;"></i>
+                            <h3 style="letter-spacing: 0.5px;">Vakratron Review Engine</h3>
+                        </div>
+                        <!-- Audit Internal Attributes Processing Grid -->
+                        <div class="engine-matrix-grid">
+                            <div class="matrix-tag">Availability</div>
+                            <div class="matrix-tag">Performance</div>
+                            <div class="matrix-tag">Security</div>
+                            <div class="matrix-tag">Scalability</div>
+                            <div class="matrix-tag">Reliability</div>
+                            <div class="matrix-tag">Automation</div>
+                            <div class="matrix-tag">Governance</div>
+                            <div class="matrix-tag">Cost Optimization</div>
+                            <div class="matrix-tag" style="grid-column: span 4; text-align: center;">Compliance</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-arrow-connector"><i class="fas fa-arrow-down-long"></i></div>
+
+                <!-- Node 3: Architecture Risk Analysis -->
+                <div class="workflow-hub-row">
+                    <div class="hub-box border-blue">
+                        <div class="hub-badge badge-blue">Phase 01</div>
+                        <h3>Architecture Risk Analysis</h3>
+                        <p>Isolating runtime faults and processing bottlenecks through stress matrices.</p>
+                    </div>
+                </div>
+
+                <div class="flow-arrow-connector"><i class="fas fa-arrow-down-long"></i></div>
+
+                <!-- Node 4: Optimization Opportunities -->
+                <div class="workflow-hub-row">
+                    <div class="hub-box border-pink">
+                        <div class="hub-badge badge-pink">Phase 02</div>
+                        <h3>Optimization Opportunities</h3>
+                        <p>Tracking hidden compute waste, dead capacities, and cost-reduction vectors.</p>
+                    </div>
+                </div>
+
+                <div class="flow-arrow-connector"><i class="fas fa-arrow-down-long"></i></div>
+
+                <!-- Node 5: Future-State Architecture -->
+                <div class="workflow-hub-row">
+                    <div class="hub-box border-blue">
+                        <div class="hub-badge badge-blue">Phase 03</div>
+                        <h3>Future-State Architecture</h3>
+                        <p>Formulating target infrastructure blueprints aligned with elastic engineering principles.</p>
+                    </div>
+                </div>
+
+                <div class="flow-arrow-connector"><i class="fas fa-arrow-down-long"></i></div>
+
+                <!-- Node 6: Executive Recommendations -->
+                <div class="workflow-hub-row">
+                    <div class="hub-box border-pink">
+                        <div class="hub-badge badge-pink">Phase 04</div>
+                        <h3>Executive Recommendations</h3>
+                        <p>C-Suite actionable operational priorities mapped against deployment constraints.</p>
+                    </div>
+                </div>
+
+                <div class="flow-arrow-connector"><i class="fas fa-arrow-down-long"></i></div>
+
+                <!-- Node 7: Modernization Roadmap Deliverable Node -->
+                <div class="workflow-hub-row" style="margin-bottom: 0;">
+                    <div class="hub-box final-master-node">
+                        <div class="hub-badge badge-final">Strategic Output</div>
+                        <h3><i class="fas fa-map-location-dot"></i> Modernization Roadmap</h3>
+                        <p>Clean phased lifecycle tracks detailing technical transitions and ROI target timelines.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ====================================================================== -->
+        <!-- 💎 SECTION 7 — WHY VAKRATRON TRUST VALIDATION MESH                     -->
+        <!-- ====================================================================== -->
+        <section class="solution-section" style="background: rgba(2, 6, 23, 0.2);">
+            <div class="section-header">
+                <h2>Why Vakratron</h2>
+            </div>
+
+            <div class="why-vakratron-grid">
+                <!-- Card 1: Vendor Neutral -->
+                <div class="trust-premium-card">
+                    <div class="trust-side-line line-blue"></div>
+                    <div class="trust-icon-box">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h3>Vendor Neutral</h3>
+                    <p>Independent recommendations focused on business outcomes.</p>
+                </div>
+
+                <!-- Card 2: Architecture First -->
+                <div class="trust-premium-card">
+                    <div class="trust-side-line line-pink"></div>
+                    <div class="trust-icon-box">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3>Architecture First</h3>
+                    <p>Every review is aligned with enterprise architecture principles.</p>
+                </div>
+
+                <!-- Card 3: Evidence Based -->
+                <div class="trust-premium-card">
+                    <div class="trust-side-line line-blue"></div>
+                    <div class="trust-icon-box">
+                        <i class="fas fa-file-shield"></i>
+                    </div>
+                    <h3>Evidence Based</h3>
+                    <p>Recommendations supported by structured technical evaluation.</p>
+                </div>
+
+                <!-- Card 4: Future Ready -->
+                <div class="trust-premium-card">
+                    <div class="trust-side-line line-pink"></div>
+                    <div class="trust-icon-box">
+                        <i class="fas fa-wand-magic-sparkles"></i>
+                    </div>
+                    <h3>Future Ready</h3>
+                    <p>Designed to support scalability, resilience and long-term modernization.</p>
+                </div>
+            </div>
+        </section>
+        <!-- ====================================================================== -->
+        <!-- 💎 SECTION 8 — FINAL CALL TO ACTION CLOSURE BANNER                     -->
+        <!-- ====================================================================== -->
+        <section class="solution-section final-cta-section">
+            <!-- Deep Space Glow Vector Layer -->
+            <div class="cta-ambient-aura"></div>
+            
+            <div class="cta-inner-payload">
+                <h2>Need Confidence Before Your Next Technology Investment?</h2>
+                <p>
+                    Engage Vakratron for an independent architecture review to validate your current environment, identify improvement opportunities and establish a future-ready technology roadmap.
+                </p>
+                
+                <div class="cta-action-cluster">
+                    <a href="contact.html" class="btn-primary cta-mega-btn">
+                        <i class="fas fa-calendar-check" style="margin-right: 8px;"></i> Schedule Architecture Review
+                    </a>
+                    <a href="contact.html" class="btn-secondary architect-talk-btn">
+                        <i class="fas fa-handshake" style="margin-right: 8px;"></i> Request Executive Consultation
+                    </a>
+                </div>
+            </div>
+        </section>
+         <footer></footer>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('code') || window.location.hash.includes('access_token')) {
+            localStorage.setItem('vakra_auth_token', 'SECURE_NODE_VALIDATED_2026');
+            window.location.href = '/index.html'; 
+        }
+
+        // --- INTERACTIVE CHAT ENGINE FRONTEND ADAPTER ---
+        const trigger = document.getElementById('chatTrigger');
+        const windowEl = document.getElementById('chatWindow');
+        const closeBtn = document.getElementById('chatClose');
+        const sendBtn = document.getElementById('chatSend');
+        const inputEl = document.getElementById('chatInput');
+        const messagesContainer = document.getElementById('chatMessages');
+
+     // Toggle Widget Interface Fix
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation(); // Global layouts ko trace capture karne se roko
+            windowEl.classList.toggle('active');
+            
+            if(windowEl.classList.contains('active')) {
+                windowEl.style.setProperty('display', 'flex', 'important');
+                windowEl.style.setProperty('width', '360px', 'important');
+                inputEl.focus();
+            } else {
+                windowEl.style.setProperty('display', 'none', 'important');
+            }
+        });
+
+        closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            windowEl.classList.remove('active');
+            windowEl.style.setProperty('display', 'none', 'important');
+        });
+
+        // Message Dispatcher Pipeline
+        // Message Dispatcher Pipeline
+        async function dispatchUserPrompt() {
+            const promptValue = inputEl.value.trim();
+            if (!promptValue) return;
+
+            // Render User Bubble
+            appendBubble(promptValue, 'user');
+            inputEl.value = '';
+
+            // Inject Streaming/Typing Matrix Indicator
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'vakra-msg system';
+            typingIndicator.innerHTML = `<div class="vakra-typing"><span></span><span></span><span></span></div>`;
+            messagesContainer.appendChild(typingIndicator);
+            scrollToBottom();
+
+            try {
+                // Secure Fetch Request to local API Gateway Route
+                const apiResponse = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: promptValue })
+                });
+
+                const dataset = await apiResponse.json();
+                typingIndicator.remove(); // Evacuate typing trace
+
+                if (apiResponse.ok && dataset.response) {
+                    appendBubble(dataset.response, 'system');
+
+                    // 🚨 NEXT-LEVEL AUTOMATED FRONTEND TRIGGER START
+                    const lowerMessage = promptValue.toLowerCase();
+                    if (
+                        lowerMessage.includes('connect') || 
+                        lowerMessage.includes('talk to human') || 
+                        lowerMessage.includes('contact team') || 
+                        lowerMessage.includes('representative') || 
+                        lowerMessage.includes('connect someone') ||
+                        lowerMessage.includes('team se connect')
+                    ) {
+                        setTimeout(() => {
+                            appendBubble("⚡ System Action: Redirecting token matrix to the Sovereign Advisory Desk...", 'system');
+                            
+                            // 1.5 Seconds ka delay taaki user bot ka message padh sake, fir auto-redirect
+                            setTimeout(() => {
+                                window.location.href = 'contact.html';
+                            }, 1500);
+                        }, 1000);
+                    }
+                    // 🚨 NEXT-LEVEL AUTOMATED FRONTEND TRIGGER END
+
+                } else {
+                    appendBubble("Execution Defect: Unable to pipeline calculated tokens from LLM core.", 'system');
+                }
+
+            } catch (networkError) {
+                if(typingIndicator) typingIndicator.remove();
+                appendBubble("Network Fault: Endpoint connectivity degraded or blocked.", 'system');
+                console.error("Pipeline Transmission Error:", networkError);
+            }
+        }
+
+        function appendBubble(content, actor) {
+            const bubble = document.createElement('div');
+            bubble.className = `vakra-msg ${actor}`;
+            // safe conversion, replace newlines with line-breaks for formatting comfort
+            bubble.innerHTML = content.replace(/\n/g, '<br>');
+            messagesContainer.appendChild(bubble);
+            scrollToBottom();
+        }
+
+        function scrollToBottom() {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Trigger Listeners Setup
+        sendBtn.addEventListener('click', dispatchUserPrompt);
+        inputEl.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') dispatchUserPrompt();
+        });
+    </script>
+    <script src="/vakra-loader.js"></script>
+
+        <!-- 🚀 AGLE SECTIONS KA BLUEPRINT YAHAN DIRECT PASTE HOTA JAYEGA -->
+
+    </main>
+
+</body>
+</html>

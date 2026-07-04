@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Infrastructure & GPU Cloud Framework | Vakratron Systems</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-surface: rgba(15, 23, 42, 0.6);
+            --border-glow: rgba(194, 24, 91, 0.3);
+            --accent-neon: #C2185B;
+            --accent-blue: #38bdf8;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --glass-gradient: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(2, 6, 23, 0.9) 100%);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main) !important;
+            color: var(--text-primary);
+            background-image: 
+                radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(194, 24, 91, 0.07) 0%, transparent 50%) !important;
+            background-size: 200% 200% !important;
+            animation: cyberBackgroundMotion 20s ease infinite alternate !important;
+        }
+
+        @keyframes cyberBackgroundMotion {
+            0% { background-position: 0% 20%; }
+            50% { background-position: 100% 80%; }
+            100% { background-position: 20% 100%; }
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background: transparent !important;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.002) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.002) 1px, transparent 1px) !important;
+            background-size: 50px 50px !important;
+        }
+
+  section {
+    padding: 50px 8% !important;     /* Top/Bottom padding ko balanced kiya */
+    box-sizing: border-box;
+}
+
+        .premium-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(194, 24, 91, 0.06);
+            border: 1px solid rgba(194, 24, 91, 0.25);
+            color: #f472b6;
+            padding: 8px 18px;
+            border-radius: 100px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 25px;
+        }
+
+      .solution-hero, .solutions-hero {
+    padding-top: 60px !important;    /* Pehle jo 140px/150px tha use kam kiya */
+    padding-bottom: 40px !important;
+    text-align: center;
+    box-sizing: border-box;
+}
+        .solution-hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin: 15px 0;
+            color: #fff;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        .solution-hero h1 span {
+            background: linear-gradient(135deg, #fff 30%, var(--accent-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .solution-hero p {
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary, .btn-secondary {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.25s;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: var(--accent-neon);
+            border: 1px solid var(--accent-neon);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(194, 24, 91, 0.25);
+        }
+
+        .btn-primary:hover {
+            background: #9e1147;
+            border-color: #9e1147;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #94a3b8;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* 🎛️ Symmetric Grids Engine */
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 1024px) {
+            .grid-4 { grid-template-columns: repeat(2, 1fr); }
+            .grid-3 { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .grid-4 { grid-template-columns: 1fr; }
+            .grid-3 { grid-template-columns: 1fr; }
+        }
+
+        .info-card, .deliverable-card {
+            background: var(--glass-gradient);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            padding: 28px 24px;
+            border-radius: 16px;
+            box-sizing: border-box;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .info-card:hover, .deliverable-card:hover {
+            border-color: rgba(194, 24, 91, 0.4);
+            transform: translateY(-4px);
+        }
+
+        .info-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            color: #fff;
+            margin: 0 0 10px 0;
+            font-weight: 600;
+        }
+
+        .info-card p {
+            color: var(--text-secondary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* 📈 Flow Box Engine */
+        .framework-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .flow-box {
+            background: var(--glass-gradient);
+            border: 1px solid rgba(56, 189, 248, 0.15);
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #fff;
+            text-align: center;
+        }
+
+        .flow-arrow {
+            color: var(--accent-neon);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 900px) {
+            .framework-flow { flex-direction: column; }
+            .flow-arrow { transform: rotate(0deg); margin: 2px 0; }
+        }
+
+        .deliverable-card {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .deliverable-card::before {
+            content: "\f15c";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--accent-blue);
+            font-size: 0.95rem;
+        }
+
+        /* 🖼️ Architecture Layout */
+        .architecture-preview {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .architecture-container {
+            width: 100%;
+            max-width: 1150px;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(194, 24, 91, 0.15);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+
+        .architecture-image {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            border-radius: 12px;
+        }
+
+        .architecture-note {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            line-height: 1.6;
+            color: #64748b;
+            background: rgba(56, 189, 248, 0.03);
+            border: 1px dashed rgba(56, 189, 248, 0.2);
+            padding: 16px 24px;
+            border-radius: 10px;
+            max-width: 850px;
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .architecture-note i {
+            color: var(--accent-blue);
+            font-size: 1.1rem;
+            margin-top: 2px;
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- 🚀 UNIVERSAL SPACE & GAP OPTIMIZER FOR CRISP LAYOUTS -->
+    <style id="vakra-gap-resolver">
+        /* Forcefully shrink the top space of hero container completely */
+        html body .doc-hero, 
+        html body main .doc-hero,
+        html body [class*="hero"] {
+            min-height: auto !important;
+            padding-top: 80px !important; /* Forces layout to sit right under navbar */
+            padding-bottom: 25px !important;
+            margin-top: 0 !important;
+        }
+
+        /* Compress the sections padding dynamically */
+        html body .doc-section, 
+        html body .bp-section,
+        html body [class*="section"] {
+            padding: 30px 10% !important; /* Ultimate tight compression */
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        /* Tighten internal elements */
+        html body .cyber-diagram-canvas, 
+        html body .bp-library-grid, 
+        html body .principles-matrix-grid {
+            margin-top: 15px !important;
+        }
+        html body h2.doc-block-heading {
+            margin-top: 0 !important;
+            margin-bottom: 10px !important;
+        }
+        html body p.doc-block-paragraph {
+            margin-bottom: 10px !important;
+        }
+    </style>
+
+</head>
+<body>
+
+    <header></header>
+        
+    <main class="solution-page">
+
+        <section class="solution-hero">
+            <div class="premium-badge">
+                <i class="fas fa-microchip"></i> AI INFRASTRUCTURE & GPU CLOUD
+            </div>
+            <h1>AI Infrastructure & <span>GPU Cloud Architecture</span></h1>
+            <p>Helping organizations design, assess, and modernize AI-ready infrastructure platforms capable of supporting training, inferencing, and enterprise-scale AI initiatives.</p>
+            <div class="hero-actions">
+                <a href="contact.html" class="btn-primary">Schedule AI Assessment</a>
+                <a href="contact.html" class="btn-secondary">Talk To An Architect</a>
+            </div>
+        </section>
+
+        <section class="solution-challenges" style="border-top: 1px solid rgba(255, 255, 255, 0.04);">
+            <div class="section-header" style="text-align: center; margin-bottom: 40px;">
+                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; font-weight: 700; margin: 0 0 12px 0; color: #fff;">Common Challenges We Help Solve</h2>
+                <p style="color: var(--text-secondary); max-width: 700px; margin: 0 auto; font-size: 1rem; line-height: 1.6;">Organizations frequently encounter infrastructure, platform, and scalability challenges when planning AI initiatives.</p>
+            </div>
+
+            <div class="grid-4">
+                <div class="info-card">
+                    <h3>AI Readiness Assessment</h3>
+                    <p>Understanding whether current infrastructure parameters can properly support future multi-tenant model compute loads.</p>
+                </div>
+                <div class="info-card">
+                    <h3>GPU Capacity Planning</h3>
+                    <p>Selecting appropriate hardware execution engines and nodes aligned directly with active training token counts.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Platform Complexity</h3>
+                    <p>Integrating complex storage, parallel fabrics, network connectivity pipelines, and base orchestration frames.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Performance Optimization</h3>
+                    <p>Balancing scale thresholds, hypervisor parameters, and dynamic capital efficiency without bottlenecking pipelines.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="advisory-framework" style="border-top: 1px solid rgba(255, 255, 255, 0.04); background: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.02) 0%, transparent 60%);">
+            <div class="section-header" style="text-align: center; margin-bottom: 40px;">
+                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; font-weight: 700; margin: 0 0 10px 0; color: #fff;">How We Approach AI Infrastructure Strategy</h2>
+            </div>
+
+            <div class="framework-flow">
+                <div class="flow-box">Business Goals</div>
+                <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                <div class="flow-box">Current State Assessment</div>
+                <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                <div class="flow-box">AI Workload Evaluation</div>
+                <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                <div class="flow-box">Architecture Strategy</div>
+                <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                <div class="flow-box">Target Blueprint</div>
+                <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                <div class="flow-box">Implementation Guidance</div>
+            </div>
+        </section>
+
+        <section class="deliverables-section" style="border-top: 1px solid rgba(255, 255, 255, 0.04);">
+            <div class="section-header" style="text-align: center; margin-bottom: 40px;">
+                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; font-weight: 700; margin: 0 0 10px 0; color: #fff;">What We Deliver</h2>
+            </div>
+
+            <div class="grid-3">
+                <div class="deliverable-card">AI Readiness Assessment</div>
+                <div class="deliverable-card">Architecture Blueprint</div>
+                <div class="deliverable-card">Capacity Planning Report</div>
+                <div class="deliverable-card">Storage & Network Guidance</div>
+                <div class="deliverable-card">Implementation Roadmap</div>
+                <div class="deliverable-card">Executive Summary</div>
+            </div>
+        </section>
+
+        <section class="architecture-preview">
+            <div class="section-header" style="text-align: center; margin-bottom: 40px;">
+                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; font-weight: 700; margin: 0 0 12px 0; color: #fff;">Reference Architecture View</h2>
+                <p style="color: var(--text-secondary); max-width: 700px; margin: 0 auto; font-size: 1rem; line-height: 1.6;">Illustrative high-level logical representation of technology layers for scalable enterprise AI platform modernization.</p>
+            </div>
+
+            <div class="architecture-container">
+                <img src="/images/ai-gpu_sol.png" alt="High Level AI Infrastructure & GPU Cloud Reference Architecture Blueprint" class="architecture-image">
+            </div>
+
+            <div class="architecture-overview" style="max-width: 850px; width: 100%; margin: 15px auto 25px auto; box-sizing: border-box; text-align: left;">
+                <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; color: #fff; margin: 0 0 10px 0; font-weight: 600; letter-spacing: -0.3px;">Architecture Overview</h3>
+                <p style="color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.92rem; line-height: 1.6; margin: 0; font-weight: 400;">
+                    Enterprise AI platforms typically require coordinated integration across compute, storage, networking, security, and operational domains. Vakratron assists organizations in evaluating these components and defining scalable architectures aligned with performance, governance, and business requirements.
+                </p>
+            </div>
+
+            <div class="architecture-note">
+                <i class="fas fa-info-circle"></i>
+                <span>This reference architecture is intended for conceptual guidance only. Actual platform designs are developed following detailed workload assessment, capacity planning, data residency sovereignty mapping, and architecture review engagements.</span>
+            </div>
+        </section>
+
+        <section class="why-vakratron" style="border-top: 1px solid rgba(255, 255, 255, 0.04); background: radial-gradient(circle at 50% 100%, rgba(194, 24, 91, 0.02) 0%, transparent 60%);">
+            <div class="section-header" style="text-align: center; margin-bottom: 40px;">
+                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; font-weight: 700; margin: 0 0 10px 0; color: #fff;">Why Vakratron</h2>
+            </div>
+
+            <div class="grid-4">
+                <div class="info-card">
+                    <h3>Vendor Neutral</h3>
+                    <p>Recommendations driven completely by distinct business objectives and processing efficiency goals.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Architecture First</h3>
+                    <p>Rigorous strategic planning, benchmark simulations, and structure blueprints completed before execution loops setup.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Enterprise Focused</h3>
+                    <p>Framework layouts meticulously designed around core scalability thresholds, secure governance layers, and platform resilience.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Outcome Driven</h3>
+                    <p>Infrastructure strategies bound directly with measurable performance statistics, low-latency, and business metrics results.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="final-cta" style="border-top: 1px solid rgba(255, 255, 255, 0.04); background: radial-gradient(circle at 50% 0%, rgba(194, 24, 91, 0.03) 0%, transparent 70%); display: flex; justify-content: center; width: 100%; box-sizing: border-box;">
+            <div style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(3, 7, 18, 0.95) 100%); border: 1px solid rgba(194, 24, 91, 0.2); border-radius: 20px; padding: 50px 40px; text-align: center; max-width: 950px; width: 100%; box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8); box-sizing: border-box;">
+                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.3rem; font-weight: 700; margin: 0 0 15px 0; color: #fff; letter-spacing: -0.5px;">Planning Your AI Infrastructure Journey?</h2>
+                <p style="color: var(--text-secondary); max-width: 720px; margin: 0 auto 30px auto; font-size: 1rem; line-height: 1.6; font-family: 'Inter', sans-serif;">Engage with Vakratron's architecture advisory team to define a scalable, sovereign, and hyper-performance AI infrastructure roadmap.</p>
+                <div class="hero-actions">
+                    <a href="contact.html" class="btn-primary">Schedule Discovery Workshop</a>
+                    <a href="contact.html" class="btn-secondary">Request Assessment</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer></footer>
+
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

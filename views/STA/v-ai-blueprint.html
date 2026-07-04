@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V-AI Blueprint™ | Enterprise AI Assessment Framework™</title>
+    
+    <!-- 🚀 Core Global UI Style Assets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ====================================================================== */
+        /* 💎 CORE BRAND VARIABLES & ALTERNATING PIPELINE RESETS                 */
+        /* ====================================================================== */
+        :root {
+            --bg-obsidian: #020617;
+            --accent-blue: #38bdf8;
+            --accent-pink: #c2185b;
+            --accent-emerald: #10b981;
+            --text-secondary: #94a3b8;
+            --vai-glow: linear-gradient(135deg, #a855f7 0%, var(--accent-pink) 100%);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: var(--bg-obsidian);
+            font-family: 'Inter', sans-serif;
+            color: #f1f5f9;
+            overflow-x: hidden;
+        }
+
+        .vmap-hero, .vmap-section {
+            padding: 100px 5% !important;
+            max-width: 1400px;
+            margin: 0 auto !important;
+            box-sizing: border-box;
+            position: relative;
+            clear: both;
+        }
+
+        /* ====================================================================== */
+        /* 💎 HERO MODULE                                                        */
+        /* ====================================================================== */
+        .vmap-hero {
+            min-height: 75vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            padding-top: 140px !important;
+        }
+
+        .vmap-ambient-core {
+            position: absolute;
+            top: 35%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.06) 0%, transparent 65%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .vmap-hero-payload {
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+            animation: heroReveal 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        @keyframes heroReveal {
+            0% { opacity: 0; transform: translateY(25px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .vmap-trademark-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 8px 22px;
+            border-radius: 100px;
+            color: #ffffff;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+        }
+
+        .vmap-hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.1;
+            margin: 0 0 20px 0;
+            letter-spacing: -2px;
+        }
+
+        .vmap-gradient-trigger {
+            background: var(--vai-glow);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+            margin-top: 8px;
+        }
+
+        .vmap-hero p {
+            font-size: 1.4rem !important;
+            line-height: 1.75 !important;
+            color: var(--text-secondary) !important;
+            margin: 0 auto !important;
+            max-width: 780px;
+            font-weight: 400;
+            letter-spacing: -0.3px;
+        }
+
+        /* ====================================================================== */
+        /* 💎 TRUE ALTERNATING PIPELINE ENGINE                                    */
+        /* ====================================================================== */
+        .vmap-pipeline-wrapper {
+            max-width: 1100px;
+            margin: 60px auto 0 auto;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        /* Central Continuous Straight Tracking Axis Line */
+        .vmap-pipeline-wrapper::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent-pink) 0%, #a855f7 50%, var(--accent-blue) 85%, var(--accent-emerald) 100%);
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .vmap-phase-container-block {
+            display: flex;
+            width: 100%;
+            margin-bottom: 45px;
+            position: relative;
+            z-index: 2;
+            box-sizing: border-box;
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Alternate Shifting Layout Positions */
+        .vmap-phase-container-block:nth-child(odd) {
+            justify-content: flex-start;
+            transform: translateX(-40px);
+        }
+        .vmap-phase-container-block:nth-child(even) {
+            justify-content: flex-end;
+            transform: translateX(40px);
+        }
+
+        .vmap-phase-container-block.is-visible {
+            opacity: 1;
+            transform: translateX(0) !important;
+        }
+
+        /* Center Ring Pipeline Tracker Status Node */
+        .vmap-pipeline-node-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #020617;
+            border: 2px solid var(--accent-pink);
+            position: absolute;
+            left: 50%;
+            top: 40px;
+            transform: translateX(-50%) scale(0.8);
+            z-index: 4;
+            transition: all 0.5s ease;
+            box-sizing: border-box;
+        }
+        .vmap-phase-container-block:nth-child(even) .vmap-pipeline-node-dot {
+            border-color: var(--accent-blue);
+        }
+
+        .vmap-phase-container-block.is-visible .vmap-pipeline-node-dot {
+            background: #ffffff;
+            transform: translateX(-50%) scale(1.2);
+            box-shadow: 0 0 12px var(--accent-pink);
+        }
+        .vmap-phase-container-block.is-visible:nth-child(even) .vmap-pipeline-node-dot {
+            box-shadow: 0 0 12px var(--accent-blue);
+        }
+
+        /* Card Mesh Geometry */
+        .vmap-compact-card {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(2, 6, 23, 0.85) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 24px 28px;
+            border-radius: 14px;
+            width: 44%;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 20px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            transition: all 0.35s ease;
+            box-sizing: border-box;
+        }
+
+        .vmap-phase-left-icon-container {
+            width: 46px;
+            height: 46px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            color: var(--accent-pink);
+            margin-top: 2px;
+            transition: all 0.3s ease;
+        }
+        .vmap-phase-container-block:nth-child(even) .vmap-phase-left-icon-container {
+            color: var(--accent-blue);
+        }
+
+        .vmap-card-right-payload {
+            text-align: left;
+            width: 100%;
+        }
+
+        .vmap-card-meta-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+        }
+
+        .vmap-card-meta-header h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0;
+            letter-spacing: -0.3px;
+        }
+
+        .vmap-card-meta-header span {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .vmap-bullets-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .vmap-bullet-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            transform: translateX(-8px);
+            transition: all 0.4s ease;
+        }
+
+        .vmap-phase-container-block.is-visible .vmap-bullet-row {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .vmap-phase-container-block.is-visible .vmap-bullet-row:nth-child(1) { transition-delay: 0.15s; }
+        .vmap-phase-container-block.is-visible .vmap-bullet-row:nth-child(2) { transition-delay: 0.25s; }
+        .vmap-phase-container-block.is-visible .vmap-bullet-row:nth-child(3) { transition-delay: 0.35s; }
+
+        .vmap-bullet-row i {
+            font-size: 0.75rem;
+            color: var(--accent-pink);
+        }
+        .vmap-phase-container-block:nth-child(even) .vmap-bullet-row i {
+            color: var(--accent-blue);
+        }
+
+        .vmap-bullet-row span {
+            font-size: 0.9rem;
+            color: #cbd5e1;
+        }
+
+        .vmap-compact-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+
+        /* 🚀 CONTINUOUS TARGET LAYER (ROI PLANNING EMERALD GLOW HOOK OVERRIDES) */
+        .optimize-master-node .vmap-compact-card {
+            border-color: rgba(16, 185, 129, 0.25) !important;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.02) 0%, rgba(2, 6, 23, 0.95) 100%) !important;
+        }
+        .optimize-master-node .vmap-phase-left-icon-container { color: var(--accent-emerald) !important; }
+        .optimize-master-node .vmap-bullet-row i { color: var(--accent-emerald) !important; }
+        
+        .optimize-master-node.is-visible .vmap-pipeline-node-dot {
+            border-color: var(--accent-emerald) !important;
+            box-shadow: 0 0 12px var(--accent-emerald) !important;
+        }
+
+        /* Fluid Mobile Viewport Rules */
+        @media (max-width: 850px) {
+            .vmap-pipeline-wrapper::before { left: 20px; transform: none; }
+            .vmap-pipeline-node-dot { left: 20px; transform: scale(1); }
+            .vmap-phase-container-block { justify-content: flex-end !important; transform: translateX(20px) !important; }
+            .vmap-compact-card { width: calc(100% - 45px); }
+            .vmap-hero h1 { font-size: 2.6rem; }
+            .vmap-hero p { font-size: 1.1rem !important; }
+        }
+    </style>
+
+    <!-- 🚀 UNIVERSAL SPACE & GAP OPTIMIZER FOR CRISP LAYOUTS -->
+    <style id="vakra-gap-resolver">
+        /* Forcefully shrink the top space of hero container completely */
+        html body .doc-hero, 
+        html body main .doc-hero,
+        html body [class*="hero"] {
+            min-height: auto !important;
+            padding-top: 80px !important; /* Forces layout to sit right under navbar */
+            padding-bottom: 25px !important;
+            margin-top: 0 !important;
+        }
+
+        /* Compress the sections padding dynamically */
+        html body .doc-section, 
+        html body .bp-section,
+        html body [class*="section"] {
+            padding: 30px 10% !important; /* Ultimate tight compression */
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        /* Tighten internal elements */
+        html body .cyber-diagram-canvas, 
+        html body .bp-library-grid, 
+        html body .principles-matrix-grid {
+            margin-top: 15px !important;
+        }
+        html body h2.doc-block-heading {
+            margin-top: 0 !important;
+            margin-bottom: 10px !important;
+        }
+        html body p.doc-block-paragraph {
+            margin-bottom: 10px !important;
+        }
+    </style>
+
+</head>
+<body>
+     <header></header>
+
+    <main class="vmap-master-wrapper">
+
+        <!-- HERO MODULE -->
+        <section class="vmap-hero">
+            <div class="vmap-ambient-core"></div>
+            <div class="vmap-hero-payload">
+                <div class="vmap-trademark-badge"><span>AI Strategy Hub</span></div>
+                <h1>V-AI Blueprint™ <span class="vmap-gradient-trigger">Methodology Flow</span></h1>
+                <p>"Move from AI experimentation to enterprise adoption."</p>
+            </div>
+        </section>
+
+        <!-- DISCRETE PIPELINE MATRIX GRID MAP -->
+        <section class="vmap-section" style="padding-top: 10px !important;">
+            <div class="vmap-pipeline-wrapper">
+
+                <!-- 🧠 NODE 1: AI Readiness Assessment (Left Side) -->
+                <div class="vmap-phase-container-block">
+                    <div class="vmap-compact-card">
+                        <div class="vmap-phase-left-icon-container"><i class="fas fa-brain"></i></div>
+                        <div class="vmap-card-right-payload">
+                            <div class="vmap-card-meta-header">
+                                <h3>AI Readiness Assessment</h3>
+                                <span>Coverage 01</span>
+                            </div>
+                            <div class="vmap-bullets-stack">
+                                <div class="vmap-bullet-row"><i class="fas fa-circle-check"></i> <span>Organizational Capability Audits</span></div>
+                                <div class="vmap-bullet-row"><i class="fas fa-circle-check"></i> <span>Infrastructure Scaling Audits</span></div>
+                                <div class="vmap-bullet-row"><i class="fas fa-circle-check"></i> <span>Skill Gap Vector Identifications</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vmap-pipeline-node-dot"></div>
+                </div>
+
+                <!-- 🧭 NODE 2: LLM Strategy (Right Side) -->
+                <div class="vmap-phase-container-block">
+                    <div class="vmap-compact-card">
+                        <div class="vmap-phase-left-icon-container"><i class="fas fa-compass"></i></div>
+                        <div class="vmap-card-right-payload">
+                            <div class="vmap-card-meta-header">
+                                <h3>LLM Strategy</h3>
+                                <span>Coverage 02</span>
+                            </div>
+                            <div class="vmap-bullets-stack">
+                                <div class="vmap-bullet-row"><i class="fas fa-circle-check"></i> <span>Model Selection Parameters</span></div>
+                                <div class="vmap-bullet-row"><i class="fas fa-circle-check"></i> <span>Fine-Tuning Lifecycle Planning</span></div>
+                                <div class="vmap-bullet-row"><i class="fas fa-circle-check"></i> <span>Token Flow Volume Estimations</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vmap-pipeline-node-dot"></div>
+                </div>
+
+                <!-- 🎛️ NODE 3: GPU Infrastructure (Left Side) -->
+                <div class="vmap-phase-container-block">
+                    <div class="vmap-compact-card">
+                        <div class="vmap-phase-left-icon-container"><i class="fas fa-microchip"></i></div>
+                        <div class="vmap-card-right-payload">
+                            <div class="vmap-card-meta-header">
+                                <h3>GPU Infrastructure</h3>
+                                <span>Coverage 03</span>
+                            </div>
+                            <div class="vmap-bullets-stack">
+                                <div class="vmap-bullet-row"><i class="fas fa-circle-check"></i> <span>Cluster Fabric Topology Design</span></div>
+                                <div class="vmap-bullet-row"><i class="fas fa-circle-check"></i> <span>Interconnect Bandwidth Scopes</span></div>
+                                <div class="vmap-bullet-row"><i class="fas fa-circle-check"></i> <span>Thermal & Power Overhead Maps</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vmap-pipeline-node-dot"></div>
+                </div>
+
+                <!-- 🔐 NODE 4: AI Governance (Right Side) -->
+                <div class="vmap-phase-container-block">
+                    <div class="vmap-compact-card">
+                        <div class="vmap-phase-left-icon-container"><i class="fas fa-gavel"></i></div>
+                        <div class="vmap-card-right-payload">
+                            <div class="vmap-card-meta-header">
+                                <h3>AI Governance</h3>
+                                <span>Coverage 04</span>
+                            </div>
+                            <div class="vmap-bullets-stack">
+                                <div class="vmap-bullet-row"><i class="fas fa-circle-check"></i> <span>Ethical Guardrail Implementations</span></div>
+                                <div class="vmap-bullet-row"><i class="fas fa-circle-check"></i> <span>Model Bias Tracking Engines</span></div>
+                                <div class="vmap-bullet-row"><i class="fas fa-circle-check"></i> <span>Audit Trail Automation Metrics</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vmap-pipeline-node-dot"></div>
+                </div>
+
+                <!-- 🛡️ NODE 5: AI Security (Left Side) -->
+                <div class="vmap-phase-container-block">
+                    <div class="vmap-compact-card">
+                        <div class="vmap-phase-left-icon-container"><i class="fas fa-shield-halved"></i></div>
+                        <div class="vmap-card-right-payload">
+                            <div class="vmap-card-meta-header">
+                                <h3>AI Security</h3>
+                                <span>Coverage 05</span>
+                            </div>
+                            <div class="vmap-bullets-stack">
+                                <div class="vmap-bullet-row"><i class="fas fa-circle-check"></i> <span>Adversarial Attack Defense Systems</span></div>
+                                <div class="vmap-bullet-row"><i class="fas fa-circle-check"></i> <span>Data Leakage Ingestion Barriers</span></div>
+                                <div class="vmap-bullet-row"><i class="fas fa-circle-check"></i> <span>Prompt Injection Sanitizers</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vmap-pipeline-node-dot"></div>
+                </div>
+
+                <!-- 📊 NODE 6: Use Case Prioritization (Right Side) -->
+                <div class="vmap-phase-container-block">
+                    <div class="vmap-compact-card">
+                        <div class="vmap-phase-left-icon-container"><i class="fas fa-layer-group"></i></div>
+                        <div class="vmap-card-right-payload">
+                            <div class="vmap-card-meta-header">
+                                <h3>Use Case Prioritization</h3>
+                                <span>Coverage 06</span>
+                            </div>
+                            <div class="vmap-bullets-stack">
+                                <div class="vmap-bullet-row"><i class="fas fa-circle-check"></i> <span>Complexity vs Impact Quadrants</span></div>
+                                <div class="vmap-bullet-row"><i class="fas fa-circle-check"></i> <span>Time-to-Value Schedulers</span></div>
+                                <div class="vmap-bullet-row"><i class="fas fa-circle-check"></i> <span>Resource Dependency Maps</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vmap-pipeline-node-dot"></div>
+                </div>
+
+                <!-- 📈 NODE 7: ROI Planning (Left Side Master Emerald Node Closures) -->
+                <div class="vmap-phase-container-block optimize-master-node">
+                    <div class="vmap-compact-card">
+                        <div class="vmap-phase-left-icon-container"><i class="fas fa-chart-line"></i></div>
+                        <div class="vmap-card-right-payload">
+                            <div class="vmap-card-meta-header">
+                                <h3 style="color: #fff;">ROI Planning</h3>
+                                <span style="color: var(--accent-emerald); font-weight: 700;">Final Target</span>
+                            </div>
+                            <div class="vmap-bullets-stack">
+                                <div class="vmap-bullet-row"><i class="fas fa-circle-check"></i> <span>Operational TCO Projections</span></div>
+                                <div class="vmap-bullet-row"><i class="fas fa-circle-check"></i> <span>Efficiency Scale Baseline Gauges</span></div>
+                                <div class="vmap-bullet-row"><i class="fas fa-circle-check"></i> <span>Long-Term Business Growth Trajectories</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vmap-pipeline-node-dot" style="margin-bottom: 0;"></div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const phases = document.querySelectorAll(".vmap-phase-container-block");
+            const phaseObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) { 
+                        entry.target.classList.add("is-visible"); 
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, { root: null, rootMargin: "0px 0px -10% 0px", threshold: 0.1 });
+            phases.forEach(phase => phaseObserver.observe(phase));
+        });
+    </script>
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+
+</body>
+</html>

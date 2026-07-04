@@ -24,6 +24,7 @@ app.use('/sitemap.xml', (req, res) => {
 });
 
 // ⚡ 2. UNIVERSAL CROSS-DIRECTORY FILE INTERCEPTOR (INDEX RENDERING FIX)
+// ⚡ 2. UNIVERSAL CROSS-DIRECTORY FILE INTERCEPTOR (FIXED FOR PORTFOLIO AND ALIGNMENT)
 app.use((req, res, next) => {
     // Static assets ko directly skip karo (except HTML)
     if (req.path.includes('.') && !req.path.endsWith('.html')) {
@@ -35,23 +36,28 @@ app.use((req, res, next) => {
         return next();
     }
 
-    // Decode URL characters to clean text mapping
     let cleanPath = decodeURIComponent(req.path);
-    
-    // Strict Index Trap Resolution Block 🚨
     let targetFile = cleanPath;
+    
     if (targetFile === '/' || targetFile.toLowerCase() === '/index' || targetFile.toLowerCase() === '/index.html') {
         targetFile = 'index.html';
     }
     
     if (targetFile.startsWith('/')) targetFile = targetFile.substring(1);
+    if (targetFile.startsWith('views/')) targetFile = targetFile.replace('views/', '');
     if (!targetFile.endsWith('.html') && targetFile.length > 0) targetFile += '.html';
 
-    // Trace absolute file path options across both Public and Views containers
+    // 🚀 CRITICAL FIX: Portfolio pages ko fs.readFile se bacha kar direct native sendFile par bhejo
+    const portfolioPath = path.join(__dirname, '../views/portfolio', targetFile);
+    if (fs.existsSync(portfolioPath)) {
+        res.setHeader('Content-Type', 'text/html');
+        return res.sendFile(portfolioPath);
+    }
+
+    // Baaki normal pages ke liye aapka original fs.readFile logic intact rakha hai
     const publicPath = path.join(__dirname, '../public', targetFile);
     const viewsPath = path.join(__dirname, '../views', targetFile);
 
-    // Pehle check karo ki file views mein hai ya public folder mein
     let finalResolvedPath = null;
     if (fs.existsSync(viewsPath)) {
         finalResolvedPath = viewsPath;
@@ -59,12 +65,10 @@ app.use((req, res, next) => {
         finalResolvedPath = publicPath;
     }
 
-    // Read and stream layout updates safely
     if (finalResolvedPath) {
         fs.readFile(finalResolvedPath, 'utf8', (err, htmlContent) => {
             if (err) return next();
 
-            // Inject global script context just before body tag closure
             if (htmlContent.includes('</body>')) {
                 const updatedHtml = htmlContent.replace(
                     '</body>', 
@@ -78,10 +82,13 @@ app.use((req, res, next) => {
         next();
     }
 });
-
 // Serve static assets out of the public folder mapping
 app.use(express.static(path.join(__dirname, '../public')));
 app.use('/images', express.static(path.join(__dirname, '../public/images')));
+
+// 👑 EXPLICIT STATIC CONTENT SYNC (Locks alignment mapping)
+app.use('/views/portfolio', express.static(path.join(__dirname, '../views/portfolio')));
+app.use('/views', express.static(path.join(__dirname, '../views')));
 
 // DATABASE SCHEMA & MODEL SETUP
 const contactSchema = new mongoose.Schema({
@@ -227,13 +234,25 @@ app.get(/(.*)/, (req, res) => {
         return;
     }
 
+    if (requestedPage.startsWith('views/')) {
+        requestedPage = requestedPage.replace('views/', '');
+    }
+
     if (requestedPage.endsWith('/')) {
         requestedPage += 'index.html';
     } else if (!requestedPage.includes('.')) {
         requestedPage += '.html';
     }
 
-    const filePath = path.join(__dirname, '../views', requestedPage);
+    // 🚀 PORFTOLIO GRACEFUL DIRECTORY ROUTER RESOLUTION
+    let filePath = path.join(__dirname, '../views', requestedPage);
+    let portfolioCheck = path.join(__dirname, '../views/portfolio', requestedPage);
+
+    if (fs.existsSync(portfolioCheck)) {
+        res.setHeader('Content-Type', 'text/html');
+        return res.sendFile(portfolioCheck);
+    }
+
     serveFileWithGapFix(filePath, res);
 });
 

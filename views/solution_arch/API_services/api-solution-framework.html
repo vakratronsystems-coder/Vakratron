@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API & Microservices Solution Architecture | Vakratron Systems</title>
+    <meta name="description" content="Enterprise API & Microservices Solution Architecture Framework - API gateways, REST, GraphQL, gRPC, and event-driven messaging layer under Kubernetes.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-surface: rgba(15, 23, 42, 0.6);
+            --border-glow: rgba(56, 189, 248, 0.2);
+            --accent-blue: #38bdf8;
+            --accent-pink: #f472b6;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main) !important;
+            color: var(--text-primary);
+            background-image: 
+                radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(168, 85, 247, 0.04) 0%, transparent 50%) !important;
+            background-size: 200% 200% !important;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background: transparent !important;
+        }
+
+        /* 💎 MASTER 1200PX CENTERED LAYOUT */
+        .main-container-fabric {
+            max-width: 1200px !important;
+            margin: 0 auto;
+            padding: 140px 5% 100px 5%;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .architecture-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(56, 189, 248, 0.08);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            color: #7dd3fc;
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 25px;
+            font-family: monospace;
+        }
+
+        .matrix-body-text {
+            color: var(--text-secondary);
+            font-size: 1.02rem;
+            line-height: 1.7;
+            margin: 0 0 20px 0;
+            font-weight: 300;
+        }
+
+        /* 📋 PROFESSIONAL CARD SLOTS WITH FIXED GRID LISTS */
+        .tech-step-box {
+            background: var(--bg-surface);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            padding: 35px;
+            margin: 30px 0;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .tech-step-box h4 {
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tech-step-box p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0 0 20px 0;
+        }
+
+        /* सूचियों का सटीक पैरेलल अलाइनमेंट */
+        .tech-step-box ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px 40px;
+        }
+
+        .tech-step-box li {
+            color: #cbd5e1;
+            font-size: 0.92rem;
+            line-height: 1.5;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .tech-step-box li::before {
+            content: "•";
+            color: var(--accent-blue);
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0;
+        }
+
+        /* 🌐 3-COLUMN MESH GRID (100% WORKING SYMMETRY) */
+        .vakra-mesh-container {
+            background: rgba(2, 6, 23, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            padding: 40px;
+            margin: 40px 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .vakra-mesh-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            gap: 15px;
+        }
+
+        .vakra-mesh-card {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 22px;
+            flex: 1;
+            min-width: 0;
+            box-sizing: border-box;
+        }
+
+        .dc-primary { border-left: 4px solid #ef4444; }
+        .dr-target { border-left: 4px solid #10b981; }
+
+        .vakra-mesh-card h5 {
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            font-size: 0.95rem;
+            margin: 0 0 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vakra-sub-tier {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .vakra-tag-node {
+            font-size: 0.72rem;
+            font-family: monospace;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            color: #94a3b8;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        .vakra-mesh-pipe {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-shrink: 0;
+            font-family: monospace;
+            font-weight: 600;
+            min-width: 110px;
+        }
+
+        .vakra-mesh-line {
+            height: 1px;
+            background: linear-gradient(90deg, rgba(239,68,68,0.2), rgba(16,185,129,0.2));
+            flex-grow: 1;
+        }
+
+        @media (max-width: 960px) {
+            .vakra-mesh-row, .tech-step-box ul {
+                grid-template-columns: 1fr !important;
+            }
+            .vakra-mesh-pipe { display: none !important; }
+        }
+    </style>
+
+    <!-- 🚀 UNIVERSAL SPACE & GAP OPTIMIZER FOR CRISP LAYOUTS -->
+    <style id="vakra-gap-resolver">
+        /* Forcefully shrink the top space of hero container completely */
+        html body .doc-hero, 
+        html body main .doc-hero,
+        html body [class*="hero"] {
+            min-height: auto !important;
+            padding-top: 80px !important; /* Forces layout to sit right under navbar */
+            padding-bottom: 25px !important;
+            margin-top: 0 !important;
+        }
+
+        /* Compress the sections padding dynamically */
+        html body .doc-section, 
+        html body .bp-section,
+        html body [class*="section"] {
+            padding: 30px 10% !important; /* Ultimate tight compression */
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        /* Tighten internal elements */
+        html body .cyber-diagram-canvas, 
+        html body .bp-library-grid, 
+        html body .principles-matrix-grid {
+            margin-top: 15px !important;
+        }
+        html body h2.doc-block-heading {
+            margin-top: 0 !important;
+            margin-bottom: 10px !important;
+        }
+        html body p.doc-block-paragraph {
+            margin-bottom: 10px !important;
+        }
+    </style>
+
+</head>
+<body>
+
+    <header></header>
+
+    <main class="main-container-fabric">
+        
+        <span class="architecture-badge">
+            <i class="fa-solid fa-diagram-project"></i> Solution Architecture // Core Framework
+        </span>
+
+        <h1 style="font-family:'Poppins',sans-serif; color:#fff; font-size:2.5rem; font-weight:800; margin: 0 0 25px 0; background: linear-gradient(135deg, #fff 0%, var(--text-secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            API & Microservices Solution Architecture
+        </h1>
+        
+        <p class="matrix-body-text">
+            Modern application platforms require scalable, loosely coupled, and highly resilient architectures capable of supporting digital services, mobile applications, AI platforms, partner integrations, and cloud-native workloads.
+        </p>
+        <p class="matrix-body-text">
+            Vakratron Systems designs API-first and microservices-based platforms that provide secure communication, independent service scalability, operational flexibility, and seamless integration across enterprise ecosystems.
+        </p>
+        <p class="matrix-body-text">
+            Our architecture frameworks combine API gateways, service mesh technologies, event streaming platforms, service discovery, cloud-native data services, and Kubernetes orchestration to create future-ready digital platforms.
+        </p>
+
+        <div class="vakra-mesh-container">
+            <div class="vakra-mesh-row">
+                
+                <div class="vakra-mesh-card dc-primary">
+                    <h5><i class="fa-solid fa-users" style="color: #ef4444;"></i> Consumers</h5>
+                    <div class="vakra-sub-tier">
+                        <span class="vakra-tag-node">Web Apps</span>
+                        <span class="vakra-tag-node">Mobile Apps</span>
+                        <span class="vakra-tag-node">Partners</span>
+                    </div>
+                </div>
+
+                <div class="vakra-mesh-pipe">
+                    <div class="vakra-mesh-line"></div>
+                    <span style="font-size:0.82rem; color:var(--accent-pink);">API Access</span>
+                    <div class="vakra-mesh-line"></div>
+                </div>
+
+                <div class="vakra-mesh-card">
+                    <h5><i class="fa-solid fa-door-open" style="color: var(--accent-blue);"></i> API Gateway</h5>
+                    <div class="vakra-sub-tier">
+                        <span class="vakra-tag-node">Security</span>
+                        <span class="vakra-tag-node">Routing</span>
+                        <span class="vakra-tag-node">Governance</span>
+                    </div>
+                </div>
+
+                <div class="vakra-mesh-pipe">
+                    <div class="vakra-mesh-line"></div>
+                    <span style="font-size:0.82rem; color:var(--accent-pink);">Service Layer</span>
+                    <div class="vakra-mesh-line"></div>
+                </div>
+
+                <div class="vakra-mesh-card dr-target">
+                    <h5><i class="fa-solid fa-diagram-project" style="color: #10b981;"></i> Microservices</h5>
+                    <div class="vakra-sub-tier">
+                        <span class="vakra-tag-node">REST</span>
+                        <span class="vakra-tag-node">GraphQL</span>
+                        <span class="vakra-tag-node">gRPC</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-door-open" style="color: var(--accent-blue);"></i> API Gateway Layer</h4>
+            <p>API Gateways provide a centralized entry point for all application traffic while enforcing security, routing, governance, monitoring, and traffic management policies.</p>
+            <ul>
+                <li>Kong API Gateway</li>
+                <li>NGINX API Gateway</li>
+                <li>Apigee API Management</li>
+                <li>AWS API Gateway</li>
+                <li>Rate Limiting</li>
+                <li>API Lifecycle Management</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-plug" style="color: var(--accent-blue);"></i> REST API Services</h4>
+            <ul>
+                <li>Resource-Oriented APIs</li>
+                <li>JSON-Based Communication</li>
+                <li>CRUD Operations</li>
+                <li>Enterprise Integrations</li>
+                <li>Web & Mobile Applications</li>
+                <li>Partner Connectivity</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-share-nodes" style="color: var(--accent-blue);"></i> GraphQL API Architecture</h4>
+            <p>GraphQL enables clients to retrieve exactly the data they need while reducing API complexity and improving performance.</p>
+            <ul>
+                <li>Flexible Query Framework</li>
+                <li>Reduced Network Overhead</li>
+                <li>Client-Driven Data Retrieval</li>
+                <li>Unified API Layer</li>
+                <li>Frontend Optimization</li>
+                <li>Modern Application Development</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-bolt" style="color: var(--accent-blue);"></i> gRPC Service Communication</h4>
+            <ul>
+                <li>High Performance RPC</li>
+                <li>Low Latency Communications</li>
+                <li>Binary Protocol Efficiency</li>
+                <li>Microservice Communication</li>
+                <li>Streaming Services</li>
+                <li>Cloud Native Applications</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-cubes" style="color: var(--accent-blue);"></i> Microservices Layer</h4>
+            <p>Business capabilities are decomposed into independently deployable services that can be developed, scaled, and managed separately.</p>
+            <ul>
+                <li>User Services</li>
+                <li>Order Services</li>
+                <li>Payment Services</li>
+                <li>Inventory Services</li>
+                <li>AI Services</li>
+                <li>Analytics Services</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-location-dot" style="color: var(--accent-blue);"></i> Service Discovery</h4>
+            <ul>
+                <li>Kubernetes Service Discovery</li>
+                <li>Consul Service Registry</li>
+                <li>Dynamic Endpoint Resolution</li>
+                <li>Load Balanced Service Access</li>
+                <li>Health Checking</li>
+                <li>Service Availability Monitoring</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-network-wired" style="color: var(--accent-blue);"></i> Service Mesh Architecture</h4>
+            <p>Service Mesh platforms provide secure, observable and policy-driven communication between distributed microservices.</p>
+            <ul>
+                <li>Istio Service Mesh</li>
+                <li>Linkerd Service Mesh</li>
+                <li>Traffic Management</li>
+                <li>Mutual TLS (mTLS)</li>
+                <li>Policy Enforcement</li>
+                <li>Distributed Observability</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-wave-square" style="color: var(--accent-blue);"></i> Event Streaming & Messaging Platform</h4>
+            <p>Event-driven architectures enable asynchronous communication between services while improving scalability and resiliency.</p>
+            <ul>
+                <li>Apache Kafka</li>
+                <li>RabbitMQ</li>
+                <li>NATS Messaging</li>
+                <li>Event Streaming</li>
+                <li>Real-Time Processing</li>
+                <li>Decoupled Service Communication</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-database" style="color: var(--accent-blue);"></i> Data Services Layer</h4>
+            <ul>
+                <li>Relational Databases</li>
+                <li>NoSQL Platforms</li>
+                <li>Distributed Databases</li>
+                <li>Cache Services</li>
+                <li>Data Replication</li>
+                <li>Data Governance</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-dharmachakra" style="color: var(--accent-blue);"></i> Kubernetes Platform Foundation</h4>
+            <p>Kubernetes provides the orchestration layer that automates deployment, scaling, resiliency, networking, and lifecycle management for microservices platforms.</p>
+            <ul>
+                <li>Container Orchestration</li>
+                <li>Self-Healing Workloads</li>
+                <li>Auto Scaling</li>
+                <li>Rolling Updates</li>
+                <li>High Availability</li>
+                <li>Cloud Native Operations</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-trophy" style="color: #10b981;"></i> Architectural Outcomes</h4>
+            <ul>
+                <li>Independent Service Scalability</li>
+                <li>Faster Application Delivery</li>
+                <li>Improved Fault Isolation</li>
+                <li>Enhanced Platform Resilience</li>
+                <li>Cloud Native Readiness</li>
+                <li>Technology Flexibility</li>
+                <li>Operational Agility</li>
+                <li>Future-Ready Digital Platforms</li>
+            </ul>
+        </div>
+
+    </main>
+
+    <footer></footer>
+
+    
+    
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

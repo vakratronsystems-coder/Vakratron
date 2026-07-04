@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Hybrid Cloud Blueprint™ | Vakratron Systems Verified Design</title>
+    
+    <!-- 🚀 Core Global UI Style Assets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ====================================================================== */
+        /* 💎 PREMIUM OBSIDIAN THEME CORE CONFIGURATIONS                         */
+        /* ====================================================================== */
+        :root {
+            --bg-obsidian: #020617;
+            --bg-glass-card: linear-gradient(135deg, rgba(15, 23, 42, 0.45) 0%, rgba(2, 6, 23, 0.85) 100%);
+            --accent-blue: #38bdf8;
+            --accent-pink: #c2185b;
+            --accent-purple: #a855f7;
+            --accent-emerald: #10b981;
+            --text-secondary: #94a3b8;
+            --cloud-blueprint-gradient: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-purple) 50%, var(--accent-pink) 100%);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: var(--bg-obsidian);
+            font-family: 'Inter', sans-serif;
+            color: #f1f5f9;
+            overflow-x: hidden;
+        }
+
+        .doc-hero, .doc-section {
+            padding: 100px 10% !important;
+            max-width: 1400px;
+            margin: 0 auto !important;
+            box-sizing: border-box;
+            position: relative;
+            clear: both;
+        }
+
+        h2.doc-block-heading {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0 0 30px 0;
+            letter-spacing: -1px;
+            position: relative;
+            display: inline-block;
+        }
+        h2.doc-block-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -8px; left: 0; width: 60px; height: 3px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-pink));
+            border-radius: 2px;
+        }
+
+        p.doc-block-paragraph {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin: 0 0 25px 0;
+        }
+
+        /* Sovereign Action Triggers */
+        .vakra-btn-primary {
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-purple) 100%);
+            color: #ffffff;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            padding: 15px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.2);
+        }
+        .vakra-btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(56, 189, 248, 0.45);
+        }
+
+        .vakra-btn-secondary {
+            background: rgba(255, 255, 255, 0.02);
+            color: #ffffff;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            padding: 15px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .vakra-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+        }
+
+        /* ====================================================================== */
+        /* SECTION 1: HERO CANVAS DISPLAY LAYER                                   */
+        /* ====================================================================== */
+        .doc-hero {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            padding-top: 170px !important;
+        }
+
+        .hero-aurora-glow {
+            position: absolute;
+            top: 40%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 1000px; height: 1000px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.06) 0%, transparent 65%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero-payload-wrapper {
+            position: relative;
+            z-index: 2;
+            max-width: 1050px;
+        }
+
+        .doc-framework-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(56, 189, 248, 0.04);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            padding: 8px 24px;
+            border-radius: 100px;
+            color: #93c5fd;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 35px;
+        }
+
+        .hero-payload-wrapper h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 4.2rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.15;
+            margin: 0 0 25px 0;
+            letter-spacing: -2px;
+        }
+
+        .hero-gradient-text {
+            background: var(--cloud-blueprint-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-prescriptive-tag {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #cbd5e1;
+            margin-bottom: 45px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* ====================================================================== */
+        /* 🎨 DYNAMIC PIPELINE DIAGRAM ENGINE: ENTERPRISE HYBRID CLOUD            */
+        /* ====================================================================== */
+        .cyber-diagram-canvas {
+            max-width: 1000px;
+            margin: 60px auto 0 auto;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .cyber-diagram-canvas::before {
+            content: '';
+            position: absolute;
+            left: 50%; top: 0; bottom: 0; width: 2px;
+            background: linear-gradient(180deg, var(--accent-blue) 0%, var(--accent-purple) 40%, var(--accent-pink) 75%, var(--accent-emerald) 100%);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .pipeline-axis-row {
+            display: flex;
+            width: 100%;
+            margin-bottom: 35px;
+            position: relative;
+            z-index: 2;
+            box-sizing: border-box;
+        }
+        .pipeline-axis-row:nth-child(odd) { justify-content: flex-start; }
+        .pipeline-axis-row:nth-child(even) { justify-content: flex-end; }
+
+        .pipeline-track-node-dot {
+            width: 14px; height: 14px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 2px solid var(--accent-blue);
+            position: absolute;
+            left: 50%; top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 4;
+            animation: pulseGlow 2.5s infinite ease-in-out;
+        }
+        .pipeline-axis-row:nth-child(even) .pipeline-track-node-dot { border-color: var(--accent-pink); }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; box-shadow: 0 0 8px currentColor; }
+            50% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; box-shadow: 0 0 18px currentColor; }
+        }
+
+        .pipeline-floating-tile {
+            background: var(--bg-glass-card);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 18px 26px;
+            border-radius: 12px;
+            width: 44%;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-sizing: border-box;
+        }
+
+        .pipeline-tile-index {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            background: rgba(56, 189, 248, 0.05);
+            border: 1px solid rgba(56, 189, 248, 0.15);
+            width: 36px; height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .pipeline-axis-row:nth-child(even) .pipeline-tile-index {
+            color: var(--accent-pink);
+            background: rgba(194, 24, 91, 0.05);
+            border-color: rgba(194, 24, 91, 0.15);
+        }
+
+        .pipeline-tile-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        /* High-Density Structural Boundary Breakpoints Splitter */
+        .pipeline-infra-boundary {
+            border-top: 1px dashed rgba(255, 255, 255, 0.08);
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+            padding: 15px 0;
+            margin: 20px 0;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #475569;
+            background: rgba(2, 6, 23, 0.6);
+        }
+
+        .pipeline-tile-anchor { text-decoration: none; display: block; }
+        .pipeline-tile-anchor:hover .pipeline-floating-tile {
+            transform: translateY(-3px) scale(1.02);
+            border-color: rgba(255, 255, 255, 0.08);
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.4) 0%, rgba(2, 6, 23, 0.95) 100%);
+        }
+
+        /* ====================================================================== */
+        /* SECTION 5: CORE ARCHITECTURE LAYERS EXPANSION MATRIX                    */
+        /* ====================================================================== */
+        .layers-matrix-mesh {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .layer-cyber-card {
+            background: var(--bg-glass-card);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 14px;
+            padding: 35px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .layer-card-laser {
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, var(--accent-blue), transparent);
+            opacity: 0.4;
+        }
+
+        .layer-cyber-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0 0 12px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .layer-cyber-card p {
+            font-size: 0.98rem;
+            line-height: 1.65;
+            color: var(--text-secondary);
+            margin: 0 0 25px 0;
+        }
+
+        .layer-tags-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #475569;
+            margin-bottom: 12px;
+        }
+
+        .layer-tags-mesh { display: flex; flex-wrap: wrap; gap: 6px; }
+        .layer-mini-tag {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: #cbd5e1;
+        }
+        .layer-cyber-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.55);
+        }
+
+        /* Prescriptive Grid Component Node Hooks */
+        .prescriptive-matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .prescriptive-tile-node {
+            background: rgba(15, 23, 42, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            padding: 26px;
+            border-radius: 12px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        .prescriptive-tile-node h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            color: #ffffff;
+            margin: 0 0 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .prescriptive-tile-node h4 i { color: var(--accent-blue); font-size: 0.9rem; }
+        .prescriptive-tile-node span { font-size: 0.92rem; line-height: 1.6; color: var(--text-secondary); display: block; }
+        .prescriptive-tile-node:hover { border-color: rgba(56, 189, 248, 0.2); background: rgba(56, 189, 248, 0.01); }
+
+        /* Technology & Industry Coverage Matrix Grids */
+        .tech-coverage-mesh-matrix {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 40px;
+        }
+
+        .tech-matrix-item {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 18px 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            color: #cbd5e1;
+            transition: all 0.3s ease;
+        }
+        .tech-matrix-item:hover {
+            background: rgba(56, 189, 248, 0.02);
+            border-color: rgba(56, 189, 248, 0.2);
+            color: var(--accent-blue);
+            transform: scale(1.02);
+        }
+
+        /* Related Tokens Row Layout Box */
+        .frameworks-token-row { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 35px; }
+        .framework-token-card {
+            background: rgba(16, 185, 129, 0.02);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #a7f3d0;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* INTERCONNECTED GRAPH LIBRARY COMPONENT */
+        .vakra-graph-library-shield {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(2, 6, 23, 0.9) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 50px;
+            margin-top: 60px;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.5);
+            box-sizing: border-box;
+        }
+        .vakra-graph-library-shield h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            color: #ffffff;
+            margin: 0 0 35px 0;
+            letter-spacing: -0.5px;
+        }
+        .graph-mesh-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .graph-mesh-node-link {
+            text-decoration: none;
+            display: block;
+        }
+        .graph-mesh-card-tile {
+            background: rgba(2, 6, 23, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 22px 26px;
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-sizing: border-box;
+        }
+        .graph-mesh-card-tile h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            color: #ffffff;
+            margin: 0 0 6px 0;
+        }
+        .graph-mesh-card-tile span {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent-blue);
+        }
+        .graph-mesh-node-link:hover .graph-mesh-card-tile {
+            transform: translateX(6px);
+            border-color: rgba(56, 189, 248, 0.25);
+            background: rgba(56, 189, 248, 0.01);
+        }
+
+        /* Warning Boundary System Notification */
+        .notice-container-shield {
+            background: rgba(194, 24, 91, 0.01);
+            border: 1px dashed rgba(194, 24, 91, 0.18);
+            padding: 40px;
+            border-radius: 14px;
+            box-sizing: border-box;
+            margin-top: 40px;
+        }
+        .notice-container-shield h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            color: #f472b6;
+            margin: 0 0 12px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Final Conversion Payload Interface */
+        .final-cta-payload-box { text-align: center; max-width: 900px; margin: 0 auto; }
+        .final-cta-payload-box h2 { font-family: 'Space Grotesk', sans-serif; font-size: 2.8rem; color: #ffffff; margin: 0 0 20px 0; letter-spacing: -1px; }
+        .final-cta-payload-box p { font-size: 1.2rem; line-height: 1.7; color: var(--text-secondary); margin-bottom: 40px; }
+
+        @media (max-width: 1100px) {
+            .layers-matrix-mesh, .prescriptive-matrix-grid, .graph-mesh-grid { grid-template-columns: repeat(2, 1fr); }
+            .tech-coverage-mesh-matrix { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 850px) {
+            .layers-matrix-mesh, .prescriptive-matrix-grid, .tech-coverage-mesh-matrix, .graph-mesh-grid { grid-template-columns: 1fr; }
+            .hero-payload-wrapper h1 { font-size: 2.8rem; }
+            .cyber-diagram-canvas::before { left: 24px; transform: none; }
+            .pipeline-track-node-dot { left: 24px; }
+            .pipeline-axis-row { justify-content: flex-end !important; }
+            .pipeline-floating-tile { width: calc(100% - 55px); }
+            .vakra-graph-library-shield { padding: 25px; }
+            .notice-container-shield { padding: 25px; }
+        }
+        
+    </style>
+    <!-- 🚀 UNIVERSAL SPACE & GAP OPTIMIZER FOR CRISP LAYOUTS -->
+    <style id="vakra-gap-resolver">
+        /* Forcefully shrink the top space of hero container completely */
+        html body .doc-hero, 
+        html body main .doc-hero,
+        html body [class*="hero"] {
+            min-height: auto !important;
+            padding-top: 80px !important; /* Forces layout to sit right under navbar */
+            padding-bottom: 25px !important;
+            margin-top: 0 !important;
+        }
+
+        /* Compress the sections padding dynamically */
+        html body .doc-section, 
+        html body .bp-section,
+        html body [class*="section"] {
+            padding: 30px 10% !important; /* Ultimate tight compression */
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        /* Tighten internal elements */
+        html body .cyber-diagram-canvas, 
+        html body .bp-library-grid, 
+        html body .principles-matrix-grid {
+            margin-top: 15px !important;
+        }
+        html body h2.doc-block-heading {
+            margin-top: 0 !important;
+            margin-bottom: 10px !important;
+        }
+        html body p.doc-block-paragraph {
+            margin-bottom: 10px !important;
+        }
+    </style>
+</head>
+<body>
+          <header></header>
+    <main class="vakra-validated-design-engine">
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 1: HERO CONTAINER                                              -->
+        <!-- ====================================================================== -->
+        <section class="doc-hero">
+            <div class="hero-aurora-glow"></div>
+            <div class="hero-payload-wrapper">
+                <div class="doc-framework-badge"><span>Enterprise Architecture Design Documentation</span></div>
+                <h1>Enterprise Hybrid Cloud <span class="hero-gradient-text">Blueprint™</span></h1>
+                <p>
+                    Designing Secure, Governed & Scalable Hybrid Cloud Platforms. Modern enterprises rarely operate entirely within a single cloud environment. Business applications, regulatory requirements, legacy systems, AI workloads, and operational constraints demand an architecture that seamlessly integrates on-premises infrastructure with private and public cloud services. The Vakratron Enterprise Hybrid Cloud Blueprint™ provides a vendor-neutral architectural foundation that enables organizations to build resilient, scalable, and future-ready hybrid cloud environments aligned with business objectives.
+                </p>
+                <div class="hero-prescriptive-tag">Architecture First. Technology Second.</div>
+                <div class="bp-hero-btn-group" style="display: flex; gap: 20px; justify-content: center;">
+                    <a href="/contact.html" class="vakra-btn-primary">Schedule Architecture Review <i class="fas fa-shield-halved"></i></a>
+                    <a href="/contact.html" class="vakra-btn-secondary">Talk to a Cloud Architect <i class="fas fa-comments"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 2: BUSINESS CHALLENGE                                          -->
+        <!-- ====================================================================== -->
+        <section class="doc-section" style="border-top: 1px solid rgba(255, 255, 255, 0.02);">
+            <h2 class="doc-block-heading">Business Challenge</h2>
+            <p class="doc-block-paragraph">
+                Today's enterprises must balance innovation with governance. Organizations often operate across multiple technology environments—including private datacenters, virtualization platforms, Kubernetes clusters, SaaS applications, and multiple public cloud providers.
+            </p>
+            <p class="doc-block-paragraph">
+                Without a unified architecture, hybrid environments become increasingly complex to manage, difficult to secure, and expensive to operate. The Enterprise Hybrid Cloud Blueprint™ provides a structured architectural approach that simplifies integration, improves operational visibility, and enables organizations to modernize without disrupting existing business operations.
+            </p>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 3: ARCHITECTURE OBJECTIVES                                      -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <h2 class="doc-block-heading">Architecture Objectives</h2>
+            <p class="doc-block-paragraph">Our Hybrid Cloud Blueprint™ is designed around eight enterprise architecture goals:</p>
+            <div class="prescriptive-matrix-grid">
+                <div class="prescriptive-tile-node"><h4><i class="fas fa-server"></i> Unified Hybrid Infrastructure</h4><span>Enforces declarative multi-cluster runtime symmetry crossing isolated platform boundaries.</span></div>
+                <div class="prescriptive-tile-node"><h4><i class="fas fa-network-wired"></i> Secure Connectivity</h4><span>Orchestrates encrypted transit loop topologies protecting inter-service transport paths.</span></div>
+                <div class="prescriptive-tile-node"><h4><i class="fas fa-gavel"></i> Cloud Governance</h4><span>Deploys hard multi-tenant account isolation criteria and tag enforcement guardrails.</span></div>
+                <div class="prescriptive-tile-node"><h4><i class="fas fa-shuffle"></i> Operational Consistency</h4><span>Applies standard Infrastructure as Code configurations across private and public spaces.</span></div>
+                <div class="prescriptive-tile-node"><h4><i class="fas fa-rotate"></i> Business Continuity</h4><span>Guarantees real-time transactional resilience backing up mission critical block storage.</span></div>
+                <div class="prescriptive-tile-node"><h4><i class="fas fa-chart-line"></i> Scalability</h4><span>Allows localized compute clusters to elastically expand workloads over public infrastructure.</span></div>
+                <div class="prescriptive-tile-node"><h4><i class="fas fa-coins"></i> Cost Optimization</h4><span>Integrates centralized spending tracking tools cutting off cloud resource optimization leaks.</span></div>
+                <div class="prescriptive-tile-node"><h4><i class="fas fa-cloud-arrow-up"></i> Future Cloud Readiness</h4><span>Establishes abstract service routing planes ensuring multi-vendor architecture portability.</span></div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 4: ENTERPRISE HYBRID CLOUD ARCHITECTURE DIAGRAM MODULE          -->
+        <!-- ====================================================================== -->
+        <section class="doc-section" style="background: rgba(2, 6, 23, 0.35);">
+            <h2 class="doc-block-heading">Enterprise Hybrid Cloud Architecture</h2>
+            <p class="doc-block-paragraph">The unified design model tracing programmatic routing flows crossing public boundaries and local core enterprise platforms:</p>
+            
+            <div class="cyber-diagram-canvas">
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">01</div><div class="pipeline-tile-text">Users</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">02</div><div class="pipeline-tile-text">Identity & Access Management</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">03</div><div class="pipeline-tile-text">Global Load Balancer</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">04</div><div class="pipeline-tile-text">Hybrid Connectivity Layer</div></div><div class="pipeline-track-node-dot"></div></div>
+                
+                <div class="pipeline-infra-boundary">── Private Datacenter Core (Virtualization | Containers | Storage | Databases | Applications) ──</div>
+                
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">05</div><div class="pipeline-tile-text">Cloud Landing Zone</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">06</div><div class="pipeline-tile-text">Public Cloud Segment Alpha [AWS]</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">07</div><div class="pipeline-tile-text">Public Cloud Segment Beta [Azure]</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">08</div><div class="pipeline-tile-text">Sovereign Infrastructure [OCI]</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">09</div><div class="pipeline-tile-text">Shared Services</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">10</div><div class="pipeline-tile-text">Security</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">11</div><div class="pipeline-tile-text">Observability</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">12</div><div class="pipeline-tile-text">Backup</div></div><div class="pipeline-track-node-dot"></div></div>
+                <div class="pipeline-axis-row"><div class="pipeline-floating-tile"><div class="pipeline-tile-index">13</div><div class="pipeline-tile-text">Disaster Recovery</div></div><div class="pipeline-track-node-dot"></div></div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 5: ARCHITECTURE LAYERS MATRIX DISPLAY                          -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <h2 class="doc-block-heading">Core Architecture Layers</h2>
+            <div class="layers-matrix-mesh">
+
+                <div class="layer-cyber-card">
+                    <div class="layer-card-laser"></div>
+                    <h3>Enterprise Access Layer</h3>
+                    <p>Provides secure access for employees, partners, customers, enterprise applications, APIs, and digital services through centralized authentication and identity management loops.</p>
+                    <div class="layer-tags-title">Coverage</div>
+                    <div class="layer-tags-mesh"><span class="layer-mini-tag">Web Applications</span><span class="layer-mini-tag">Mobile Users</span><span class="layer-mini-tag">Enterprise Portals</span><span class="layer-mini-tag">API Consumers</span></div>
+                </div>
+
+                <div class="layer-cyber-card">
+                    <div class="layer-card-laser"></div>
+                    <h3>Identity & Governance Layer</h3>
+                    <p>Maintains centralized identity, policy enforcement, role-based access control, and governance across on-premises and cloud environments.</p>
+                    <div class="layer-tags-title">Coverage</div>
+                    <div class="layer-tags-mesh"><span class="layer-mini-tag">Identity Federation</span><span class="layer-mini-tag">RBAC</span><span class="layer-mini-tag">Policy Management</span><span class="layer-mini-tag">SSO</span><span class="layer-mini-tag">MFA</span><span class="layer-mini-tag">Audit</span></div>
+                </div>
+
+                <div class="layer-cyber-card">
+                    <div class="layer-card-laser"></div>
+                    <h3>Hybrid Connectivity Layer</h3>
+                    <p>Provides secure communication between datacenters and cloud environments while ensuring high availability and optimized network performance.</p>
+                    <div class="layer-tags-title">Coverage</div>
+                    <div class="layer-tags-mesh"><span class="layer-mini-tag">Private Connectivity</span><span class="layer-mini-tag">VPN</span><span class="layer-mini-tag">Dedicated Circuits</span><span class="layer-mini-tag">Routing</span><span class="layer-mini-tag">Segmentation</span><span class="layer-mini-tag">Traffic Management</span></div>
+                </div>
+
+                <div class="layer-cyber-card">
+                    <div class="layer-card-laser"></div>
+                    <h3>Cloud Landing Zone</h3>
+                    <p>Acts as the enterprise cloud foundation by establishing governance, networking, identity integration, logging, monitoring, and security controls before workloads are deployed.</p>
+                    <div class="layer-tags-title">Coverage</div>
+                    <div class="layer-tags-mesh"><span class="layer-mini-tag">Subscriptions</span><span class="layer-mini-tag">Accounts</span><span class="layer-mini-tag">Network Design</span><span class="layer-mini-tag">Management Groups</span><span class="layer-mini-tag">Policies</span><span class="layer-mini-tag">Resource Organization</span></div>
+                </div>
+
+                <div class="layer-cyber-card">
+                    <div class="layer-card-laser"></div>
+                    <h3>Application Platform Layer</h3>
+                    <p>Hosts enterprise applications regardless of deployment location, balancing processing vectors across runtime runtimes.</p>
+                    <div class="layer-tags-title">Coverage</div>
+                    <div class="layer-tags-mesh"><span class="layer-mini-tag">Virtual Machines</span><span class="layer-mini-tag">Containers</span><span class="layer-mini-tag">Kubernetes</span><span class="layer-mini-tag">Microservices</span><span class="layer-mini-tag">Application Services</span><span class="layer-mini-tag">API Platforms</span></div>
+                </div>
+
+                <div class="layer-cyber-card">
+                    <div class="layer-card-laser"></div>
+                    <h3>Data & Storage Layer</h3>
+                    <p>Provides unified enterprise data services supporting structured and unstructured workloads across hybrid environments.</p>
+                    <div class="layer-tags-title">Coverage</div>
+                    <div class="layer-tags-mesh"><span class="layer-mini-tag">Object Storage</span><span class="layer-mini-tag">Block Storage</span><span class="layer-mini-tag">File Storage</span><span class="layer-mini-tag">Databases</span><span class="layer-mini-tag">Backup</span><span class="layer-mini-tag">Archival</span></div>
+                </div>
+
+                <div class="layer-cyber-card">
+                    <div class="layer-card-laser"></div>
+                    <h3>Security Layer</h3>
+                    <p>Applies consistent security controls across all infrastructure components, verifying parameters automatically.</p>
+                    <div class="layer-tags-title">Coverage</div>
+                    <div class="layer-tags-mesh"><span class="layer-mini-tag">Identity</span><span class="layer-mini-tag">Encryption</span><span class="layer-mini-tag">Firewalls</span><span class="layer-mini-tag">WAF</span><span class="layer-mini-tag">Secrets</span><span class="layer-mini-tag">Security Monitoring</span><span class="layer-mini-tag">Compliance</span></div>
+                </div>
+
+                <div class="layer-cyber-card">
+                    <div class="layer-card-laser"></div>
+                    <h3>Observability Layer</h3>
+                    <p>Ensures complete operational visibility across hybrid infrastructure planes, capturing diagnostic logs.</p>
+                    <div class="layer-tags-title">Coverage</div>
+                    <div class="layer-tags-mesh"><span class="layer-mini-tag">Logging</span><span class="layer-mini-tag">Monitoring</span><span class="layer-mini-tag">Tracing</span><span class="layer-mini-tag">Alerting</span><span class="layer-mini-tag">Capacity Analytics</span><span class="layer-mini-tag">Performance Monitoring</span></div>
+                </div>
+
+                <div class="layer-cyber-card" style="grid-column: span 2;">
+                    <div class="layer-card-laser"></div>
+                    <h3>Operations Layer</h3>
+                    <p>Provides centralized lifecycle management for hybrid cloud operations, keeping configurations drift-synchronized.</p>
+                    <div class="layer-tags-title">Coverage</div>
+                    <div class="layer-tags-mesh"><span class="layer-mini-tag">Automation</span><span class="layer-mini-tag">Infrastructure as Code</span><span class="layer-mini-tag">Configuration Management</span><span class="layer-mini-tag">CI/CD</span><span class="layer-mini-tag">Backup</span><span class="layer-mini-tag">Disaster Recovery</span></div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 6: DEPLOYMENT MODELS                                           -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <h2 class="doc-block-heading">Deployment Models</h2>
+            <p class="doc-block-paragraph">The Enterprise Hybrid Cloud Blueprint™ supports multiple enterprise deployment models depending on business, regulatory, and operational requirements.</p>
+            <div class="tech-coverage-mesh-matrix">
+                <div class="tech-matrix-item">Private Cloud</div><div class="tech-matrix-item">Hybrid Cloud</div>
+                <div class="tech-matrix-item">Multi Cloud</div><div class="tech-matrix-item">Edge Computing</div>
+                <div class="tech-matrix-item">Government Cloud</div><div class="tech-matrix-item">Sovereign Cloud</div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 7: SECURITY CONSIDERATIONS                                    -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <h2 class="doc-block-heading">Security Considerations</h2>
+            <p class="doc-block-paragraph">Hybrid cloud environments introduce unique security challenges that require consistent protection across both private and public infrastructure. Our architecture incorporates:</p>
+            <div class="tech-coverage-mesh-matrix">
+                <div class="tech-matrix-item">Zero Trust Principles</div><div class="tech-matrix-item">Least Privilege Access</div>
+                <div class="tech-matrix-item">Identity Federation</div><div class="tech-matrix-item">End-to-End Encryption</div>
+                <div class="tech-matrix-item">Security Monitoring</div><div class="tech-matrix-item">Compliance Controls</div>
+                <div class="tech-matrix-item">Policy Enforcement</div><div class="tech-matrix-item">Continuous Auditing</div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 8: SCALABILITY STRATEGY                                        -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <h2 class="doc-block-heading">Scalability Strategy</h2>
+            <p class="doc-block-paragraph">Enterprise cloud platforms must grow alongside business requirements. The architecture supports:</p>
+            <div class="tech-coverage-mesh-matrix">
+                <div class="tech-matrix-item">Horizontal Infrastructure Scaling</div><div class="tech-matrix-item">Elastic Compute</div>
+                <div class="tech-matrix-item">Storage Expansion</div><div class="tech-matrix-item">Multi Region Deployment</div>
+                <div class="tech-matrix-item">Hybrid Workload Placement</div><div class="tech-matrix-item">Cloud Bursting</div>
+                <div class="tech-matrix-item">Service Expansion</div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 9: HIGH AVAILABILITY                                           -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <h2 class="doc-block-heading">High Availability</h2>
+            <p class="doc-block-paragraph">High availability is achieved through redundancy across networking, compute, storage, identity, and application services.</p>
+            <div class="tech-coverage-mesh-matrix">
+                <div class="tech-matrix-item">Redundant Connectivity</div><div class="tech-matrix-item">HA Load Balancers</div>
+                <div class="tech-matrix-item">Distributed Storage</div><div class="tech-matrix-item">Application Clustering</div>
+                <div class="tech-matrix-item">Multi Availability Zones</div><div class="tech-matrix-item">Cross Site Redundancy</div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 10: CLOUD GOVERNANCE Matrix                                    -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <h2 class="doc-block-heading">Cloud Governance</h2>
+            <p class="doc-block-paragraph">Enterprise cloud success depends on governance rather than technology alone. Governance Areas:</p>
+            <div class="tech-coverage-mesh-matrix">
+                <div class="tech-matrix-item">Resource Organization</div><div class="tech-matrix-item">Identity Governance</div>
+                <div class="tech-matrix-item">Security Policies</div><div class="tech-matrix-item">Tagging Standards</div>
+                <div class="tech-matrix-item">Cost Governance</div><div class="tech-matrix-item">Compliance</div>
+                <div class="tech-matrix-item">Lifecycle Management</div><div class="tech-matrix-item">Operational Excellence</div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 11: INDUSTRY APPLICATIONS                                      -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <h2 class="doc-block-heading">Industry Applications</h2>
+            <div class="tech-coverage-mesh-matrix">
+                <div class="tech-matrix-item">Financial Services</div><div class="tech-matrix-item">Government</div>
+                <div class="tech-matrix-item">Healthcare</div><div class="tech-matrix-item">Telecommunications</div>
+                <div class="tech-matrix-item">Manufacturing</div><div class="tech-matrix-item">Energy</div>
+                <div class="tech-matrix-item">Education</div><div class="tech-matrix-item">Retail</div>
+                <div class="tech-matrix-item" style="grid-column: span 2;">Large Enterprises</div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 12: RELATED VAKRATRON FRAMEWORKS                               -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <h2 class="doc-block-heading">Related Vakratron Frameworks™</h2>
+            <p class="doc-block-paragraph">Powered by unified proprietary enterprise frameworks:</p>
+            <div class="frameworks-token-row">
+                <div class="framework-token-card"><i class="fas fa-cloud"></i> V-Cloud™</div>
+                <div class="framework-token-card"><i class="fas fa-sitemap"></i> V-MAP™</div>
+                <div class="framework-token-card"><i class="fas fa-server"></i> V-Platform™</div>
+                <div class="framework-token-card"><i class="fas fa-magnifying-glass"></i> V-Review™</div>
+                <div class="framework-token-card"><i class="fas fa-rotate"></i> V-Recover™</div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- INTERCONNECTED GRAPH MATRIX BLOCK MODULE (MASTER STROKE)               -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <div class="vakra-graph-library-shield">
+                <h2>Related Enterprise Blueprints™</h2>
+                <div class="graph-mesh-grid">
+                    
+                    <a href="blueprint-ai-platform.html" class="graph-mesh-node-link">
+                        <div class="graph-mesh-card-tile">
+                            <h4>✓ Enterprise AI Platform Blueprint™</h4>
+                            <span>Powered by V-Cloud™ + V-MAP™</span>
+                        </div>
+                    </a>
+
+                    <a href="blueprint-kubernetes.html" class="graph-mesh-node-link">
+                        <div class="graph-mesh-card-tile">
+                            <h4>✓ Enterprise Kubernetes Platform Blueprint™</h4>
+                            <span>Powered by V-Cloud™ + V-MAP™</span>
+                        </div>
+                    </a>
+
+                    <a href="blueprint-api-integration.html" class="graph-mesh-node-link">
+                        <div class="graph-mesh-card-tile">
+                            <h4>✓ Enterprise API Platform Blueprint™</h4>
+                            <span>Powered by V-Cloud™ + V-MAP™</span>
+                        </div>
+                    </a>
+
+                    <a href="blueprint-data-platform.html" class="graph-mesh-node-link">
+                        <div class="graph-mesh-card-tile">
+                            <h4>✓ Enterprise Data Platform Blueprint™</h4>
+                            <span>Powered by V-Cloud™ + V-MAP™</span>
+                        </div>
+                    </a>
+
+                    <a href="blueprint-disaster-recovery.html" class="graph-mesh-node-link">
+                        <div class="graph-mesh-card-tile">
+                            <h4>✓ Disaster Recovery Blueprint™</h4>
+                            <span>Powered by V-Cloud™ + V-MAP™</span>
+                        </div>
+                    </a>
+
+                    <a href="blueprint-zero-trust.html" class="graph-mesh-node-link">
+                        <div class="graph-mesh-card-tile">
+                            <h4>✓ Zero Trust Security Blueprint™</h4>
+                            <span>Powered by V-Cloud™ + V-MAP™</span>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- SECTION 13: IMPORTANT NOTICE MESSAGE CONTAINER                        -->
+        <!-- ====================================================================== -->
+        <section class="doc-section">
+            <div class="notice-container-shield">
+                <h4><i class="fas fa-triangle-exclamation"></i> Important Notice: Conceptual Architecture Only</h4>
+                <p>
+                    The Enterprise Hybrid Cloud Blueprint™ is intended for enterprise planning, architecture visualization, and strategic design discussions. Detailed High-Level Designs (HLD), Low-Level Designs (LLD), infrastructure sizing, migration planning, landing zone implementation, network topology, Bill of Materials (BOM), security hardening, automation, and operational runbooks are delivered through Vakratron consulting engagements based on specific business requirements.
+                </p>
+            </div>
+        </section>
+
+        <!-- FINAL CTA ENGAGEMENT COMPONENT -->
+        <section class="doc-section" style="border-top: 1px solid rgba(255, 255, 255, 0.03); margin-top: 40px;">
+            <div class="final-cta-payload-box">
+                <h2>Build Your Hybrid Cloud with Confidence</h2>
+                <p>
+                    Whether you're planning a cloud migration, modernizing legacy infrastructure, adopting hybrid cloud, or building a multi-cloud operating model, Vakratron helps organizations transform architecture into production-ready platforms through structured enterprise consulting.
+                </p>
+                <div style="display: flex; gap: 20px; justify-content: center;" class="bp-hero-btn-group">
+                    <a href="/contact.html" class="vakra-btn-primary">Request Cloud Architecture Workshop <i class="fas fa-bolt"></i></a>
+                    <a href="/contact.html" class="vakra-btn-secondary">Talk to a Hybrid Cloud Expert <i class="fas fa-comments"></i></a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+          <footer></footer>
+
+    <!-- 🚨 AUTOMATED INTEGRATION: INTERACTIVE CHAT ENGINE FRONTEND ADAPTER -->
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('code') || window.location.hash.includes('access_token')) {
+            localStorage.setItem('vakra_auth_token', 'SECURE_NODE_VALIDATED_2026');
+            window.location.href = '/index.html'; 
+        }
+
+        const trigger = document.getElementById('chatTrigger');
+        const windowEl = document.getElementById('chatWindow');
+        const closeBtn = document.getElementById('chatClose');
+        const sendBtn = document.getElementById('chatSend');
+        const inputEl = document.getElementById('chatInput');
+        const messagesContainer = document.getElementById('chatMessages');
+
+        if (trigger) {
+            trigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                windowEl.classList.toggle('active');
+                
+                if(windowEl.classList.contains('active')) {
+                    windowEl.style.setProperty('display', 'flex', 'important');
+                    windowEl.style.setProperty('width', '360px', 'important');
+                    inputEl.focus();
+                } else {
+                    windowEl.style.setProperty('display', 'none', 'important');
+                }
+            });
+        }
+
+        if (closeBtn) {
+            closeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                windowEl.classList.remove('active');
+                windowEl.style.setProperty('display', 'none', 'important');
+            });
+        }
+
+        async function dispatchUserPrompt() {
+            const promptValue = inputEl.value.trim();
+            if (!promptValue) return;
+
+            appendBubble(promptValue, 'user');
+            inputEl.value = '';
+
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'vakra-msg system';
+            typingIndicator.innerHTML = `<div class="vakra-typing"><span></span><span></span><span></span></div>`;
+            messagesContainer.appendChild(typingIndicator);
+            scrollToBottom();
+
+            try {
+                const apiResponse = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: promptValue })
+                });
+
+                const dataset = await apiResponse.json();
+                typingIndicator.remove();
+
+                if (apiResponse.ok && dataset.response) {
+                    appendBubble(dataset.response, 'system');
+
+                    const lowerMessage = promptValue.toLowerCase();
+                    if (
+                        lowerMessage.includes('connect') || 
+                        lowerMessage.includes('talk to human') || 
+                        lowerMessage.includes('contact team') || 
+                        lowerMessage.includes('representative') || 
+                        lowerMessage.includes('connect someone') ||
+                        lowerMessage.includes('team se connect')
+                    ) {
+                        setTimeout(() => {
+                            appendBubble("⚡ System Action: Redirecting token matrix to the Sovereign Advisory Desk...", 'system');
+                            setTimeout(() => {
+                                window.location.href = 'contact.html';
+                            }, 1500);
+                        }, 1000);
+                    }
+                } else {
+                    appendBubble("Execution Defect: Unable to pipeline calculated tokens from LLM core.", 'system');
+                }
+            } catch (networkError) {
+                if(typingIndicator) typingIndicator.remove();
+                appendBubble("Network Fault: Endpoint connectivity degraded or blocked.", 'system');
+                console.error("Pipeline Transmission Error:", networkError);
+            }
+        }
+
+        function appendBubble(content, actor) {
+            const bubble = document.createElement('div');
+            bubble.className = `vakra-msg ${actor}`;
+            bubble.innerHTML = content.replace(/\n/g, '<br>');
+            messagesContainer.appendChild(bubble);
+            scrollToBottom();
+        }
+
+        function scrollToBottom() {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        if (sendBtn) sendBtn.addEventListener('click', dispatchUserPrompt);
+        if (inputEl) {
+            inputEl.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter') dispatchUserPrompt();
+            });
+        }
+    </script>
+    <script src="/vakra-loader.js"></script>
+
+</body>
+</html>
