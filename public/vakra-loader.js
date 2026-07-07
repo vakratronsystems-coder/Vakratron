@@ -98,3 +98,51 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+// === UNIFORM TOP SPACING ENGINE ===
+document.addEventListener("DOMContentLoaded", () => {
+    const header = document.querySelector('header');
+    if (!header) return;
+
+    const contentAreas = document.querySelectorAll('main, .hero, .doc-hero, section:first-of-type, .page-content, body > section:first-child');
+
+    contentAreas.forEach(area => {
+        if (area) {
+            area.style.setProperty('padding-top', '90px', 'important');
+            area.style.setProperty('margin-top', '0', 'important');
+        }
+    });
+
+    console.log('✅ Vakratron Uniform Top Spacing Applied');
+});
+// 🌌 VAKRATRON ADVISORY PLATFORM - ULTIMATE THEME MATRIX SYNC
+document.addEventListener("DOMContentLoaded", () => {
+    const TARGET_THEME_COLOR = "#030d1a"; // Aapka signature slate blue-black tone
+
+    const enforceUniformTheme = () => {
+        // 1. Force override global window elements
+        document.documentElement.style.setProperty('background', TARGET_THEME_COLOR, 'important');
+        document.documentElement.style.setProperty('background-color', TARGET_THEME_COLOR, 'important');
+        document.body.style.setProperty('background', TARGET_THEME_COLOR, 'important');
+        document.body.style.setProperty('background-color', TARGET_THEME_COLOR, 'important');
+
+        // 2. Select every structural node capable of breaking the background flow
+        const layoutSelectors = 'section, div, main, footer, header, .hero, .solutions, .roadmap-section, .why-card, .pain-section';
+        const elements = document.querySelectorAll(layoutSelectors);
+
+        elements.forEach(el => {
+            // Unke purane background elements aur configurations ko completely force delete kijiye
+            el.style.setProperty('background', TARGET_THEME_COLOR, 'important');
+            el.style.setProperty('background-color', TARGET_THEME_COLOR, 'important');
+            el.style.setProperty('background-image', 'none', 'important');
+            el.style.setProperty('border-color', 'rgba(255, 255, 255, 0.03)', 'important');
+        });
+        
+        console.log("[VAKRA-OS]: Global uniform slate theme successfully loaded.");
+    };
+
+    // Run execution loops immediately during lifecycle phases
+    enforceUniformTheme();
+    setTimeout(enforceUniformTheme, 50);
+    setTimeout(enforceUniformTheme, 200); // Dynamic grids loader buffer protection
+});

@@ -21,42 +21,40 @@
 }
 
 /* ⚙️ GLOBAL SYSTEM SYSTEM VARIABLES */
-:root {
-    --font-heading: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    --bg-main: #020617;
-    --bg-surface: rgba(15, 23, 42, 0.6);
-    --border-glow: rgba(194, 24, 91, 0.3);
-    --accent-neon: #C2185B;
-    --accent-blue: #38bdf8;
-    --text-primary: #f8fafc;
-    --text-secondary: #94a3b8;
-    --glass-gradient: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(2, 6, 23, 0.9) 100%);
+/* ==========================================================================
+   🌌 VAKRATRON SYSTEMS LLP - ABSOLUTE GLOBAL MASTER THEME LOCK (UNIFORM)
+   ========================================================================== */
+
+   :root {
+    /* Is image wale perfect color matrix code ko hum pure platform par share karenge */
+    --bg-vakra-slate: #030d1a; 
+    --bg-vakra-dark: #020617;
 }
 
-/* 🪐 GLOBAL RESET & TEXT RENDERING UTILITY */
-* {
-    margin: 0;
-    padding: 0;
+/* Base Body and Window Overrides to enforce uniform global consistency */
+html, 
+body, 
+main,
+section,
+.hero,
+.doc-hero,
+.solutions,
+.roadmap-section,
+footer {
+    background-color: #030d1a !important; /* 🔥 PURE UNIFORM RICH BLUE-BLACK SLATE LOCK */
+    background-image: none !important;    /* Hides any patchy gradient layers */
     box-sizing: border-box;
 }
 
-html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 100px; 
-}
-
+/* Ensure smooth cross-browser rendering */
 body {
-    background: #030d1a;
-    color: #e2e8f0;
-    font-family: var(--font-body) !important;
+    margin: 0;
+    padding: 0;
     overflow-x: hidden;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased !important;
-    -moz-osx-font-smoothing: grayscale !important;
-    text-rendering: optimizeLegibility !important;
+    color: #f1f5f9;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
 }
-
 /* 🍎 PREMIUM BODY TEXT BLOCKS (Apple's SF Pro text blocks styling) */
 p, .card-text, .description, span, li, a, td, th {
     font-family: var(--font-body) !important;
@@ -1061,4 +1059,129 @@ main, .hero, .main-content, #main-wrapper, section:first-of-type {
     margin-top: -50px !important; 
     position: relative;
     z-index: 10;
+}
+/* =============================================
+   CLEAN & SAFE TOP GAP FIX - FINAL VERSION
+   ============================================= */
+
+/* Header ko touch mat karo */
+header {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* Sirf un pages ko target karo jinke first section mein problem hai */
+.hero,
+.doc-hero,
+.vakra-validated-design-engine,
+section:first-of-type:not(.home-hero):not(.about-hero) {
+    padding-top: 100px !important;
+    margin-top: 0 !important;
+}
+
+/* Home page aur About Us page ke liye alag handling (yeh mat change karna) */
+.home-hero,
+.about-hero,
+body.home .hero,
+body.about .hero {
+    padding-top: 20px !important;   /* Home/About ke liye original spacing */
+    margin-top: 0 !important;
+}
+
+/* Extra strong inline style wale pages ke liye (V-Scan, V-Review, Reference etc.) */
+.reference-architectures .doc-hero,
+.v-scan-hero,
+.v-review-hero,
+.assessment-framework-hero {
+    padding-top: 100px !important;
+    margin-top: 0 !important;
+}
+
+/* =============================================
+   VAKRATRON UNIFORM TOP SPACING - FINAL v3.0
+   ============================================= */
+
+   header {
+    margin: 0 !important;
+    padding: 10px 5% 0 !important;
+    min-height: 80px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Sab pages ke liye consistent content wrapper */
+main,
+.page-content,
+.hero,
+.doc-hero,
+section:first-of-type,
+body > section:first-child,
+body > div:first-child:not(header) {
+    padding-top: 90px !important;   /* Header 80px + 10px clean gap */
+    margin-top: 0 !important;
+}
+
+/* Home page aur About Us ko thoda alag rakho (agar zarurat pade) */
+.home .hero,
+.about .hero {
+    padding-top: 40px !important;
+}
+/* =============================================
+   UNIFORM DARK THEME - CONSISTENT LOOK
+   ============================================= */
+
+   section, main, .hero, .doc-hero, .page-content,
+   .stat-card, .offering-card, .service-card-custom, 
+   .why-card, .industry-card, .trust-card, .premium-dr-card,
+   .contact-container, .contact-form-wrapper {
+       background: var(--bg-surface) !important;
+       border: 1px solid rgba(255, 255, 255, 0.05) !important;
+   }
+   
+   /* Glass / Gradient cards ko bhi match karo */
+   .offering-card,
+   .premium-dr-card,
+   .contact-container {
+       background: rgba(10, 20, 34, 0.95) !important;
+   }
+   
+   /* Stats section background */
+   .stats {
+       background: #02060f !important;
+   }
+   
+   /* Footer consistent */
+   footer {
+       background: #02060f !important;
+   }
+   /* =============================================
+   DEEP UNIFORM DARK THEME (Tumhara Pasandida Look)
+   ============================================= */
+
+body, 
+main, 
+section, 
+.hero, 
+.doc-hero, 
+.page-content {
+    background: var(--bg-main) !important;
+}
+
+.stat-card, 
+.offering-card, 
+.service-card-custom, 
+.why-card, 
+.industry-card, 
+.trust-card, 
+.premium-dr-card, 
+.contact-container, 
+.contact-form-wrapper {
+    background: var(--bg-surface) !important;
+    border: 1px solid rgba(255,255,255,0.06) !important;
+}
+
+/* Footer aur special areas */
+footer, .stats {
+    background: #08080d !important;
 }

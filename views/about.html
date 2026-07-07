@@ -3,30 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>About Us | Vakratron Systems - Architectural Pioneers</title>
-    <meta name="description" content="Learn about Vakratron Systems, pioneering sovereign AI cloud consulting, resilient hybrid topologies, and tier-compliant data centre architectures with 13+ years of elite experience.">
-    <meta name="robots" content="index, follow">
+    <title>We Engineer Digital Sovereignty | Vakratron Systems</title>
+    <meta name="description" content="Silent architects behind mission-critical high-density environments.">
 
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- === MAIN STYLESHEET === -->
+    <link rel="stylesheet" href="/style.css">
 
     <style>
+         :root {
+            --bg-obsidian: #020617;
+            --accent-blue: #38bdf8;
+            --accent-pink: #c2185b;
+            --text-secondary: #94a3b8;
+        }
+
+        /* 🔥 UNIFORM BRAND BACKGROUND SYSTEM */
+        html, body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #020617 !important; /* Strict Master Theme Lock */
+            background-image: none !important;
+            font-family: 'Inter', sans-serif;
+            color: #f1f5f9;
+            overflow-x: hidden;
+        }
+
+        header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            padding: 10px 5% !important;
+            height: 80px !important;
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 1000 !important;
+            background: rgba(3, 13, 26, 0.95) !important;
+            backdrop-filter: blur(20px) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+        }
+
+        section, .solutions, .roadmap-section, footer {
+            background-color: #020617 !important; 
+            background: #020617 !important;
+            border-color: rgba(255, 255, 255, 0.02) !important;
+        }
+        
         .roadmap-section {
             padding: 100px 8%;
-            background: #020617;
             border-top: 1px solid rgba(255, 255, 255, 0.03);
-            position: relative;
         }
+
         .roadmap-container {
             position: relative;
             max-width: 900px;
             margin: 60px auto 0 auto;
         }
+
         .roadmap-line {
             position: absolute;
             left: 50%;
@@ -37,6 +78,7 @@
             transform: translateX(-50%);
             overflow: hidden;
         }
+
         #path-progress {
             position: absolute;
             top: 0;
@@ -46,6 +88,7 @@
             box-shadow: 0 0 15px #C2185B;
             transition: height 0.1s linear;
         }
+
         .milestone {
             margin-bottom: 100px;
             display: flex;
@@ -56,13 +99,16 @@
             transform: translateY(40px);
             transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
         }
+
         .milestone.visible {
             opacity: 1;
             transform: translateY(0);
         }
+
         .milestone:last-child {
             margin-bottom: 0;
         }
+
         .dot {
             width: 20px;
             height: 20px;
@@ -76,15 +122,17 @@
             box-shadow: 0 0 10px rgba(194, 24, 91, 0.5);
             transition: background 0.3s ease;
         }
+
         .milestone-content {
             width: 45%;
             padding: 30px;
-            background: rgba(15, 23, 42, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(15, 23, 42, 0.4) !important;
+            border: 1px solid rgba(255, 255, 255, 0.05) !important;
             border-radius: 16px;
             backdrop-filter: blur(10px);
             box-sizing: border-box;
         }
+
         .milestone-content h3 {
             font-family: 'Poppins', sans-serif;
             font-size: 1.5rem;
@@ -92,29 +140,93 @@
             margin-bottom: 10px;
             font-weight: 600;
         }
+
         .milestone-content p {
-            color: #94a3b8;
+            color: #94a3b8 !important;
             font-size: 1rem;
             line-height: 1.6;
             margin: 0;
         }
+
+        .why-card {
+            background: rgba(15, 23, 42, 0.4) !important;
+            border: 1px solid rgba(255,255,255,0.04) !important;
+            padding: 30px;
+            border-radius: 16px;
+        }
+
         @media (max-width: 768px) {
             .roadmap-line { left: 20px; transform: none; }
             .dot { left: 20px; transform: translateX(-50%); }
             .milestone { flex-direction: column; align-items: flex-start; padding-left: 50px; margin-bottom: 60px; }
             .milestone-content { width: 100% !important; text-align: left !important; }
             .milestone div:last-child { display: none; }
+            .console-dropdown-dashboard { width: 320px !important; right: -50px !important; }
+            .dashboard-grid { grid-template-columns: 1fr !important; }
         }
     </style>
 </head>
 <body>
-    <header></header>
+    
+    <!-- 🛡️ RESTORED ENTERPRISE NAVIGATION HEADER WITH DROPDOWN CONSOLE -->
+    <header>
+        <div class="logo-area">
+            <img src="/images/logo.png" alt="Vakratron Logo" onerror="this.style.display='none';">
+            <div class="logo-text">
+                <h2 style="font-family: 'Poppins', sans-serif !important; font-size: 20px !important; font-weight: 700 !important; color: #fff !important; letter-spacing: 1.5px !important; margin:0;">VAKRATRON</h2>
+                <span style="color: #C2185B !important; font-size: 10px !important; letter-spacing: 3px !important; font-weight: 700 !important; display:block;">SYSTEMS</span>
+            </div>
+        </div>
 
-  <section class="hero" style="display: flex; align-items: center; justify-content: space-between; min-height: auto; padding-top: 180px !important; padding-bottom: 100px; gap: 60px; box-sizing: border-box; max-width: 1400px; margin: 0 auto; width: 92%;">
+        <nav style="display: flex; align-items: center;">
+            <a href="index.html" style="color: #94a3b8; text-decoration: none; margin-left: 25px; font-size: 15px; font-weight: 500;">Home</a>
+            <a href="about.html" style="color: #C2185B; text-decoration: none; margin-left: 25px; font-size: 15px; font-weight: 500;">About</a>
+            
+            <!-- CENTRALIZED COMMAND CONSOLE DROPDOWN -->
+            <div class="central-nav-container" style="position: relative; display: inline-block; margin-left: 25px;">
+                <button class="console-trigger-btn" style="background: rgba(194, 24, 91, 0.05); border: 1px solid rgba(194, 24, 91, 0.3); color: #fff; padding: 8px 16px; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                    Command Console <i class="fa-solid fa-chevron-down" style="font-size: 10px;"></i>
+                </button>
+                <div class="console-dropdown-dashboard" style="position: absolute; top: 100%; right: 0; width: 650px; background: #030712; border: 1px solid rgba(194, 24, 91, 0.25); border-radius: 12px; padding: 20px; box-shadow: 0 40px 80px rgba(0,0,0,0.95); visibility: hidden; opacity: 0; transition: all 0.3s ease; z-index: 9999;">
+                    <div class="dashboard-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                        <div class="dashboard-col" style="display: flex; flex-direction: column; gap: 8px;">
+                            <h4 style="color: #fff; font-size: 12px; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 5px; margin-bottom: 5px;"><i class="fa-solid fa-network-wired core-icon" style="color:#a855f7;"></i> Core Vectors</h4>
+                            <a href="index.html" style="color: #94a3b8; text-decoration: none; font-size: 13px; padding: 4px 0;">Home Core</a>
+                            <a href="about.html" style="color: #fff; text-decoration: none; font-size: 13px; padding: 4px 0; font-weight: 600;">About Stack</a>
+                        </div>
+                        <div class="dashboard-col" style="display: flex; flex-direction: column; gap: 8px;">
+                            <h4 style="color: #fff; font-size: 12px; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 5px; margin-bottom: 5px;"><i class="fa-solid fa-microchip capabilities-icon" style="color:#eab308;"></i> Architecture</h4>
+                            <a href="services.html" style="color: #94a3b8; text-decoration: none; font-size: 13px; padding: 4px 0;">Expertise Matrix</a>
+                            <a href="products.html" style="color: #94a3b8; text-decoration: none; font-size: 13px; padding: 4px 0;">Portfolio Links</a>
+                        </div>
+                        <div class="dashboard-col" style="display: flex; flex-direction: column; gap: 8px;">
+                            <h4 style="color: #fff; font-size: 12px; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 5px; margin-bottom: 5px;"><i class="fa-solid fa-flask lab-icon" style="color:#C2185B;"></i> Advanced Labs</h4>
+                            <a href="fabric.html" style="color: #94a3b8; text-decoration: none; font-size: 13px; padding: 4px 0;">Fabric Matrix</a>
+                            <a href="credentials.html" style="color: #94a3b8; text-decoration: none; font-size: 13px; padding: 4px 0;">Credentials Registry</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="contact.html" class="btn-nav" style="background: rgba(194, 24, 91, 0.1); color: #C2185B; border: 1px solid rgba(194, 24, 91, 0.4); padding: 8px 18px; border-radius: 6px; font-weight: 600; font-size: 14px; text-decoration: none; margin-left: 25px;">Get In Touch</a>
+        </nav>
+    </header>
+
+    <!-- CSS HOVER MAPPING TRICK TO HANDLE DYNAMIC DROP DISPLAY BEFORE JS TRIGGERS -->
+    <style>
+        .central-nav-container:hover .console-dropdown-dashboard {
+            visibility: visible !important;
+            opacity: 1 !important;
+            transform: translateY(5px) !important;
+        }
+    </style>
+
+    <!-- 🎯 UNIFORM HERO PACK -->
+    <section class="hero" style="display: flex; align-items: center; justify-content: space-between; min-height: auto; padding: 130px 8% 100px 8% !important; gap: 60px; box-sizing: border-box; max-width: 1400px; margin: 0 auto; width: 100%; background: #020617 !important;">
         
         <div class="hero-left" style="width: 50%; display: block;">
             <div class="badge" style="margin-bottom: 20px; display: inline-flex; align-items: center; gap: 8px; background: rgba(194, 24, 91, 0.1); border: 1px solid rgba(194, 24, 91, 0.3); color: #f472b6; padding: 6px 16px; border-radius: 100px; font-size: 0.85rem; font-weight: 500; text-transform: uppercase;"><i class="fa-solid fa-layer-group"></i> Executive Framework</div>
-            <h1 style="font-size: 48px; line-height: 1.2; margin-top: 0; margin-bottom: 25px; font-weight: 700; color: #fff;">We Do Not Just Build Infrastructure. <br><span style="color: #C2185B;">We Engineer Digital Sovereignty.</span></h1>
+            <h1 style="font-family: 'Poppins', sans-serif; font-size: 48px; line-height: 1.2; margin-top: 0; margin-bottom: 25px; font-weight: 700; color: #fff;">We Do Not Just Build Infrastructure. <br><span style="color: #C2185B;">We Engineer Digital Sovereignty.</span></h1>
             <p style="font-family: 'Inter', sans-serif; font-size: 1.15rem; color: #cbd5e1; line-height: 1.8; margin-bottom: 25px; text-align: justify;">At Vakratron Systems, we operate at the bleeding edge where raw computing power meets absolute structural isolation. We are not a mass-market utility provider; we are the silent architects behind mission-critical high-density environments, secure sovereign container layers, and distributed neural telemetry ecosystems.</p>
             <p style="font-family: 'Inter', sans-serif; font-size: 1.15rem; color: #cbd5e1; line-height: 1.8; margin-bottom: 35px; text-align: justify;">Forged over 13+ years of battle-tested field expertise, our philosophy is binary: zero compromise on data enclosure, near-zero RTO on catastrophic failovers, and absolute multi-tenant containment.</p>
             <div class="hero-buttons">
@@ -131,39 +243,41 @@
 
     </section>
 
-    <section class="solutions" style="border-top: 1px solid rgba(255, 255, 255, 0.03); padding-bottom: 80px;">
-        <div class="section-header">
-            <span>Corporate Directive</span>
-            <h2>Strategic Architecture Matrix</h2>
-            <p>Blueprinting the future of enterprise computational boundaries and hyper-secure hybrid fabrics.</p>
+    <!-- 🎯 STRATEGIC MATRIX SECTION -->
+    <section class="solutions" style="border-top: 1px solid rgba(255, 255, 255, 0.03); padding: 80px 8%; background: #020617 !important;">
+        <div class="section-header" style="text-align: center; margin-bottom: 50px;">
+            <span style="color: #C2185B; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; font-weight: 600;">Corporate Directive</span>
+            <h2 style="font-family: 'Poppins', sans-serif; font-size: 2.2rem; color: #fff; margin-top: 10px;">Strategic Architecture Matrix</h2>
+            <p style="color: #94a3b8; max-width: 600px; margin: 10px auto 0 auto;">Blueprinting the future of enterprise computational boundaries and hyper-secure hybrid fabrics.</p>
         </div>
         
-        <div class="why-grid">
+        <div class="why-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
             <div class="why-card">
-                <div class="why-icon-box" style="color: #38bdf8; background: rgba(56, 189, 248, 0.08); border-color: rgba(56, 189, 248, 0.15);"><i class="fa-solid fa-bullseye"></i></div>
-                <h3>Our Mission</h3>
-                <p>To empower sovereign enterprises and governance sectors with state-of-the-art solution designs—deploying massive parallel computing architectures, multi-provider clouds, and near-instant catastrophic failover protections.</p>
+                <div class="why-icon-box" style="color: #38bdf8; background: rgba(56, 189, 248, 0.08); width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 20px;"><i class="fa-solid fa-bullseye"></i></div>
+                <h3 style="font-family: 'Poppins', sans-serif; color: #fff; margin-bottom: 12px;">Our Mission</h3>
+                <p style="color: #94a3b8; line-height: 1.6; font-size: 0.95rem;">To empower sovereign enterprises and governance sectors with state-of-the-art solution designs—deploying massive parallel computing architectures, multi-provider clouds, and near-instant catastrophic failover protections.</p>
             </div>
             
             <div class="why-card">
-                <div class="why-icon-box"><i class="fa-solid fa-eye"></i></div>
-                <h3>Our Vision</h3>
-                <p>To pioneer the global shift toward regionalized AI Factories. We envision a landscape where enterprise workflows run seamlessly across hyper-secure networks, completely independent of public cloud security exposures.</p>
+                <div class="why-icon-box" style="color: #C2185B; background: rgba(194, 24, 91, 0.08); width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 20px;"><i class="fa-solid fa-eye"></i></div>
+                <h3 style="font-family: 'Poppins', sans-serif; color: #fff; margin-bottom: 12px;">Our Vision</h3>
+                <p style="color: #94a3b8; line-height: 1.6; font-size: 0.95rem;">To pioneer the global shift toward regionalized AI Factories. We envision a landscape where enterprise workflows run seamlessly across hyper-secure networks, completely independent of public cloud security exposures.</p>
             </div>
             
             <div class="why-card">
-                <div class="why-icon-box" style="color: #10b981; background: rgba(16, 185, 129, 0.08); border-color: rgba(16, 185, 129, 0.15);"><i class="fa-solid fa-gavel"></i></div>
-                <h3>Consulting Philosophy</h3>
-                <p>Engineering robust technical specifications, strict tier-compliant BoQ metrics, and life safety EMSS infrastructure integrations (CCTV, Access Control, Fire) that instantly pass rigorous tender-level evaluations.</p>
+                <div class="why-icon-box" style="color: #10b981; background: rgba(16, 185, 129, 0.08); width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 20px;"><i class="fa-solid fa-gavel"></i></div>
+                <h3 style="font-family: 'Poppins', sans-serif; color: #fff; margin-bottom: 12px;">Consulting Philosophy</h3>
+                <p style="color: #94a3b8; line-height: 1.6; font-size: 0.95rem;">Engineering robust technical specifications, strict tier-compliant BoQ metrics, and life safety EMSS infrastructure integrations (CCTV, Access Control, Fire) that instantly pass rigorous tender-level evaluations.</p>
             </div>
         </div>
     </section>
 
-    <section class="roadmap-section" id="journey-anchor">
-        <div class="section-header">
-            <span style="color: #C2185B;">Evolutionary Path</span>
-            <h2>The Vakratron Journey</h2>
-            <p>Milestones engineered with absolute precision and architectural control.</p>
+    <!-- 🎯 EVOLUTIONARY PATH SECTION -->
+    <section class="roadmap-section" id="journey-anchor" style="background: #020617 !important;">
+        <div class="section-header" style="text-align: center; margin-bottom: 50px;">
+            <span style="color: #C2185B; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; font-weight: 600;">Evolutionary Path</span>
+            <h2 style="font-family: 'Poppins', sans-serif; font-size: 2.2rem; color: #fff; margin-top: 10px;">The Vakratron Journey</h2>
+            <p style="color: #94a3b8; max-width: 600px; margin: 10px auto 0 auto;">Milestones engineered with absolute precision and architectural control.</p>
         </div>
 
         <div class="roadmap-container">
@@ -218,7 +332,8 @@
         </div>
     </section>
 
-    <footer style="background: #01040f; padding: 60px 8% 30px 8%; border-top: 1px solid rgba(255,255,255,0.04); box-sizing: border-box; position: relative;">
+    <!-- 🎯 SOVEREIGN SYSTEM FOOTER INTERFACE -->
+    <footer style="background: #020617 !important; padding: 60px 8% 30px 8%; border-top: 1px solid rgba(255,255,255,0.04); box-sizing: border-box; position: relative;">
         <div class="footer-content" style="display: flex; justify-content: space-between; align-items: flex-start; gap: 50px; flex-wrap: wrap; margin-bottom: 40px;">
             <div class="footer-brand" style="max-width: 450px; flex: 2;">
                 <h2 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1.5rem; font-weight: 700; margin: 0 0 15px 0; letter-spacing: 1px;">VAKRATRON <span style="color: #C2185B; font-size: 0.85rem; letter-spacing: 3px; font-weight: 600; display: block; margin-top: -2px;">SYSTEMS</span></h2>
@@ -249,7 +364,7 @@
                 <a href="about.html" target="v_about" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">About Matrix</a>
                 <a href="products.html" target="v_products" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Portfolio Offerings</a>
                 <a href="services.html" target="v_services" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Expertise Matrix</a>
-                <a href="fabric.html" target="v_fabric" style="color: var(--text-secondary); text-decoration: none; font-size: 0.95rem; transition: color 0.3s; display: block;" onmouseover="this.style.color='var(--accent-neon)'" onmouseout="this.style.color='var(--text-secondary)'">Fabric Lab Matrix</a>
+                <a href="fabric.html" target="v_fabric" style="color: var(--text-secondary); text-decoration: none; font-size: 0.95rem;">Fabric Lab Matrix</a>
                 <a href="credentials.html" target="v_credentials" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Credentials Matrix</a>
                 <a href="contact.html" target="v_contact" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Contact Vector</a>
             </div>
@@ -259,11 +374,12 @@
             <i class="fa-solid fa-file-pdf"></i>
         </div>
 
-        <div class="footer-bottom" style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 25px; text-align: center; font-size: 0.85rem; color: #475569;">
+        <div class="footer-bottom" style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; text-align: center; font-size: 0.85rem; color: #475569;">
             <p style="margin:0;">&copy; 2026 Vakratron Systems LLP | New Delhi, India. All Rights Reserved.</p>
         </div>
     </footer>
 
+    <!-- Roadmap Interaction Script -->
     <script>
         window.addEventListener('scroll', () => {
             const pathProgress = document.getElementById('path-progress');
@@ -290,6 +406,8 @@
         });
     </script>
 
+    <!-- Loader Script -->
     <script src="/vakra-loader.js"></script>
+
 </body>
 </html>
