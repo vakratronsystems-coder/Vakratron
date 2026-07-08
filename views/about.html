@@ -14,35 +14,36 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- === MAIN STYLESHEET === -->
+    <!-- === MASTER STYLESHEET RESETS === -->
     <link rel="stylesheet" href="/style.css">
 
     <style>
          :root {
-            --bg-obsidian: #020617;
+            --bg-obsidian: #030d1a;
             --accent-blue: #38bdf8;
             --accent-pink: #c2185b;
             --text-secondary: #94a3b8;
         }
 
-        /* 🔥 UNIFORM BRAND BACKGROUND SYSTEM */
+        /* MASTER STRUCTURE DIRECTIVE */
         html, body {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            background-color: #020617 !important; /* Strict Master Theme Lock */
-            background-image: none !important;
-            font-family: 'Inter', sans-serif;
-            color: #f1f5f9;
-            overflow-x: hidden;
+            margin: 0 !important;
+            padding: 0 !important;
+            box-sizing: border-box !important;
+            background-color: #030d1a !important;
+            font-family: 'Inter', sans-serif !important;
+            color: #f1f5f9 !important;
+            overflow-x: hidden !important;
         }
+
+        h1, h2, h3, h4 { font-family: 'Poppins', sans-serif !important; margin-top: 0; }
+        p { line-height: 1.6; font-family: 'Inter', sans-serif !important; }
 
         header {
             display: flex !important;
             justify-content: space-between !important;
             align-items: center !important;
-            padding: 10px 5% !important;
-            height: 80px !important;
+            padding: 15px 5% !important;
             position: sticky !important;
             top: 0 !important;
             z-index: 1000 !important;
@@ -51,233 +52,119 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
         }
 
-        section, .solutions, .roadmap-section, footer {
-            background-color: #020617 !important; 
-            background: #020617 !important;
-            border-color: rgba(255, 255, 255, 0.02) !important;
-        }
-        
-        .roadmap-section {
-            padding: 100px 8%;
-            border-top: 1px solid rgba(255, 255, 255, 0.03);
-        }
-
-        .roadmap-container {
-            position: relative;
-            max-width: 900px;
-            margin: 60px auto 0 auto;
+        section.vakra-block-fix {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            background-color: #030d1a !important;
+            padding: 100px 8% !important;
+            clear: both !important;
+            position: relative !important;
+            box-sizing: border-box !important;
         }
 
-        .roadmap-line {
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: rgba(255, 255, 255, 0.05);
-            transform: translateX(-50%);
-            overflow: hidden;
+        /* MATRIX GRID SYSTEM */
+        .section-header { text-align: center !important; margin-bottom: 60px !important; }
+        .section-header span {
+            color: #C2185B !important; text-transform: uppercase !important;
+            letter-spacing: 2px !important; font-size: 0.9rem !important;
+            font-weight: 600 !important; display: block !important; margin-bottom: 10px !important;
         }
+        .section-header h2 { font-size: 2.8rem !important; color: #fff !important; font-weight: 700 !important; margin-bottom: 15px !important; }
+        .section-header p { color: #94a3b8 !important; max-width: 700px !important; margin: 0 auto !important; font-size: 1.1rem !important; }
 
-        #path-progress {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            height: 0%;
-            background: #C2185B;
-            box-shadow: 0 0 15px #C2185B;
-            transition: height 0.1s linear;
+        .vakra-grid-wrapper { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 30px !important; width: 100% !important; }
+        .vakra-premium-card {
+            background: linear-gradient(145deg, #091a30, #040f1d) !important;
+            border: 1px solid rgba(255,255,255,0.05) !important;
+            padding: 40px 30px !important;
+            border-radius: 16px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4) !important;
+            transition: transform 0.3s ease !important;
         }
+        .vakra-premium-card:hover { transform: translateY(-5px) !important; border-color: rgba(194, 24, 91, 0.3) !important; }
+        .why-icon-box { width: 60px !important; height: 60px !important; border-radius: 12px !important; display: flex !important; align-items: center !important; justify-content: center !important; font-size: 1.8rem !important; margin-bottom: 25px !important; }
+
+        /* 🎯 TIMELINE SCROLL PATH LAYOUT */
+        .roadmap-container { position: relative !important; max-width: 1000px !important; margin: 80px auto 0 auto !important; padding: 20px 0 !important; }
+        .roadmap-line { position: absolute !important; left: 50% !important; top: 0 !important; bottom: 0 !important; width: 4px !important; background: rgba(255, 255, 255, 0.08) !important; transform: translateX(-50%) !important; z-index: 1 !important; }
+        #path-progress { position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 0%; background: #C2185B !important; box-shadow: 0 0 15px #C2185B, 0 0 30px #C2185B !important; z-index: 2 !important; transition: height 0.05s ease-out !important; }
 
         .milestone {
-            margin-bottom: 100px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            margin-bottom: 120px !important; display: flex !important; justify-content: space-between !important; align-items: center !important; position: relative !important; z-index: 3 !important; opacity: 0; transform: translateY(40px);
+            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1) !important;
         }
+        .milestone.visible { opacity: 1 !important; transform: translateY(0) !important; }
+        .milestone:last-child { margin-bottom: 0 !important; }
 
-        .milestone.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .dot { width: 18px !important; height: 18px !important; background: #030d1a !important; border-radius: 50% !important; position: absolute !important; left: 50% !important; transform: translateX(-50%) !important; z-index: 10 !important; border: 4px solid rgba(255, 255, 255, 0.2) !important; box-shadow: 0 0 10px rgba(0,0,0,0.8) !important; transition: all 0.4s ease !important; }
+        .milestone.visible .dot { border-color: #C2185B !important; background: #C2185B !important; box-shadow: 0 0 15px #C2185B, 0 0 25px #C2185B !important; }
+        .milestone:nth-child(even).visible .dot { border-color: #38bdf8 !important; background: #38bdf8 !important; box-shadow: 0 0 15px #38bdf8, 0 0 25px #38bdf8 !important; }
 
-        .milestone:last-child {
-            margin-bottom: 0;
-        }
+        .milestone-content { width: 44% !important; padding: 35px !important; background: rgba(15, 23, 42, 0.7) !important; border: 1px solid rgba(255, 255, 255, 0.05) !important; border-radius: 16px !important; box-sizing: border-box !important; }
 
-        .dot {
-            width: 20px;
-            height: 20px;
-            background: #C2185B;
-            border-radius: 50%;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 2;
-            border: 4px solid #020617;
-            box-shadow: 0 0 10px rgba(194, 24, 91, 0.5);
-            transition: background 0.3s ease;
-        }
-
-        .milestone-content {
-            width: 45%;
-            padding: 30px;
-            background: rgba(15, 23, 42, 0.4) !important;
-            border: 1px solid rgba(255, 255, 255, 0.05) !important;
-            border-radius: 16px;
-            backdrop-filter: blur(10px);
-            box-sizing: border-box;
-        }
-
-        .milestone-content h3 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.5rem;
-            margin-top: 0;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-
-        .milestone-content p {
-            color: #94a3b8 !important;
-            font-size: 1rem;
-            line-height: 1.6;
-            margin: 0;
-        }
-
-        .why-card {
-            background: rgba(15, 23, 42, 0.4) !important;
-            border: 1px solid rgba(255,255,255,0.04) !important;
-            padding: 30px;
-            border-radius: 16px;
-        }
-
+        @media (max-width: 992px) { .vakra-grid-wrapper { grid-template-columns: repeat(2, 1fr) !important; } }
         @media (max-width: 768px) {
-            .roadmap-line { left: 20px; transform: none; }
-            .dot { left: 20px; transform: translateX(-50%); }
-            .milestone { flex-direction: column; align-items: flex-start; padding-left: 50px; margin-bottom: 60px; }
+            .vakra-grid-wrapper { grid-template-columns: 1fr !important; }
+            .roadmap-line { left: 20px !important; transform: none !important; }
+            .dot { left: 20px !important; transform: translateX(-50%) !important; }
+            .milestone { flex-direction: column !important; align-items: flex-start !important; padding-left: 50px !important; margin-bottom: 60px !important; }
             .milestone-content { width: 100% !important; text-align: left !important; }
-            .milestone div:last-child { display: none; }
-            .console-dropdown-dashboard { width: 320px !important; right: -50px !important; }
-            .dashboard-grid { grid-template-columns: 1fr !important; }
+            .milestone div:last-child { display: none !important; }
         }
     </style>
 </head>
 <body>
-    
-    <!-- 🛡️ RESTORED ENTERPRISE NAVIGATION HEADER WITH DROPDOWN CONSOLE -->
-    <header>
-        <div class="logo-area">
-            <img src="/images/logo.png" alt="Vakratron Logo" onerror="this.style.display='none';">
-            <div class="logo-text">
-                <h2 style="font-family: 'Poppins', sans-serif !important; font-size: 20px !important; font-weight: 700 !important; color: #fff !important; letter-spacing: 1.5px !important; margin:0;">VAKRATRON</h2>
-                <span style="color: #C2185B !important; font-size: 10px !important; letter-spacing: 3px !important; font-weight: 700 !important; display:block;">SYSTEMS</span>
+    <header></header>
+    <!-- 🎯 HERO SECTION -->
+    <section class="vakra-block-fix" style="display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 120px 8% 80px 8% !important; gap: 60px !important; max-width: 1400px !important; margin: 0 auto !important; width: 100% !important;">
+        <div class="hero-left" style="width: 50% !important; display: block !important;">
+            <div class="badge" style="margin-bottom: 25px !important; display: inline-flex !important; align-items: center !important; gap: 8px !important; background: rgba(194, 24, 91, 0.1) !important; border: 1px solid rgba(194, 24, 91, 0.3) !important; color: #f472b6 !important; padding: 8px 18px !important; border-radius: 100px !important; font-size: 0.9rem !important; font-weight: 600 !important; text-transform: uppercase !important; font-family: 'Inter', sans-serif !important;"><i class="fa-solid fa-layer-group"></i> Executive Framework</div>
+            <h1 style="font-size: 3.5rem !important; line-height: 1.1 !important; margin-bottom: 25px !important; font-weight: 700 !important; color: #fff !important; letter-spacing: -1px !important;">We Do Not Just Build Infrastructure. <br><span style="color: #C2185B !important;">We Engineer Digital Sovereignty.</span></h1>
+            <p style="font-size: 1.15rem !important; color: #cbd5e1 !important; line-height: 1.8 !important; margin-bottom: 25px !important; font-weight: 300 !important;">At Vakratron Systems, we operate at the bleeding edge where raw computing power meets absolute structural isolation. We are not a mass-market utility provider; we are the silent architects behind mission-critical high-density environments, secure sovereign container layers, and distributed neural telemetry ecosystems.</p>
+            <div class="hero-buttons" style="margin-top: 40px !important;">
+                <a href="/contact.html" class="btn-primary" style="background: #C2185B !important; color: #fff !important; text-decoration: none !important; padding: 15px 30px !important; border-radius: 8px !important; font-weight: 600 !important; display: inline-flex !important; align-items: center !important; gap: 10px !important; font-family: 'Inter', sans-serif !important; box-shadow: 0 10px 20px rgba(194, 24, 91, 0.3) !important; font-size: 1.1rem !important;">Connect With Architects <i class="fa-solid fa-arrow-right"></i></a>
             </div>
         </div>
-
-        <nav style="display: flex; align-items: center;">
-            <a href="index.html" style="color: #94a3b8; text-decoration: none; margin-left: 25px; font-size: 15px; font-weight: 500;">Home</a>
-            <a href="about.html" style="color: #C2185B; text-decoration: none; margin-left: 25px; font-size: 15px; font-weight: 500;">About</a>
-            
-            <!-- CENTRALIZED COMMAND CONSOLE DROPDOWN -->
-            <div class="central-nav-container" style="position: relative; display: inline-block; margin-left: 25px;">
-                <button class="console-trigger-btn" style="background: rgba(194, 24, 91, 0.05); border: 1px solid rgba(194, 24, 91, 0.3); color: #fff; padding: 8px 16px; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px;">
-                    Command Console <i class="fa-solid fa-chevron-down" style="font-size: 10px;"></i>
-                </button>
-                <div class="console-dropdown-dashboard" style="position: absolute; top: 100%; right: 0; width: 650px; background: #030712; border: 1px solid rgba(194, 24, 91, 0.25); border-radius: 12px; padding: 20px; box-shadow: 0 40px 80px rgba(0,0,0,0.95); visibility: hidden; opacity: 0; transition: all 0.3s ease; z-index: 9999;">
-                    <div class="dashboard-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
-                        <div class="dashboard-col" style="display: flex; flex-direction: column; gap: 8px;">
-                            <h4 style="color: #fff; font-size: 12px; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 5px; margin-bottom: 5px;"><i class="fa-solid fa-network-wired core-icon" style="color:#a855f7;"></i> Core Vectors</h4>
-                            <a href="index.html" style="color: #94a3b8; text-decoration: none; font-size: 13px; padding: 4px 0;">Home Core</a>
-                            <a href="about.html" style="color: #fff; text-decoration: none; font-size: 13px; padding: 4px 0; font-weight: 600;">About Stack</a>
-                        </div>
-                        <div class="dashboard-col" style="display: flex; flex-direction: column; gap: 8px;">
-                            <h4 style="color: #fff; font-size: 12px; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 5px; margin-bottom: 5px;"><i class="fa-solid fa-microchip capabilities-icon" style="color:#eab308;"></i> Architecture</h4>
-                            <a href="services.html" style="color: #94a3b8; text-decoration: none; font-size: 13px; padding: 4px 0;">Expertise Matrix</a>
-                            <a href="products.html" style="color: #94a3b8; text-decoration: none; font-size: 13px; padding: 4px 0;">Portfolio Links</a>
-                        </div>
-                        <div class="dashboard-col" style="display: flex; flex-direction: column; gap: 8px;">
-                            <h4 style="color: #fff; font-size: 12px; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 5px; margin-bottom: 5px;"><i class="fa-solid fa-flask lab-icon" style="color:#C2185B;"></i> Advanced Labs</h4>
-                            <a href="fabric.html" style="color: #94a3b8; text-decoration: none; font-size: 13px; padding: 4px 0;">Fabric Matrix</a>
-                            <a href="credentials.html" style="color: #94a3b8; text-decoration: none; font-size: 13px; padding: 4px 0;">Credentials Registry</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <a href="contact.html" class="btn-nav" style="background: rgba(194, 24, 91, 0.1); color: #C2185B; border: 1px solid rgba(194, 24, 91, 0.4); padding: 8px 18px; border-radius: 6px; font-weight: 600; font-size: 14px; text-decoration: none; margin-left: 25px;">Get In Touch</a>
-        </nav>
-    </header>
-
-    <!-- CSS HOVER MAPPING TRICK TO HANDLE DYNAMIC DROP DISPLAY BEFORE JS TRIGGERS -->
-    <style>
-        .central-nav-container:hover .console-dropdown-dashboard {
-            visibility: visible !important;
-            opacity: 1 !important;
-            transform: translateY(5px) !important;
-        }
-    </style>
-
-    <!-- 🎯 UNIFORM HERO PACK -->
-    <section class="hero" style="display: flex; align-items: center; justify-content: space-between; min-height: auto; padding: 130px 8% 100px 8% !important; gap: 60px; box-sizing: border-box; max-width: 1400px; margin: 0 auto; width: 100%; background: #020617 !important;">
-        
-        <div class="hero-left" style="width: 50%; display: block;">
-            <div class="badge" style="margin-bottom: 20px; display: inline-flex; align-items: center; gap: 8px; background: rgba(194, 24, 91, 0.1); border: 1px solid rgba(194, 24, 91, 0.3); color: #f472b6; padding: 6px 16px; border-radius: 100px; font-size: 0.85rem; font-weight: 500; text-transform: uppercase;"><i class="fa-solid fa-layer-group"></i> Executive Framework</div>
-            <h1 style="font-family: 'Poppins', sans-serif; font-size: 48px; line-height: 1.2; margin-top: 0; margin-bottom: 25px; font-weight: 700; color: #fff;">We Do Not Just Build Infrastructure. <br><span style="color: #C2185B;">We Engineer Digital Sovereignty.</span></h1>
-            <p style="font-family: 'Inter', sans-serif; font-size: 1.15rem; color: #cbd5e1; line-height: 1.8; margin-bottom: 25px; text-align: justify;">At Vakratron Systems, we operate at the bleeding edge where raw computing power meets absolute structural isolation. We are not a mass-market utility provider; we are the silent architects behind mission-critical high-density environments, secure sovereign container layers, and distributed neural telemetry ecosystems.</p>
-            <p style="font-family: 'Inter', sans-serif; font-size: 1.15rem; color: #cbd5e1; line-height: 1.8; margin-bottom: 35px; text-align: justify;">Forged over 13+ years of battle-tested field expertise, our philosophy is binary: zero compromise on data enclosure, near-zero RTO on catastrophic failovers, and absolute multi-tenant containment.</p>
-            <div class="hero-buttons">
-                <a href="/contact.html" class="btn-primary" style="background: #C2185B; color: #fff; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-weight: 600; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 4px 15px rgba(194, 24, 91, 0.3);">Connect With Architects <i class="fa-solid fa-arrow-right"></i></a>
-            </div>
-        </div>
-        
-        <div class="hero-right" style="width: 48%; display: flex; align-items: center; justify-content: center; box-sizing: border-box;">
-            <div class="hero-image-wrapper" style="width: 100%; display: flex; justify-content: center; align-items: center;">
-                <img src="/images/about-blueprint.png" alt="Vakratron Architectural Blueprint" 
-                    style="width: 100%; max-width: 650px; height: auto; border-radius: 24px; border: 1px solid rgba(194, 24, 91, 0.25); box-shadow: 0 25px 60px rgba(0,0,0,0.8); display: block;">
-            </div>
-        </div>
-
     </section>
 
-    <!-- 🎯 STRATEGIC MATRIX SECTION -->
-    <section class="solutions" style="border-top: 1px solid rgba(255, 255, 255, 0.03); padding: 80px 8%; background: #020617 !important;">
-        <div class="section-header" style="text-align: center; margin-bottom: 50px;">
-            <span style="color: #C2185B; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; font-weight: 600;">Corporate Directive</span>
-            <h2 style="font-family: 'Poppins', sans-serif; font-size: 2.2rem; color: #fff; margin-top: 10px;">Strategic Architecture Matrix</h2>
-            <p style="color: #94a3b8; max-width: 600px; margin: 10px auto 0 auto;">Blueprinting the future of enterprise computational boundaries and hyper-secure hybrid fabrics.</p>
+    <!-- 🎯 STRATEGIC ARCHITECTURE MATRIX -->
+    <section class="vakra-block-fix" style="border-top: 1px solid rgba(255, 255, 255, 0.05) !important;">
+        <div class="section-header">
+            <span>Corporate Directive</span>
+            <h2>Strategic Architecture Matrix</h2>
+            <p>Blueprinting the future of enterprise computational boundaries and hyper-secure hybrid fabrics.</p>
         </div>
         
-        <div class="why-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
-            <div class="why-card">
-                <div class="why-icon-box" style="color: #38bdf8; background: rgba(56, 189, 248, 0.08); width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 20px;"><i class="fa-solid fa-bullseye"></i></div>
-                <h3 style="font-family: 'Poppins', sans-serif; color: #fff; margin-bottom: 12px;">Our Mission</h3>
-                <p style="color: #94a3b8; line-height: 1.6; font-size: 0.95rem;">To empower sovereign enterprises and governance sectors with state-of-the-art solution designs—deploying massive parallel computing architectures, multi-provider clouds, and near-instant catastrophic failover protections.</p>
+        <div class="vakra-grid-wrapper">
+            <div class="vakra-premium-card">
+                <div class="why-icon-box" style="color: #38bdf8 !important; background: rgba(56, 189, 248, 0.08) !important; border: 1px solid rgba(56,189,248,0.2) !important;"><i class="fa-solid fa-bullseye"></i></div>
+                <h3>Our Mission</h3>
+                <p>To empower sovereign enterprises and governance sectors with state-of-the-art solution designs—deploying massive parallel computing architectures, multi-provider clouds, and near-instant catastrophic failover protections.</p>
             </div>
             
-            <div class="why-card">
-                <div class="why-icon-box" style="color: #C2185B; background: rgba(194, 24, 91, 0.08); width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 20px;"><i class="fa-solid fa-eye"></i></div>
-                <h3 style="font-family: 'Poppins', sans-serif; color: #fff; margin-bottom: 12px;">Our Vision</h3>
-                <p style="color: #94a3b8; line-height: 1.6; font-size: 0.95rem;">To pioneer the global shift toward regionalized AI Factories. We envision a landscape where enterprise workflows run seamlessly across hyper-secure networks, completely independent of public cloud security exposures.</p>
+            <div class="vakra-premium-card">
+                <div class="why-icon-box" style="color: #C2185B !important; background: rgba(194, 24, 91, 0.08) !important; border: 1px solid rgba(194,24,91,0.2) !important;"><i class="fa-solid fa-eye"></i></div>
+                <h3>Our Vision</h3>
+                <p>To pioneer the global shift toward regionalized AI Factories. We envision a landscape where enterprise workflows run seamlessly across hyper-secure networks, completely independent of public cloud security exposures.</p>
             </div>
             
-            <div class="why-card">
-                <div class="why-icon-box" style="color: #10b981; background: rgba(16, 185, 129, 0.08); width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 20px;"><i class="fa-solid fa-gavel"></i></div>
-                <h3 style="font-family: 'Poppins', sans-serif; color: #fff; margin-bottom: 12px;">Consulting Philosophy</h3>
-                <p style="color: #94a3b8; line-height: 1.6; font-size: 0.95rem;">Engineering robust technical specifications, strict tier-compliant BoQ metrics, and life safety EMSS infrastructure integrations (CCTV, Access Control, Fire) that instantly pass rigorous tender-level evaluations.</p>
+            <div class="vakra-premium-card">
+                <div class="why-icon-box" style="color: #10b981 !important; background: rgba(16, 185, 129, 0.08) !important; border: 1px solid rgba(16,185,129,0.2) !important;"><i class="fa-solid fa-gavel"></i></div>
+                <h3>Consulting Philosophy</h3>
+                <p>Engineering robust technical specifications, strict tier-compliant BoQ metrics, and life safety EMSS infrastructure integrations (CCTV, Access Control, Fire) that instantly pass rigorous tender-level evaluations.</p>
             </div>
         </div>
     </section>
 
     <!-- 🎯 EVOLUTIONARY PATH SECTION -->
-    <section class="roadmap-section" id="journey-anchor" style="background: #020617 !important;">
-        <div class="section-header" style="text-align: center; margin-bottom: 50px;">
-            <span style="color: #C2185B; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; font-weight: 600;">Evolutionary Path</span>
-            <h2 style="font-family: 'Poppins', sans-serif; font-size: 2.2rem; color: #fff; margin-top: 10px;">The Vakratron Journey</h2>
-            <p style="color: #94a3b8; max-width: 600px; margin: 10px auto 0 auto;">Milestones engineered with absolute precision and architectural control.</p>
+    <section class="vakra-block-fix" id="journey-anchor" style="border-top: 1px solid rgba(255, 255, 255, 0.05) !important;">
+        <div class="section-header">
+            <span>Evolutionary Path</span>
+            <h2>The Vakratron Journey</h2>
+            <p>Milestones engineered with absolute precision and architectural control.</p>
         </div>
 
         <div class="roadmap-container">
@@ -286,128 +173,208 @@
             </div>
 
             <div class="milestone">
-                <div class="milestone-content" style="text-align: right;">
-                    <h3 style="color: #C2185B;">2020: Foundation</h3>
+                <div class="milestone-content" style="text-align: right !important;">
+                    <h3 style="color: #C2185B !important;">2020: Foundation</h3>
                     <p>Vakratron Systems forged with a core mission to deliver absolute security blueprints for tier-compliant architecture.</p>
                 </div>
                 <div class="dot"></div>
-                <div style="width: 45%;"></div>
+                <div style="width: 44% !important;"></div>
             </div>
 
             <div class="milestone">
-                <div style="width: 45%;"></div>
-                <div class="dot" style="background: #38bdf8; box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);"></div>
-                <div class="milestone-content" style="text-align: left;">
-                    <h3 style="color: #38bdf8;">2022: Resilient Topologies</h3>
+                <div style="width: 44% !important;"></div>
+                <div class="dot"></div>
+                <div class="milestone-content" style="text-align: left !important;">
+                    <h3 style="color: #38bdf8 !important;">2022: Resilient Topologies</h3>
                     <p>Establishing baseline standards for mission-critical core isolation, high-density infrastructure layouts, and automated failover mechanics.</p>
                 </div>
             </div>
 
             <div class="milestone">
-                <div class="milestone-content" style="text-align: right;">
-                    <h3 style="color: #C2185B;">2023: Scale & Expansion</h3>
+                <div class="milestone-content" style="text-align: right !important;">
+                    <h3 style="color: #C2185B !important;">2023: Scale & Expansion</h3>
                     <p>Pioneering massive distributed cluster migrations, active-passive disaster recovery setups, and hyper-secure hybrid cloud topologies.</p>
                 </div>
                 <div class="dot"></div>
-                <div style="width: 45%;"></div>
+                <div style="width: 44% !important;"></div>
             </div>
 
             <div class="milestone">
-                <div style="width: 45%;"></div>
-                <div class="dot" style="background: #38bdf8; box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);"></div>
-                <div class="milestone-content" style="text-align: left;">
-                    <h3 style="color: #38bdf8;">2025: Advanced Automation</h3>
+                <div style="width: 44% !important;"></div>
+                <div class="dot"></div>
+                <div class="milestone-content" style="text-align: left !important;">
+                    <h3 style="color: #38bdf8 !important;">2025: Advanced Automation</h3>
                     <p>Deploying specialized sovereign multi-tenant container spaces and building robust frameworks for distributed neural pipelines.</p>
                 </div>
             </div>
 
             <div class="milestone">
-                <div class="milestone-content" style="text-align: right;">
-                    <h3 style="color: #C2185B;">2026: Sovereign AI Era</h3>
+                <div class="milestone-content" style="text-align: right !important;">
+                    <h3 style="color: #C2185B !important;">2026: Sovereign AI Era</h3>
                     <p>Architecting NVIDIA H200 compute frameworks, autonomous multi-agent networks, and localized enterprise AI factories.</p>
                 </div>
                 <div class="dot"></div>
-                <div style="width: 45%;"></div>
+                <div style="width: 44% !important;"></div>
             </div>
         </div>
     </section>
 
-    <!-- 🎯 SOVEREIGN SYSTEM FOOTER INTERFACE -->
-    <footer style="background: #020617 !important; padding: 60px 8% 30px 8%; border-top: 1px solid rgba(255,255,255,0.04); box-sizing: border-box; position: relative;">
-        <div class="footer-content" style="display: flex; justify-content: space-between; align-items: flex-start; gap: 50px; flex-wrap: wrap; margin-bottom: 40px;">
-            <div class="footer-brand" style="max-width: 450px; flex: 2;">
-                <h2 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1.5rem; font-weight: 700; margin: 0 0 15px 0; letter-spacing: 1px;">VAKRATRON <span style="color: #C2185B; font-size: 0.85rem; letter-spacing: 3px; font-weight: 600; display: block; margin-top: -2px;">SYSTEMS</span></h2>
-                <p style="color: #94a3b8; font-size: 0.95rem; line-height: 1.6; margin: 0 0 25px 0;">Architecting resilient, hyper-secure, and dynamically scaled AI compute frameworks and cloud automation systems for enterprise governance matrices.</p>
-                
-                <div class="social-channels" style="display: flex; gap: 15px; margin-bottom: 25px;">
-                    <a href="https://linkedin.com" target="_blank" style="width: 40px; height: 40px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #0077b5;"><i class="fa-brands fa-linkedin-in"></i></a>
-                    <a href="https://wa.me/919319666864" target="_blank" style="width: 40px; height: 40px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #25d366;"><i class="fa-brands fa-whatsapp"></i></a>
-                    <a href="https://instagram.com" target="_blank" style="width: 40px; height: 40px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #e1306c;"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="https://facebook.com" target="_blank" style="width: 40px; height: 40px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #1877f2;"><i class="fa-brands fa-facebook-f"></i></a>
-                </div>
-                <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.9rem; color: #94a3b8;">
-                    <span><i class="fa-solid fa-phone" style="color: #C2185B; margin-right: 10px;"></i> +91 93196 66864</span>
-                    <span><i class="fa-solid fa-envelope" style="color: #C2185B; margin-right: 10px;"></i> connect@vakratronsys.com</span>
-                </div>
-            </div>
-            
-            <div class="footer-links" style="flex: 1; min-width: 180px; display: flex; flex-direction: column; gap: 12px;">
-                <h4 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1.1rem; margin: 0 0 8px 0; font-weight: 600;">Compliance Matrix</h4>
-                <span style="color: #94a3b8; font-size: 0.9rem;"><i class="fa-solid fa-building" style="color: #C2185B; margin-right: 8px;"></i> LLPIN: AAT-3851</span>
-                <span style="color: #94a3b8; font-size: 0.9rem;"><i class="fa-solid fa-certificate" style="color: #C2185B; margin-right: 8px;"></i> DIPP No: DIPP247647</span>
-                <span style="color: #94a3b8; font-size: 0.9rem;"><i class="fa-solid fa-shield-halved" style="color: #38bdf8; margin-right: 8px;"></i> Data Protection Secure</span>
-            </div>
-            
-            <div class="footer-links" style="flex: 1; min-width: 150px; display: flex; flex-direction: column; gap: 12px;">
-                <h4 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1.1rem; margin: 0 0 8px 0; font-weight: 600;">Structure Links</h4>
-                <a href="index.html" target="v_home" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Home Vector</a>
-                <a href="about.html" target="v_about" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">About Matrix</a>
-                <a href="products.html" target="v_products" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Portfolio Offerings</a>
-                <a href="services.html" target="v_services" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Expertise Matrix</a>
-                <a href="fabric.html" target="v_fabric" style="color: var(--text-secondary); text-decoration: none; font-size: 0.95rem;">Fabric Lab Matrix</a>
-                <a href="credentials.html" target="v_credentials" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Credentials Matrix</a>
-                <a href="contact.html" target="v_contact" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Contact Vector</a>
-            </div>
-        </div>
-        
-        <div style="position: absolute; bottom: 25px; right: 8%; background: rgba(255,255,255,0.05); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #f43f5e; font-size: 1.1rem; cursor: pointer;">
-            <i class="fa-solid fa-file-pdf"></i>
-        </div>
+    <footer></footer>
 
-        <div class="footer-bottom" style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; text-align: center; font-size: 0.85rem; color: #475569;">
-            <p style="margin:0;">&copy; 2026 Vakratron Systems LLP | New Delhi, India. All Rights Reserved.</p>
-        </div>
-    </footer>
-
-    <!-- Roadmap Interaction Script -->
     <script>
-        window.addEventListener('scroll', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('code') || window.location.hash.includes('access_token')) {
+            localStorage.setItem('vakra_auth_token', 'SECURE_NODE_VALIDATED_2026');
+            window.location.href = '/index.html'; 
+        }
+
+        // --- INTERACTIVE CHAT ENGINE FRONTEND ADAPTER ---
+        const trigger = document.getElementById('chatTrigger');
+        const windowEl = document.getElementById('chatWindow');
+        const closeBtn = document.getElementById('chatClose');
+        const sendBtn = document.getElementById('chatSend');
+        const inputEl = document.getElementById('chatInput');
+        const messagesContainer = document.getElementById('chatMessages');
+
+     // Toggle Widget Interface Fix
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation(); // Global layouts ko trace capture karne se roko
+            windowEl.classList.toggle('active');
+            
+            if(windowEl.classList.contains('active')) {
+                windowEl.style.setProperty('display', 'flex', 'important');
+                windowEl.style.setProperty('width', '360px', 'important');
+                inputEl.focus();
+            } else {
+                windowEl.style.setProperty('display', 'none', 'important');
+            }
+        });
+
+        closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            windowEl.classList.remove('active');
+            windowEl.style.setProperty('display', 'none', 'important');
+        });
+
+        // Message Dispatcher Pipeline
+        // Message Dispatcher Pipeline
+        async function dispatchUserPrompt() {
+            const promptValue = inputEl.value.trim();
+            if (!promptValue) return;
+
+            // Render User Bubble
+            appendBubble(promptValue, 'user');
+            inputEl.value = '';
+
+            // Inject Streaming/Typing Matrix Indicator
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'vakra-msg system';
+            typingIndicator.innerHTML = `<div class="vakra-typing"><span></span><span></span><span></span></div>`;
+            messagesContainer.appendChild(typingIndicator);
+            scrollToBottom();
+
+            try {
+                // Secure Fetch Request to local API Gateway Route
+                const apiResponse = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: promptValue })
+                });
+
+                const dataset = await apiResponse.json();
+                typingIndicator.remove(); // Evacuate typing trace
+
+                if (apiResponse.ok && dataset.response) {
+                    appendBubble(dataset.response, 'system');
+
+                    // 🚨 NEXT-LEVEL AUTOMATED FRONTEND TRIGGER START
+                    const lowerMessage = promptValue.toLowerCase();
+                    if (
+                        lowerMessage.includes('connect') || 
+                        lowerMessage.includes('talk to human') || 
+                        lowerMessage.includes('contact team') || 
+                        lowerMessage.includes('representative') || 
+                        lowerMessage.includes('connect someone') ||
+                        lowerMessage.includes('team se connect')
+                    ) {
+                        setTimeout(() => {
+                            appendBubble("⚡ System Action: Redirecting token matrix to the Sovereign Advisory Desk...", 'system');
+                            
+                            // 1.5 Seconds ka delay taaki user bot ka message padh sake, fir auto-redirect
+                            setTimeout(() => {
+                                window.location.href = 'contact.html';
+                            }, 1500);
+                        }, 1000);
+                    }
+                    // 🚨 NEXT-LEVEL AUTOMATED FRONTEND TRIGGER END
+
+                } else {
+                    appendBubble("Execution Defect: Unable to pipeline calculated tokens from LLM core.", 'system');
+                }
+
+            } catch (networkError) {
+                if(typingIndicator) typingIndicator.remove();
+                appendBubble("Network Fault: Endpoint connectivity degraded or blocked.", 'system');
+                console.error("Pipeline Transmission Error:", networkError);
+            }
+        }
+
+        function appendBubble(content, actor) {
+            const bubble = document.createElement('div');
+            bubble.className = `vakra-msg ${actor}`;
+            // safe conversion, replace newlines with line-breaks for formatting comfort
+            bubble.innerHTML = content.replace(/\n/g, '<br>');
+            messagesContainer.appendChild(bubble);
+            scrollToBottom();
+        }
+
+        function scrollToBottom() {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Trigger Listeners Setup
+        sendBtn.addEventListener('click', dispatchUserPrompt);
+        inputEl.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') dispatchUserPrompt();
+        });
+    </script>
+    <script src="/vakra-loader.js"></script>
+
+    <!-- 🌌 SMOOTH DYNAMIC ROADMAP CONTROLLER SCRIPT -->
+    <script>
+        const handleTimelineScroll = () => {
             const pathProgress = document.getElementById('path-progress');
             const roadmapSection = document.getElementById('journey-anchor');
             const milestones = document.querySelectorAll('.milestone');
             
-            if (roadmapSection && pathProgress) {
-                const sectionTop = roadmapSection.offsetTop;
-                const sectionHeight = roadmapSection.offsetHeight;
-                const windowHeight = window.innerHeight;
-                
-                const scrollTriggerPos = window.scrollY - sectionTop + (windowHeight / 2);
-                const progressPercentage = (scrollTriggerPos / sectionHeight) * 100;
-                
-                pathProgress.style.height = Math.min(Math.max(progressPercentage, 0), 100) + '%';
-                
-                milestones.forEach(milestone => {
-                    const milestoneTop = milestone.getBoundingClientRect().top;
-                    if (milestoneTop < windowHeight - 150) {
-                        milestone.classList.add('visible');
-                    }
-                });
-            }
-        });
+            if (!roadmapSection || !pathProgress) return;
+
+            const rect = roadmapSection.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+
+            const triggerPoint = windowHeight / 1.8;
+            const totalHeight = rect.height;
+            const scrolledInsideSection = triggerPoint - rect.top;
+
+            let percentage = (scrolledInsideSection / totalHeight) * 100;
+            percentage = Math.min(Math.max(percentage, 0), 100);
+
+            pathProgress.style.height = percentage + '%';
+
+            milestones.forEach(milestone => {
+                const nodeRect = milestone.getBoundingClientRect();
+                if (nodeRect.top < windowHeight - 160) {
+                    milestone.classList.add('visible');
+                } else {
+                    milestone.classList.remove('visible');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', handleTimelineScroll);
+        window.addEventListener('resize', handleTimelineScroll);
+        document.addEventListener('DOMContentLoaded', handleTimelineScroll);
+        setTimeout(handleTimelineScroll, 250);
     </script>
-
-    <!-- Loader Script -->
-    <script src="/vakra-loader.js"></script>
-
 </body>
 </html>

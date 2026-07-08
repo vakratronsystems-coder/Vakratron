@@ -145,3 +145,45 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(enforceUniformTheme, 50);
     setTimeout(enforceUniformTheme, 200); 
 });
+// 🌐 VAKRATRON LINK ENGINE - FORCED ROUTING RESET FOR CTA BUTTONS
+document.addEventListener("DOMContentLoaded", () => {
+    const fixCtaButtonRouting = () => {
+        // Un saare buttons aur links ko target karo jo schedule ya talk to architect ke hain
+        const ctaButtons = document.querySelectorAll([
+            'a[href="#"]',
+            'a[class*="btn"]',
+            'button[class*="btn"]',
+            'a[href*="schedule"]',
+            'a[href*="talk"]'
+        ].join(','));
+
+        ctaButtons.forEach(btn => {
+            const btnText = (btn.innerText || btn.textContent || "").toLowerCase();
+            
+            // Agar button text mein contact karne ka context hai, toh path lock karo
+            if (
+                btnText.includes('schedule') || 
+                btnText.includes('talk') || 
+                btnText.includes('connect') || 
+                btnText.includes('consultation') ||
+                btnText.includes('review') ||
+                btnText.includes('assess')
+            ) {
+                // Agar tag anchor <a> hai toh direct href change karo, warna click listener lagao
+                if (btn.tagName.toLowerCase() === 'a') {
+                    btn.setAttribute('href', '/contact.html');
+                } else {
+                    btn.onclick = (e) => {
+                        e.preventDefault();
+                        window.location.href = '/contact.html';
+                    };
+                }
+            }
+        });
+        console.log("[VAKRA-LINK-ENGINE]: All architecture consultation paths successfully routed to /contact.html.");
+    };
+
+    // Immediate execution on load phases
+    fixCtaButtonRouting();
+    setTimeout(fixCtaButtonRouting, 100);
+});
