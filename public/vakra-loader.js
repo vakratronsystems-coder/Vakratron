@@ -115,34 +115,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
     console.log('✅ Vakratron Uniform Top Spacing Applied');
 });
-// 🌌 VAKRATRON ADVISORY PLATFORM - ULTIMATE THEME MATRIX SYNC
+// 🌌 VAKRATRON ADVISORY PLATFORM - THEME LOCK WITH ANIMATION SAFETY MATRIX
 document.addEventListener("DOMContentLoaded", () => {
-    const TARGET_THEME_COLOR = "#030d1a"; // Aapka signature slate blue-black tone
+    // 🎨 Hum wahi premium slate blue-black ya jo bhi uniform theme hai use apply karenge
+    const TARGET_THEME_COLOR = "#030d1a"; 
 
     const enforceUniformTheme = () => {
-        // 1. Force override global window elements
+        // 1. Enforce master level window controls safely
         document.documentElement.style.setProperty('background', TARGET_THEME_COLOR, 'important');
         document.documentElement.style.setProperty('background-color', TARGET_THEME_COLOR, 'important');
         document.body.style.setProperty('background', TARGET_THEME_COLOR, 'important');
         document.body.style.setProperty('background-color', TARGET_THEME_COLOR, 'important');
 
-        // 2. Select every structural node capable of breaking the background flow
-        const layoutSelectors = 'section, div, main, footer, header, .hero, .solutions, .roadmap-section, .why-card, .pain-section';
-        const elements = document.querySelectorAll(layoutSelectors);
+        /* 🎯 CRITICAL ANIMATION PROTECTION: 
+           Hum sirf major structural wrappers ka background override karenge.
+           'div' aur nested connectors ko chhedna band, taaki glow aur animations zinda rahein! */
+        const structuralSelectors = 'section, main, footer, .hero, .solutions, .roadmap-section, .pain-section, .services-section';
+        const structuralElements = document.querySelectorAll(structuralSelectors);
 
-        elements.forEach(el => {
-            // Unke purane background elements aur configurations ko completely force delete kijiye
+        structuralElements.forEach(el => {
             el.style.setProperty('background', TARGET_THEME_COLOR, 'important');
             el.style.setProperty('background-color', TARGET_THEME_COLOR, 'important');
             el.style.setProperty('background-image', 'none', 'important');
-            el.style.setProperty('border-color', 'rgba(255, 255, 255, 0.03)', 'important');
         });
-        
-        console.log("[VAKRA-OS]: Global uniform slate theme successfully loaded.");
     };
 
-    // Run execution loops immediately during lifecycle phases
+    // Run execution loops across layout cycles
     enforceUniformTheme();
     setTimeout(enforceUniformTheme, 50);
-    setTimeout(enforceUniformTheme, 200); // Dynamic grids loader buffer protection
+    setTimeout(enforceUniformTheme, 200); 
 });
