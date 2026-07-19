@@ -3,9 +3,8 @@ const path = require('path');
 const fs = require('fs');
 const mongoose = require('mongoose');
 const { SitemapStream, streamToPromise } = require('sitemap');
-const { getAIResponse } = require('../services/aiService');
 
-
+// Environment variables loading configuration mapping one step back to root directory
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config({ path: path.join(__dirname, '../.env') });
 }
@@ -16,7 +15,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// ⚡ 2. EXPLICIT STATIC DIRECTORIES BYPASS (Fixes npm start styling & script break)
+// ⚡ 2. EXPLICIT STATIC DIRECTORIES BYPASS (Fixes styling & script breaks across deep nodes)
 app.use(express.static(path.join(__dirname, '../public')));
 app.use('/images', express.static(path.join(__dirname, '../public/images')));
 app.use('/views/portfolio', express.static(path.join(__dirname, '../views/portfolio')));
@@ -39,105 +38,79 @@ if (process.env.MONGO_URI) {
 }
 
 // ⚡ 3. SITEMAP EXPLICIT BYPASS
-
 app.get('/sitemap.xml', async (req, res) => {
+    try {
+        const smStream = new SitemapStream({
+            hostname: 'https://vakratronsys.com'
+        });
 
-    const smStream = new SitemapStream({
-        hostname: 'https://vakratronsys.com'
-    });
+        const pages = new Set();
 
-    const pages = new Set();
+        function scan(folder) {
+            if (!fs.existsSync(folder)) return;
+            
+            const files = fs.readdirSync(folder);
+            files.forEach(file => {
+                if (file === 'header.html' || file === 'footer.html' || file === '404.html') {
+                    return;
+                }
+            
+                const full = path.join(folder, file);
 
-    function scan(folder) {
-
-        if (!fs.existsSync(folder)) {
-            return;
+                if (fs.statSync(full).isDirectory()) {
+                    scan(full);
+                } else if (file.endsWith('.html')) {
+                    let url = full
+                    .replace(path.join(__dirname, '../views'), '')
+                    .replace(path.join(__dirname, '../public'), '')
+                    .replace(/\\/g, '/');
+                
+                    if (url.endsWith('/index.html')) {
+                        url = url.replace('/index.html', '/');
+                    }
+                    
+                    url = url.replace('.html', '');
+                    
+                    if (url === '/index') {
+                        url = '/';
+                    }
+                    
+                    pages.add(url);
+                }
+            });
         }
-    
-        const files = fs.readdirSync(folder);
-    
-        files.forEach(file => {
 
-            if (
-                file === 'header.html' ||
-                file === 'footer.html' ||
-                file === '404.html'
-            ) {
-                return;
-            }
-        
-            const full = path.join(folder, file);
+        scan(path.join(__dirname, '../views'));
+        scan(path.join(__dirname, '../public'));
 
-            if (fs.statSync(full).isDirectory()) {
-
-                scan(full);
-
-            } else if (file.endsWith('.html')) {
-
-                let url = full
-                .replace(path.join(__dirname, '../views'), '')
-                .replace(path.join(__dirname, '../public'), '')
-                .replace(/\\/g, '/');
-            
-            if (url.endsWith('/index.html')) {
-                url = url.replace('/index.html', '/');
-            }
-            
-            url = url.replace('.html', '');
-            
-            if (url === '/index') {
-                url = '/';
-            }
-            
-            pages.add(url);
-
-            }
-
+        pages.forEach(p => {
+            smStream.write({
+                url: p,
+                lastmod: new Date(),
+                changefreq: p === "/" ? "daily" : "weekly",
+                priority: p === "/" ? 1.0 : 0.8
+            });
         });
 
+        smStream.end();
+        const sitemap = await streamToPromise(smStream);
+        res.header('Content-Type', 'application/xml');
+        res.send(sitemap.toString());
+    } catch (sitemapError) {
+        console.error('❌ Sitemap Stream Fault:', sitemapError.message);
+        res.status(500).send('Sitemap generation error');
     }
-
-    scan(path.join(__dirname,'../views'));
-    scan(path.join(__dirname,'../public'));
-
-    pages.forEach(p=>{
-
-        smStream.write({
-
-            url: p,
-        
-            lastmod: new Date(),
-        
-            changefreq: p === "/" ? "daily" : "weekly",
-        
-            priority: p === "/" ? 1.0 : 0.8
-        
-        });
-
-    });
-
-    smStream.end();
-
-    const sitemap=await streamToPromise(smStream);
-
-    res.header('Content-Type','application/xml');
-
-    res.send(sitemap.toString());
-
 });
 
 app.get('/robots.txt', (req, res) => {
-
     res.type('text/plain');
-
     res.send(`User-agent: *
 Allow: /
 
 Sitemap: https://vakratronsys.com/sitemap.xml`);
-
 });
 
-// ⚡ 4. CONTACT FORM SUBMISSION ENDPOINT (Placed safely above catch-all)
+// ⚡ 4. CONTACT FORM SUBMISSION ENDPOINT
 app.post('/api/contact', async (req, res) => {
     try {
         const { name, email, phone, reason } = req.body;
@@ -153,10 +126,9 @@ app.post('/api/contact', async (req, res) => {
         await newContact.save();
         console.log('✅ Data Cluster Ingestion: Record committed successfully.');
 
-        // Respond to frontend instantly
         res.status(200).json({ success: true });
 
-        // Asynchronous background email dispatch
+        // Asynchronous background email dispatch via Resend
         setImmediate(async () => {
             if (!process.env.RESEND_API_KEY) {
                 console.error('⚠️ Alert Pipeline Aborted: Missing RESEND_API_KEY.');
@@ -206,18 +178,61 @@ app.post('/api/contact', async (req, res) => {
     }
 });
 
-// ⚡ 5. AI INTERACTION GATEWAY
+// ======================================================================
+// ⚡ 5. SOVEREIGN AI INTERACTION GATEWAY (DIAGNOSTIC PIPELINE ACTIVE)
+// ======================================================================
 app.post('/api/chat', async (req, res) => {
     try {
         const { message } = req.body;
+        console.log('📥 INBOUND LEAD CORE TRACE - Received User Token String:', message);
+
         if (!message) {
-            return res.status(400).json({ error: "Missing prompt token." });
+            console.error('⚠️ Input verification failure: Empty query frame.');
+            return res.status(400).json({ error: "Missing prompt token matrix." });
         }
-        const aiResponse = await getAIResponse(message);
-        res.status(200).json({ response: aiResponse });
+
+        console.log('🔑 Token Verification Status - Checking GROQ_API_KEY existence...');
+        if (!process.env.GROQ_API_KEY) {
+            console.error('❌ CONFIGURATION ERROR: process.env.GROQ_API_KEY undefined or null!');
+            return res.status(500).json({ error: "Hardware engine credential layer defect." });
+        }
+
+        const systemDirectives = `You are Vakra-Bot, the premier architecture expert for Vakratron Systems. Enforce strict 16 technical playbooks.`;
+
+        console.log('📡 Dispatching raw network payload frame to external LPU grid nodes...');
+        const groqRawFetch = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                // TARGETING THE ACTIVE RUNTIME INSTANCE MODEL
+                model: 'llama-3.3-70b-versatile', 
+                messages: [
+                    { role: 'system', content: systemDirectives },
+                    { role: 'user', content: message }
+                ],
+                temperature: 0.1,
+                max_tokens: 2048
+            })
+        });
+
+        const rawDataBlock = await groqRawFetch.json();
+        console.log('📬 RESPONSE INGESTION DETECTED - Server Status Code:', groqRawFetch.status);
+
+        if (rawDataBlock.choices && rawDataBlock.choices[0]) {
+            const compiledOutputText = rawDataBlock.choices[0].message.content;
+            console.log('✅ TRANSLATION COMPLETION SECURE: Token layout validated.');
+            return res.status(200).json({ response: compiledOutputText });
+        } else {
+            console.error('❌ RAW DATA BLOCK INGESTION STRUCT DEFECT:', JSON.stringify(rawDataBlock));
+            return res.status(500).json({ error: "External matrix format parsing crash." });
+        }
+
     } catch (error) {
-        console.error('❌ Core Compute Fault:', error.message);
-        res.status(500).json({ error: "Architecture failure" });
+        console.error('💥 SYSTEM EXCEPTION CRASH DUMP IN GATEWAY:', error.stack);
+        return res.status(500).json({ error: "Architecture engine stack trace runtime fault." });
     }
 });
 
@@ -230,9 +245,10 @@ app.get('/footer.html', (req, res) => {
     res.sendFile(path.join(__dirname, '../views/footer.html'));
 });
 
-// ⚡ 7. STRICT ISOLATED CATCH-ALL ROUTER FOR HTML VIEWS
+// ======================================================================
+// ⚡ 7. STRICT ISOLATED CATCH-ALL ROUTER FOR HTML VIEWS & BOT INJECTION
+// ======================================================================
 app.get('*', (req, res, next) => {
-    // SECURITY GUARDRAILS: Agar static assets ya API routes galti se yahan aayein, toh bypass karo
     if (req.path.startsWith('/api/') || (req.path.includes('.') && !req.path.endsWith('.html'))) {
         return next();
     }
@@ -268,12 +284,13 @@ app.get('*', (req, res, next) => {
 
     if (finalResolvedPath && finalResolvedPath.endsWith('.html')) {
         fs.readFile(finalResolvedPath, 'utf8', (err, htmlContent) => {
-            if (err) return res.status(404).send('Page not found');
+            if (err) return res.status(404).send('Resource Matrix Fault: Target Not Found');
 
+            // Global Dynamic Injection Injection on EVERY page inside body closure
             if (htmlContent.includes('</body>')) {
                 const updatedHtml = htmlContent.replace(
                     '</body>', 
-                    '<script src="/vakra-chat.js"></script></body>'
+                    '<!-- Dynamic Sovereign Bot Script Injected -->\n<script src="/vakra-chat.js"></script>\n</body>'
                 );
                 res.setHeader('Content-Type', 'text/html');
                 return res.send(updatedHtml);
