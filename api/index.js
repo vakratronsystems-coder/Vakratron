@@ -2,7 +2,9 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const mongoose = require('mongoose');
+const { SitemapStream, streamToPromise } = require('sitemap');
 const { getAIResponse } = require('../services/aiService');
+
 
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config({ path: path.join(__dirname, '../.env') });
@@ -37,13 +39,102 @@ if (process.env.MONGO_URI) {
 }
 
 // ⚡ 3. SITEMAP EXPLICIT BYPASS
-app.use('/sitemap.xml', (req, res) => {
-    const sitemapPath = path.join(__dirname, '../public/sitemap.xml');
-    if (fs.existsSync(sitemapPath)) {
-        res.header('Content-Type', 'application/xml');
-        return res.sendFile(sitemapPath);
+
+app.get('/sitemap.xml', async (req, res) => {
+
+    const smStream = new SitemapStream({
+        hostname: 'https://vakratronsys.com'
+    });
+
+    const pages = new Set();
+
+    function scan(folder) {
+
+        if (!fs.existsSync(folder)) {
+            return;
+        }
+    
+        const files = fs.readdirSync(folder);
+    
+        files.forEach(file => {
+
+            if (
+                file === 'header.html' ||
+                file === 'footer.html' ||
+                file === '404.html'
+            ) {
+                return;
+            }
+        
+            const full = path.join(folder, file);
+
+            if (fs.statSync(full).isDirectory()) {
+
+                scan(full);
+
+            } else if (file.endsWith('.html')) {
+
+                let url = full
+                .replace(path.join(__dirname, '../views'), '')
+                .replace(path.join(__dirname, '../public'), '')
+                .replace(/\\/g, '/');
+            
+            if (url.endsWith('/index.html')) {
+                url = url.replace('/index.html', '/');
+            }
+            
+            url = url.replace('.html', '');
+            
+            if (url === '/index') {
+                url = '/';
+            }
+            
+            pages.add(url);
+
+            }
+
+        });
+
     }
-    res.status(404).send('Sitemap not found');
+
+    scan(path.join(__dirname,'../views'));
+    scan(path.join(__dirname,'../public'));
+
+    pages.forEach(p=>{
+
+        smStream.write({
+
+            url: p,
+        
+            lastmod: new Date(),
+        
+            changefreq: p === "/" ? "daily" : "weekly",
+        
+            priority: p === "/" ? 1.0 : 0.8
+        
+        });
+
+    });
+
+    smStream.end();
+
+    const sitemap=await streamToPromise(smStream);
+
+    res.header('Content-Type','application/xml');
+
+    res.send(sitemap.toString());
+
+});
+
+app.get('/robots.txt', (req, res) => {
+
+    res.type('text/plain');
+
+    res.send(`User-agent: *
+Allow: /
+
+Sitemap: https://vakratronsys.com/sitemap.xml`);
+
 });
 
 // ⚡ 4. CONTACT FORM SUBMISSION ENDPOINT (Placed safely above catch-all)
