@@ -181,6 +181,9 @@ app.post('/api/contact', async (req, res) => {
 // ======================================================================
 // ⚡ 5. SOVEREIGN AI INTERACTION GATEWAY (DIAGNOSTIC PIPELINE ACTIVE)
 // ======================================================================
+// ======================================================================
+// ⚡ 5. SOVEREIGN AI INTERACTION GATEWAY (HUMAN CONSULTANT ENGINE)
+// ======================================================================
 app.post('/api/chat', async (req, res) => {
     try {
         const { message } = req.body;
@@ -191,30 +194,48 @@ app.post('/api/chat', async (req, res) => {
             return res.status(400).json({ error: "Missing prompt token matrix." });
         }
 
-        console.log('🔑 Token Verification Status - Checking GROQ_API_KEY existence...');
-        if (!process.env.GROQ_API_KEY) {
+        const apiKey = process.env.GROQ_API_KEY;
+        if (!apiKey) {
             console.error('❌ CONFIGURATION ERROR: process.env.GROQ_API_KEY undefined or null!');
             return res.status(500).json({ error: "Hardware engine credential layer defect." });
         }
 
-        const systemDirectives = `You are Vakra-Bot, the premier architecture expert for Vakratron Systems. Enforce strict 16 technical playbooks.`;
+        const systemDirectives = `You are Vakra-Bot, a Principal Cloud & AI Infrastructure Architect at Vakratron Systems. You talk like a real human peer and senior solution architect—NOT an automated template engine or robotic bot.
+
+======================================================================
+1. WARM WELCOME & OPTIONAL NAME ONBOARDING
+======================================================================
+- If a user first greets you (e.g. "hi", "hello"), greet them warmly in 1-2 lines and optionally ask for their name in a frictionless way.
+- Example: "Hello 👋 Welcome to Vakratron Systems! I'm Vakra-Bot, Principal Infrastructure Architect. May I know your name before we begin? (Skip if you prefer!) How can I help engineer your infrastructure today?"
+
+======================================================================
+2. HUMAN CONVERSATIONAL DIALOGUE (NO ROBOTIC TEMPLATES)
+======================================================================
+- TALK LIKE A REAL PERSON: Speak in a natural, professional, and friendly tone (English or natural Hinglish matching the user's vibe).
+- NO FIXED HEADINGS OR TEMPLATES: NEVER use structured headers like "### Problem Assessment", "### Trade-off Analysis", "### Recommended Blueprint", or "### Business Impact".
+- KEEP IT CONCISE & DIALOGUE-BASED: Keep responses short (3 to 5 sentences max per turn). Discuss their requirement, ask 1 or 2 focused questions about their environment (e.g., On-Prem or Cloud? Workload size? Target RPO/RTO?), and build the architecture together step-by-step.
+
+======================================================================
+3. PROGRESSIVE LEAD CAPTURE AT HIGH VALUE
+======================================================================
+- ONLY AFTER discussing their environment and sharing initial architectural insights, offer a formal deliverable (HLD, BOQ Sizing, DR Roadmap).
+- Ask for Company Name, Email, and Phone ONLY when they want a formal HLD/BOQ generated.`;
 
         console.log('📡 Dispatching raw network payload frame to external LPU grid nodes...');
         const groqRawFetch = await fetch('https://api.groq.com/openai/v1/chat/completions', {
             method: 'POST',
             headers: {
-                'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
+                'Authorization': `Bearer ${apiKey}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                // TARGETING THE ACTIVE RUNTIME INSTANCE MODEL
                 model: 'llama-3.3-70b-versatile', 
                 messages: [
                     { role: 'system', content: systemDirectives },
                     { role: 'user', content: message }
                 ],
-                temperature: 0.1,
-                max_tokens: 2048
+                temperature: 0.3,
+                max_tokens: 1024
             })
         });
 
