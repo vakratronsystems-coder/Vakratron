@@ -18,8 +18,8 @@ app.use(express.urlencoded({ extended: true }));
 // ⚡ 2. EXPLICIT STATIC DIRECTORIES BYPASS (Fixes styling & script breaks across deep nodes)
 app.use(express.static(path.join(__dirname, '../public')));
 app.use('/images', express.static(path.join(__dirname, '../public/images')));
-app.use('/views/portfolio', express.static(path.join(__dirname, '../views/portfolio')));
-app.use('/views', express.static(path.join(__dirname, '../views')));
+// app.use('/views/portfolio', express.static(path.join(__dirname, '../views/portfolio')));
+// app.use('/views', express.static(path.join(__dirname, '../views')));
 
 // DATABASE SCHEMA & MODEL SETUP
 const contactSchema = new mongoose.Schema({
@@ -246,7 +246,10 @@ app.get('/footer.html', (req, res) => {
 });
 
 // ======================================================================
-// ⚡ 7. STRICT ISOLATED CATCH-ALL ROUTER FOR HTML VIEWS & BOT INJECTION
+// ⚡ 7. STRICT ISOLATED CATCH-ALL ROUTER FOR HTML VIEWS & BOT INJECTION (CASE INSENSITIVE FIX)
+// ======================================================================
+// ======================================================================
+// ⚡ 7. STRICT ISOLATED CATCH-ALL ROUTER FOR ALL HTML VIEWS & GLOBAL BOT INJECTION
 // ======================================================================
 app.get('*', (req, res, next) => {
     if (req.path.startsWith('/api/') || (req.path.includes('.') && !req.path.endsWith('.html'))) {
@@ -286,23 +289,22 @@ app.get('*', (req, res, next) => {
         fs.readFile(finalResolvedPath, 'utf8', (err, htmlContent) => {
             if (err) return res.status(404).send('Resource Matrix Fault: Target Not Found');
 
-            // Global Dynamic Injection Injection on EVERY page inside body closure
-            if (htmlContent.includes('</body>')) {
-                const updatedHtml = htmlContent.replace(
-                    '</body>', 
-                    '<!-- Dynamic Sovereign Bot Script Injected -->\n<script src="/vakra-chat.js"></script>\n</body>'
-                );
-                res.setHeader('Content-Type', 'text/html');
-                return res.send(updatedHtml);
+            const chatScriptPayload = '\n<!-- Dynamic Sovereign Bot Script Injected Globally -->\n<script src="/vakra-chat.js"></script>\n';
+            let updatedHtml = htmlContent;
+
+            if (/<\/body>/i.test(htmlContent)) {
+                updatedHtml = htmlContent.replace(/(<\/body>)/i, `${chatScriptPayload}$1`);
+            } else {
+                updatedHtml = htmlContent + chatScriptPayload;
             }
+
             res.setHeader('Content-Type', 'text/html');
-            res.send(htmlContent);
+            return res.send(updatedHtml);
         });
     } else {
         next();
     }
 });
-
 // ⚡ 8. DEFAULT 404 ROUTE
 app.use((req, res) => {
     res.status(404).send('Resource Matrix Fault: Target Not Found');
