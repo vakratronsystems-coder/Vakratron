@@ -56,44 +56,51 @@ async function fetchSearchConsoleData() {
 }
 
 async function sendSeoReportEmail(reportText) {
+    console.log('🔍 Checking Email Credentials...');
+    console.log('GMAIL_USER present:', !!process.env.GMAIL_USER);
+    console.log('GMAIL_APP_PASS present:', !!process.env.GMAIL_APP_PASS);
+
     if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASS) {
-        console.log('⚠️ GMAIL_USER ya GMAIL_APP_PASS missing hai .env mein, isiliye email send skip ho raha hai.');
+        console.log('❌ Error: GMAIL_USER ya GMAIL_APP_PASS secrets missing hain!');
         return;
     }
 
-    console.log('📧 Email send ho raha hai...');
+    console.log('📧 Sending email via Nodemailer...');
 
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: process.env.GMAIL_USER,
-            pass: process.env.GMAIL_APP_PASS,
-        },
-    });
+    try {
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.GMAIL_USER,
+                pass: process.env.GMAIL_APP_PASS,
+            },
+        });
 
-    // Formatting report for email (Line breaks to HTML)
-    const formattedHtml = reportText
-        .replace(/\n/g, '<br>')
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        const formattedHtml = reportText
+            .replace(/\n/g, '<br>')
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 
-    const mailOptions = {
-        from: `"Vakratron SEO Agent" <${process.env.GMAIL_USER}>`,
-        to: process.env.GMAIL_USER, // Seedhe aapke email par jayega
-        subject: `📊 Daily SEO Audit Report - Vakratron Systems (${new Date().toLocaleDateString('en-IN')})`,
-        html: `
-            <div style="font-family: Arial, sans-serif; padding: 20px; color: #333; line-height: 1.6;">
-                <h2 style="color: #0d6efd; border-bottom: 2px solid #0d6efd; padding-bottom: 8px;">
-                    🚀 Vakratron Systems - Daily SEO & Growth Report
-                </h2>
-                <div>${formattedHtml}</div>
-                <hr style="margin-top: 30px; border: 0; border-top: 1px solid #ccc;">
-                <p style="font-size: 12px; color: #777;">Automated Daily Audit by Vakratron AI Agent</p>
-            </div>
-        `,
-    };
+        const mailOptions = {
+            from: `"Vakratron SEO Agent" <${process.env.GMAIL_USER}>`,
+            to: process.env.GMAIL_USER,
+            subject: `📊 Daily SEO Audit Report - Vakratron Systems (${new Date().toLocaleDateString('en-IN')})`,
+            html: `
+                <div style="font-family: Arial, sans-serif; padding: 20px; color: #333; line-height: 1.6;">
+                    <h2 style="color: #0d6efd; border-bottom: 2px solid #0d6efd; padding-bottom: 8px;">
+                        🚀 Vakratron Systems - Daily SEO & Growth Report
+                    </h2>
+                    <div>${formattedHtml}</div>
+                    <hr style="margin-top: 30px; border: 0; border-top: 1px solid #ccc;">
+                    <p style="font-size: 12px; color: #777;">Automated Daily Audit by Vakratron AI Agent</p>
+                </div>
+            `,
+        };
 
-    await transporter.sendMail(mailOptions);
-    console.log('✅ Email Successfully Sent! Inbox Check Karein.');
+        const info = await transporter.sendMail(mailOptions);
+        console.log('✅ Email Successfully Sent! Response:', info.response);
+    } catch (err) {
+        console.error('❌ Nodemailer Error:', err.message);
+    }
 }
 
 async function runSeoAudit() {
