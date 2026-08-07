@@ -135,12 +135,12 @@ async function runSeoAudit() {
         console.log(reportContent);
         console.log('==========================================================\n');
 
-        // Email Trigger
+        // Explicitly Await Email Function with Logs
+        console.log('🚀 Triggering Email Step...');
         await sendSeoReportEmail(reportContent);
 
     } catch (error) {
-        console.error('❌ Error during SEO Audit execution:', error);
+        console.error('❌ Critical Error during SEO Audit execution:', error);
     }
 }
-
 runSeoAudit();
