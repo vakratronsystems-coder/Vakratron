@@ -12,7 +12,7 @@
     "express": "^4.19.2",
     "googleapis": "^174.0.1",
     "mongoose": "^8.3.1",
-    "nodemailer": "^9.0.1",
+    "nodemailer": "^9.0.5",
     "openai": "^6.44.0",
     "sitemap": "^9.0.1"
   }

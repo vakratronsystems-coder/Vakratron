@@ -1,5 +1,6 @@
 import { google } from 'googleapis';
 import { GoogleGenAI } from '@google/genai';
+import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 import fs from 'fs';
 
@@ -7,7 +8,7 @@ dotenv.config();
 
 const SITE_URL = 'https://vakratronsys.com/';
 
-// Credentials Loader (Env variable pehle check karega, fir local file fallback)
+// Credentials Loader (Env variable check, then local file fallback)
 function getGscCredentials() {
     if (process.env.GSC_KEY_JSON) {
         try {
@@ -17,13 +18,12 @@ function getGscCredentials() {
         }
     }
     
-    // Fallback: Agar local env mein path / file ho
     const keyFilePath = './gsc-key.json';
     if (fs.existsSync(keyFilePath)) {
         return JSON.parse(fs.readFileSync(keyFilePath, 'utf8'));
     }
 
-    throw new Error('❌ No GSC Credentials found in process.env.GSC_KEY_JSON or gsc-key.json file!');
+    throw new Error('❌ No GSC Credentials found!');
 }
 
 async function fetchSearchConsoleData() {
@@ -37,7 +37,6 @@ async function fetchSearchConsoleData() {
 
     const searchconsole = google.searchconsole({ version: 'v1', auth });
 
-    // Date range calculation (last 7 days data)
     const endDate = new Date();
     endDate.setDate(endDate.getDate() - 2);
     const startDate = new Date();
@@ -56,12 +55,53 @@ async function fetchSearchConsoleData() {
     return res.data.rows || [];
 }
 
+async function sendSeoReportEmail(reportText) {
+    if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASS) {
+        console.log('⚠️ GMAIL_USER ya GMAIL_APP_PASS missing hai .env mein, isiliye email send skip ho raha hai.');
+        return;
+    }
+
+    console.log('📧 Email send ho raha hai...');
+
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.GMAIL_USER,
+            pass: process.env.GMAIL_APP_PASS,
+        },
+    });
+
+    // Formatting report for email (Line breaks to HTML)
+    const formattedHtml = reportText
+        .replace(/\n/g, '<br>')
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+    const mailOptions = {
+        from: `"Vakratron SEO Agent" <${process.env.GMAIL_USER}>`,
+        to: process.env.GMAIL_USER, // Seedhe aapke email par jayega
+        subject: `📊 Daily SEO Audit Report - Vakratron Systems (${new Date().toLocaleDateString('en-IN')})`,
+        html: `
+            <div style="font-family: Arial, sans-serif; padding: 20px; color: #333; line-height: 1.6;">
+                <h2 style="color: #0d6efd; border-bottom: 2px solid #0d6efd; padding-bottom: 8px;">
+                    🚀 Vakratron Systems - Daily SEO & Growth Report
+                </h2>
+                <div>${formattedHtml}</div>
+                <hr style="margin-top: 30px; border: 0; border-top: 1px solid #ccc;">
+                <p style="font-size: 12px; color: #777;">Automated Daily Audit by Vakratron AI Agent</p>
+            </div>
+        `,
+    };
+
+    await transporter.sendMail(mailOptions);
+    console.log('✅ Email Successfully Sent! Inbox Check Karein.');
+}
+
 async function runSeoAudit() {
     try {
         console.log('🔍 Search Console se performance data fetch ho raha hai...');
         const rows = await fetchSearchConsoleData();
 
-        console.log('🤖 Gemini API se Daily Audit & Growth Report generate ho rahi hai...\n');
+        console.log('🤖 Gemini API se Audit Report generate ho rahi hai...\n');
         
         const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
@@ -82,9 +122,14 @@ async function runSeoAudit() {
             contents: prompt,
         });
 
+        const reportContent = response.text;
+
         console.log('================ 📊 DAILY SEO AGENT REPORT ================');
-        console.log(response.text);
-        console.log('==========================================================');
+        console.log(reportContent);
+        console.log('==========================================================\n');
+
+        // Email Trigger
+        await sendSeoReportEmail(reportContent);
 
     } catch (error) {
         console.error('❌ Error during SEO Audit execution:', error);
