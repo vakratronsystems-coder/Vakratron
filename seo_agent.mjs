@@ -1,15 +1,37 @@
 import { google } from 'googleapis';
 import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
+import fs from 'fs';
 
 dotenv.config();
 
 const SITE_URL = 'https://vakratronsys.com/';
-const KEY_FILE_PATH = './gsc-key.json';
+
+// Credentials Loader (Env variable pehle check karega, fir local file fallback)
+function getGscCredentials() {
+    if (process.env.GSC_KEY_JSON) {
+        try {
+            return JSON.parse(process.env.GSC_KEY_JSON);
+        } catch (e) {
+            console.error('❌ Failed to parse GSC_KEY_JSON env variable:', e.message);
+        }
+    }
+    
+    // Fallback: Agar local env mein path / file ho
+    const keyFilePath = './gsc-key.json';
+    if (fs.existsSync(keyFilePath)) {
+        return JSON.parse(fs.readFileSync(keyFilePath, 'utf8'));
+    }
+
+    throw new Error('❌ No GSC Credentials found in process.env.GSC_KEY_JSON or gsc-key.json file!');
+}
 
 async function fetchSearchConsoleData() {
-    const auth = new google.auth.GoogleAuth({
-        keyFile: KEY_FILE_PATH,
+    const keys = getGscCredentials();
+
+    const auth = new google.auth.JWT({
+        email: keys.client_email,
+        key: keys.private_key,
         scopes: ['https://www.googleapis.com/auth/webmasters.readonly'],
     });
 
