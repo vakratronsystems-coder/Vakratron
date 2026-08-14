@@ -108,20 +108,45 @@ async function runSeoAudit() {
         console.log('🔍 Search Console se performance data fetch ho raha hai...');
         const rows = await fetchSearchConsoleData();
 
+        if (!rows || rows.length === 0) {
+            console.log('⚠️ No Search Console data found for the period.');
+            return;
+        }
+
+        // 1. Calculate Summary Metrics from rows
+        const totalClicks = rows.reduce((acc, row) => acc + (row.clicks || 0), 0);
+        const totalImpressions = rows.reduce((acc, row) => acc + (row.impressions || 0), 0);
+        const avgCtr = totalImpressions > 0 ? ((totalClicks / totalImpressions) * 100).toFixed(2) : 0;
+        const avgPosition = (rows.reduce((acc, row) => acc + (row.position || 0), 0) / rows.length).toFixed(1);
+
+        console.log(`📊 Summary: ${totalClicks} Clicks | ${totalImpressions} Impressions | ${avgCtr}% CTR | Avg Pos ${avgPosition}`);
         console.log('🤖 Gemini API se Audit Report generate ho rahi hai...\n');
         
         const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
+        // 2. Updated Dynamic & Context-Aware Prompt
         const prompt = `
         You are an expert Enterprise SEO & Growth Strategist for Vakratron Systems (vakratronsys.com).
         
-        Here is the recent Google Search Console performance data:
+        OVERALL DATA SUMMARY FOR THIS PERIOD:
+        - Total Clicks: ${totalClicks}
+        - Total Impressions: ${totalImpressions}
+        - Average CTR: ${avgCtr}%
+        - Average Position: ${avgPosition}
+        
+        DETAILED GSC ROWS DATA:
         ${JSON.stringify(rows, null, 2)}
         
-        Provide a structured, actionable SEO Audit & Growth Report in simple Hindi/English mixing:
-        1. 🚨 **Health & Technical Audit**: Mention any suspicious/leaked prompt queries, broken flows, or indexation issues.
-        2. 📈 **CTR & Ranking Booster**: Identify queries with high impressions but 0 clicks. Provide EXACT optimized Meta Titles & Meta Descriptions to fix them.
-        3. 🚀 **Content Strategy**: Suggest 1 high-intent technical blog title + short outline that will help rank for these queries.
+        ### STRICT INSTRUCTIONS:
+        1. DO NOT claim "Zero Clicks Across the Board" or say the site gets 0 clicks if Total Clicks (${totalClicks}) > 0.
+        2. Acknowledge the actual clicks (${totalClicks}) and focus on moving positions from Page 2/3 to Page 1.
+        3. Make this daily report dynamic based ONLY on high-priority moving queries from today's dataset.
+        
+        Provide a structured, actionable SEO Audit & Growth Report in clear Hinglish:
+        1. 📊 **Performance Snapshot**: Summarize overall clicks, impressions, CTR (${avgCtr}%), and positions.
+        2. 🚨 **Health & Technical Audit**: Identify genuine anomalies, brand/competitor query misalignments, or intent mismatches.
+        3. 📈 **CTR & Ranking Boosters**: Select 3-4 top potential queries (high impression, low position/CTR) and give optimized Meta Titles & Meta Descriptions.
+        4. 🚀 **Content & Action Plan**: Suggest 1 high-intent technical blog title with a short outline to capture relevant enterprise traffic.
         `;
 
         const response = await ai.models.generateContent({
@@ -143,4 +168,3 @@ async function runSeoAudit() {
         console.error('❌ Critical Error during SEO Audit execution:', error);
     }
 }
-runSeoAudit();

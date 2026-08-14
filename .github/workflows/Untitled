@@ -1,0 +1,29 @@
+name: Daily SEO Agent Audit
+
+on:
+  schedule:
+    # Roz subah 8:00 AM IST par automatically chalega (2:30 AM UTC)
+    - cron: '30 2 * * *'
+  workflow_dispatch: # Direct GitHub dashboard se manually trigger karne ke liye button
+
+jobs:
+  run-seo-audit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/checkout@v4
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Daily SEO Agent Script
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GSC_KEY_JSON: ${{ secrets.GSC_KEY_JSON }}
+        run: node seo_agent.mjs
