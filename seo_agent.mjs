@@ -168,3 +168,4 @@ async function runSeoAudit() {
         console.error('❌ Critical Error during SEO Audit execution:', error);
     }
 }
+runSeoAudit();
