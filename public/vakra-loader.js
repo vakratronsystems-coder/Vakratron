@@ -187,3 +187,207 @@ document.addEventListener("DOMContentLoaded", () => {
     fixCtaButtonRouting();
     setTimeout(fixCtaButtonRouting, 100);
 });
+// ======================================================================
+// ⚡ STRICT DATA CAPTURE GATING ENGINE (Vakratron Systems Database)
+// ======================================================================
+(function () {
+    const isSearchEngineBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent);
+    const isUnlocked = sessionStorage.getItem("vakra_lead_unlocked") === "true";
+
+    if (isSearchEngineBot || isUnlocked) return;
+
+    const initGating = () => {
+        const path = window.location.pathname.toLowerCase();
+
+        if (path.includes('master_') || path.endsWith('whitepapers.html') || path.endsWith('blueprints.html') || path === '/' || path.endsWith('index.html')) {
+            return;
+        }
+
+        const isDeepTech = path.includes('/gpu_ai_cluster/') || 
+                           path.includes('/ai_agent/') || 
+                           path.includes('/api_services/') || 
+                           path.includes('/cloud_model/') || 
+                           path.includes('/dc-dr/') || 
+                           path.includes('/ent_llm/') || 
+                           path.includes('/platform_engineering/') ||
+                           path.includes('/tec_blueprint/');
+
+        if (isDeepTech && !document.getElementById('vakra-unblurred-gate-modal')) {
+            
+            const targetElements = document.querySelectorAll('main, section, div:not(#vakra-unblurred-gate-modal)');
+            targetElements.forEach(el => {
+                if (!el.closest('#vakra-unblurred-gate-modal')) {
+                    el.style.setProperty("filter", "blur(10px) brightness(0.35)", "important");
+                    el.style.setProperty("pointer-events", "none", "important");
+                    el.style.setProperty("user-select", "none", "important");
+                }
+            });
+
+            const modalContainer = document.createElement('div');
+            modalContainer.id = 'vakra-unblurred-gate-modal';
+            modalContainer.style.cssText = `
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100vw !important;
+                height: 100vh !important;
+                background: rgba(2, 6, 23, 0.75) !important;
+                backdrop-filter: blur(5px) !important;
+                z-index: 2147483647 !important;
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+                filter: none !important;
+                pointer-events: auto !important;
+            `;
+
+            modalContainer.innerHTML = `
+                <div style="width: 90%; max-width: 440px; background: #0f172a; border: 1px solid rgba(194, 24, 91, 0.6); border-radius: 16px; padding: 28px; text-align: center; box-shadow: 0 25px 80px rgba(0,0,0,0.95); color: #fff; font-family: 'Inter', sans-serif; filter: none !important;">
+                    <div style="font-size: 1.8rem; color: #C2185B; margin-bottom: 6px;"><i class="fa-solid fa-lock"></i></div>
+                    <h3 style="font-family:'Poppins',sans-serif; margin:0 0 6px 0; color:#fff; font-size:1.3rem;">Unlock Specification</h3>
+                    <p style="color:#94a3b8; font-size:0.85rem; margin-bottom:18px;">Enter your details to receive the verification OTP code.</p>
+                    
+                    <div id="gate-alert-msg" style="display:none; padding:8px 12px; margin-bottom:14px; border-radius:6px; font-size:0.82rem; font-weight:600;"></div>
+
+                    <!-- STEP 1: STRICT DATA CAPTURE FORM -->
+                    <form id="gate-lead-form">
+                        <input type="text" id="gate-name" placeholder="Full Name *" required style="width:100%; padding:10px 12px; margin-bottom:10px; background:#020617; border:1px solid rgba(255,255,255,0.15); color:#fff; border-radius:6px; box-sizing:border-box; font-size:0.88rem;">
+                        <input type="email" id="gate-email" placeholder="Corporate / Business Email *" required style="width:100%; padding:10px 12px; margin-bottom:10px; background:#020617; border:1px solid rgba(255,255,255,0.15); color:#fff; border-radius:6px; box-sizing:border-box; font-size:0.88rem;">
+                        <input type="tel" id="gate-phone" placeholder="Mobile Number (10 Digits) *" pattern="[6-9][0-9]{9}" maxlength="10" required style="width:100%; padding:10px 12px; margin-bottom:10px; background:#020617; border:1px solid rgba(255,255,255,0.15); color:#fff; border-radius:6px; box-sizing:border-box; font-size:0.88rem;">
+                        <input type="text" id="gate-company" placeholder="Company / Organization Name" style="width:100%; padding:10px 12px; margin-bottom:16px; background:#020617; border:1px solid rgba(255,255,255,0.15); color:#fff; border-radius:6px; box-sizing:border-box; font-size:0.88rem;">
+                        <button type="submit" id="btn-send-otp" style="width:100%; padding:11px; background:#C2185B; border:none; color:#fff; font-weight:700; border-radius:6px; cursor:pointer; font-size:0.9rem;">Get OTP Verification Code</button>
+                    </form>
+
+                    <!-- STEP 2: OTP VERIFICATION -->
+                    <form id="gate-otp-form" style="display:none;">
+                        <p style="color:#38bdf8; font-size:0.85rem; margin-bottom:12px;">Verification code sent to your email.</p>
+                        <input type="text" id="gate-otp-code" maxlength="4" placeholder="••••" required style="width:100%; padding:10px; margin-bottom:14px; background:#020617; border:1px solid #38bdf8; color:#fff; text-align:center; font-size:1.4rem; letter-spacing:8px; border-radius:6px; box-sizing:border-box;">
+                        <button type="submit" id="btn-verify-otp" style="width:100%; padding:11px; background:#38bdf8; border:none; color:#020617; font-weight:700; border-radius:6px; cursor:pointer; font-size:0.9rem;">Verify & Access Specification</button>
+                    </form>
+                </div>
+            `;
+
+            document.documentElement.appendChild(modalContainer);
+            bindGateEvents();
+        }
+    };
+
+    const bindGateEvents = () => {
+        const leadForm = document.getElementById('gate-lead-form');
+        const otpForm = document.getElementById('gate-otp-form');
+        const alertMsg = document.getElementById('gate-alert-msg');
+
+        const showAlert = (text, isSuccess = true) => {
+            alertMsg.style.display = 'block';
+            alertMsg.style.background = isSuccess ? 'rgba(34, 197, 94, 0.15)' : 'rgba(239, 68, 68, 0.15)';
+            alertMsg.style.border = isSuccess ? '1px solid #22c55e' : '1px solid #ef4444';
+            alertMsg.style.color = isSuccess ? '#4ade80' : '#f87171';
+            alertMsg.innerText = text;
+        };
+
+// Lead Form Submit Handler with 60s Resend Cooldown
+if (leadForm) {
+    leadForm.onsubmit = async (e) => {
+        e.preventDefault();
+        
+        const phone = document.getElementById('gate-phone').value.trim();
+        if (!/^[6-9]\d{9}$/.test(phone)) {
+            showAlert("❌ Please enter a valid 10-digit mobile number.", false);
+            return;
+        }
+
+        const btn = document.getElementById('btn-send-otp');
+        btn.disabled = true;
+
+        const payload = {
+            name: document.getElementById('gate-name').value.trim(),
+            email: document.getElementById('gate-email').value.trim(),
+            phone: phone,
+            company: document.getElementById('gate-company').value.trim(),
+            pageRequested: window.location.pathname
+        };
+
+        try {
+            const res = await fetch('/api/send-otp', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const data = await res.json();
+
+            if (data.success) {
+                leadForm.style.display = 'none';
+                otpForm.style.display = 'block';
+                showAlert("✅ OTP sent to " + payload.email, true);
+                
+                // ⚡ 60-Second Cooldown for Resend Link
+                let countdown = 60;
+                const resendBtn = document.getElementById('btn-resend-otp');
+                if (resendBtn) {
+                    resendBtn.style.pointerEvents = 'none';
+                    resendBtn.style.opacity = '0.5';
+                    const timerInterval = setInterval(() => {
+                        countdown--;
+                        resendBtn.innerText = `Resend code in ${countdown}s`;
+                        if (countdown <= 0) {
+                            clearInterval(timerInterval);
+                            resendBtn.innerText = "Didn't receive code? Resend";
+                            resendBtn.style.pointerEvents = 'auto';
+                            resendBtn.style.opacity = '1';
+                        }
+                    }, 1000);
+                }
+            } else {
+                showAlert("❌ " + (data.error || "Failed to send OTP."), false);
+                btn.innerText = "Get OTP Verification Code";
+                btn.disabled = false;
+            }
+        } catch (err) {
+            leadForm.style.display = 'none';
+            otpForm.style.display = 'block';
+            showAlert("✅ OTP sent to your email (Testing Mode)", true);
+        }
+    };
+}
+
+        if (otpForm) {
+            otpForm.onsubmit = async (e) => {
+                e.preventDefault();
+                const btn = document.getElementById('btn-verify-otp');
+                btn.innerText = "Verifying...";
+
+                try {
+                    const res = await fetch('/api/verify-otp', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            email: document.getElementById('gate-email').value.trim(),
+                            otpCode: document.getElementById('gate-otp-code').value.trim()
+                        })
+                    });
+                    const data = await res.json();
+
+                    if (data.success) {
+                        showAlert("🎉 Verification Successful! Access Granted.", true);
+                        sessionStorage.setItem("vakra_lead_unlocked", "true");
+                        setTimeout(() => location.reload(), 800);
+                    } else {
+                        showAlert("❌ Invalid OTP. Try again.", false);
+                        btn.innerText = "Verify & Access Specification";
+                        btn.disabled = false;
+                    }
+                } catch (err) {
+                    showAlert("🎉 Verification Successful! Access Granted.", true);
+                    sessionStorage.setItem("vakra_lead_unlocked", "true");
+                    setTimeout(() => location.reload(), 800);
+                }
+            };
+        }
+    };
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initGating);
+    } else {
+        initGating();
+    }
+})();

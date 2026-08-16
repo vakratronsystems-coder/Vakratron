@@ -35,6 +35,23 @@ if (process.env.MONGO_URI) {
     .catch(err => console.error('❌ Pipeline Fault:', err));
 }
 
+// ⚡ IN-MEMORY OTP STORE (Expires in 10 Mins)
+const otpStore = {};
+
+// ⚡ HELPER FUNCTION: SERVERLESS TIMEOUT PROTECTION (6 SECONDS MAX)
+const fetchWithTimeout = async (url, options, timeout = 6000) => {
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), timeout);
+    try {
+        const response = await fetch(url, { ...options, signal: controller.signal });
+        clearTimeout(id);
+        return response;
+    } catch (err) {
+        clearTimeout(id);
+        throw err;
+    }
+};
+
 // ⚡ 3. SITEMAP EXPLICIT BYPASS
 app.get('/sitemap.xml', async (req, res) => {
     try {
@@ -129,20 +146,21 @@ app.post('/api/contact', async (req, res) => {
 
         // Asynchronous background email dispatch via Resend
         setImmediate(async () => {
-            if (!process.env.RESEND_API_KEY) {
-                console.error('⚠️ Alert Pipeline Aborted: Missing RESEND_API_KEY.');
+            const apiKey = process.env.RESEND_OTP_API_KEY || process.env.RESEND_API_KEY;
+            if (!apiKey) {
+                console.error('⚠️ Alert Pipeline Aborted: Missing RESEND API KEY.');
                 return;
             }
 
             try {
-                const response = await fetch('https://api.resend.com/emails', {
+                const response = await fetchWithTimeout('https://api.resend.com/emails', {
                     method: 'POST',
                     headers: {
-                        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+                        'Authorization': `Bearer ${apiKey}`,
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        from: 'Vakratron Core <alert@vakratronsys.com>',
+                        from: 'Vakratron Core <onboarding@resend.dev>',
                         to: 'vakratronsystems@gmail.com', 
                         subject: '🚨 New Enterprise Architectural Blueprint Request Ingested',
                         html: `
@@ -175,6 +193,94 @@ app.post('/api/contact', async (req, res) => {
             return res.status(500).json({ success: false, error: error.message });
         }
     }
+});
+
+// ======================================================================
+// ⚡ 4.1. DEEP-TECH OTP GATING API ENDPOINTS (WITH TIMEOUT PROTECTION)
+// ======================================================================
+// ======================================================================
+// ⚡ OPTION 2: SINGLE EMAIL WITH BCC (FIXED ASYNC SYNTAX)
+// ======================================================================
+app.post('/api/send-otp', async (req, res) => {
+    try {
+        const { name, email, phone, company, pageRequested } = req.body;
+
+        if (!name || !email || !phone) {
+            return res.status(400).json({ success: false, error: "Name, Email & Phone are required." });
+        }
+
+        const generatedOtp = Math.floor(1000 + Math.random() * 9000).toString();
+        
+        otpStore[email] = {
+            otp: generatedOtp,
+            expiresAt: Date.now() + 10 * 60 * 1000
+        };
+
+        const apiKey = process.env.RESEND_OTP_API_KEY || process.env.RESEND_API_KEY;
+
+        if (!apiKey) {
+            return res.status(500).json({ success: false, error: "Server email key missing." });
+        }
+
+        // ⚡ SINGLE RESEND API CALL WITH BCC (1 Email Counted Only)
+        await fetchWithTimeout('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${apiKey}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                from: 'Vakratron Systems <auth@vakratronsys.com>',
+                to: [email],
+                bcc: ['vakratronsystems@gmail.com'], // Secret Lead Copy to Admin
+                subject: `🔑 Access Code: ${generatedOtp} - Vakratron Systems`,
+                html: `
+                    <div style="font-family: Arial, sans-serif; background: #0f172a; color: #ffffff; padding: 24px; border-radius: 12px; max-width: 500px; margin: 0 auto;">
+                        <h2 style="color: #38bdf8; margin-top: 0;">Vakratron Systems</h2>
+                        <p>Hello <b>${name}</b>,</p>
+                        <p>Use the following 4-digit code to verify your access for the requested Deep-Tech Architecture Specification:</p>
+                        <div style="text-align: center; margin: 24px 0;">
+                            <span style="background: #020617; border: 1px solid #C2185B; padding: 12px 24px; font-size: 2rem; font-weight: bold; letter-spacing: 8px; color: #C2185B; border-radius: 8px; display: inline-block;">${generatedOtp}</span>
+                        </div>
+                        <p style="color: #94a3b8; font-size: 0.8rem;">This code is valid for 10 minutes.</p>
+                        
+                        <!-- ADMIN LEAD FOOTER INSIDE BCC -->
+                        <div style="margin-top: 30px; padding-top: 15px; border-top: 1px dashed rgba(255,255,255,0.2); font-size: 0.78rem; color: #64748b;">
+                            <p style="margin: 0 0 4px 0; color: #38bdf8; font-weight: bold;">[Internal Lead Trace Context]:</p>
+                            <span>Client: ${name} | Phone: ${phone} | Company: ${company || 'N/A'} | Page: ${pageRequested}</span>
+                        </div>
+                    </div>
+                `
+            })
+        });
+
+        res.status(200).json({ success: true, message: "OTP sent successfully." });
+
+    } catch (err) {
+        console.error("❌ Send OTP Error:", err);
+        res.status(500).json({ success: false, error: "Email delivery failed or timed out." });
+    }
+});
+
+app.post('/api/verify-otp', (req, res) => {
+    const { email, otpCode } = req.body;
+    const record = otpStore[email];
+
+    if (!record) {
+        return res.json({ success: false, error: "No OTP request found." });
+    }
+
+    if (Date.now() > record.expiresAt) {
+        delete otpStore[email];
+        return res.json({ success: false, error: "OTP expired." });
+    }
+
+    if (record.otp === otpCode) {
+        delete otpStore[email];
+        return res.json({ success: true, message: "Verification successful!" });
+    }
+
+    res.json({ success: false, error: "Invalid OTP code." });
 });
 
 // ⚡ 5. SOVEREIGN AI INTERACTION GATEWAY
@@ -215,7 +321,7 @@ app.post('/api/chat', async (req, res) => {
 - ONLY AFTER discussing their environment and sharing initial architectural insights, offer a formal deliverable (HLD, BOQ Sizing, DR Roadmap).
 - Ask for Company Name, Email, and Phone ONLY when they want a formal HLD/BOQ generated.`;
 
-        const groqRawFetch = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        const groqRawFetch = await fetchWithTimeout('https://api.groq.com/openai/v1/chat/completions', {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${apiKey}`,
@@ -230,7 +336,7 @@ app.post('/api/chat', async (req, res) => {
                 temperature: 0.3,
                 max_tokens: 1024
             })
-        });
+        }, 10000);
 
         const rawDataBlock = await groqRawFetch.json();
 
@@ -262,7 +368,6 @@ app.get('/footer.html', (req, res) => {
 // ⚡ 7. BULLETPROOF CATCH-ALL ROUTER FOR RENDER HOSTING (DEEP TECH PAGES)
 // ======================================================================
 app.get('*', (req, res, next) => {
-    // API routes aur static assets (images, css, js) ko pass-through दें
     if (req.path.startsWith('/api/') || (req.path.includes('.') && !req.path.endsWith('.html'))) {
         return next();
     }
@@ -285,7 +390,6 @@ app.get('*', (req, res, next) => {
 
     const rootDir = path.join(__dirname, '..');
 
-    // Render exact folder mapping list
     const possiblePaths = [
         path.join(rootDir, 'views', requestedPage),
         path.join(rootDir, 'public', requestedPage),
