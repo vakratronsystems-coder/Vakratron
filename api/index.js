@@ -11,15 +11,13 @@ if (process.env.NODE_ENV !== 'production') {
 
 const app = express();
 
-// ⚡ 1. GLOBAL PAYLOAD PARSERS (ALWAYS AT THE ABSOLUTE TOP)
+// ⚡ 1. GLOBAL PAYLOAD PARSERS
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// ⚡ 2. EXPLICIT STATIC DIRECTORIES BYPASS (Fixes styling & script breaks across deep nodes)
+// ⚡ 2. EXPLICIT STATIC DIRECTORIES BYPASS
 app.use(express.static(path.join(__dirname, '../public')));
 app.use('/images', express.static(path.join(__dirname, '../public/images')));
-// app.use('/views/portfolio', express.static(path.join(__dirname, '../views/portfolio')));
-// app.use('/views', express.static(path.join(__dirname, '../views')));
 
 // DATABASE SCHEMA & MODEL SETUP
 const contactSchema = new mongoose.Schema({
@@ -45,6 +43,7 @@ app.get('/sitemap.xml', async (req, res) => {
         });
 
         const pages = new Set();
+        const baseDir = process.env.VERCEL ? process.cwd() : path.join(__dirname, '..');
 
         function scan(folder) {
             if (!fs.existsSync(folder)) return;
@@ -61,8 +60,8 @@ app.get('/sitemap.xml', async (req, res) => {
                     scan(full);
                 } else if (file.endsWith('.html')) {
                     let url = full
-                    .replace(path.join(__dirname, '../views'), '')
-                    .replace(path.join(__dirname, '../public'), '')
+                    .replace(path.join(baseDir, 'views'), '')
+                    .replace(path.join(baseDir, 'public'), '')
                     .replace(/\\/g, '/');
                 
                     if (url.endsWith('/index.html')) {
@@ -80,8 +79,8 @@ app.get('/sitemap.xml', async (req, res) => {
             });
         }
 
-        scan(path.join(__dirname, '../views'));
-        scan(path.join(__dirname, '../public'));
+        scan(path.join(baseDir, 'views'));
+        scan(path.join(baseDir, 'public'));
 
         pages.forEach(p => {
             smStream.write({
@@ -178,12 +177,7 @@ app.post('/api/contact', async (req, res) => {
     }
 });
 
-// ======================================================================
-// ⚡ 5. SOVEREIGN AI INTERACTION GATEWAY (DIAGNOSTIC PIPELINE ACTIVE)
-// ======================================================================
-// ======================================================================
-// ⚡ 5. SOVEREIGN AI INTERACTION GATEWAY (HUMAN CONSULTANT ENGINE)
-// ======================================================================
+// ⚡ 5. SOVEREIGN AI INTERACTION GATEWAY
 app.post('/api/chat', async (req, res) => {
     try {
         const { message } = req.body;
@@ -221,7 +215,6 @@ app.post('/api/chat', async (req, res) => {
 - ONLY AFTER discussing their environment and sharing initial architectural insights, offer a formal deliverable (HLD, BOQ Sizing, DR Roadmap).
 - Ask for Company Name, Email, and Phone ONLY when they want a formal HLD/BOQ generated.`;
 
-        console.log('📡 Dispatching raw network payload frame to external LPU grid nodes...');
         const groqRawFetch = await fetch('https://api.groq.com/openai/v1/chat/completions', {
             method: 'POST',
             headers: {
@@ -240,14 +233,11 @@ app.post('/api/chat', async (req, res) => {
         });
 
         const rawDataBlock = await groqRawFetch.json();
-        console.log('📬 RESPONSE INGESTION DETECTED - Server Status Code:', groqRawFetch.status);
 
         if (rawDataBlock.choices && rawDataBlock.choices[0]) {
             const compiledOutputText = rawDataBlock.choices[0].message.content;
-            console.log('✅ TRANSLATION COMPLETION SECURE: Token layout validated.');
             return res.status(200).json({ response: compiledOutputText });
         } else {
-            console.error('❌ RAW DATA BLOCK INGESTION STRUCT DEFECT:', JSON.stringify(rawDataBlock));
             return res.status(500).json({ error: "External matrix format parsing crash." });
         }
 
@@ -259,32 +249,32 @@ app.post('/api/chat', async (req, res) => {
 
 // ⚡ 6. EXPLICIT NAVIGATION COMPONENTS
 app.get('/header.html', (req, res) => {
-    res.sendFile(path.join(__dirname, '../views/header.html'));
+    const baseDir = process.env.VERCEL ? process.cwd() : path.join(__dirname, '..');
+    res.sendFile(path.join(baseDir, 'views/header.html'));
 });
 
 app.get('/footer.html', (req, res) => {
-    res.sendFile(path.join(__dirname, '../views/footer.html'));
+    const baseDir = process.env.VERCEL ? process.cwd() : path.join(__dirname, '..');
+    res.sendFile(path.join(baseDir, 'views/footer.html'));
 });
 
 // ======================================================================
-// ⚡ 7. STRICT ISOLATED CATCH-ALL ROUTER FOR HTML VIEWS & BOT INJECTION (CASE INSENSITIVE FIX)
-// ======================================================================
-// ======================================================================
-// ⚡ 7. STRICT ISOLATED CATCH-ALL ROUTER FOR ALL HTML VIEWS & GLOBAL BOT INJECTION
+// ⚡ 7. BULLETPROOF CATCH-ALL ROUTER FOR RENDER HOSTING (DEEP TECH PAGES)
 // ======================================================================
 app.get('*', (req, res, next) => {
+    // API routes aur static assets (images, css, js) ko pass-through दें
     if (req.path.startsWith('/api/') || (req.path.includes('.') && !req.path.endsWith('.html'))) {
         return next();
     }
 
-    let requestedPage = req.params[0] ? req.params[0].replace(/^\//, '') : '';
+    let requestedPage = req.path.replace(/^\//, '');
 
     if (!requestedPage || requestedPage === '/') {
         requestedPage = 'index.html';
     }
 
     if (requestedPage.startsWith('views/')) {
-        requestedPage = requestedPage.replace('views/', '');
+        requestedPage = requestedPage.replace(/^views\//, '');
     }
 
     if (requestedPage.endsWith('/')) {
@@ -293,20 +283,27 @@ app.get('*', (req, res, next) => {
         requestedPage += '.html';
     }
 
-    const portfolioCheck = path.join(__dirname, '../views/portfolio', requestedPage);
-    const viewsPath = path.join(__dirname, '../views', requestedPage);
-    const publicPath = path.join(__dirname, '../public', requestedPage);
+    const rootDir = path.join(__dirname, '..');
+
+    // Render exact folder mapping list
+    const possiblePaths = [
+        path.join(rootDir, 'views', requestedPage),
+        path.join(rootDir, 'public', requestedPage),
+        path.join(rootDir, 'views/portfolio', requestedPage),
+        path.join(rootDir, 'views/solutions', requestedPage),
+        path.join(rootDir, 'views/solution_arch', requestedPage),
+        path.join(rootDir, 'views/tec_blueprint', requestedPage)
+    ];
 
     let finalResolvedPath = null;
-    if (fs.existsSync(portfolioCheck)) {
-        finalResolvedPath = portfolioCheck;
-    } else if (fs.existsSync(viewsPath)) {
-        finalResolvedPath = viewsPath;
-    } else if (fs.existsSync(publicPath)) {
-        finalResolvedPath = publicPath;
+    for (const p of possiblePaths) {
+        if (fs.existsSync(p) && fs.statSync(p).isFile()) {
+            finalResolvedPath = p;
+            break;
+        }
     }
 
-    if (finalResolvedPath && finalResolvedPath.endsWith('.html')) {
+    if (finalResolvedPath) {
         fs.readFile(finalResolvedPath, 'utf8', (err, htmlContent) => {
             if (err) return res.status(404).send('Resource Matrix Fault: Target Not Found');
 
@@ -325,10 +322,6 @@ app.get('*', (req, res, next) => {
     } else {
         next();
     }
-});
-// ⚡ 8. DEFAULT 404 ROUTE
-app.use((req, res) => {
-    res.status(404).send('Resource Matrix Fault: Target Not Found');
 });
 
 // Port Initialization
