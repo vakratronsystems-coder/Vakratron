@@ -3,6 +3,70 @@ const path = require('path');
 const fs = require('fs');
 const mongoose = require('mongoose');
 const { SitemapStream, streamToPromise } = require('sitemap');
+const rateLimit = require('express-rate-limit');
+
+// ======================================================================
+// 🛡️ SECURITY & PRE-VALIDATION UTILITIES
+// ======================================================================
+
+// 1. IP Rate Limiter (Max 3 OTP requests per 15 minutes per IP)
+const otpLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, 
+    max: 3, 
+    message: { success: false, error: "Too many requests from this IP. Please try again after 15 minutes." },
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
+// FLEXIBLE GLOBAL PHONE VALIDATOR (NO LEADS BLOCKED)
+function isValidGlobalMobile(phone) {
+    if (!phone) return false;
+    const cleanPhone = phone.replace(/\D/g, ''); // Extract numbers only
+
+    // Global E.164 standard: Minimum 7 digits (small countries) to 15 digits (int'l with country code)
+    if (cleanPhone.length < 7 || cleanPhone.length > 15) return false;
+
+    // Reject ONLY obvious dummy spam (e.g. 0000000000 or 1111111111)
+    if (/^(\d)\1+$/.test(cleanPhone)) return false;
+
+    return true;
+}
+
+// 3. Human Name Check (Blocks Keyboard Smash like "Uoiowwd Mhlaurvgl")
+function isValidHumanName(name) {
+    if (!name || name.trim().length < 3) return false;
+    const cleanName = name.trim();
+    if (!/^[a-zA-Z\s]+$/.test(cleanName)) return false;
+    const gibberishRegex = /[bcdfghjklmnpqrstvwxyz]{5,}/i;
+    if (gibberishRegex.test(cleanName)) return false;
+    return true;
+}
+
+// 4. Strict Business / Corporate Email Validator (Blocks Gmail, Yahoo, Hotmail, etc.)
+function isValidEmailStrict(email) {
+    if (!email || !email.includes('@')) return false;
+    const [localPart, domain] = email.toLowerCase().split('@');
+
+    // Block Free Public Email Domains Completely
+    const publicDomains = [
+        'gmail.com', 'yahoo.com', 'yahoo.co.in', 'hotmail.com', 
+        'outlook.com', 'icloud.com', 'aol.com', 'zoho.com', 'rediffmail.com'
+    ];
+    if (publicDomains.includes(domain)) return false;
+
+    // Block Disposable / Temp Domains
+    const disposableDomains = [
+        'tempmail.com', '10minutemail.com', 'guerrillamail.com', 
+        'mailinator.com', 'yopmail.com', 'trashmail.com'
+    ];
+    if (disposableDomains.includes(domain)) return false;
+
+    // Block Dot-Spam in local address
+    const dotCount = (localPart.match(/\./g) || []).length;
+    if (dotCount > 3) return false;
+
+    return true;
+}
 
 // Environment variables loading configuration mapping one step back to root directory
 if (process.env.NODE_ENV !== 'production') {
@@ -55,42 +119,23 @@ const fetchWithTimeout = async (url, options, timeout = 6000) => {
 // ⚡ 3. SITEMAP EXPLICIT BYPASS
 app.get('/sitemap.xml', async (req, res) => {
     try {
-        const smStream = new SitemapStream({
-            hostname: 'https://vakratronsys.com'
-        });
-
+        const smStream = new SitemapStream({ hostname: 'https://vakratronsys.com' });
         const pages = new Set();
         const baseDir = process.env.VERCEL ? process.cwd() : path.join(__dirname, '..');
 
         function scan(folder) {
             if (!fs.existsSync(folder)) return;
-            
             const files = fs.readdirSync(folder);
             files.forEach(file => {
-                if (file === 'header.html' || file === 'footer.html' || file === '404.html') {
-                    return;
-                }
-            
+                if (file === 'header.html' || file === 'footer.html' || file === '404.html') return;
                 const full = path.join(folder, file);
-
                 if (fs.statSync(full).isDirectory()) {
                     scan(full);
                 } else if (file.endsWith('.html')) {
-                    let url = full
-                    .replace(path.join(baseDir, 'views'), '')
-                    .replace(path.join(baseDir, 'public'), '')
-                    .replace(/\\/g, '/');
-                
-                    if (url.endsWith('/index.html')) {
-                        url = url.replace('/index.html', '/');
-                    }
-                    
+                    let url = full.replace(path.join(baseDir, 'views'), '').replace(path.join(baseDir, 'public'), '').replace(/\\/g, '/');
+                    if (url.endsWith('/index.html')) url = url.replace('/index.html', '/');
                     url = url.replace('.html', '');
-                    
-                    if (url === '/index') {
-                        url = '/';
-                    }
-                    
+                    if (url === '/index') url = '/';
                     pages.add(url);
                 }
             });
@@ -120,45 +165,56 @@ app.get('/sitemap.xml', async (req, res) => {
 
 app.get('/robots.txt', (req, res) => {
     res.type('text/plain');
-    res.send(`User-agent: *
-Allow: /
-
-Sitemap: https://vakratronsys.com/sitemap.xml`);
+    res.send(`User-agent: *\nAllow: /\n\nSitemap: https://vakratronsys.com/sitemap.xml`);
 });
 
-// ⚡ 4. CONTACT FORM SUBMISSION ENDPOINT
+// ⚡ 4. CONTACT FORM SUBMISSION ENDPOINT (WITH GLOBAL VALIDATION & SHEET SYNC)
 app.post('/api/contact', async (req, res) => {
     try {
         const { name, email, phone, reason } = req.body;
         
-        if (!name || !email) {
-            console.error('⚠️ Empty cluster data block rejected.');
-            return res.status(400).json({ success: false, error: "Payload token defect" });
+        if (!isValidHumanName(name)) {
+            return res.status(400).json({ success: false, error: "Please enter a valid full name." });
+        }
+        if (!isValidGlobalMobile(phone)) {
+            return res.status(400).json({ success: false, error: "Please enter a valid phone number with country code." });
+        }
+        if (!isValidEmailStrict(email)) {
+            return res.status(400).json({ success: false, error: "Personal emails are not allowed. Please enter your Corporate Email." });
         }
 
         console.log('📥 Processing Request Matrix for Client:', name);
 
         const newContact = new Contact({ name, email, phone, reason });
         await newContact.save();
-        console.log('✅ Data Cluster Ingestion: Record committed successfully.');
+
+        // 📊 SILENT BACKGROUND PUSH TO GOOGLE SHEET
+        const sheetWebhook = process.env.GOOGLE_SHEET_WEBHOOK_URL;
+        if (sheetWebhook) {
+            fetchWithTimeout(sheetWebhook, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    name: name, 
+                    email: email, 
+                    phone: phone, 
+                    company: 'Direct Contact Form', 
+                    pageRequested: reason || 'Contact Us Page' 
+                })
+            }).catch(err => console.error("⚠️ [Contact Sheet Error]:", err.message));
+        }
 
         res.status(200).json({ success: true });
 
-        // Asynchronous background email dispatch via Resend
+        // Email Dispatch
         setImmediate(async () => {
             const apiKey = process.env.RESEND_OTP_API_KEY || process.env.RESEND_API_KEY;
-            if (!apiKey) {
-                console.error('⚠️ Alert Pipeline Aborted: Missing RESEND API KEY.');
-                return;
-            }
+            if (!apiKey) return;
 
             try {
-                const response = await fetchWithTimeout('https://api.resend.com/emails', {
+                await fetchWithTimeout('https://api.resend.com/emails', {
                     method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${apiKey}`,
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         from: 'Vakratron Core <onboarding@resend.dev>',
                         to: 'vakratronsystems@gmail.com', 
@@ -175,13 +231,6 @@ app.post('/api/contact', async (req, res) => {
                         `
                     })
                 });
-
-                const data = await response.json();
-                if (response.ok) {
-                    console.log('📬 Resend API Pipeline: Notification dispatched. ID:', data.id);
-                } else {
-                    console.error('⚠️ Resend API Ingestion Rejection:', data);
-                }
             } catch (mailError) {
                 console.error('❌ Resend HTTP Network Fault:', mailError.message);
             }
@@ -196,43 +245,70 @@ app.post('/api/contact', async (req, res) => {
 });
 
 // ======================================================================
-// ⚡ 4.1. DEEP-TECH OTP GATING API ENDPOINTS (WITH TIMEOUT PROTECTION)
+// ⚡ 4.1. DEEP-TECH OTP GATING API ENDPOINTS (WITH TIMEOUT & SPAM PROTECTION)
 // ======================================================================
-// ======================================================================
-// ⚡ OPTION 2: SINGLE EMAIL WITH BCC (FIXED ASYNC SYNTAX)
-// ======================================================================
-app.post('/api/send-otp', async (req, res) => {
+
+// ⚡ OPTION 2: SINGLE EMAIL WITH BCC (STRICT ALL-FIELD VALIDATION)
+app.post('/api/send-otp', otpLimiter, async (req, res) => {
     try {
         const { name, email, phone, company, pageRequested } = req.body;
 
-        if (!name || !email || !phone) {
-            return res.status(400).json({ success: false, error: "Name, Email & Phone are required." });
+        // 🛡️ A. STRICT PRE-VALIDATION (हर एक फील्ड अनिवार्य है)
+        if (!isValidHumanName(name)) {
+            return res.status(400).json({ success: false, error: "Please enter a valid full name." });
+        }
+
+        if (!isValidEmailStrict(email)) {
+            return res.status(400).json({ 
+                success: false, 
+                error: "Personal emails (Gmail, Yahoo, etc.) are not allowed. Please enter your official Corporate / Business Email." 
+            });
+        }
+
+        if (!isValidGlobalMobile(phone)) {
+            return res.status(400).json({ 
+                success: false, 
+                error: "Please enter a valid phone number with country code (e.g. +91 9876543210)." 
+            });
         }
 
         const generatedOtp = Math.floor(1000 + Math.random() * 9000).toString();
         
         otpStore[email] = {
             otp: generatedOtp,
+            name: name,
+            phone: phone,
+            company: company,
+            pageRequested: pageRequested,
             expiresAt: Date.now() + 10 * 60 * 1000
         };
 
-        const apiKey = process.env.RESEND_OTP_API_KEY || process.env.RESEND_API_KEY;
+        // 📊 B. SILENT BACKGROUND PUSH TO GOOGLE SHEET
+        const sheetWebhook = process.env.GOOGLE_SHEET_WEBHOOK_URL;
+        if (sheetWebhook) {
+            console.log("📊 [Google Sheet Push]: Dispatching lead data...");
+            fetchWithTimeout(sheetWebhook, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, phone, company, pageRequested })
+            })
+            .then(() => console.log("✅ [Google Sheet Success]: Lead Row Inserted!"))
+            .catch(err => console.error("⚠️ [Google Sheet Error]:", err.message));
+        }
 
+        const apiKey = process.env.RESEND_OTP_API_KEY || process.env.RESEND_API_KEY;
         if (!apiKey) {
             return res.status(500).json({ success: false, error: "Server email key missing." });
         }
 
-        // ⚡ SINGLE RESEND API CALL WITH BCC (1 Email Counted Only)
+        // ⚡ C. SINGLE RESEND API CALL WITH BCC
         await fetchWithTimeout('https://api.resend.com/emails', {
             method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${apiKey}`,
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 from: 'Vakratron Systems <auth@vakratronsys.com>',
                 to: [email],
-                bcc: ['vakratronsystems@gmail.com'], // Secret Lead Copy to Admin
+                bcc: ['vakratronsystems@gmail.com'],
                 subject: `🔑 Access Code: ${generatedOtp} - Vakratron Systems`,
                 html: `
                     <div style="font-family: Arial, sans-serif; background: #0f172a; color: #ffffff; padding: 24px; border-radius: 12px; max-width: 500px; margin: 0 auto;">
@@ -243,10 +319,7 @@ app.post('/api/send-otp', async (req, res) => {
                             <span style="background: #020617; border: 1px solid #C2185B; padding: 12px 24px; font-size: 2rem; font-weight: bold; letter-spacing: 8px; color: #C2185B; border-radius: 8px; display: inline-block;">${generatedOtp}</span>
                         </div>
                         <p style="color: #94a3b8; font-size: 0.8rem;">This code is valid for 10 minutes.</p>
-                        
-                        <!-- ADMIN LEAD FOOTER INSIDE BCC -->
                         <div style="margin-top: 30px; padding-top: 15px; border-top: 1px dashed rgba(255,255,255,0.2); font-size: 0.78rem; color: #64748b;">
-                            <p style="margin: 0 0 4px 0; color: #38bdf8; font-weight: bold;">[Internal Lead Trace Context]:</p>
                             <span>Client: ${name} | Phone: ${phone} | Company: ${company || 'N/A'} | Page: ${pageRequested}</span>
                         </div>
                     </div>
@@ -262,43 +335,68 @@ app.post('/api/send-otp', async (req, res) => {
     }
 });
 
-app.post('/api/verify-otp', (req, res) => {
-    const { email, otpCode } = req.body;
-    const record = otpStore[email];
+// ⚡ OTP VERIFY + CONFIRMATION EMAIL
+app.post('/api/verify-otp', async (req, res) => {
+    try {
+        const { email, otpCode } = req.body;
+        const record = otpStore[email];
 
-    if (!record) {
-        return res.json({ success: false, error: "No OTP request found." });
+        if (!record) return res.json({ success: false, error: "No OTP request found." });
+        if (Date.now() > record.expiresAt) {
+            delete otpStore[email];
+            return res.json({ success: false, error: "OTP expired." });
+        }
+
+        if (record.otp === otpCode.toString().trim()) {
+            const leadData = { ...record };
+            delete otpStore[email];
+
+            const apiKey = process.env.RESEND_OTP_API_KEY || process.env.RESEND_API_KEY;
+            if (apiKey) {
+                fetchWithTimeout('https://api.resend.com/emails', {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        from: 'Vakratron Systems <auth@vakratronsys.com>',
+                        to: [email],
+                        subject: `📄 Access Unlocked: ${leadData.pageRequested || 'Architecture Blueprint'} - Vakratron Systems`,
+                        html: `
+                            <div style="font-family: Arial, sans-serif; background: #0f172a; color: #ffffff; padding: 28px; border-radius: 12px; max-width: 550px; margin: 0 auto;">
+                                <h2 style="color: #38bdf8; margin-top: 0;">Vakratron Systems</h2>
+                                <p style="font-size: 1.05rem;">Dear <b>${leadData.name || 'Valued Client'}</b>,</p>
+                                <p>Thank you for verifying your credentials. You now have full unlocked access to our Enterprise Architecture Specification Blueprint:</p>
+                                <div style="background: #1e293b; border-left: 4px solid #38bdf8; padding: 16px; margin: 20px 0; border-radius: 4px;">
+                                    <h4 style="margin: 0 0 6px 0; color: #f8fafc;">${leadData.pageRequested || 'Deep-Tech Solution Blueprint'}</h4>
+                                    <p style="margin: 0; color: #94a3b8; font-size: 0.85rem;">Status: <b>Unlocked & Verified Access</b></p>
+                                </div>
+                                <p>If you wish to discuss custom enterprise deployments or workload sizing with our Principal Solutions Architect, feel free to reply directly to this email or visit us at <a href="https://vakratronsys.com" style="color: #38bdf8; text-decoration: none;">vakratronsys.com</a>.</p>
+                                <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 24px 0;" />
+                                <p style="color: #64748b; font-size: 0.8rem; margin: 0;">Best Regards,<br><strong style="color: #cbd5e1;">Enterprise Architecture Team</strong><br>Vakratron Systems</p>
+                            </div>
+                        `
+                    })
+                }).catch(err => console.error("⚠️ Confirmation Email Error:", err.message));
+            }
+
+            return res.json({ success: true, message: "Verification successful!" });
+        }
+
+        res.json({ success: false, error: "Invalid OTP code." });
+
+    } catch (err) {
+        console.error("❌ Verify OTP Error:", err);
+        res.status(500).json({ success: false, error: "Verification server error." });
     }
-
-    if (Date.now() > record.expiresAt) {
-        delete otpStore[email];
-        return res.json({ success: false, error: "OTP expired." });
-    }
-
-    if (record.otp === otpCode) {
-        delete otpStore[email];
-        return res.json({ success: true, message: "Verification successful!" });
-    }
-
-    res.json({ success: false, error: "Invalid OTP code." });
 });
 
 // ⚡ 5. SOVEREIGN AI INTERACTION GATEWAY
 app.post('/api/chat', async (req, res) => {
     try {
         const { message } = req.body;
-        console.log('📥 INBOUND LEAD CORE TRACE - Received User Token String:', message);
-
-        if (!message) {
-            console.error('⚠️ Input verification failure: Empty query frame.');
-            return res.status(400).json({ error: "Missing prompt token matrix." });
-        }
+        if (!message) return res.status(400).json({ error: "Missing prompt token matrix." });
 
         const apiKey = process.env.GROQ_API_KEY;
-        if (!apiKey) {
-            console.error('❌ CONFIGURATION ERROR: process.env.GROQ_API_KEY undefined or null!');
-            return res.status(500).json({ error: "Hardware engine credential layer defect." });
-        }
+        if (!apiKey) return res.status(500).json({ error: "Hardware engine credential layer defect." });
 
         const systemDirectives = `You are Vakra-Bot, a Principal Cloud & AI Infrastructure Architect at Vakratron Systems. You talk like a real human peer and senior solution architect—NOT an automated template engine or robotic bot.
 
@@ -306,27 +404,20 @@ app.post('/api/chat', async (req, res) => {
 1. WARM WELCOME & OPTIONAL NAME ONBOARDING
 ======================================================================
 - If a user first greets you (e.g. "hi", "hello"), greet them warmly in 1-2 lines and optionally ask for their name in a frictionless way.
-- Example: "Hello 👋 Welcome to Vakratron Systems! I'm Vakra-Bot, Principal Infrastructure Architect. May I know your name before we begin? (Skip if you prefer!) How can I help engineer your infrastructure today?"
 
 ======================================================================
 2. HUMAN CONVERSATIONAL DIALOGUE (NO ROBOTIC TEMPLATES)
 ======================================================================
-- TALK LIKE A REAL PERSON: Speak in a natural, professional, and friendly tone (English or natural Hinglish matching the user's vibe).
-- NO FIXED HEADINGS OR TEMPLATES: NEVER use structured headers like "### Problem Assessment", "### Trade-off Analysis", "### Recommended Blueprint", or "### Business Impact".
-- KEEP IT CONCISE & DIALOGUE-BASED: Keep responses short (3 to 5 sentences max per turn). Discuss their requirement, ask 1 or 2 focused questions about their environment (e.g., On-Prem or Cloud? Workload size? Target RPO/RTO?), and build the architecture together step-by-step.
+- TALK LIKE A REAL PERSON: Speak in a natural, professional tone. Keep responses short (3-5 sentences max).
 
 ======================================================================
 3. PROGRESSIVE LEAD CAPTURE AT HIGH VALUE
 ======================================================================
-- ONLY AFTER discussing their environment and sharing initial architectural insights, offer a formal deliverable (HLD, BOQ Sizing, DR Roadmap).
-- Ask for Company Name, Email, and Phone ONLY when they want a formal HLD/BOQ generated.`;
+- ONLY AFTER discussing their environment, offer a formal deliverable (HLD, BOQ Sizing). Ask for Company Name, Email, and Phone ONLY when requested.`;
 
         const groqRawFetch = await fetchWithTimeout('https://api.groq.com/openai/v1/chat/completions', {
             method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${apiKey}`,
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 model: 'llama-3.3-70b-versatile', 
                 messages: [
@@ -341,8 +432,7 @@ app.post('/api/chat', async (req, res) => {
         const rawDataBlock = await groqRawFetch.json();
 
         if (rawDataBlock.choices && rawDataBlock.choices[0]) {
-            const compiledOutputText = rawDataBlock.choices[0].message.content;
-            return res.status(200).json({ response: compiledOutputText });
+            return res.status(200).json({ response: rawDataBlock.choices[0].message.content });
         } else {
             return res.status(500).json({ error: "External matrix format parsing crash." });
         }
@@ -364,32 +454,17 @@ app.get('/footer.html', (req, res) => {
     res.sendFile(path.join(baseDir, 'views/footer.html'));
 });
 
-// ======================================================================
-// ⚡ 7. BULLETPROOF CATCH-ALL ROUTER FOR RENDER HOSTING (DEEP TECH PAGES)
-// ======================================================================
+// ⚡ 7. CATCH-ALL ROUTER FOR RENDER HOSTING
 app.get('*', (req, res, next) => {
-    if (req.path.startsWith('/api/') || (req.path.includes('.') && !req.path.endsWith('.html'))) {
-        return next();
-    }
+    if (req.path.startsWith('/api/') || (req.path.includes('.') && !req.path.endsWith('.html'))) return next();
 
     let requestedPage = req.path.replace(/^\//, '');
-
-    if (!requestedPage || requestedPage === '/') {
-        requestedPage = 'index.html';
-    }
-
-    if (requestedPage.startsWith('views/')) {
-        requestedPage = requestedPage.replace(/^views\//, '');
-    }
-
-    if (requestedPage.endsWith('/')) {
-        requestedPage += 'index.html';
-    } else if (!requestedPage.includes('.')) {
-        requestedPage += '.html';
-    }
+    if (!requestedPage || requestedPage === '/') requestedPage = 'index.html';
+    if (requestedPage.startsWith('views/')) requestedPage = requestedPage.replace(/^views\//, '');
+    if (requestedPage.endsWith('/')) requestedPage += 'index.html';
+    else if (!requestedPage.includes('.')) requestedPage += '.html';
 
     const rootDir = path.join(__dirname, '..');
-
     const possiblePaths = [
         path.join(rootDir, 'views', requestedPage),
         path.join(rootDir, 'public', requestedPage),
@@ -410,16 +485,8 @@ app.get('*', (req, res, next) => {
     if (finalResolvedPath) {
         fs.readFile(finalResolvedPath, 'utf8', (err, htmlContent) => {
             if (err) return res.status(404).send('Resource Matrix Fault: Target Not Found');
-
             const chatScriptPayload = '\n<!-- Dynamic Sovereign Bot Script Injected Globally -->\n<script src="/vakra-chat.js"></script>\n';
-            let updatedHtml = htmlContent;
-
-            if (/<\/body>/i.test(htmlContent)) {
-                updatedHtml = htmlContent.replace(/(<\/body>)/i, `${chatScriptPayload}$1`);
-            } else {
-                updatedHtml = htmlContent + chatScriptPayload;
-            }
-
+            let updatedHtml = /<\/body>/i.test(htmlContent) ? htmlContent.replace(/(<\/body>)/i, `${chatScriptPayload}$1`) : htmlContent + chatScriptPayload;
             res.setHeader('Content-Type', 'text/html');
             return res.send(updatedHtml);
         });
