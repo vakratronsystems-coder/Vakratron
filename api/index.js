@@ -455,45 +455,75 @@ app.get('/footer.html', (req, res) => {
 });
 
 // ⚡ 7. CATCH-ALL ROUTER FOR RENDER HOSTING
-app.get('*', (req, res, next) => {
-    if (req.path.startsWith('/api/') || (req.path.includes('.') && !req.path.endsWith('.html'))) return next();
+// =========================================================
+// ⚡ RECURSIVE & CASE-INSENSITIVE ROUTER FOR PRODUCTION
+// =========================================================
+const fs = require('fs');
 
-    let requestedPage = req.path.replace(/^\//, '');
-    if (!requestedPage || requestedPage === '/') requestedPage = 'index.html';
-    if (requestedPage.startsWith('views/')) requestedPage = requestedPage.replace(/^views\//, '');
-    if (requestedPage.endsWith('/')) requestedPage += 'index.html';
-    else if (!requestedPage.includes('.')) requestedPage += '.html';
+app.get('*', (req, res, next) => {
+    // API calls, static assets (images, css, js) ko express.static handle karne de
+    if (req.path.startsWith('/api/') || (req.path.includes('.') && !req.path.endsWith('.html'))) {
+        return next();
+    }
+
+    let requestedPath = req.path.replace(/^\//, '').replace(/\.html$/, '');
+    if (!requestedPath || requestedPath === '/') requestedPath = 'index';
+
+    // Stripping extra '/views/' if present in the URL
+    if (requestedPath.startsWith('views/')) {
+        requestedPath = requestedPath.replace(/^views\//, '');
+    }
 
     const rootDir = path.join(__dirname, '..');
-    const possiblePaths = [
-        path.join(rootDir, 'views', requestedPage),
-        path.join(rootDir, 'public', requestedPage),
-        path.join(rootDir, 'views/portfolio', requestedPage),
-        path.join(rootDir, 'views/solutions', requestedPage),
-        path.join(rootDir, 'views/solution_arch', requestedPage),
-        path.join(rootDir, 'views/tec_blueprint', requestedPage)
+    const searchDirs = [
+        path.join(rootDir, 'views'),
+        path.join(rootDir, 'public')
     ];
 
-    let finalResolvedPath = null;
-    for (const p of possiblePaths) {
-        if (fs.existsSync(p) && fs.statSync(p).isFile()) {
-            finalResolvedPath = p;
-            break;
+    // Helper function for recursive, case-insensitive search (Linux production fix)
+    function findFileRecursive(dir, targetPathSegments) {
+        if (!fs.existsSync(dir)) return null;
+
+        const currentSegment = targetPathSegments[0].toLowerCase();
+        let files;
+        try {
+            files = fs.readdirSync(dir);
+        } catch (e) {
+            return null;
         }
+
+        for (const file of files) {
+            if (file.toLowerCase() === currentSegment || file.toLowerCase() === currentSegment + '.html') {
+                const fullPath = path.join(dir, file);
+                const stat = fs.statSync(fullPath);
+
+                if (targetPathSegments.length === 1) {
+                    if (stat.isFile()) return fullPath;
+                } else if (stat.isDirectory()) {
+                    const result = findFileRecursive(fullPath, targetPathSegments.slice(1));
+                    if (result) return result;
+                }
+            }
+        }
+        return null;
     }
 
-    if (finalResolvedPath) {
-        fs.readFile(finalResolvedPath, 'utf8', (err, htmlContent) => {
-            if (err) return res.status(404).send('Resource Matrix Fault: Target Not Found');
-            const chatScriptPayload = '\n<!-- Dynamic Sovereign Bot Script Injected Globally -->\n<script src="/vakra-chat.js"></script>\n';
-            let updatedHtml = /<\/body>/i.test(htmlContent) ? htmlContent.replace(/(<\/body>)/i, `${chatScriptPayload}$1`) : htmlContent + chatScriptPayload;
-            res.setHeader('Content-Type', 'text/html');
-            return res.send(updatedHtml);
-        });
+    const pathSegments = requestedPath.split('/');
+    let resolvedFile = null;
+
+    for (const baseDir of searchDirs) {
+        resolvedFile = findFileRecursive(baseDir, pathSegments);
+        if (resolvedFile) break;
+    }
+
+    if (resolvedFile) {
+        return res.sendFile(resolvedFile);
     } else {
-        next();
+        return res.status(404).send('Page Not Found');
     }
 });
+
+// Server Listen (agar niche app.listen hai to uske upar ise rakhein)
 
 // Port Initialization
 const PORT = process.env.PORT || 3000;
