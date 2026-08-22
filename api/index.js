@@ -458,8 +458,6 @@ app.get('/footer.html', (req, res) => {
 // =========================================================
 // ⚡ RECURSIVE & CASE-INSENSITIVE ROUTER FOR PRODUCTION
 // =========================================================
-const fs = require('fs');
-
 app.get('*', (req, res, next) => {
     // API calls, static assets (images, css, js) ko express.static handle karne de
     if (req.path.startsWith('/api/') || (req.path.includes('.') && !req.path.endsWith('.html'))) {
@@ -522,8 +520,6 @@ app.get('*', (req, res, next) => {
         return res.status(404).send('Page Not Found');
     }
 });
-
-// Server Listen (agar niche app.listen hai to uske upar ise rakhein)
 
 // Port Initialization
 const PORT = process.env.PORT || 3000;
