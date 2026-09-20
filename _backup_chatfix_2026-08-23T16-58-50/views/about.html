@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>We Help Organizations Make Better Technology Decisions | Vakratron Systems</title>
+    <meta name="description" content="Enterprise architecture and infrastructure consulting engineered for strategic business objectives.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- === MASTER STYLESHEET RESETS === -->
+    <link rel="stylesheet" href="/style.css">
+
+    <style>
+         :root {
+            --bg-obsidian: #030d1a;
+            --accent-blue: #38bdf8;
+            --accent-pink: #c2185b;
+            --text-secondary: #94a3b8;
+        }
+
+        /* MASTER STRUCTURE DIRECTIVE */
+        html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+            box-sizing: border-box !important;
+            background-color: #030d1a !important;
+            font-family: 'Inter', sans-serif !important;
+            color: #f1f5f9 !important;
+            overflow-x: hidden !important;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Poppins', sans-serif !important; margin-top: 0; }
+        p { line-height: 1.6; font-family: 'Inter', sans-serif !important; }
+
+        header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            padding: 15px 5% !important;
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 1000 !important;
+            background: rgba(3, 13, 26, 0.95) !important;
+            backdrop-filter: blur(20px) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+        }
+
+        section.vakra-block-fix {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            background-color: #030d1a !important;
+            padding: 90px 8% !important;
+            clear: both !important;
+            position: relative !important;
+            box-sizing: border-box !important;
+        }
+
+        /* MCKINSEY STYLE COMMON HEADERS */
+        .consulting-header { text-align: center !important; margin-bottom: 50px !important; }
+        .consulting-header span {
+            color: #c2185b !important; text-transform: uppercase !important;
+            letter-spacing: 2px !important; font-size: 0.85rem !important;
+            font-weight: 600 !important; display: block !important; margin-bottom: 12px !important;
+        }
+        .consulting-header h2 { font-size: 2.4rem !important; color: #fff !important; font-weight: 700 !important; margin-bottom: 15px !important; }
+
+        /* GRID FLEX MATRIX */
+        .vakra-grid-wrapper { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 24px !important; width: 100% !important; align-items: stretch !important; }
+        
+        .vakra-premium-card {
+            background: linear-gradient(145deg, #091a30, #040f1d) !important;
+            border: 1px solid rgba(255,255,255,0.04) !important;
+            padding: 35px 25px !important;
+            border-radius: 12px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            height: 100% !important;
+            box-sizing: border-box !important;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4) !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        }
+        .vakra-premium-card:hover { transform: translateY(-5px) !important; border-color: rgba(194, 24, 91, 0.45) !important; background: rgba(9, 26, 48, 0.8) !important; box-shadow: 0 20px 40px rgba(194, 24, 91, 0.08) !important; }
+        
+        .why-icon-box { width: 44px !important; height: 44px !important; border-radius: 8px !important; display: flex !important; align-items: center !important; justify-content: center !important; font-size: 1.3rem !important; margin-bottom: 20px !important; }
+        .vakra-premium-card h3 { font-size: 1.25rem !important; font-weight: 600 !important; margin-bottom: 12px !important; color: #fff !important; }
+        .vakra-premium-card p { font-size: 0.88rem !important; color: #94a3b8 !important; margin: 0 !important; line-height: 1.6 !important; }
+
+        /* SPLIT PARADIGM CONTAINER */
+        .split-container { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 45px !important; align-items: flex-start !important; background: rgba(9, 26, 48, 0.3) !important; padding: 45px !important; border-radius: 14px !important; border: 1px solid rgba(255,255,255,0.03) !important; }
+        .problem-box { border-left: 3px solid #ef4444 !important; padding-left: 24px !important; }
+        .solution-box { border-left: 3px solid #38bdf8 !important; padding-left: 24px !important; }
+
+        /* PROCESS FLOW LAYOUT */
+        .process-flow { display: flex !important; justify-content: space-between !important; align-items: flex-start !important; gap: 12px !important; width: 100% !important; margin-top: 20px !important; }
+        .process-step { flex: 1 !important; text-align: center !important; position: relative !important; }
+        .step-number { width: 34px !important; height: 34px !important; background: rgba(194, 24, 91, 0.08) !important; border: 1px solid #c2185b !important; color: #c2185b !important; border-radius: 50% !important; display: flex !important; align-items: center !important; justify-content: center !important; margin: 0 auto 15px auto !important; font-weight: 600 !important; font-size: 0.85rem !important; transition: all 0.3s ease !important; }
+        .process-step:hover .step-number { background: #c2185b !important; color: #fff !important; transform: scale(1.05); box-shadow: 0 0 15px rgba(194,24,91,0.4); }
+        .process-step p { font-size: 0.85rem !important; font-weight: 500 !important; line-height: 1.4 !important; color: #f1f5f9 !important; margin: 0 !important; }
+
+        /* FOUNDER METRIC COMPONENT */
+        .founder-layout { display: grid !important; grid-template-columns: 280px 1fr !important; gap: 50px !important; align-items: center !important; }
+        .big-stat { font-size: 6.5rem !important; font-weight: 800 !important; line-height: 1 !important; color: #fff !important; margin-bottom: 5px !important; }
+        .badge-grid { display: flex !important; flex-wrap: wrap !important; gap: 10px !important; }
+        .tag-badge { background: rgba(255,255,255,0.03) !important; border: 1px solid rgba(255,255,255,0.06) !important; padding: 8px 16px !important; border-radius: 20px !important; font-size: 0.82rem !important; color: #94a3b8 !important; font-weight: 500 !important; transition: all 0.2s ease !important; }
+        .tag-badge:hover { border-color: rgba(255,255,255,0.2) !important; color: #fff !important; background: rgba(255,255,255,0.06) !important; }
+
+        /* CAPABILITIES MINIMALIST MATRIX */
+        .capability-grid { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 16px !important; width: 100% !important; }
+        .capability-node { background: rgba(9, 26, 48, 0.4) !important; border: 1px solid rgba(255,255,255,0.04) !important; padding: 22px 15px !important; border-radius: 10px !important; text-align: center !important; font-size: 0.9rem !important; font-weight: 500 !important; color: #fff !important; transition: all 0.25s ease !important; }
+        .capability-node:hover { border-color: rgba(56, 189, 248, 0.4) !important; background: rgba(9, 26, 48, 0.6) !important; transform: translateY(-2px); }
+
+        /* STRATEGIC CTA BLOCK */
+        .cta-consulting-box { text-align: center !important; background: linear-gradient(180deg, rgba(9,26,48,0.3) 0%, rgba(4,15,29,0.6) 100%) !important; border: 1px solid rgba(194, 24, 91, 0.15) !important; padding: 65px 30px !important; border-radius: 16px !important; box-shadow: 0 15px 40px rgba(0,0,0,0.4) !important; max-width: 950px !important; margin: 0 auto !important; }
+
+        /* ==========================================
+           🎯 NEW ANIMATION ARCHITECTURE SYSTEM (CSS)
+           ========================================== */
+        
+        /* Initial state elements fade up setup */
+        .vakra-fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+                        transform 0.8s cubic-bezier(0.25, 1, 0.5, 1) !important;
+            will-change: opacity, transform;
+        }
+
+        /* Active Trigger State */
+        .vakra-fade-in.animated-active {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        /* Staggered Delay Engine for Sequential Cards & Steps */
+        .stagger-wrapper > *.animated-active:nth-child(1) { transition-delay: 0.05s !important; }
+        .stagger-wrapper > *.animated-active:nth-child(2) { transition-delay: 0.15s !important; }
+        .stagger-wrapper > *.animated-active:nth-child(3) { transition-delay: 0.25s !important; }
+        .stagger-wrapper > *.animated-active:nth-child(4) { transition-delay: 0.35s !important; }
+        .stagger-wrapper > *.animated-active:nth-child(5) { transition-delay: 0.45s !important; }
+        .stagger-wrapper > *.animated-active:nth-child(6) { transition-delay: 0.55s !important; }
+        .stagger-wrapper > *.animated-active:nth-child(7) { transition-delay: 0.65s !important; }
+        .stagger-wrapper > *.animated-active:nth-child(8) { transition-delay: 0.75s !important; }
+
+        /* RESPONSIVE LAYOUT BREAKPOINTS */
+        @media (max-width: 992px) { 
+            .vakra-grid-wrapper { grid-template-columns: repeat(2, 1fr) !important; } 
+            .capability-grid { grid-template-columns: repeat(2, 1fr) !important; }
+            .process-flow { flex-wrap: wrap !important; gap: 25px !important; justify-content: center !important; }
+            .process-step { flex: none !important; width: 40% !important; }
+        }
+        @media (max-width: 768px) {
+            section.vakra-block-fix { padding: 60px 5% !important; }
+            .split-container, .founder-layout { grid-template-columns: 1fr !important; gap: 30px !important; padding: 30px !important; }
+            .vakra-grid-wrapper, .capability-grid { grid-template-columns: 1fr !important; }
+            .process-step { width: 100% !important; }
+            .big-stat { font-size: 5rem !important; }
+        }
+    </style>
+</head>
+<body>
+    <header></header>
+
+    <!-- 🎯 HERO SECTION (Loads instantly) -->
+    <section class="vakra-block-fix" style="display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 130px 8% 90px 8% !important; gap: 60px !important; max-width: 1400px !important; margin: 0 auto !important; width: 100% !important;">
+        <div class="hero-left" style="width: 100% !important; display: block !important;">
+            <div class="tag-badge" style="margin-bottom: 25px !important; display: inline-flex !important; align-items: center !important; gap: 8px !important; background: rgba(194, 24, 91, 0.1) !important; border: 1px solid rgba(194, 24, 91, 0.3) !important; color: #f472b6 !important; padding: 8px 18px !important; border-radius: 100px !important; font-size: 0.85rem !important; font-weight: 600 !important; text-transform: uppercase !important;"><i class="fa-solid fa-compass"></i> Strategic Advisory</div>
+            <h1 style="font-size: 3.4rem !important; line-height: 1.15 !important; margin-bottom: 25px !important; font-weight: 700 !important; color: #fff !important; letter-spacing: -1px !important;">We Help Organizations Make<br><span style="color: #c2185b !important;">Better Technology Decisions.</span></h1>
+            <p style="font-size: 1.1rem !important; color: #cbd5e1 !important; line-height: 1.75 !important; margin-bottom: 35px !important; font-weight: 300; max-width: 850px !important;">Before cloud migration, AI adoption, infrastructure modernization, or disaster recovery begins, every organization faces critical technology decisions. Vakratron helps enterprises make those decisions with confidence.</p>
+            
+            <div style="display: flex !important; gap: 20px !important; flex-wrap: wrap !important;">
+                <a href="/contact.html" 
+                   style="background: linear-gradient(135deg, #c2185b 0%, #9d174d 100%) !important; color: #fff !important; text-decoration: none !important; padding: 16px 32px !important; border-radius: 10px !important; font-weight: 600 !important; font-size: 1rem !important; display: inline-flex !important; align-items: center !important; gap: 10px !important; box-shadow: 0 4px 25px rgba(194, 24, 91, 0.3) !important; transition: all 0.3s !important;" 
+                   onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                    Talk to an Enterprise Architect <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                <a href="#how-we-work" 
+                   style="background: rgba(255,255,255,0.03) !important; border: 1px solid rgba(255,255,255,0.08) !important; color: #fff !important; text-decoration: none !important; padding: 16px 32px !important; border-radius: 10px !important; font-weight: 600 !important; font-size: 1rem !important; display: inline-flex !important; align-items: center !important; gap: 10px !important; transition: all 0.3s !important;"
+                   onmouseover="this.style.background='rgba(255,255,255,0.06)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'">
+                    See Our Consulting Approach
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 🎯 WHY WE EXIST SECTION -->
+    <section class="vakra-block-fix" style="border-top: 1px solid rgba(255, 255, 255, 0.05) !important;">
+        <div class="consulting-header vakra-fade-in">
+            <span>Corporate Paradigm</span>
+            <h2>Why Vakratron Exists</h2>
+        </div>
+        <div class="split-container vakra-fade-in">
+            <div class="problem-box">
+                <h3 style="color: #ef4444; font-size: 1.3rem !important; font-weight: 600 !important; margin-bottom: 12px !important;">The Problem</h3>
+                <p style="color: #94a3b8 !important; font-size: 0.95rem !important; line-height: 1.65 !important; margin: 0 !important;">
+                    Organizations don't fail because technology is unavailable. They fail because technology decisions are made too early, too late, or without understanding long-term consequences.
+                </p>
+            </div>
+            <div class="solution-box">
+                <h3 style="color: #38bdf8; font-size: 1.3rem !important; font-weight: 600 !important; margin-bottom: 12px !important;">The Solution</h3>
+                <p style="color: #f1f5f9 !important; font-size: 0.95rem !important; line-height: 1.65 !important; margin-bottom: 14px !important;">
+                    Vakratron was founded to bridge the gap between business objectives and technology implementation.
+                </p>
+                <p style="color: #94a3b8 !important; font-size: 0.95rem !important; line-height: 1.65 !important; margin: 0 !important;">
+                    We help organizations answer critical framework questions before capital is invested.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 🎯 PROBLEMS WE SOLVE (WHAT CLIENTS ACTUALLY ASK US) -->
+    <section class="vakra-block-fix" style="border-top: 1px solid rgba(255, 255, 255, 0.05) !important;">
+        <div class="consulting-header vakra-fade-in">
+            <span>Real Challenges</span>
+            <h2>What Clients Actually Ask Us</h2>
+        </div>
+        <div class="vakra-grid-wrapper stagger-wrapper">
+            <div class="vakra-premium-card vakra-fade-in">
+                <div class="why-icon-box" style="color: #38bdf8 !important; background: rgba(56, 189, 248, 0.06) !important; border: 1px solid rgba(56,189,248,0.15) !important;"><i class="fa-solid fa-cloud"></i></div>
+                <h3 style="font-size: 1.1rem !important; margin: 0 !important; font-weight: 500 !important; color: #fff !important; line-height: 1.4 !important;">Which cloud platform should we choose?</h3>
+            </div>
+            <div class="vakra-premium-card vakra-fade-in">
+                <div class="why-icon-box" style="color: #38bdf8 !important; background: rgba(56, 189, 248, 0.06) !important; border: 1px solid rgba(56,189,248,0.15) !important;"><i class="fa-solid fa-bolt"></i></div>
+                <h3 style="font-size: 1.1rem !important; margin: 0 !important; font-weight: 500 !important; color: #fff !important; line-height: 1.4 !important;">Can we migrate without downtime?</h3>
+            </div>
+            <div class="vakra-premium-card vakra-fade-in">
+                <div class="why-icon-box" style="color: #38bdf8 !important; background: rgba(56, 189, 248, 0.06) !important; border: 1px solid rgba(56,189,248,0.15) !important;"><i class="fa-solid fa-arrows-rotate"></i></div>
+                <h3 style="font-size: 1.1rem !important; margin: 0 !important; font-weight: 500 !important; color: #fff !important; line-height: 1.4 !important;">Should we modernize or rebuild?</h3>
+            </div>
+            <div class="vakra-premium-card vakra-fade-in">
+                <div class="why-icon-box" style="color: #38bdf8 !important; background: rgba(56, 189, 248, 0.06) !important; border: 1px solid rgba(56,189,248,0.15) !important;"><i class="fa-solid fa-shield-halved"></i></div>
+                <h3 style="font-size: 1.1rem !important; margin: 0 !important; font-weight: 500 !important; color: #fff !important; line-height: 1.4 !important;">How will DR work after migration?</h3>
+            </div>
+            <div class="vakra-premium-card vakra-fade-in">
+                <div class="why-icon-box" style="color: #38bdf8 !important; background: rgba(56, 189, 248, 0.06) !important; border: 1px solid rgba(56,189,248,0.15) !important;"><i class="fa-solid fa-microchip"></i></div>
+                <h3 style="font-size: 1.1rem !important; margin: 0 !important; font-weight: 500 !important; color: #fff !important; line-height: 1.4 !important;">Can AI run on-premises?</h3>
+            </div>
+            <div class="vakra-premium-card vakra-fade-in">
+                <div class="why-icon-box" style="color: #38bdf8 !important; background: rgba(56, 189, 248, 0.06) !important; border: 1px solid rgba(56,189,248,0.15) !important;"><i class="fa-solid fa-cubes"></i></div>
+                <h3 style="font-size: 1.1rem !important; margin: 0 !important; font-weight: 500 !important; color: #fff !important; line-height: 1.4 !important;">Do we really need Kubernetes?</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- 🎯 HOW WE WORK (HORIZONTAL FRAMEWORK) -->
+    <section class="vakra-block-fix" id="how-we-work" style="border-top: 1px solid rgba(255, 255, 255, 0.05) !important; background: rgba(9, 26, 48, 0.1) !important;">
+        <div class="consulting-header vakra-fade-in">
+            <span>Execution Framework</span>
+            <h2>How We Work</h2>
+        </div>
+        <div class="process-flow stagger-wrapper">
+            <div class="process-step vakra-fade-in">
+                <div class="step-number">01</div>
+                <p>Business Discovery</p>
+            </div>
+            <div class="process-step vakra-fade-in">
+                <div class="step-number">02</div>
+                <p>Current State Assessment</p>
+            </div>
+            <div class="process-step vakra-fade-in">
+                <div class="step-number">03</div>
+                <p>Architecture Evaluation</p>
+            </div>
+            <div class="process-step vakra-fade-in">
+                <div class="step-number">04</div>
+                <p>Technology Recommendation</p>
+            </div>
+            <div class="process-step vakra-fade-in">
+                <div class="step-number">05</div>
+                <p>Target Architecture</p>
+            </div>
+            <div class="process-step vakra-fade-in">
+                <div class="step-number">06</div>
+                <p>Implementation Guidance</p>
+            </div>
+            <div class="process-step vakra-fade-in">
+                <div class="step-number">07</div>
+                <p>Operational Optimization</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 🎯 OUR CONSULTING PRINCIPLES -->
+    <section class="vakra-block-fix" style="border-top: 1px solid rgba(255, 255, 255, 0.05) !important;">
+        <div class="consulting-header vakra-fade-in">
+            <span>Philosophy</span>
+            <h2>Our Principles</h2>
+        </div>
+        <div class="vakra-grid-wrapper stagger-wrapper">
+            <div class="vakra-premium-card vakra-fade-in">
+                <h3>Architecture First</h3>
+                <p>Every engagement starts with clear business objectives, not technology selection loops.</p>
+            </div>
+            <div class="vakra-premium-card vakra-fade-in">
+                <h3>Vendor Neutral</h3>
+                <p>Recommendations solely mapped to technological fit, completely free from partner biases.</p>
+            </div>
+            <div class="vakra-premium-card vakra-fade-in">
+                <h3>Evidence Driven</h3>
+                <p>Architecture milestones and paths validated directly via trade-off and rigorous assessment analysis.</p>
+            </div>
+            <div class="vakra-premium-card vakra-fade-in">
+                <h3>Business Before Technology</h3>
+                <p>Ensuring technological roadmap changes directly serve corporate efficiency and ROI scale benchmarks.</p>
+            </div>
+            <div class="vakra-premium-card vakra-fade-in">
+                <h3>Scalable by Design</h3>
+                <p>Systems built dynamically to handle future computational workloads seamlessly without structural debt.</p>
+            </div>
+            <div class="vakra-premium-card vakra-fade-in">
+                <h3>Long-Term Thinking</h3>
+                <p>Decisions calibrated specifically to prevent legacy technical friction over multi-year business lifecycles.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 🎯 FOUNDER EXPERIENCE & INDUSTRIES -->
+    <section class="vakra-block-fix" style="border-top: 1px solid rgba(255, 255, 255, 0.05) !important; background: rgba(9, 26, 48, 0.15) !important;">
+        <div class="founder-layout vakra-fade-in">
+            <div style="text-align: center !important;">
+                <div class="big-stat">13+</div>
+                <p style="text-transform: uppercase !important; font-size: 0.8rem !important; letter-spacing: 1px !important; color: #c2185b !important; margin: 0 !important; font-weight: 600 !important; line-height: 1.3 !important;">Years of Enterprise Architecture Experience</p>
+            </div>
+            <div>
+                <h3 style="margin-top: 0; font-size: 1.25rem !important; font-weight: 600 !important; margin-bottom: 15px !important; color: #fff !important;">Core Domains Built</h3>
+                <div class="badge-grid style="margin-bottom: 35px !important;">
+                    <span class="tag-badge" style="border-color: #38bdf8 !important; color: #fff !important;">Government</span>
+                    <span class="tag-badge" style="border-color: #38bdf8 !important; color: #fff !important;">Enterprise</span>
+                    <span class="tag-badge">Cloud</span>
+                    <span class="tag-badge">AI</span>
+                    <span class="tag-badge">DC</span>
+                    <span class="tag-badge">DR</span>
+                    <span class="tag-badge">Migration</span>
+                    <span class="tag-badge">Platform Engineering</span>
+                    <span class="tag-badge">Modernization</span>
+                </div>
+                
+                <h3 style="font-size: 1.25rem !important; font-weight: 600 !important; margin-bottom: 15px !important; color: #fff !important; margin-top: 25px !important;">Industries We Support</h3>
+                <div class="badge-grid">
+                    <span class="tag-badge">Government</span>
+                    <span class="tag-badge">BFSI</span>
+                    <span class="tag-badge">Healthcare</span>
+                    <span class="tag-badge">Manufacturing</span>
+                    <span class="tag-badge">Education</span>
+                    <span class="tag-badge">Energy</span>
+                    <span class="tag-badge">AI Startups</span>
+                    <span class="tag-badge">Telecom</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 🎯 OUR EXPERTISE (CAPABILITIES) -->
+    <section class="vakra-block-fix" style="border-top: 1px solid rgba(255, 255, 255, 0.05) !important;">
+        <div class="consulting-header vakra-fade-in">
+            <span>Expertise Matrix</span>
+            <h2>Our Capabilities</h2>
+        </div>
+        <div class="capability-grid stagger-wrapper">
+            <div class="capability-node vakra-fade-in">Enterprise Architecture</div>
+            <div class="capability-node vakra-fade-in">Cloud Advisory</div>
+            <div class="capability-node vakra-fade-in">AI Infrastructure</div>
+            <div class="capability-node vakra-fade-in">Platform Engineering</div>
+            <div class="capability-node vakra-fade-in">DR Consulting</div>
+            <div class="capability-node vakra-fade-in">Application Modernization</div>
+            <div class="capability-node vakra-fade-in">Technology Assessment</div>
+            <div class="capability-node vakra-fade-in">Architecture Review</div>
+        </div>
+    </section>
+
+    <!-- 🎯 FINAL STRATEGIC CTA -->
+    <section class="vakra-block-fix" style="border-top: 1px solid rgba(255, 255, 255, 0.05) !important; padding-bottom: 120px !important;">
+        <div class="cta-consulting-box vakra-fade-in">
+            <h2 style="font-size: 2.2rem !important; font-weight: 700 !important; color: #fff !important; margin: 0 0 15px 0 !important;">Still evaluating your options?</h2>
+            <p style="color: #94a3b8 !important; max-width: 650px !important; margin: 0 auto 35px auto !important; font-size: 1.02rem !important; line-height: 1.65 !important;">
+                Let's discuss your architecture before you invest. Schedule a strategic 30-minute consultation.
+            </p>
+            <a href="/contact.html" 
+               style="background: linear-gradient(135deg, #c2185b 0%, #9d174d 100%) !important; 
+                      color: #fff !important; 
+                      text-decoration: none !important; 
+                      padding: 16px 36px !important; 
+                      border-radius: 10px !important; 
+                      font-weight: 600 !important; 
+                      font-size: 1rem !important; 
+                      display: inline-flex !important; 
+                      align-items: center !important; 
+                      gap: 12px !important; 
+                      box-shadow: 0 4px 25px rgba(194, 24, 91, 0.35) !important; 
+                      transition: all 0.3s !important;" 
+               onmouseover="this.style.transform='translateY(-2px)';" 
+               onmouseout="this.style.transform='translateY(0)';"
+            >
+               Schedule a 30-minute consultation <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+    </section>
+
+    <footer></footer>
+
+    <!-- ==========================================
+       🎯 NEW HIGH-PERFORMANCE ANIMATION ENGINE (JS)
+       ========================================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.vakra-fade-in');
+            
+            // Ultra-smooth configuration using Intersection Observer
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -80px 0px', // Triggers slightly before element enters view
+                threshold: 0.05
+            };
+
+            const animationObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated-active');
+                        observer.unobserve(entry.target); // Runs animation only once for better execution performance
+                    }
+                });
+            }, observerOptions);
+
+            animatedElements.forEach(element => {
+                animationObserver.observe(element);
+            });
+        });
+    </script>
+
+    <!-- Chat Framework Scripts Restored Unchanged -->
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('code') || window.location.hash.includes('access_token')) {
+            localStorage.setItem('vakra_auth_token', 'SECURE_NODE_VALIDATED_2026');
+            window.location.href = '/index.html'; 
+        }
+
+        const trigger = document.getElementById('chatTrigger');
+        const windowEl = document.getElementById('chatWindow');
+        const closeBtn = document.getElementById('chatClose');
+        const sendBtn = document.getElementById('chatSend');
+        const inputEl = document.getElementById('chatInput');
+        const messagesContainer = document.getElementById('chatMessages');
+
+        if(trigger && windowEl) {
+            trigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                windowEl.classList.toggle('active');
+                if(windowEl.classList.contains('active')) {
+                    windowEl.style.setProperty('display', 'flex', 'important');
+                    windowEl.style.setProperty('width', '360px', 'important');
+                    inputEl.focus();
+                } else {
+                    windowEl.style.setProperty('display', 'none', 'important');
+                }
+            });
+        }
+
+        if(closeBtn && windowEl) {
+            closeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                windowEl.classList.remove('active');
+                windowEl.style.setProperty('display', 'none', 'important');
+            });
+        }
+
+        async function dispatchUserPrompt() {
+            const promptValue = inputEl.value.trim();
+            if (!promptValue) return;
+
+            appendBubble(promptValue, 'user');
+            inputEl.value = '';
+
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'vakra-msg system';
+            typingIndicator.innerHTML = `<div class="vakra-typing"><span></span><span></span><span></span></div>`;
+            messagesContainer.appendChild(typingIndicator);
+            scrollToBottom();
+
+            try {
+                const apiResponse = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: promptValue })
+                });
+
+                const dataset = await apiResponse.json();
+                typingIndicator.remove();
+
+                if (apiResponse.ok && dataset.response) {
+                    appendBubble(dataset.response, 'system');
+                    const lowerMessage = promptValue.toLowerCase();
+                    if (
+                        lowerMessage.includes('connect') || 
+                        lowerMessage.includes('talk to human') || 
+                        lowerMessage.includes('contact team') || 
+                        lowerMessage.includes('representative') || 
+                        lowerMessage.includes('connect someone') ||
+                        lowerMessage.includes('team se connect')
+                    ) {
+                        setTimeout(() => {
+                            appendBubble("⚡ System Action: Redirecting token matrix to the Sovereign Advisory Desk...", 'system');
+                            setTimeout(() => {
+                                window.location.href = 'contact.html';
+                            }, 1500);
+                        }, 1000);
+                    }
+                } else {
+                    appendBubble("Execution Defect: Unable to pipeline calculated tokens from LLM core.", 'system');
+                }
+            } catch (networkError) {
+                if(typingIndicator) typingIndicator.remove();
+                appendBubble("Network Fault: Endpoint connectivity degraded or blocked.", 'system');
+            }
+        }
+
+        function appendBubble(content, actor) {
+            if(!messagesContainer) return;
+            const bubble = document.createElement('div');
+            bubble.className = `vakra-msg ${actor}`;
+            bubble.innerHTML = content.replace(/\n/g, '<br>');
+            messagesContainer.appendChild(bubble);
+            scrollToBottom();
+        }
+
+        function scrollToBottom() {
+            if(messagesContainer) messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        if(sendBtn) sendBtn.addEventListener('click', dispatchUserPrompt);
+        if(inputEl) {
+            inputEl.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter') dispatchUserPrompt();
+            });
+        }
+    </script>
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

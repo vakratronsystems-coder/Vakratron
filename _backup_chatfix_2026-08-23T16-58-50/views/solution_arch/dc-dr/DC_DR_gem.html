@@ -1,0 +1,1220 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Sovereign DC-DR Solutions | Vakratron Systems</title>
+    <meta name="description" content="Rearchitecting enterprise disaster recovery workloads using production-grade OpenStack components and decentralized Ceph block fabrics.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-surface: rgba(15, 23, 42, 0.6);
+            --border-glow: rgba(194, 24, 91, 0.3);
+            --accent-neon: #C2185B;
+            --accent-blue: #38bdf8;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main) !important;
+            color: var(--text-primary);
+            
+            background-image: 
+                radial-gradient(circle at 50% 20%, rgba(194, 24, 91, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(56, 189, 248, 0.06) 0%, transparent 50%) !important;
+            background-size: 200% 200% !important;
+            animation: cyberBackgroundMotion 20s ease infinite alternate !important;
+        }
+
+        @keyframes cyberBackgroundMotion {
+            0% { background-position: 0% 20%; }
+            50% { background-position: 100% 80%; }
+            100% { background-position: 20% 100%; }
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background: transparent !important;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.002) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.002) 1px, transparent 1px) !important;
+            background-size: 50px 50px !important;
+        }
+
+        section {
+            padding: 100px 8% !important;
+            box-sizing: border-box;
+        }
+
+        .premium-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(194, 24, 91, 0.1);
+            border: 1px solid rgba(194, 24, 91, 0.3);
+            color: #f472b6;
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        p, .tech-content p {
+            line-height: 1.8;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin-bottom: 24px;
+            text-align: justify;
+            font-weight: 300;
+        }
+
+        /* 🔥 INTERACTIVE SECTION CARDS */
+        .tech-step-box {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .tech-step-box h4 {
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            font-size: 1.25rem;
+            margin: 0 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tech-step-box h4 i {
+            color: var(--accent-blue);
+        }
+
+        .tech-step-box ul {
+            margin: 15px 0 0 0;
+            padding-left: 20px;
+            color: var(--text-secondary);
+        }
+
+        .tech-step-box li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+            font-size: 1rem;
+            font-weight: 300;
+        }
+
+        .tech-step-box strong {
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .math-block {
+            background: #040815;
+            border: 1px solid rgba(56, 189, 248, 0.15);
+            padding: 22px;
+            border-radius: 8px;
+            font-family: monospace;
+            color: var(--accent-blue);
+            margin: 20px 0;
+        }
+
+        .faq-question {
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .faq-question i { color: var(--accent-neon); margin-top: 4px; }
+        .faq-answer { color: var(--text-secondary); font-size: 1rem; line-height: 1.6; margin-bottom: 25px; padding-left: 24px; font-weight: 300; }
+
+        /* 📊 VISUAL MESH CONTAINER */
+        .vakra-mesh-container {
+            background: #030712;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .vakra-mesh-row { display: flex; justify-content: space-between; align-items: stretch; gap: 30px; flex-wrap: wrap; }
+        .vakra-mesh-card { background: rgba(15, 23, 42, 0.6); border-radius: 14px; padding: 25px; flex: 1; min-width: 260px; box-sizing: border-box; }
+        .vakra-mesh-card.dc-primary { border: 1px solid rgba(56, 189, 248, 0.25); }
+        .vakra-mesh-card.dr-target { border: 1px solid rgba(194, 24, 91, 0.25); }
+
+        .vakra-mesh-card h5 {
+            margin: 0 0 15px 0;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 10px;
+        }
+
+        .vakra-sub-tier {
+            background: rgba(2, 6, 23, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+
+        .vakra-sub-tier p {
+            margin: 0 0 6px 0;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .vakra-tag-node {
+            display: inline-block;
+            font-size: 0.75rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--text-secondary);
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        .vakra-mesh-pipe { display: flex; flex-direction: column; justify-content: center; align-items: center; min-width: 160px; flex: 0.5; text-align: center; }
+        .vakra-mesh-line { width: 100%; height: 2px; background: linear-gradient(90deg, var(--accent-blue) 0%, var(--accent-neon) 100%); position: relative; margin: 15px 0; }
+        .vakra-mesh-line::after { content: ''; position: absolute; right: 0; top: -4px; width: 0; height: 0; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 8px solid var(--accent-neon); }
+
+        /* 🔥 FIXED MISSING TECH TAG STYLE */
+        .tech-tag {
+            display: inline-block;
+            font-size: 0.8rem;
+            background: rgba(194, 24, 91, 0.05);
+            border: 1px solid rgba(194, 24, 91, 0.2);
+            color: #f472b6;
+            padding: 4px 12px;
+            border-radius: 6px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* 🕹️ COMMAND CONSOLE NAV DESIGN */
+        .central-nav-container { position: relative; display: inline-block; }
+        .console-trigger-btn {
+            background: rgba(194, 24, 91, 0.05); border: 1px solid rgba(194, 24, 91, 0.3);
+            color: #fff; padding: 10px 22px; border-radius: 8px; font-size: 0.9rem; font-weight: 600;
+            cursor: pointer; display: flex; align-items: center; gap: 12px; transition: all 0.3s;
+        }
+        .central-nav-container:hover .console-trigger-btn { background: rgba(194, 24, 91, 0.15); border-color: rgba(194, 24, 91, 0.8); box-shadow: 0 0 20px rgba(194, 24, 91, 0.3); }
+        .console-dropdown-dashboard {
+            position: absolute; top: 100%; right: -120px; width: 780px; background: #030712 !important;
+            border: 1px solid rgba(194, 24, 91, 0.25); border-radius: 16px; padding: 30px;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.95); opacity: 0; pointer-events: none;
+            transform: translateY(10px) scale(0.98); transition: all 0.3s ease; z-index: 2000; margin-top: 10px; overflow: hidden;
+        }
+        .central-nav-container:hover .console-dropdown-dashboard { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); border-color: rgba(194, 24, 91, 0.6); }
+        .dashboard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .dashboard-col { display: flex; flex-direction: column; gap: 6px; }
+        .dashboard-col h4 { font-family: 'Poppins', sans-serif; color: #fff; font-size: 0.85rem; font-weight: 700; margin: 0 0 12px 0; padding-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .dashboard-col a { display: flex !important; align-items: center; gap: 10px; color: var(--text-secondary) !important; text-decoration: none; font-size: 0.85rem !important; padding: 6px 10px !important; border-radius: 6px; transition: all 0.2s; }
+        .dashboard-col a:hover { background: rgba(255, 255, 255, 0.03) !important; color: #fff !important; padding-left: 14px !important; }
+        .console-footer { margin-top: 25px; padding: 15px 30px !important; border-top: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.75rem; color: #475569; font-family: monospace; display: flex !important; background: #070b14 !important; margin: 25px -30px -30px -30px; }
+    </style>
+    
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header></header>
+
+    <header></header>; border-bottom: 1px solid rgba(255,255,255,0.06); z-index: 1000; box-sizing: border-box;">
+        <div class="logo-area" style="display: flex; align-items: center; gap: 12px;">
+            <img src="../images/logo.png" alt="Vakratron Logo" style="height: 42px; width: auto;">
+            <div class="logo-text">
+                <h2 style="font-family: 'Poppins', sans-serif; font-size: 1.4rem; font-weight: 700; color: #fff; margin: 0; letter-spacing: 1px;">VAKRATRON</h2>
+                <span style="font-size: 0.75rem; color: var(--accent-neon); letter-spacing: 3px; font-weight: 600; display: block; margin-top: -2px;">SYSTEMS</span>
+            </div>
+        </div>
+        
+        <nav style="position: relative; display: flex; align-items: center; box-sizing: border-box;">
+            <div class="central-nav-container">
+                <button class="console-trigger-btn">
+                    <i class="fa-solid fa-bars-staggered menu-icon"></i>
+                    <span style="font-family: 'Poppins', sans-serif; letter-spacing: 1px;">COMMAND CONSOLE</span>
+                    <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                </button>
+                <div class="console-dropdown-dashboard">
+                    <div class="dashboard-grid">
+                        <div class="dashboard-col">
+                            <h4>CORE MATRIX</h4>
+                            <a href="../index.html"><i class="fa-solid fa-house-chimney"></i> System Home</a>
+                            <a href="../about.html"><i class="fa-solid fa-address-card"></i> About Corporate</a>
+                            <a href="../contact.html"><i class="fa-solid fa-paper-plane"></i> Contact Interface</a>
+                        </div>
+                        <div class="dashboard-col">
+                            <h4>EXECUTION CAPABILITY</h4>
+                            <a href="../products.html"><i class="fa-solid fa-cubes"></i> Portfolio Offerings</a>
+                            <a href="../services.html"><i class="fa-solid fa-gears"></i> Expertise Vectors</a>
+                            <a href="../credentials.html"><i class="fa-solid fa-building-shield"></i> Credentials Matrix</a>
+                        </div>
+                        <div class="dashboard-col active-panel" style="background: rgba(194, 24, 91, 0.02); border-radius: 8px;">
+                            <h4>COMPUTATIONAL FABRIC</h4>
+                            <a href="../fabric.html" style="color: var(--accent-blue); font-weight: 600;"><i class="fa-solid fa-network-wired"></i> Main Lab Hub Matrix</a>
+                            <a href="sovereign-ai.html"><i class="fa-solid fa-earth-asia"></i> <header></header></a>
+                            <a href="private-ai.html"><i class="fa-solid fa-vault"></i> Private AI Infra</a>
+                            <a href="ai-factory.html"><i class="fa-solid fa-industry"></i> AI Factory Design</a>
+                            <a href="gpu-cluster.html"><i class="fa-solid fa-circle-nodes"></i> GPU Cluster Design</a>
+                            <a href="nvidia-h100.html"><i class="fa-solid fa-bolt"></i> <header></header> Infra</a>
+                            <a href="hybrid-cloud.html"><i class="fa-solid fa-cloud"></i> Hybrid Cloud Matrix</a>
+                            <a href="govt-ai.html"><i class="fa-solid fa-landmark"></i> Government AI</a>
+                            <a href="stqc-compliance.html"><i class="fa-solid fa-certificate"></i> STQC Compliant AI</a>
+                            <a href="dc-dr.html" style="color: var(--accent-neon);"><i class="fa-solid fa-server"></i> Sovereign DC-DR Fabric</a>
+                        </div>
+                    </div>
+                    <div class="console-footer"><span><i class="fa-solid fa-terminal"></i> Status: Synced VAKRA-SYS v2.0.26</span></div>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="header-action">
+            <a href="../contact.html" style="background: linear-gradient(135deg, var(--accent-neon) 0%, #9d174d 100%); color: #fff; text-decoration: none; padding: 12px 26px; border-radius: 8px; font-size: 0.9rem; font-weight: 600; box-shadow: 0 4px 20px rgba(194, 24, 91, 0.25);">Get In Touch</a>
+        </div>
+    </header>
+
+    <section style="padding-top: 180px !important;">
+        <div style="max-width: 950px; margin: 0 auto; background: var(--bg-surface); border: 1px solid rgba(255,255,255,0.04); padding: 50px; border-radius: 24px; box-shadow: 0 30px 60px rgba(0,0,0,0.6);">
+            
+            <span class="premium-badge"><i class="fa-solid fa-shield-halved"></i> Continuity Engineering Matrix // Whitepaper</span>
+            
+            <h1 style="font-family: 'Poppins', sans-serif; font-size: 2.3rem; font-weight: 700; color: #fff; margin-top: 10px; margin-bottom: 20px; line-height: 1.3;">
+                Disaster Recovery Options in the Cloud: <br><span style="color: var(--accent-blue);">Rearchitecting Enterprise Workloads via OpenStack Frameworks</span>
+            </h1>
+            
+            <div class="tech-content">
+                <p>
+                    By decoupling data dependencies from public cloud hyperscalers, Vakratron Systems delivers high-capacity, infrastructure-sovereign <strong>Disaster Recovery (DR)</strong> blueprints engineered for mission-critical workloads. Utilizing native OpenStack abstractions and highly distributed storage topologies, we guarantee a secure, automated fallback state across geographically isolated boundaries without vendor lock-in or data leakage vectors.
+                </p>
+
+                <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.05); margin: 35px 0;">
+
+                <h3 style="font-family:'Poppins',sans-serif;color:var(--accent-blue);font-size:1.5rem;margin-bottom:15px;font-weight: 600;">
+                    Executive Summary
+                </h3>
+
+                <p>
+                    Disaster Recovery (DR) is the process of keeping business applications, databases, and digital services available when a primary data center becomes unavailable.
+                </p>
+
+                <p>
+                    Whether the outage is caused by hardware failure, power disruption, ransomware, human error, or a natural disaster, organizations need a recovery strategy that minimizes downtime and data loss.
+                </p>
+
+                <p>
+                    This guide explains the most common disaster recovery models used in OpenStack environments and helps organizations choose the right approach based on business requirements, budget, and recovery objectives.
+                </p>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-lightbulb"></i> What You Will Learn</h4>
+                    <ul>
+                        <li>Why disaster recovery is important.</li>
+                        <li>The difference between RPO and RTO.</li>
+                        <li>Common disaster recovery architecture models.</li>
+                        <li>Advantages and limitations of each approach.</li>
+                        <li>How OpenStack and Ceph support DR.</li>
+                        <li>How to select the right DR strategy.</li>
+                    </ul>
+                </div>
+
+                <hr style="border:none;border-top:1px solid rgba(255,255,255,0.05);margin:40px 0;">
+
+                <h3 style="font-family:'Poppins',sans-serif;color:var(--accent-blue);font-size:1.5rem;margin-bottom:15px;font-weight: 600;">
+                    Why Disaster Recovery Matters
+                </h3>
+
+                <p>
+                    Imagine your primary data center suddenly becomes unavailable. Applications stop responding. Databases become inaccessible. Customers cannot use services. Internal teams are unable to perform daily operations. Even a short outage can have a significant impact on revenue, customer trust, and business operations.
+                </p>
+
+                <p>
+                    A disaster recovery strategy ensures that critical workloads can continue running from an alternate location when the primary environment is unavailable.
+                </p>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-triangle-exclamation"></i> Common Causes of Outages</h4>
+                    <ul>
+                        <li>Power failures</li>
+                        <li>Storage failures</li>
+                        <li>Network outages</li>
+                        <li>Ransomware attacks</li>
+                        <li>Human errors</li>
+                        <li>Hardware failures</li>
+                        <li>Fire and flooding incidents</li>
+                        <li>Regional disasters</li>
+                    </ul>
+                </div>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-chart-line"></i> Business Impact</h4>
+                    <ul>
+                        <li>Revenue loss</li>
+                        <li>Customer dissatisfaction</li>
+                        <li>Compliance risks</li>
+                        <li>Operational disruption</li>
+                        <li>Brand reputation damage</li>
+                        <li>Increased recovery costs</li>
+                    </ul>
+                </div>
+
+                <hr style="border:none;border-top:1px solid rgba(255,255,255,0.05);margin:40px 0;">
+
+                <h3 style="font-family:'Poppins',sans-serif;color:var(--accent-blue);font-size:1.5rem;margin-bottom:15px;font-weight: 600;">
+                    Understanding RPO and RTO
+                </h3>
+
+                <p>
+                    Before designing a disaster recovery architecture, two important concepts must be understood.
+                </p>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-database"></i> Recovery Point Objective (RPO)</h4>
+                    <p>RPO defines the maximum amount of data loss that a business can tolerate during a disaster.</p>
+                    <p>Example: If data is replicated every 5 minutes, the maximum possible data loss is 5 minutes.</p>
+                    <div style="margin-top:12px;">
+                        <span class="vakra-tag-node">Data Protection</span>
+                        <span class="vakra-tag-node">Replication</span>
+                        <span class="vakra-tag-node">Data Loss Window</span>
+                    </div>
+                </div>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-clock"></i> Recovery Time Objective (RTO)</h4>
+                    <p>RTO defines how quickly applications and services must be restored after a disaster.</p>
+                    <p>Example: If applications must be available again within 30 minutes, then the RTO is 30 minutes.</p>
+                    <div style="margin-top:12px;">
+                        <span class="vakra-tag-node">Downtime</span>
+                        <span class="vakra-tag-node">Recovery Speed</span>
+                        <span class="vakra-tag-node">Business Continuity</span>
+                    </div>
+                </div>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-circle-info"></i> Quick Summary</h4>
+                    <ul>
+                        <li>RPO measures acceptable data loss.</li>
+                        <li>RTO measures acceptable downtime.</li>
+                        <li>Lower RPO generally requires more replication.</li>
+                        <li>Lower RTO generally requires more infrastructure.</li>
+                    </ul>
+                </div>
+
+                <hr style="border:none;border-top:1px solid rgba(255,255,255,0.05);margin:40px 0;">
+
+                <h3 style="font-family:'Poppins',sans-serif;color:var(--accent-blue);font-size:1.5rem;margin-bottom:15px;font-weight: 600;">
+                    Disaster Recovery Architecture Overview
+                </h3>
+
+                <p>
+                    A typical disaster recovery architecture consists of a primary production environment and a secondary recovery site. Data is continuously copied from the production site to the disaster recovery site. If the primary site becomes unavailable, workloads can be recovered from the secondary location.
+                </p>
+
+                <div class="vakra-mesh-container">
+                    <div class="vakra-mesh-row">
+                        <div class="vakra-mesh-card dc-primary">
+                            <h5><i class="fa-solid fa-building"></i> Primary Data Center</h5>
+                            <div class="vakra-sub-tier">
+                                <p>Applications</p>
+                                <span class="vakra-tag-node">Web</span>
+                                <span class="vakra-tag-node">API</span>
+                                <span class="vakra-tag-node">Database</span>
+                            </div>
+                            <div class="vakra-sub-tier">
+                                <p>Infrastructure</p>
+                                <span class="vakra-tag-node">OpenStack</span>
+                                <span class="vakra-tag-node">Nova</span>
+                                <span class="vakra-tag-node">Ceph</span>
+                            </div>
+                        </div>
+
+                        <div class="vakra-mesh-pipe">
+                            <div class="vakra-mesh-line"></div>
+                            <span style="font-size:0.85rem;color:#f472b6;font-weight:600;">Continuous Replication</span>
+                            <div class="vakra-mesh-line"></div>
+                        </div>
+
+                        <div class="vakra-mesh-card dr-target">
+                            <h5><i class="fa-solid fa-server"></i> Disaster Recovery Site</h5>
+                            <div class="vakra-sub-tier">
+                                <p>Recovery Resources</p>
+                                <span class="vakra-tag-node">Compute</span>
+                                <span class="vakra-tag-node">Storage</span>
+                                <span class="vakra-tag-node">Network</span>
+                            </div>
+                            <div class="vakra-sub-tier">
+                                <p>Recovery Actions</p>
+                                <span class="vakra-tag-node">Failover</span>
+                                <span class="vakra-tag-node">Recovery</span>
+                                <span class="vakra-tag-node">Business Continuity</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr style="border:none;border-top:1px solid rgba(255,255,255,0.05);margin:40px 0;">
+
+                <h3 style="font-family:'Poppins',sans-serif;color:var(--accent-blue);font-size:1.5rem;margin-bottom:15px;font-weight: 600;">
+                    Model 1: Backup and Restore
+                </h3>
+
+                <p>
+                    Backup and Restore is the simplest and most cost-effective disaster recovery model. In this approach, applications and data are periodically backed up and stored in a secondary location. When a disaster occurs, infrastructure is rebuilt and data is restored from backups.
+                </p>
+
+                <div class="vakra-mesh-container">
+                    <div class="vakra-mesh-row">
+                        <div class="vakra-mesh-card dc-primary">
+                            <h5><i class="fa-solid fa-building"></i> Production</h5>
+                            <div class="vakra-sub-tier">
+                                <span class="vakra-tag-node">Applications</span>
+                                <span class="vakra-tag-node">Database</span>
+                                <span class="vakra-tag-node">Storage</span>
+                            </div>
+                        </div>
+                        <div class="vakra-mesh-pipe">
+                            <div class="vakra-mesh-line"></div>
+                            <span style="font-size:0.85rem;color:#f472b6;font-weight:600;">Backup Process</span>
+                            <div class="vakra-mesh-line"></div>
+                        </div>
+                        <div class="vakra-mesh-card dr-target">
+                            <h5><i class="fa-solid fa-hard-drive"></i> Backup Repository</h5>
+                            <div class="vakra-sub-tier">
+                                <span class="vakra-tag-node">Snapshots</span>
+                                <span class="vakra-tag-node">Backups</span>
+                                <span class="vakra-tag-node">Images</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-circle-check"></i> Advantages</h4>
+                    <ul>
+                        <li>Lowest infrastructure cost.</li>
+                        <li>Simple deployment model.</li>
+                        <li>Easy to manage.</li>
+                        <li>Suitable for non-critical workloads.</li>
+                    </ul>
+                </div>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-circle-xmark"></i> Limitations</h4>
+                    <ul>
+                        <li>Longest recovery time.</li>
+                        <li>Higher data loss risk.</li>
+                        <li>Mostly manual recovery process.</li>
+                        <li>Not suitable for mission-critical applications.</li>
+                    </ul>
+                </div>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-bullseye"></i> Typical Recovery Targets</h4>
+                    <ul>
+                        <li>RPO: Hours</li>
+                        <li>RTO: Hours to Days</li>
+                        <li>Cost: Low</li>
+                    </ul>
+                </div>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-industry"></i> Recommended For</h4>
+                    <ul>
+                        <li>Small businesses</li>
+                        <li>Development environments</li>
+                        <li>Archive workloads</li>
+                        <li>Non-critical applications</li>
+                    </ul>
+                </div>
+
+                <hr style="border:none;border-top:1px solid rgba(255,255,255,0.05);margin:50px 0;">
+
+                <h3 style="font-family:'Poppins',sans-serif;color:var(--accent-blue);font-size:1.5rem;margin-bottom:15px;font-weight: 600;">
+                    Model 2: Pilot Light
+                </h3>
+
+                <p>
+                    Pilot Light is a cost-optimized disaster recovery strategy where only the most critical components remain active in the disaster recovery site. Instead of running the complete application stack, organizations keep databases, replication services, and core infrastructure continuously synchronized. During a disaster, application servers and supporting services are started using automation and infrastructure templates.
+                </p>
+
+                <div class="vakra-mesh-container">
+                    <div class="vakra-mesh-row">
+                        <div class="vakra-mesh-card dc-primary">
+                            <h5><i class="fa-solid fa-building"></i> Primary Data Center</h5>
+                            <div class="vakra-sub-tier">
+                                <p>Running Services</p>
+                                <span class="vakra-tag-node">Web</span>
+                                <span class="vakra-tag-node">API</span>
+                                <span class="vakra-tag-node">Database</span>
+                                <span class="vakra-tag-node">Storage</span>
+                            </div>
+                        </div>
+                        <div class="vakra-mesh-pipe">
+                            <div class="vakra-mesh-line"></div>
+                            <span style="font-size:0.85rem;color:#f472b6;font-weight:600;">Continuous Sync</span>
+                            <div class="vakra-mesh-line"></div>
+                        </div>
+                        <div class="vakra-mesh-card dr-target">
+                            <h5><i class="fa-solid fa-fire"></i> Pilot Light Site</h5>
+                            <div class="vakra-sub-tier">
+                                <p>Always Running</p>
+                                <span class="vakra-tag-node">Database</span>
+                                <span class="vakra-tag-node">Replication</span>
+                                <span class="vakra-tag-node">Core Storage</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-circle-check"></i> Advantages</h4>
+                    <ul>
+                        <li>Lower infrastructure cost.</li>
+                        <li>Faster recovery than Backup & Restore.</li>
+                        <li>Critical data remains continuously synchronized.</li>
+                        <li>Good balance between cost and recovery time.</li>
+                    </ul>
+                </div>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-circle-xmark"></i> Limitations</h4>
+                    <ul>
+                        <li>Recovery is not instant.</li>
+                        <li>Application servers must still be started.</li>
+                        <li>Requires automation planning.</li>
+                    </ul>
+                </div>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-bullseye"></i> Typical Recovery Targets</h4>
+                    <ul>
+                        <li>RPO: Minutes</li>
+                        <li>RTO: 30 Minutes to 2 Hours</li>
+                        <li>Cost: Medium-Low</li>
+                    </ul>
+                </div>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-industry"></i> Recommended For</h4>
+                    <ul>
+                        <li>Enterprise applications.</li>
+                        <li>Government workloads.</li>
+                        <li>Internal business platforms.</li>
+                        <li>Organizations seeking lower DR costs.</li>
+                    </ul>
+                </div>
+
+                <hr style="border:none;border-top:1px solid rgba(255,255,255,0.05);margin:50px 0;">
+
+                <h3 style="font-family:'Poppins',sans-serif;color:var(--accent-blue);font-size:1.5rem;margin-bottom:15px;font-weight: 600;">
+                    Model 3: Warm Standby
+                </h3>
+
+                <p>
+                    Warm Standby maintains a fully functional copy of the production environment at reduced capacity. Applications, databases, storage, and networking services are already running in the DR site, but with fewer resources than production. When a disaster occurs, additional compute resources are activated and traffic is redirected to the DR environment.
+                </p>
+
+                <div class="vakra-mesh-container">
+                    <div class="vakra-mesh-row">
+                        <div class="vakra-mesh-card dc-primary">
+                            <h5><i class="fa-solid fa-building"></i> Production Site</h5>
+                            <div class="vakra-sub-tier">
+                                <p>100% Capacity</p>
+                                <span class="vakra-tag-node">Apps</span>
+                                <span class="vakra-tag-node">Database</span>
+                                <span class="vakra-tag-node">Storage</span>
+                            </div>
+                        </div>
+                        <div class="vakra-mesh-pipe">
+                            <div class="vakra-mesh-line"></div>
+                            <span style="font-size:0.85rem;color:#f472b6;font-weight:600;">Continuous Replication</span>
+                            <div class="vakra-mesh-line"></div>
+                        </div>
+                        <div class="vakra-mesh-card dr-target">
+                            <h5><i class="fa-solid fa-server"></i> Warm Standby Site</h5>
+                            <div class="vakra-sub-tier">
+                                <p>30%-50% Capacity</p>
+                                <span class="vakra-tag-node">Apps</span>
+                                <span class="vakra-tag-node">Database</span>
+                                <span class="vakra-tag-node">Storage</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-circle-check"></i> Advantages</h4>
+                    <ul>
+                        <li>Much faster recovery.</li>
+                        <li>Applications already running.</li>
+                        <li>Minimal operational disruption.</li>
+                        <li>Suitable for business-critical workloads.</li>
+                    </ul>
+                </div>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-circle-xmark"></i> Limitations</h4>
+                    <ul>
+                        <li>Higher infrastructure cost.</li>
+                        <li>Requires continuous monitoring.</li>
+                        <li>Additional compute resources remain allocated.</li>
+                    </ul>
+                </div>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-bullseye"></i> Typical Recovery Targets</h4>
+                    <ul>
+                        <li>RPO: Near Zero to Minutes</li>
+                        <li>RTO: Minutes</li>
+                        <li>Cost: Medium-High</li>
+                    </tr>
+                </div>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-industry"></i> Recommended For</h4>
+                    <ul>
+                        <li>Banking systems.</li>
+                        <li>Healthcare platforms.</li>
+                        <li>Government services.</li>
+                        <li>Business-critical applications.</li>
+                    </ul>
+                </div>
+
+                <hr style="border:none;border-top:1px solid rgba(255,255,255,0.05);margin:50px 0;">
+
+                <h3 style="font-family:'Poppins',sans-serif;color:var(--accent-blue);font-size:1.5rem;margin-bottom:15px;font-weight: 600;">
+                    Model 4: Active-Passive
+                </h3>
+
+                <p>
+                    Active-Passive is one of the most commonly used disaster recovery architectures in enterprise environments. The primary site actively serves all users while the disaster recovery site remains fully prepared to take over during an outage. Applications, databases, storage, and networking services are continuously synchronized between both locations.
+                </p>
+
+                <div class="vakra-mesh-container">
+                    <div class="vakra-mesh-row">
+                        <div class="vakra-mesh-card dc-primary" style="border-color: var(--accent-blue);">
+                            <h5><i class="fa-solid fa-users" style="color: var(--accent-blue);"></i> User Ingress</h5>
+                            <div class="vakra-sub-tier" style="text-align: center; background: rgba(56, 189, 248, 0.05);">
+                                <p style="justify-content: center; color: var(--accent-blue);">PRODUCTION LINK</p>
+                                <span style="font-size: 0.8rem; color: var(--text-secondary);">All Users Routed Here</span>
+                            </div>
+                        </div>
+                        <div class="vakra-mesh-pipe">
+                            <div class="vakra-mesh-line"></div>
+                            <span style="font-size:0.85rem;color:var(--accent-blue);font-weight:600;">Active Pipeline</span>
+                            <div class="vakra-mesh-line"></div>
+                        </div>
+                        <div class="vakra-mesh-card dc-primary">
+                            <h5><i class="fa-solid fa-building"></i> Active Site (Primary)</h5>
+                            <div class="vakra-sub-tier">
+                                <p>Serving Live Traffic</p>
+                                <span class="vakra-tag-node">Applications</span>
+                                <span class="vakra-tag-node">Database</span>
+                                <span class="vakra-tag-node">Storage</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vakra-mesh-row" style="margin-top: 30px; justify-content: center;">
+                        <div style="text-align: center; color: var(--accent-neon); font-size: 0.85rem; font-family: monospace; font-weight: bold; width: 100%;">
+                            <i class="fa-solid fa-arrows-spin fa-spin" style="margin-right: 8px;"></i> REAL-TIME OPENSTACK VOLUME REPLICATION
+                            <div style="height: 2px; width: 50%; margin: 10px auto; background: linear-gradient(90deg, transparent, var(--accent-neon), transparent);"></div>
+                        </div>
+                    </div>
+                    <div class="vakra-mesh-row" style="margin-top: 10px; justify-content: flex-end;">
+                        <div class="vakra-mesh-card dr-target" style="max-width: 45%; flex: none; width: 100%;">
+                            <h5><i class="fa-solid fa-shield-halved" style="color: var(--accent-neon);"></i> Passive Site (Standby)</h5>
+                            <div class="vakra-sub-tier">
+                                <p>Ready for Failover</p>
+                                <span class="vakra-tag-node">Standby Compute</span>
+                                <span class="vakra-tag-node">Replica DB</span>
+                                <span class="vakra-tag-node">Replica Storage</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-circle-check"></i> Advantages</h4>
+                    <ul>
+                        <li>Fast recovery.</li>
+                        <li>Predictable failover process.</li>
+                        <li>Widely adopted enterprise model.</li>
+                        <li>Excellent balance between cost and resilience.</li>
+                    </ul>
+                </div>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-bullseye"></i> Typical Recovery Targets</h4>
+                    <ul>
+                        <li>RPO: Near Zero</li>
+                        <li>RTO: Minutes</li>
+                        <li>Cost: High</li>
+                    </ul>
+                </div>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-industry"></i> Recommended For</h4>
+                    <ul>
+                        <li>Banking Platforms</li>
+                        <li>Government Clouds</li>
+                        <li>Healthcare Systems</li>
+                        <li>Mission Critical Applications</li>
+                    </ul>
+                </div>
+
+                <hr style="border:none;border-top:1px solid rgba(255,255,255,0.05);margin:50px 0;">
+
+                <h3 style="font-family:'Poppins',sans-serif;color:var(--accent-blue);font-size:1.5rem;margin-bottom:15px;font-weight: 600;">
+                    Model 5: Active-Active
+                </h3>
+
+                <p>
+                    Active-Active is the most resilient disaster recovery architecture available. Both data centers actively serve production traffic at the same time. If one site becomes unavailable, traffic automatically continues through the remaining site. This architecture delivers the lowest downtime and lowest data loss but requires the highest investment.
+                </p>
+
+                <div class="vakra-mesh-container">
+                    <div style="text-align:center;margin-bottom:25px;">
+                        <div style="display:inline-block;padding:12px 24px;border:1px solid rgba(56,189,248,.3);border-radius:12px;background:rgba(10,20,40,.5);">
+                            <h4 style="margin:0;color:#fff;font-size:1.1rem;"><i class="fa-solid fa-users"></i> Global User Clusters</h4>
+                        </div>
+                        <div style="margin:12px 0;color:var(--accent-blue);font-weight:700;font-size: 0.9rem;font-family: monospace;">
+                            <i class="fa-solid fa-network-wired"></i> OCTAVIA LBaaS / ANYCAST LAYER
+                        </div>
+                    </div>
+                    <div class="vakra-mesh-row">
+                        <div class="vakra-mesh-card dc-primary">
+                            <h5><i class="fa-solid fa-server" style="color: var(--accent-blue);"></i> DC-1 Active Node</h5>
+                            <div class="vakra-sub-tier">
+                                <span class="vakra-tag-node">Applications</span>
+                                <span class="vakra-tag-node">Database</span>
+                                <span class="vakra-tag-node">Storage</span>
+                            </div>
+                        </div>
+                        <div class="vakra-mesh-pipe" style="min-width: 100px;">
+                            <div class="vakra-mesh-line" style="background: linear-gradient(90deg, var(--accent-blue) 0%, var(--accent-blue) 100%);"></div>
+                            <span style="font-size:0.75rem;color:#64748b;font-family: monospace;font-weight:600;">BI-SYNC MATRIX</span>
+                            <div class="vakra-mesh-line" style="transform: scaleX(-1); background: linear-gradient(90deg, var(--accent-neon) 0%, var(--accent-neon) 100%);"></div>
+                        </div>
+                        <div class="vakra-mesh-card dr-target">
+                            <h5><i class="fa-solid fa-server" style="color: var(--accent-neon);"></i> DC-2 Active Node</h5>
+                            <div class="vakra-sub-tier">
+                                <span class="vakra-tag-node">Applications</span>
+                                <span class="vakra-tag-node">Database</span>
+                                <span class="vakra-tag-node">Storage</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align:center;margin-top:25px;color:#f472b6;font-weight:500;font-size: 0.9rem;font-family: monospace;">
+                        <i class="fa-solid fa-shuffle"></i> CONTINUOUS CEPH SYNC MIRRORING OVER DARK FIBER
+                    </div>
+                </div>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-circle-check"></i> Advantages</h4>
+                    <ul>
+                        <li>Near-zero downtime.</li>
+                        <li>Near-zero data loss.</li>
+                        <li>Automatic workload continuity.</li>
+                        <li>Highest business availability.</li>
+                    </ul>
+                </div>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-circle-xmark"></i> Challenges</h4>
+                    <ul>
+                        <li>Most expensive model.</li>
+                        <li>Complex architecture design.</li>
+                        <li>Requires advanced replication and automation.</li>
+                    </ul>
+                </div>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-bullseye"></i> Typical Recovery Targets</h4>
+                    <ul>
+                        <li>RPO: Near Zero</li>
+                        <li>RTO: Near Zero</li>
+                        <li>Cost: Very High</li>
+                    </ul>
+                </div>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-industry"></i> Recommended For</h4>
+                    <ul>
+                        <li>National Critical Infrastructure</li>
+                        <li>Large Banking Platforms</li>
+                        <li>Telecom Providers</li>
+                        <li>AI Factories</li>
+                        <li>24x7 Citizen Services</li>
+                    </ul>
+                </div>
+
+                <hr style="border:none;border-top:1px solid rgba(255,255,255,0.05);margin:50px 0;">
+
+                <h3 style="font-family:'Poppins',sans-serif;color:var(--accent-blue);font-size:1.5rem;margin-bottom:15px;font-weight: 600;">
+                    Choosing the Right Disaster Recovery Strategy
+                </h3>
+
+                <p>
+                    Not every workload requires the same level of protection. Some applications can tolerate a few hours of downtime, while others must remain available continuously. The right disaster recovery model depends on business requirements, recovery objectives, budget, and application criticality.
+                </p>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-table"></i> Decision Matrix</h4>
+                    <div style="overflow-x:auto;">
+                        <table style="width:100%;border-collapse:collapse;margin-top:15px;">
+                            <thead>
+                                <tr style="background:rgba(56,189,248,.08);">
+                                    <th style="padding:14px;text-align:left;border:1px solid rgba(255,255,255,.08); color: #fff;">Business Requirement</th>
+                                    <th style="padding:14px;text-align:left;border:1px solid rgba(255,255,255,.08); color: #fff;">Recommended Model</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding:14px;border:1px solid rgba(255,255,255,.08);">Lowest Cost</td>
+                                    <td style="padding:14px;border:1px solid rgba(255,255,255,.08); color: var(--accent-blue); font-weight: 500;">Backup & Restore</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:14px;border:1px solid rgba(255,255,255,.08);">Cost Optimized Recovery</td>
+                                    <td style="padding:14px;border:1px solid rgba(255,255,255,.08); color: var(--accent-blue); font-weight: 500;">Pilot Light</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:14px;border:1px solid rgba(255,255,255,.08);">Fast Recovery</td>
+                                    <td style="padding:14px;border:1px solid rgba(255,255,255,.08); color: var(--accent-blue); font-weight: 500;">Warm Standby</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:14px;border:1px solid rgba(255,255,255,.08);">Enterprise Applications</td>
+                                    <td style="padding:14px;border:1px solid rgba(255,255,255,.08); color: var(--accent-blue); font-weight: 500;">Active Passive</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:14px;border:1px solid rgba(255,255,255,.08);">Mission Critical Services</td>
+                                    <td style="padding:14px;border:1px solid rgba(255,255,255,.08); color: var(--accent-blue); font-weight: 500;">Active Active</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-lightbulb"></i> Key Takeaway</h4>
+                    <p>If downtime directly impacts revenue, customer experience, or regulatory compliance, organizations should consider Warm Standby, Active Passive, or Active Active architectures.</p>
+                    <p>For development, testing, and non-critical applications, Backup & Restore or Pilot Light may be sufficient.</p>
+                </div>
+
+                <hr style="border:none;border-top:1px solid rgba(255,255,255,0.05);margin:50px 0;">
+
+                <h3 style="font-family:'Poppins',sans-serif;color:var(--accent-blue);font-size:1.5rem;margin-bottom:15px;font-weight: 600;">
+                    How OpenStack Supports Disaster Recovery
+                </h3>
+
+                <p>
+                    OpenStack provides multiple services that help organizations design resilient disaster recovery architectures. Each service plays a specific role in compute recovery, storage replication, networking continuity, and infrastructure automation.
+                </p>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-diagram-project"></i> OpenStack Component Mapping</h4>
+                    <div style="overflow-x:auto;">
+                        <table style="width:100%;border-collapse:collapse;margin-top:15px;">
+                            <thead>
+                                <tr style="background:rgba(56,189,248,.08);">
+                                    <th style="padding:14px;border:1px solid rgba(56,189,248,.08);text-align:left; color: #fff;">Component</th>
+                                    <th style="padding:14px;border:1px solid rgba(56,189,248,.08);text-align:left; color: #fff;">Role in Disaster Recovery</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding:14px;border:1px solid rgba(56,189,248,.08); font-weight: 500;">Nova</td>
+                                    <td style="padding:14px;border:1px solid rgba(56,189,248,.08);">Compute recovery and VM availability</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:14px;border:1px solid rgba(56,189,248,.08); font-weight: 500;">Ceph</td>
+                                    <td style="padding:14px;border:1px solid rgba(56,189,248,.08);">Storage replication and data protection</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:14px;border:1px solid rgba(56,189,248,.08); font-weight: 500;">Neutron</td>
+                                    <td style="padding:14px;border:1px solid rgba(56,189,248,.08);">Network continuity and connectivity</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:14px;border:1px solid rgba(56,189,248,.08); font-weight: 500;">Keystone</td>
+                                    <td style="padding:14px;border:1px solid rgba(56,189,248,.08);">Identity and access management</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:14px;border:1px solid rgba(56,189,248,.08); font-weight: 500;">Heat</td>
+                                    <td style="padding:14px;border:1px solid rgba(56,189,248,.08);">Infrastructure automation</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:14px;border:1px solid rgba(56,189,248,.08); font-weight: 500;">Ansible</td>
+                                    <td style="padding:14px;border:1px solid rgba(56,189,248,.08);">Recovery orchestration and failover automation</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <hr style="border:none;border-top:1px solid rgba(255,255,255,0.05);margin:50px 0;">
+
+                <h3 style="font-family:'Poppins',sans-serif;color:var(--accent-blue);font-size:1.5rem;margin-bottom:15px;font-weight: 600;">
+                    Disaster Recovery Cost Comparison
+                </h3>
+
+                <p>
+                    Every disaster recovery model offers a different balance between cost, recovery speed, and operational complexity. Organizations should choose a model based on business impact rather than infrastructure cost alone.
+                </p>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-money-bill-trend-up"></i> Cost vs Recovery Matrix</h4>
+                    <div style="overflow-x:auto;">
+                        <table style="width:100%;border-collapse:collapse;margin-top:15px;">
+                            <thead>
+                                <tr style="background:rgba(56,189,248,.08);">
+                                    <th style="padding:14px;border:1px solid rgba(255,255,255,.08); color: #fff;">Model</th>
+                                    <th style="padding:14px;border:1px solid rgba(255,255,255,.08); color: #fff;">Cost</th>
+                                    <th style="padding:14px;border:1px solid rgba(255,255,255,.08); color: #fff;">Complexity</th>
+                                    <th style="padding:14px;border:1px solid rgba(255,255,255,.08); color: #fff;">Recovery Speed</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding:14px;border:1px solid rgba(255,255,255,.08); font-weight: 500;">Backup & Restore</td>
+                                    <td style="padding:14px;border:1px solid rgba(255,255,255,.08);">Low</td>
+                                    <td style="padding:14px;border:1px solid rgba(255,255,255,.08);">Low</td>
+                                    <td style="padding:14px;border:1px solid rgba(255,255,255,.08);">Slow</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:14px;border:1px solid rgba(255,255,255,.08); font-weight: 500;">Pilot Light</td>
+                                    <td style="padding:14px;border:1px solid rgba(255,255,255,.08);">Medium-Low</td>
+                                    <td style="padding:14px;border:1px solid rgba(255,255,255,.08);">Medium</td>
+                                    <td style="padding:14px;border:1px solid rgba(255,255,255,.08);">Moderate</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:14px;border:1px solid rgba(255,255,255,.08); font-weight: 500;">Warm Standby</td>
+                                    <td style="padding:14px;border:1px solid rgba(255,255,255,.08);">Medium-High</td>
+                                    <td style="padding:14px;border:1px solid rgba(255,255,255,.08);">Medium</td>
+                                    <td style="padding:14px;border:1px solid rgba(255,255,255,.08);">Fast</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:14px;border:1px solid rgba(255,255,255,.08); font-weight: 500;">Active Passive</td>
+                                    <td style="padding:14px;border:1px solid rgba(255,255,255,.08);">High</td>
+                                    <td style="padding:14px;border:1px solid rgba(255,255,255,.08);">High</td>
+                                    <td style="padding:14px;border:1px solid rgba(255,255,255,.08);">Very Fast</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:14px;border:1px solid rgba(255,255,255,.08); font-weight: 500;">Active Active</td>
+                                    <td style="padding:14px;border:1px solid rgba(255,255,255,.08);">Very High</td>
+                                    <td style="padding:14px;border:1px solid rgba(255,255,255,.08);">Very High</td>
+                                    <td style="padding:14px;border:1px solid rgba(255,255,255,.08);">Near Instant</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <hr style="border:none;border-top:1px solid rgba(255,255,255,0.05);margin:50px 0;">
+
+                <h3 style="font-family:'Poppins',sans-serif;color:var(--accent-blue);font-size:1.5rem;margin-bottom:15px;font-weight: 600;">
+                    Industry-Specific Disaster Recovery Strategies
+                </h3>
+
+                <p>
+                    Different industries have different availability requirements. The ideal DR strategy depends on business criticality, compliance requirements, and acceptable downtime.
+                </p>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-building-columns"></i> Banking & Financial Services</h4>
+                    <p>Banking systems process real-time transactions and customer operations around the clock.</p>
+                    <p><strong>Recommended Architecture:</strong> Active Passive or Active Active</p>
+                </div>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-landmark"></i> Government Services</h4>
+                    <p>Citizen-facing services must remain available during emergencies and regional disruptions.</p>
+                    <p><strong>Recommended Architecture:</strong> Warm Standby or Active Passive</p>
+                </div>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-hospital"></i> Healthcare Platforms</h4>
+                    <p>Patient systems, diagnostics, and clinical applications require rapid recovery.</p>
+                    <p><strong>Recommended Architecture:</strong> Warm Standby</p>
+                </div>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-microchip"></i> AI & GPU Infrastructure</h4>
+                    <p>Large AI training environments contain high-value compute resources and datasets.</p>
+                    <p><strong>Recommended Architecture:</strong> Active Active</p>
+                </div>
+
+                <div class="tech-step-box">
+                    <h4><i class="fa-solid fa-industry"></i> Manufacturing</h4>
+                    <p>Manufacturing systems typically prioritize operational continuity with balanced costs.</p>
+                    <p><strong>Recommended Architecture:</strong> Pilot Light</p>
+                </div>
+
+                <hr style="border:none;border-top:1px solid rgba(255,255,255,0.05);margin:50px 0;">
+
+                <h3 style="font-family:'Poppins',sans-serif;color:var(--accent-blue);font-size:1.5rem;margin-bottom:15px;font-weight: 600;">
+                    Disaster Recovery Best Practices
+                </h3>
+
+                <div class="tech-step-box">
+                    <ul>
+                        <li>Perform disaster recovery testing regularly.</li>
+                        <li>Automate failover and recovery workflows wherever possible.</li>
+                        <li>Monitor replication health continuously.</li>
+                        <li>Protect backup repositories from ransomware.</li>
+                        <li>Keep recovery documentation updated.</li>
+                        <li>Review RPO and RTO objectives quarterly.</li>
+                        <li>Validate application dependencies before DR testing.</li>
+                        <li>Conduct annual business continuity exercises.</li>
+                    </ul>
+                </div>          
+                
+                <hr style="border:none;border-top:1px solid rgba(255,255,255,0.05);margin:50px 0;">
+
+                <h3 style="font-family:'Poppins',sans-serif;color:var(--accent-blue);font-size:1.5rem;margin-bottom:15px;font-weight: 600;">
+                    Frequently Asked Questions (FAQ)
+                </h3>
+
+                <p>
+                    The following questions are commonly asked when designing disaster recovery solutions for enterprise workloads.
+                </p>
+
+                <div class="faq-question"><i class="fa-solid fa-circle-question"></i> What is Disaster Recovery?</div>
+                <div class="faq-answer">Disaster Recovery (DR) is the process of restoring applications, databases, and infrastructure after an outage, cyberattack, hardware failure, or natural disaster.</div>
+
+                <div class="faq-question"><i class="fa-solid fa-circle-question"></i> What is the difference between RPO and RTO?</div>
+                <div class="faq-answer">RPO defines how much data loss is acceptable, while RTO defines how quickly services must be restored.</div>
+
+                <div class="faq-question"><i class="fa-solid fa-circle-question"></i> Which disaster recovery model is best for OpenStack?</div>
+                <div class="faq-answer">There is no single answer. Small environments may use Backup & Restore, while enterprise platforms often deploy Active-Passive or Active-Active architectures.</div>
+
+                <div class="faq-question"><i class="fa-solid fa-circle-question"></i> Can OpenStack support Active-Active disaster recovery?</div>
+                <div class="faq-answer">Yes. OpenStack combined with Ceph replication, network automation, orchestration tools, and multi-site architecture can support Active-Active deployments for critical workloads.</div>
+
+                <div class="faq-question"><i class="fa-solid fa-circle-question"></i> How often should disaster recovery testing be performed?</div>
+                <div class="faq-answer">Most organizations perform DR validation every quarter and conduct a full recovery simulation at least once per year.</div>
+
+                <div class="faq-question"><i class="fa-solid fa-circle-question"></i> What is the most cost-effective disaster recovery strategy?</div>
+                <div class="faq-answer">Backup & Restore is generally the lowest-cost approach, while Pilot Light offers a balance between recovery speed and infrastructure cost.</div>
+
+                <hr style="border:none;border-top:1px solid rgba(255,255,255,0.05);margin:50px 0;">
+
+                <h3 style="font-family:'Poppins',sans-serif;color:var(--accent-blue);font-size:1.6rem;margin-bottom:20px;font-weight: 600;">
+                    Conclusion
+                </h3>
+
+                <div class="tech-step-box">
+                    <p>Disaster recovery is not only a technology decision. It is a business continuity decision.</p>
+                    <p>Organizations must align recovery objectives, compliance requirements, operational risks, and budget constraints before selecting a disaster recovery architecture.</p>
+                    <p>OpenStack, Ceph, Neutron, Nova, and automation frameworks provide the flexibility required to implement everything from simple backup-based recovery to fully automated Active-Active enterprise deployments.</p>
+                    <p>The right disaster recovery strategy ensures applications remain available, data remains protected, and business operations continue even during major disruptions.</p>
+                    
+                    <div style="margin-top:25px;display:flex;flex-wrap:wrap;gap:10px;">
+                        <span class="tech-tag">Business Continuity</span>
+                        <span class="tech-tag">OpenStack DR</span>
+                        <span class="tech-tag">Ceph Replication</span>
+                        <span class="tech-tag">Active-Active</span>
+                        <span class="tech-tag">Disaster Recovery</span>
+                        <span class="tech-tag">Enterprise Architecture</span>
+                    </div>
+                </div>  
+            </div>
+            
+            <div style="margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 25px; display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-family: monospace; font-size: 0.8rem; color: #475569;">VAKRATRON SYSTEMS LAYER V2.0</span>
+                <a href="../fabric.html" style="color: var(--accent-neon); text-decoration: none; font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-circle-arrow-left"></i> Return to Fabric Lab Hub
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <footer style="background: #01040f; padding: 60px 8% 30px 8%; border-top: 1px solid rgba(255,255,255,0.04); box-sizing: border-box;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; flex-wrap: wrap; margin-bottom: 40px;">
+            <div style="flex: 1.5; min-width: 300px;">
+                <h2 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1.5rem; font-weight: 700; margin: 0 0 15px 0;">VAKRATRON <span style="color: var(--accent-neon); font-size: 0.85rem; display: block; letter-spacing: 3px;">SYSTEMS</span></h2>
+                <p style="font-size: 0.95rem; margin-bottom: 25px; font-weight: 300; color: var(--text-secondary);">Architecting resilient, hyper-secure AI compute frameworks and cloud automation systems.</p>
+            </div>
+            <div style="flex: 1; min-width: 150px; display: flex; flex-direction: column; gap: 12px;">
+                <h4 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1.1rem; margin: 0 0 8px 0;">Structure Links</h4>
+                <a href="../index.html" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Home Vector</a>
+                <a href="../fabric.html" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Fabric Lab Hub</a>
+            </div>
+        </div>
+        <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 25px; text-align: center; font-size: 0.85rem; color: #475569;">
+            &copy; <footer style="background: #020810; padding: 60px 8% 30px 8%; border-top: 1px solid rgba(255,255,255,0.05); box-sizing: border-box; width: 100%; clear: both; position: relative; z-index: 999; font-family: 'Inter', sans-serif;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; flex-wrap: wrap; text-align: left; max-width: 1200px; margin: 0 auto;">
+        
+        <div style="flex: 2; min-width: 280px;">
+            <h2 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1.4rem; font-weight: 700; margin: 0 0 12px 0; letter-spacing: 1px;">
+                VAKRATRON <span style="color: #C2185B; font-size: 0.8rem; letter-spacing: 3px; font-weight: 600; display: block; margin-top: 2px;">SYSTEMS</span>
+            </h2>
+            <p style="color: #64748b; font-size: 0.9rem; line-height: 1.6; margin: 0 0 20px 0; text-align: justify;">
+                Architecting resilient, hyper-secure, and dynamically scaled AI compute frameworks and cloud automation systems for enterprise governance matrices.
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 6px; font-size: 0.85rem; color: #64748b;">
+                <span><i class="fa-solid fa-phone" style="color: #C2185B; margin-right: 8px;"></i> +91 93196 66864</span>
+                <span><i class="fa-solid fa-envelope" style="color: #C2185B; margin-right: 8px;"></i> connect@vakratronsys.com</span>
+            </div>
+        </div>
+        
+        <div style="flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 10px;">
+            <h4 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1rem; margin: 0 0 5px 0; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Compliance Matrix</h4>
+            <span style="color: #64748b; font-size: 0.85rem;"><i class="fa-solid fa-building" style="color: #C2185B; margin-right: 6px;"></i> LLPIN: AAT-3851</span>
+            <span style="color: #64748b; font-size: 0.85rem;"><i class="fa-solid fa-certificate" style="color: #C2185B; margin-right: 6px;"></i> DIPP No: DIPP247647</span>
+            <span style="color: #38bdf8; font-size: 0.85rem; font-weight: 600;"><i class="fa-solid fa-shield-halved" style="margin-right: 6px;"></i> Data Protection Secure</span>
+        </div>
+        
+        <div style="flex: 1; min-width: 150px; display: flex; flex-direction: column; gap: 10px;">
+            <h4 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1rem; margin: 0 0 5px 0; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Structure Links</h4>
+            <a href="/index.html" style="color: #64748b; text-decoration: none; font-size: 0.85rem;">Home Vector</a>
+            <a href="/about.html" style="color: #64748b; text-decoration: none; font-size: 0.85rem;">About Corporate</a>
+            <a href="/products.html" style="color: #64748b; text-decoration: none; font-size: 0.85rem;">Portfolio Offerings</a>
+            <a href="/fabric.html" style="color: #38bdf8; text-decoration: none; font-size: 0.85rem; font-weight: 600;">Fabric Lab Hub</a>
+        </div>
+    </div>
+    
+    <div style="border-top: 1px solid rgba(255,255,255,0.05); margin-top: 30px; padding-top: 20px; text-align: center; font-size: 0.8rem; color: #475569;">
+        &copy; 2026 Vakratron Systems LLP | All Rights Reserved.
+    </div>
+</footer>
+        </div>
+    </footer>
+
+
+    <script src="/vakra-loader.js"></script>
+</body>
+</html> -->

@@ -1,0 +1,349 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise RAG Architecture & Knowledge Intelligence | Vakratron Systems</title>
+    <meta name="description" content="Production-ready Retrieval-Augmented Generation (RAG) pipelines, semantic chunking mechanisms, cross-encoder re-ranking networks, and scalable vector ingestion layers.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-surface: rgba(15, 23, 42, 0.6);
+            --border-glow: rgba(6, 182, 212, 0.2);
+            --accent-blue: #06b6d4;
+            --accent-pink: #f472b6;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main) !important;
+            color: var(--text-primary);
+            background-image: 
+                radial-gradient(circle at 50% 20%, rgba(6, 182, 212, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(168, 85, 247, 0.04) 0%, transparent 50%) !important;
+            background-size: 200% 200% !important;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background: transparent !important;
+        }
+
+        /* 💎 MASTER 1200PX CENTERED LAYOUT */
+        .main-container-fabric {
+            max-width: 1200px !important;
+            margin: 0 auto;
+            padding: 140px 5% 100px 5%;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .architecture-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(6, 182, 212, 0.08);
+            border: 1px solid rgba(6, 182, 212, 0.25);
+            color: #22d3ee;
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 25px;
+            font-family: monospace;
+        }
+
+        .matrix-body-text {
+            color: var(--text-secondary);
+            font-size: 1.02rem;
+            line-height: 1.7;
+            margin: 0 0 20px 0;
+            font-weight: 300;
+        }
+
+        /* 📋 PROFESSIONAL CARD SLOTS WITH FIXED GRID LISTS */
+        .tech-step-box {
+            background: var(--bg-surface);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            padding: 35px;
+            margin: 30px 0;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .tech-step-box h4 {
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tech-step-box p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0 0 20px 0;
+        }
+
+        /* सूचियों का पैरेलल 2-कॉलम अलाइनमेंट */
+        .tech-step-box ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px 40px;
+        }
+
+        .tech-step-box li {
+            color: #cbd5e1;
+            font-size: 0.92rem;
+            line-height: 1.5;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .tech-step-box li::before {
+            content: "•";
+            color: var(--accent-blue);
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0;
+        }
+
+        /* 🌐 3-COLUMN MESH GRID (100% WORKING SYMMETRY) */
+        .vakra-mesh-container {
+            background: rgba(2, 6, 23, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            padding: 40px;
+            margin: 40px 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .vakra-mesh-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            gap: 15px;
+        }
+
+        .vakra-mesh-card {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 22px;
+            flex: 1;
+            min-width: 0;
+            box-sizing: border-box;
+        }
+
+        .dc-primary { border-left: 4px solid #ef4444; }
+        .dr-target { border-left: 4px solid #10b981; }
+
+        .vakra-mesh-card h5 {
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            font-size: 0.95rem;
+            margin: 0 0 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .vakra-sub-tier {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .vakra-tag-node {
+            font-size: 0.72rem;
+            font-family: monospace;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            color: #94a3b8;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        .vakra-mesh-pipe {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-shrink: 0;
+            font-family: monospace;
+            font-weight: 600;
+            min-width: 110px;
+        }
+
+        .vakra-mesh-line {
+            height: 1px;
+            background: linear-gradient(90deg, rgba(239,68,68,0.2), rgba(16,185,129,0.2));
+            flex-grow: 1;
+        }
+
+        @media (max-width: 960px) {
+            .vakra-mesh-row, .tech-step-box ul {
+                grid-template-columns: 1fr !important;
+            }
+            .vakra-mesh-pipe { display: none !important; }
+        }
+    </style></head><body>
+
+    <header></header>
+
+    <main class="main-container-fabric">
+        
+        <span class="architecture-badge">
+            <i class="fa-solid fa-database"></i> Knowledge Intelligence // Retrieval Pipeline
+        </span>
+
+        <h1 style="font-family:'Poppins',sans-serif; color:#fff; font-size:2.5rem; font-weight:800; margin: 0 0 25px 0; background: linear-gradient(135deg, #fff 0%, var(--text-secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            Enterprise RAG Architecture & Knowledge Intelligence
+        </h1>
+        
+        <p class="matrix-body-text">
+            Enterprise knowledge is deeply fragmented across legacy databases, isolated file shares, document repositories, and communication channels. Moving beyond basic vector search, production-grade Retrieval-Augmented Generation (RAG) systems demand contextually grounded architecture to combat hallucinations and deliver verifiable enterprise accuracy.
+        </p>
+        <p class="matrix-body-text">
+            Vakratron Systems engineers end-to-end cognitive extraction fabrics. Our pipelines ingest, structure, embed, and dynamically serve enterprise state data straight to planning models, enforcing strictly scoped document permissions and real-time authority filters.
+        </p>
+
+        <div class="vakra-mesh-container">
+            <div class="vakra-mesh-row">
+                
+                <div class="vakra-mesh-card dc-primary">
+                    <h5><i class="fa-solid fa-file-import" style="color: #ef4444;"></i> Ingestion Layer</h5>
+                    <div class="vakra-sub-tier">
+                        <span class="vakra-tag-node">Parsing</span>
+                        <span class="vakra-tag-node">Chunking</span>
+                        <span class="vakra-tag-node">Embeddings</span>
+                    </div>
+                </div>
+
+                <div class="vakra-mesh-pipe">
+                    <div class="vakra-mesh-line"></div>
+                    <span style="font-size:0.82rem; color:var(--accent-pink);">Processing</span>
+                    <div class="vakra-mesh-line"></div>
+                </div>
+
+                <div class="vakra-mesh-card" style="border-left: 4px solid var(--accent-blue);">
+                    <h5><i class="fa-solid fa-server" style="color: var(--accent-blue);"></i> Storage & Indexing</h5>
+                    <div class="vakra-sub-tier">
+                        <span class="vakra-tag-node">Vector DB</span>
+                        <span class="vakra-tag-node">Hybrid Index</span>
+                        <span class="vakra-tag-node">Graph Nodes</span>
+                    </div>
+                </div>
+
+                <div class="vakra-mesh-pipe">
+                    <div class="vakra-mesh-line"></div>
+                    <span style="font-size:0.82rem; color:var(--accent-pink);">Retrieval</span>
+                    <div class="vakra-mesh-line"></div>
+                </div>
+
+                <div class="vakra-mesh-card dr-target">
+                    <h5><i class="fa-solid fa-wand-magic-sparkles" style="color: #10b981;"></i> Synthesis Layer</h5>
+                    <div class="vakra-sub-tier">
+                        <span class="vakra-tag-node">Re-ranking</span>
+                        <span class="vakra-tag-node">Augmenting</span>
+                        <span class="vakra-tag-node">Generation</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-layer-group" style="color: var(--accent-blue);"></i> Document Ingestion & Advanced Chunking</h4>
+            <p>Our ingestion frameworks break down unstructured multi-format data (PDFs, Docs, Scans) without losing structural orientation or table dependencies.</p>
+            <ul>
+                <li>Semantic & Layout-Aware Chunking</li>
+                <li>Hierarchical Parent-Child Indexing</li>
+                <li>OCR & Multi-Modal Document Parsing</li>
+                <li>Metadata Enrichment Pipelines</li>
+                <li>Sliding Window Token Tokenization</li>
+                <li>Automated Document Delta Scanning</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-magnifying-glass-plus" style="color: var(--accent-blue);"></i> Hybrid Retrieval Strategy</h4>
+            <p>Combining the dense conceptual tracking of vector embeddings with the strict literal filtering of keyword-based keyword matching.</p>
+            <ul>
+                <li>Dense Vector Embedding Search</li>
+                <li>Sparse BM25 Keyword Matching</li>
+                <li>Cross-Encoder Deep Re-ranking</li>
+                <li>Query Intent Analysis & Expansion</li>
+                <li>Hypothetical Document Embeddings (HyDE)</li>
+                <li>Reciprocal Rank Fusion (RRF) Blending</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-diagram-project" style="color: var(--accent-blue);"></i> Knowledge Graph RAG (GraphRAG)</h4>
+            <p>Maps abstract data correlations as structured nodes and categorical relationships, allowing deep contextual multi-hop query analysis.</p>
+            <ul>
+                <li>Entity-Relation Node Extraction</li>
+                <li>Multi-Hop Cross-Document Reasoning</li>
+                <li>Graph Vector Index Merging</li>
+                <li>Community Summary Aggregations</li>
+                <li>Structured Graph Store Integration</li>
+                <li>Deterministic Knowledge Paths</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-shield-halved" style="color: var(--accent-blue);"></i> Guardrails, Grounding & Citations</h4>
+            <p>Guarantees that every generated output is thoroughly anchored in internal evidence bases, effectively mitigating hallucination thresholds.</p>
+            <ul>
+                <li>Strict Context Verification Testing</li>
+                <li>Verifiable Inline Source Citations</li>
+                <li>Role-Based Document Access Control</li>
+                <li>PII Masking & Redaction Filters</li>
+                <li>Self-RAG Evaluation Frameworks</li>
+                <li>Real-Time Grounding Score Controls</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-gears" style="color: #10b981;"></i> Target Operational Outcomes</h4>
+            <ul>
+                <li>Elimination of AI Text Hallucinations</li>
+                <li>Instant Multi-Repository Searchability</li>
+                <li>Zero-Leak Enterprise Security Rigor</li>
+                <li>Verifiable, Audit-Ready Citation Paths</li>
+                <li>Drastic Manual Data Extraction Savings</li>
+                <li>Context-Aware Multi-Department Alignment</li>
+            </ul>
+        </div>
+
+    </main>
+
+    <footer></footer>
+
+    
+    
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

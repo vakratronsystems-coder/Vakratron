@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security, Governance & Responsible AI | Vakratron Systems</title>
+    <meta name="description" content="Enterprise-grade AI security, governance, compliance frameworks, and responsible AI guardrails for production-ready agentic systems.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-surface: rgba(15, 23, 42, 0.6);
+            --border-glow: rgba(6, 182, 212, 0.2);
+            --accent-blue: #06b6d4;
+            --accent-pink: #f472b6;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+        }
+
+        html { scroll-behavior: smooth; font-family: 'Inter', sans-serif; background-color: var(--bg-main) !important; color: var(--text-primary); }
+        body { margin: 0; padding: 0; overflow-x: hidden; background: transparent !important; }
+
+        .main-container-fabric { max-width: 1200px !important; margin: 0 auto; padding: 140px 5% 100px 5%; box-sizing: border-box; width: 100%; }
+        
+        .architecture-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(6, 182, 212, 0.08); border: 1px solid rgba(6, 182, 212, 0.25); color: #22d3ee; padding: 6px 16px; border-radius: 100px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 25px; font-family: monospace; }
+        .matrix-body-text { color: var(--text-secondary); font-size: 1.02rem; line-height: 1.7; margin: 0 0 20px 0; font-weight: 300; }
+        
+        .tech-step-box { background: var(--bg-surface); border: 1px solid rgba(255, 255, 255, 0.02); border-radius: 16px; padding: 35px; margin: 30px 0; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .tech-step-box h4 { font-family: 'Poppins', sans-serif; color: #fff; font-size: 1.2rem; font-weight: 600; margin: 0 0 15px 0; display: flex; align-items: center; gap: 12px; }
+        .tech-step-box ul { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px 40px; }
+        .tech-step-box li { color: #cbd5e1; font-size: 0.92rem; line-height: 1.5; position: relative; padding-left: 20px; }
+        .tech-step-box li::before { content: "•"; color: var(--accent-blue); font-weight: bold; font-size: 1.2rem; position: absolute; left: 0; }
+        
+        .vakra-mesh-container { background: rgba(2, 6, 23, 0.4); border: 1px solid rgba(255, 255, 255, 0.02); border-radius: 16px; padding: 40px; margin: 40px 0; width: 100%; box-sizing: border-box; }
+        .vakra-mesh-row { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; gap: 25px; }
+        .vakra-mesh-card { background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255,255,255,0.03); border-radius: 12px; padding: 22px; width: 100%; box-sizing: border-box; }
+        .dc-primary { border-left: 4px solid #ef4444; }
+        .dr-target { border-left: 4px solid #10b981; }
+        
+        @media (max-width: 960px) { .vakra-mesh-row, .tech-step-box ul { grid-template-columns: 1fr !important; } }
+    </style>
+</head>
+<body>
+    <header></header>
+    <main class="main-container-fabric">
+        <span class="architecture-badge"><i class="fa-solid fa-shield-halved"></i> Governance // Trust & Compliance</span>
+        <h1 style="font-family:'Poppins',sans-serif; color:#fff; font-size:2.5rem; font-weight:800; margin: 0 0 25px 0;">Security, Governance & Responsible AI</h1>
+        <p class="matrix-body-text">Maintaining control, transparency, and data protection is non-negotiable for business-critical AI operations. Vakratron Systems builds security-by-design into every agentic workflow.</p>
+
+        <div class="vakra-mesh-container">
+            <div class="vakra-mesh-row">
+                <div class="vakra-mesh-card dc-primary">
+                    <h5><i class="fa-solid fa-shield-halved" style="color: #ef4444;"></i> Security</h5>
+                    <div class="vakra-sub-tier">
+                        <span class="vakra-tag-node">IAM</span> <span class="vakra-tag-node">Encryption</span> <span class="vakra-tag-node">Audit</span>
+                    </div>
+                </div>
+                <div class="vakra-mesh-card" style="border-left: 4px solid var(--accent-blue);">
+                    <h5><i class="fa-solid fa-scale-balanced" style="color: var(--accent-blue);"></i> Governance</h5>
+                    <div class="vakra-sub-tier">
+                        <span class="vakra-tag-node">Policy</span> <span class="vakra-tag-node">Audit</span> <span class="vakra-tag-node">Compliance</span>
+                    </div>
+                </div>
+                <div class="vakra-mesh-card dr-target">
+                    <h5><i class="fa-solid fa-user-check" style="color: #10b981;"></i> Responsible AI</h5>
+                    <div class="vakra-sub-tier">
+                        <span class="vakra-tag-node">Guardrails</span> <span class="vakra-tag-node">Oversight</span> <span class="vakra-tag-node">Trust</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-id-card" style="color: var(--accent-blue);"></i> Identity & Access Management (IAM)</h4>
+            <ul>
+                <li>OIDC/SAML Single Sign-On (SSO)</li>
+                <li>Granular Role-Based Access Control (RBAC)</li>
+                <li>Attribute-Based Access Control (ABAC)</li>
+                <li>Privileged Identity Management (PIM)</li>
+                <li>Immutable Identity Audit Logging</li>
+                <li>Zero-Trust Network Access (ZTNA)</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-lock" style="color: var(--accent-blue);"></i> Data Privacy & Security</h4>
+            <ul>
+                <li>FIPS-Compliant Encryption (At-Rest/In-Transit)</li>
+                <li>Enterprise-Grade PII/PHI Redaction Pipelines</li>
+                <li>End-to-End Data Lifecycle Isolation</li>
+                <li>Data Residency & Sovereign Cloud Controls</li>
+                <li>Encrypted Vector Embeddings Storage</li>
+                <li>Secure Multi-Party Data Processing</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-road-barrier" style="color: var(--accent-blue);"></i> Guardrails & Operational Safety</h4>
+            <ul>
+                <li>Input Injection & Prompt Attack Defenses</li>
+                <li>Context-Aware Output Content Moderation</li>
+                <li>Semantic Guardrails for Hallucination Mitigation</li>
+                <li>Dynamic Policy Enforcement Engine</li>
+                <li>Operational Circuit Breakers & Kill-Switches</li>
+                <li>Automated Safety & Risk Scoring</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-user-check" style="color: var(--accent-blue);"></i> Human-In-The-Loop Oversight</h4>
+            <ul>
+                <li>Critical Decision Approval Workflows</li>
+                <li>Hierarchical Human Escalation Paths</li>
+                <li>Action-Authorization Audit Trail Generation</li>
+                <li>Human Feedback-Driven Model Refinement</li>
+                <li>Operational Oversight Control Dashboards</li>
+                <li>Real-Time Intervention Capabilities</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-gavel" style="color: var(--accent-blue);"></i> Compliance & Regulatory Alignment</h4>
+            <ul>
+                <li>ISO 27001/SOC2 Compliance Mapping</li>
+                <li>GDPR, HIPAA, & Data Protection Readiness</li>
+                <li>Continuous Automated Compliance Auditing</li>
+                <li>Standardized Regulatory Reporting Nodes</li>
+                <li>Data Governance Framework Integration</li>
+                <li>Operational Compliance Traceability</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-trophy" style="color: #10b981;"></i> Governance Outcomes</h4>
+            <ul>
+                <li>Hardened, Secure AI Infrastructure</li>
+                <li>100% Regulatory Audit Readiness</li>
+                <li>Drastic Reduction in Operational Risk Surface</li>
+                <li>Deep Organizational Trust & Accountability</li>
+                <li>Safe, Compliant Scalability of AI Agents</li>
+                <li>Continuous Institutional Governance Maturity</li>
+            </ul>
+        </div>
+    </main>
+    <footer></footer>
+    
+    
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

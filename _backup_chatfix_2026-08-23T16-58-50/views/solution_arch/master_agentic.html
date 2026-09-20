@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic AI, MCP & RAG Systems Matrix | Vakratron Systems</title>
+    <meta name="description" content="Enterprise Agentic AI Infrastructure, Model Context Protocol (MCP) tooling integrations, and production-grade Retrieval-Augmented Generation (RAG) frameworks.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-surface: rgba(15, 23, 42, 0.6);
+            --border-glow: rgba(6, 182, 212, 0.2);
+            --accent-neon: #06b6d4;
+            --accent-pink: #f472b6;
+            --accent-purple: #a855f7;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-blue: #06b6d4;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main) !important;
+            color: var(--text-primary);
+            background-image: 
+                radial-gradient(circle at 50% 20%, rgba(6, 182, 212, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(168, 85, 247, 0.04) 0%, transparent 50%) !important;
+            background-size: 200% 200% !important;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background: transparent !important;
+        }
+
+        /* 💎 MASTER 1200PX CENTERED LAYOUT */
+        .main-container-fabric {
+            max-width: 1200px !important;
+            margin: 0 auto;
+            padding: 160px 4% 100px 4%;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        /* 🚀 HERO STYLES */
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 50px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            color: #22d3ee;
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+            font-family: monospace;
+        }
+
+        .hero-section h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin: 0 0 20px 0;
+            background: linear-gradient(135deg, #fff 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero-section p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            max-width: 850px;
+            margin: 0 0 35px 0;
+            font-weight: 300;
+        }
+
+        .hero-btn-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary, .btn-secondary {
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #C2185B;
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(194, 24, 91, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(194, 24, 91, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+        }
+
+        /* 📋 PROFESSIONAL LISTS & STEP BOXES */
+        .matrix-body-text {
+            color: var(--text-secondary);
+            font-size: 1.02rem;
+            line-height: 1.7;
+            margin: 0 0 20px 0;
+            font-weight: 300;
+        }
+
+        .tech-step-box {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            padding: 30px 35px;
+            margin: 30px 0;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .tech-step-box h4 {
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin: 0 0 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* 🎯 सूचियों का पैरेलल ग्रिड जो कभी ऊपर-नीचे नहीं बिखरेगा */
+        .tech-step-box ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px 40px;
+        }
+
+        .tech-step-box li {
+            color: #cbd5e1;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .tech-step-box li::before {
+            content: "•";
+            color: var(--accent-neon);
+            font-weight: bold;
+            font-size: 1.3rem;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+
+        /* 🌐 100% SYMMETRICAL MESH CONTAINER ENGINE */
+        .vakra-mesh-container {
+            background: rgba(2, 6, 23, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            padding: 40px;
+            margin: 40px 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .vakra-mesh-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            width: 100%;
+        }
+
+        .vakra-mesh-card {
+            background: var(--bg-surface);
+            border: 1px solid rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 25px;
+            box-sizing: border-box;
+            width: 100% !important;
+        }
+
+        .dc-primary { border-left: 4px solid #ef4444; }
+        .dr-target { border-left: 4px solid #10b981; }
+
+        .vakra-mesh-card h5 {
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            font-size: 1.05rem;
+            margin: 0 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .vakra-sub-tier {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .vakra-tag-node {
+            font-size: 0.72rem;
+            font-family: monospace;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            color: #94a3b8;
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+
+        /* 📊 CORE MODULES MATRIX GRID */
+        .fabric-grid {
+            display: grid !important;
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 30px !important;
+            width: 100% !important;
+            box-sizing: border-box;
+            margin-top: 30px;
+        }
+
+        .fabric-card {
+            background: var(--bg-surface);
+            border: 1px solid rgba(255,255,255,0.04);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 340px;
+            box-sizing: border-box;
+        }
+
+        .fabric-card:hover {
+            border-color: rgba(6, 182, 212, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(6, 182, 212, 0.1);
+        }
+
+        .tech-tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .tech-tag {
+            font-size: 0.75rem;
+            background: rgba(6, 182, 212, 0.08);
+            border: 1px solid rgba(6, 182, 212, 0.15);
+            color: var(--accent-neon);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 500;
+            font-family: monospace;
+        }
+
+        .action-link {
+            color: var(--accent-neon);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.3s;
+            margin-top: 25px;
+        }
+
+        .action-link:hover { color: #fff; }
+
+        @media (max-width: 960px) {
+            .fabric-grid, .vakra-mesh-row, .tech-step-box ul {
+                grid-template-columns: 1fr !important;
+            }
+            .hero-section h1 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header></header>
+
+    <main class="main-container-fabric">
+        
+        <section class="hero-section">
+            <div class="hero-content">
+                <span class="hero-badge">
+                    Agentic AI • MCP • RAG • Enterprise AI Automation
+                </span>
+                <h1>Agentic AI, MCP & RAG Systems</h1>
+                <p>
+                    Build intelligent enterprise AI systems capable of reasoning, retrieval, tool execution, workflow automation, knowledge discovery and business process orchestration using AI Agents, Model Context Protocol (MCP), Retrieval-Augmented Generation (RAG), and modern LLM platforms.
+                </p>
+                <div class="hero-btn-group">
+                    <a href="../contact.html" class="btn-primary">Schedule AI Assessment</a>
+                    <a href="../contact.html" class="btn-secondary">Talk To An AI Architect</a>
+                </div>
+            </div>
+        </section>
+
+        <h3 style="font-family:'Poppins',sans-serif; color:var(--accent-blue); font-size:1.5rem; margin: 40px 0 15px 0; font-weight: 700;">
+            Executive Summary
+        </h3>
+        <p class="matrix-body-text">
+            Artificial Intelligence is rapidly evolving from traditional chatbots and question-answering systems into intelligent agents capable of reasoning, planning, retrieving enterprise knowledge, interacting with tools, and executing business workflows.
+        </p>
+        <p class="matrix-body-text">
+            While Large Language Models (LLMs) have transformed human-computer interaction, enterprises require solutions that go beyond text generation. Modern organizations need AI systems capable of securely accessing enterprise data, integrating with business applications, executing actions, and supporting operational processes.
+        </p>
+        <p class="matrix-body-text">
+            Agentic AI, Retrieval-Augmented Generation (RAG), and Model Context Protocol (MCP) collectively provide the foundation for next-generation enterprise AI platforms capable of delivering accurate, contextual, actionable, and trustworthy outcomes.
+        </p>
+        <p class="matrix-body-text">
+            Vakratron Systems designs enterprise-grade AI ecosystems that combine LLMs, AI Agents, RAG pipelines, vector databases, MCP integrations, cloud-native infrastructure, and security controls to create scalable and production-ready AI solutions.
+        </p>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-brain" style="color: var(--accent-blue);"></i> Core Capabilities</h4>
+            <ul>
+                <li>Agentic AI Platforms</li>
+                <li>Enterprise RAG Systems</li>
+                <li>Model Context Protocol (MCP)</li>
+                <li>Knowledge Discovery Platforms</li>
+                <li>AI Workflow Automation</li>
+                <li>Multi-Agent Systems</li>
+                <li>Enterprise AI Integration</li>
+                <li>AI Copilot Development</li>
+            </ul>
+        </div>
+
+        <hr style="border:none; border-top:1px solid rgba(255,255,255,0.05); margin:50px 0;">
+
+        <h3 style="font-family:'Poppins',sans-serif; color:var(--accent-blue); font-size:1.5rem; margin-bottom:15px; font-weight: 700;">
+            Business Challenges
+        </h3>
+        <p class="matrix-body-text">
+            Despite significant investments in digital transformation initiatives, many organizations continue to struggle with fragmented knowledge repositories, disconnected business systems, inefficient workflows, and limited access to institutional knowledge.
+        </p>
+        <p class="matrix-body-text">
+            Traditional AI implementations often fail to deliver enterprise value because they lack access to real-time business information, cannot execute actions, and operate independently from core business systems.
+        </p>
+
+        <div class="vakra-mesh-container">
+            <div class="vakra-mesh-row">
+                <div class="vakra-mesh-card dc-primary">
+                    <h5><i class="fa-solid fa-database" style="color: #ef4444;"></i> Knowledge Silos</h5>
+                    <div class="vakra-sub-tier">
+                        <span class="vakra-tag-node">Documents</span>
+                        <span class="vakra-tag-node">Emails</span>
+                        <span class="vakra-tag-node">Applications</span>
+                    </div>
+                </div>
+                <div class="vakra-mesh-card" style="border-left: 4px solid #eab308;">
+                    <h5><i class="fa-solid fa-robot" style="color: #eab308;"></i> AI Limitations</h5>
+                    <div class="vakra-sub-tier">
+                        <span class="vakra-tag-node">Hallucinations</span>
+                        <span class="vakra-tag-node">No Actions</span>
+                        <span class="vakra-tag-node">No Context</span>
+                    </div>
+                </div>
+                <div class="vakra-mesh-card dr-target">
+                    <h5><i class="fa-solid fa-gears" style="color: #10b981;"></i> Process Complexity</h5>
+                    <div class="vakra-sub-tier">
+                        <span class="vakra-tag-node">Manual Tasks</span>
+                        <span class="vakra-tag-node">Approvals</span>
+                        <span class="vakra-tag-node">Operations</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-folder-tree" style="color: #ef4444;"></i> Enterprise Knowledge Challenges</h4>
+            <ul>
+                <li>Information Distributed Across Multiple Systems</li>
+                <li>Unstructured Document Repositories</li>
+                <li>Knowledge Discovery Difficulties</li>
+                <li>Limited Search Capabilities</li>
+                <li>Poor Knowledge Reusability</li>
+                <li>Institutional Knowledge Loss</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-triangle-exclamation" style="color: #ef4444;"></i> Traditional AI Challenges</h4>
+            <ul>
+                <li>Hallucinated Responses</li>
+                <li>Limited Business Context</li>
+                <li>No Enterprise Data Access</li>
+                <li>No Tool Execution</li>
+                <li>No Workflow Automation</li>
+                <li>No Operational Awareness</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-plug-circle-xmark" style="color: #ef4444;"></i> Enterprise Integration Challenges</h4>
+            <ul>
+                <li>Disconnected Business Systems</li>
+                <li>ERP & CRM Data Silos</li>
+                <li>Manual Information Retrieval</li>
+                <li>Complex Workflow Dependencies</li>
+                <li>Fragmented Operational Processes</li>
+                <li>Limited Automation Capabilities</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-lightbulb" style="color: #eab308;"></i> Why Agentic AI, MCP & RAG?</h4>
+            <ul>
+                <li>Context-Aware Responses</li>
+                <li>Real-Time Knowledge Access</li>
+                <li>Enterprise System Integration</li>
+                <li>Workflow Automation</li>
+                <li>Tool Execution Capabilities</li>
+                <li>Accurate & Grounded Responses</li>
+                <li>Autonomous Task Completion</li>
+                <li>Intelligent Business Operations</li>
+            </ul>
+        </div>
+
+        <hr style="border:none; border-top:1px solid rgba(255,255,255,0.05); margin:50px 0;">
+
+        <h3 style="font-family:'Poppins',sans-serif; color:#fff; font-size:1.5rem; margin-bottom:15px; font-weight: 700;">
+            // Technology Architecture Matrices
+        </h3>
+        
+        <div class="fabric-grid">
+            <div class="fabric-card" style="background: linear-gradient(135deg, rgba(6, 182, 212, 0.03) 0%, rgba(2, 6, 23, 0.95) 100%); border: 1px solid rgba(6, 182, 212, 0.25);">
+                <div>
+                    <div style="color: var(--accent-neon); font-size: 2rem; margin-bottom: 20px;"><i class="fa-solid fa-brain"></i></div>
+                    <h3 style="font-family: 'Poppins', sans-serif; font-size: 1.3rem; margin: 0 0 12px 0; color: #fff;">Agentic AI Solution Framework</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin: 0;">Multi-step planning systems coordinating via standardized Model Context Protocols (MCP), contextual memory abstractions, and GPU-orchestrated vector layers.</p>
+                    <div class="tech-tag-container">
+                        <span class="tech-tag" style="background: rgba(6, 182, 212, 0.1); border-color: rgba(6, 182, 212, 0.2); color: #22d3ee;">Reasoning Engine</span>
+                        <span class="tech-tag">MCP Tooling</span>
+                        <span class="tech-tag">Vector Memory</span>
+                    </div>
+                </div>
+                <a href="ai_agent/agentic-solution-framework.html" class="action-link" style="color: #06b6d4;">Explore Solution Framework <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="fabric-card" style="background: linear-gradient(135deg, rgba(6, 182, 212, 0.03) 0%, rgba(2, 6, 23, 0.95) 100%); border: 1px solid rgba(6, 182, 212, 0.25);">
+                <div>
+                    <div style="color: var(--accent-neon); font-size: 2rem; margin-bottom: 20px;"><i class="fa-solid fa-database"></i></div>
+                    <h3 style="font-family: 'Poppins', sans-serif; font-size: 1.3rem; margin: 0 0 12px 0; color: #fff;">Enterprise RAG Architecture</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin: 0;">Production-grade retrieval pipelines integrating hybrid vector-lexical search, advanced chunking stratagems, and graph-grounded semantic context layers.</p>
+                    <div class="tech-tag-container">
+                        <span class="tech-tag" style="background: rgba(6, 182, 212, 0.1); border-color: rgba(6, 182, 212, 0.2); color: #22d3ee;">Hybrid Search</span>
+                        <span class="tech-tag">Vector Embeddings</span>
+                        <span class="tech-tag">Graph RAG</span>
+                    </div>
+                </div>
+                <a href="ai_agent/enterprise-rag-architecture.html" class="action-link" style="color: #06b6d4;">Explore RAG Architecture <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="fabric-card" style="background: linear-gradient(135deg, rgba(6, 182, 212, 0.03) 0%, rgba(2, 6, 23, 0.95) 100%); border: 1px solid rgba(6, 182, 212, 0.25);">
+                <div>
+                    <div style="color: var(--accent-neon); font-size: 2rem; margin-bottom: 20px;"><i class="fa-solid fa-plug-circle-bolt"></i></div>
+                    <h3 style="font-family: 'Poppins', sans-serif; font-size: 1.3rem; margin: 0 0 12px 0; color: #fff;">MCP Tool Integration</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin: 0;">Standardized protocol runtimes connecting reasoning models to live enterprise data layers, multi-system APIs, and secure execution sandboxes.</p>
+                    <div class="tech-tag-container">
+                        <span class="tech-tag" style="background: rgba(6, 182, 212, 0.1); border-color: rgba(6, 182, 212, 0.2); color: #22d3ee;">MCP Server</span>
+                        <span class="tech-tag">Dynamic Discovery</span>
+                        <span class="tech-tag">Secure Execution</span>
+                    </div>
+                </div>
+                <a href="ai_agent/mcp-architecture.html" class="action-link" style="color: #06b6d4;">Explore MCP Framework <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="fabric-card" style="background: linear-gradient(135deg, rgba(6, 182, 212, 0.03) 0%, rgba(2, 6, 23, 0.95) 100%); border: 1px solid rgba(6, 182, 212, 0.25);">
+                <div>
+                    <div style="color: var(--accent-neon); font-size: 2rem; margin-bottom: 20px;"><i class="fa-solid fa-shield-cat"></i></div>
+                    <h3 style="font-family: 'Poppins', sans-serif; font-size: 1.3rem; margin: 0 0 12px 0; color: #fff;">LLMOps & Governance</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin: 0;">Continuous evaluation pipelines, automated prompt versioning, agent benchmarking (Ragas/TruLens), token cost budgeting, and real-time guardrails.</p>
+                    <div class="tech-tag-container">
+                        <span class="tech-tag" style="background: rgba(6, 182, 212, 0.1); border-color: rgba(6, 182, 212, 0.2); color: #22d3ee;">LLMOps Runtime</span>
+                        <span class="tech-tag">Agent Benchmarking</span>
+                        <span class="tech-tag">Guardrails</span>
+                    </div>
+                </div>
+                <a href="ai_agent/llmops-governance.html" class="action-link" style="color: #06b6d4;">Explore LLMOps Framework <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="fabric-card" style="background: linear-gradient(135deg, rgba(6, 182, 212, 0.03) 0%, rgba(2, 6, 23, 0.95) 100%); border: 1px solid rgba(6, 182, 212, 0.25);">
+                <div>
+                    <div style="color: var(--accent-neon); font-size: 2rem; margin-bottom: 20px;"><i class="fa-solid fa-network-wired"></i></div>
+                    <h3 style="font-family: 'Poppins', sans-serif; font-size: 1.3rem; margin: 0 0 12px 0; color: #fff;">Enterprise Integrations</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin: 0;">Deep-linking AI agents with mission-critical ERP, CRM, and ITSM platforms through event-driven bridges, MCP connectors, and secure API fabrics.</p>
+                    <div class="tech-tag-container">
+                        <span class="tech-tag" style="background: rgba(6, 182, 212, 0.1); border-color: rgba(6, 182, 212, 0.2); color: #22d3ee;">ERP/CRM Sync</span>
+                        <span class="tech-tag">Cloud Native</span>
+                        <span class="tech-tag">Process Automation</span>
+                    </div>
+                </div>
+                <a href="ai_agent/enterprise-integrations.html" class="action-link" style="color: #06b6d4;">Explore Integrations <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="fabric-card" style="background: linear-gradient(135deg, rgba(6, 182, 212, 0.03) 0%, rgba(2, 6, 23, 0.95) 100%); border: 1px solid rgba(6, 182, 212, 0.25);">
+                <div>
+                    <div style="color: var(--accent-neon); font-size: 2rem; margin-bottom: 20px;"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3 style="font-family: 'Poppins', sans-serif; font-size: 1.3rem; margin: 0 0 12px 0; color: #fff;">Security & Governance</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin: 0;">Enterprise-grade security-by-design, automated compliance auditing, human-in-the-loop oversight, and responsible AI policy enforcement frameworks.</p>
+                    <div class="tech-tag-container">
+                        <span class="tech-tag" style="background: rgba(6, 182, 212, 0.1); border-color: rgba(6, 182, 212, 0.2); color: #22d3ee;">IAM Security</span>
+                        <span class="tech-tag">Audit Trace</span>
+                        <span class="tech-tag">Responsible AI</span>
+                    </div>
+                </div>
+                <a href="ai_agent/security-governance.html" class="action-link" style="color: #06b6d4;">Explore Governance <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="fabric-card" style="background: linear-gradient(135deg, rgba(6, 182, 212, 0.03) 0%, rgba(2, 6, 23, 0.95) 100%); border: 1px solid rgba(6, 182, 212, 0.25);">
+                <div>
+                    <div style="color: var(--accent-neon); font-size: 2rem; margin-bottom: 20px;"><i class="fa-solid fa-briefcase"></i></div>
+                    <h3 style="font-family: 'Poppins', sans-serif; font-size: 1.3rem; margin: 0 0 12px 0; color: #fff;">Industry Applications</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; margin: 0;">Transforming departmental silos into intelligent automation workflows across IT, Cloud, Security, Finance, and Public Sector verticals.</p>
+                    <div class="tech-tag-container">
+                        <span class="tech-tag" style="background: rgba(6, 182, 212, 0.1); border-color: rgba(6, 182, 212, 0.2); color: #22d3ee;">Knowledge AI</span>
+                        <span class="tech-tag">Process Automation</span>
+                        <span class="tech-tag">Ops Intelligence</span>
+                    </div>
+                </div>
+                <a href="ai_agent/industry-use-cases.html" class="action-link" style="color: #06b6d4;">Explore Use Cases <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <h3 style="font-family:'Poppins',sans-serif; color:var(--accent-blue); font-size:1.5rem; margin-bottom:15px; margin-top:60px; font-weight: 700;">
+            Why Vakratron Systems
+        </h3>
+
+        <p class="matrix-body-text">
+            Building enterprise-grade AI platforms requires expertise across AI infrastructure, cloud-native platforms, Kubernetes, APIs, security, automation, data engineering, and enterprise architecture. Successful AI adoption is not simply about deploying language models—it requires designing a complete ecosystem that integrates intelligence, governance, automation, and operational excellence.
+        </p>
+
+        <p class="matrix-body-text">
+            Vakratron Systems combines expertise in Agentic AI, MCP, RAG, Kubernetes, cloud platforms, enterprise integrations, and AI infrastructure to help organizations transform business knowledge into intelligent, scalable, and secure digital capabilities.
+        </p>
+
+        <div class="vakra-mesh-container">
+            <div class="vakra-mesh-row">
+                <div class="vakra-mesh-card dc-primary">
+                    <h5><i class="fa-solid fa-brain" style="color: #ef4444;"></i> AI Innovation</h5>
+                    <div class="vakra-sub-tier">
+                        <span class="vakra-tag-node">Agents</span>
+                        <span class="vakra-tag-node">RAG</span>
+                        <span class="vakra-tag-node">MCP</span>
+                    </div>
+                </div>
+                <div class="vakra-mesh-card" style="border-left: 4px solid var(--accent-blue);">
+                    <h5><i class="fa-solid fa-gears" style="color: var(--accent-blue);"></i> Automation</h5>
+                    <div class="vakra-sub-tier">
+                        <span class="vakra-tag-node">Workflows</span>
+                        <span class="vakra-tag-node">Actions</span>
+                        <span class="vakra-tag-node">Operations</span>
+                    </div>
+                </div>
+                <div class="vakra-mesh-card dr-target">
+                    <h5><i class="fa-solid fa-chart-line" style="color: #10b981;"></i> Business Growth</h5>
+                    <div class="vakra-sub-tier">
+                        <span class="vakra-tag-node">Productivity</span>
+                        <span class="vakra-tag-node">Efficiency</span>
+                        <span class="vakra-tag-node">Innovation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-award" style="color: var(--accent-blue);"></i> Our Core Expertise</h4>
+            <ul>
+                <li>Agentic AI Architecture Design</li>
+                <li>Enterprise RAG Platforms</li>
+                <li>Model Context Protocol (MCP)</li>
+                <li>Multi-Agent Systems</li>
+                <li>LangChain & LangGraph Solutions</li>
+                <li>Enterprise Knowledge Platforms</li>
+                <li>Kubernetes-Based AI Infrastructure</li>
+                <li>Private AI & GPU Clusters</li>
+                <li>Enterprise API Integrations</li>
+                <li>Cloud Native AI Platforms</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-trophy" style="color: #eab308;"></i> Business Benefits & Outcomes</h4>
+            <ul>
+                <li>Reduced Manual Operations</li>
+                <li>Improved Knowledge Accessibility</li>
+                <li>Faster Decision Making</li>
+                <li>Higher Employee Productivity</li>
+                <li>Enterprise Workflow Automation</li>
+                <li>Reduced Operational Costs</li>
+                <li>Enhanced Customer Experience</li>
+                <li>Accelerated Innovation Cycles</li>
+                <li>Scalable AI Adoption</li>
+                <li>Future Ready Digital Enterprises</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-bullseye" style="color: var(--accent-blue);"></i> What Makes Us Different</h4>
+            <ul>
+                <li>Architecture-First Consulting Approach</li>
+                <li>Vendor-Neutral AI Strategy</li>
+                <li>Enterprise Scale Platform Design</li>
+                <li>Security & Governance By Design</li>
+                <li>Cloud Native Engineering Excellence</li>
+                <li>End-To-End AI Transformation Services</li>
+                <li>Infrastructure To Application Expertise</li>
+                <li>Focus On Production-Ready AI Systems</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-layer-group" style="color: var(--accent-blue);"></i> Technology Ecosystem</h4>
+            <ul>
+                <li>OpenAI GPT</li>
+                <li>Anthropic Claude</li>
+                <li>Llama & Open Models</li>
+                <li>LangChain</li>
+                <li>LangGraph</li>
+                <li>Model Context Protocol (MCP)</li>
+                <li>Milvus, Weaviate & Pinecone</li>
+                <li>Kubernetes & GPU Infrastructure</li>
+                <li>Cloud & Hybrid Cloud Platforms</li>
+                <li>Enterprise Integration Frameworks</li>
+            </ul>
+        </div>
+
+        <div class="vakra-mesh-container" style="text-align:center; margin-top:60px;">
+            <h2 style="font-family:'Poppins',sans-serif; color:#fff; font-size:2rem; margin-bottom:20px; font-weight: 700;">
+                Ready To Build Enterprise AI Systems?
+            </h2>
+            <p class="matrix-body-text" style="max-width:900px; margin:0 auto 30px auto; text-align:center;">
+                Whether you are planning an AI Knowledge Platform, Enterprise RAG Solution, Agentic AI Architecture, MCP Integration Framework, AI Copilot, Multi-Agent Ecosystem, or Private Enterprise AI Platform, Vakratron Systems provides the expertise required to accelerate your AI transformation journey.
+            </p>
+            <div style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-top:25px;">
+                <a href="../contact.html" style="background:linear-gradient(135deg,var(--accent-blue),#1d4ed8); color:#fff; padding:14px 30px; text-decoration:none; border-radius:8px; font-weight:600; box-shadow:0 4px 20px rgba(6,182,212,.25);">
+                    Schedule AI Strategy Workshop
+                </a>
+                <a href="../contact.html" style="border:1px solid rgba(6,182,212,0.3); color:var(--accent-blue); padding:14px 30px; text-decoration:none; border-radius:8px; font-weight:600;">
+                    Talk To An AI Architect
+                </a>
+            </div>
+        </div>
+
+        <hr style="border:none;border-top:1px solid rgba(255,255,255,0.05);margin:50px 0;">
+    </main>
+
+    <footer></footer>
+
+    
+    
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

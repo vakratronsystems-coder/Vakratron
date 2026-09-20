@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Model & Zero Trust Platform Architecture | Vakratron Systems</title>
+    <meta name="description" content="Enterprise Kubernetes Zero Trust Security Framework - Identity protection, workload isolation, micro-segmentation, and admission control loops.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-surface: rgba(15, 23, 42, 0.6);
+            --border-glow: rgba(239, 68, 68, 0.2);
+            --accent-blue: #38bdf8;
+            --accent-pink: #f472b6;
+            --accent-red: #ef4444;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main) !important;
+            color: var(--text-primary);
+            background-image: 
+                radial-gradient(circle at 50% 20%, rgba(239, 68, 68, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(56, 189, 248, 0.03) 0%, transparent 50%) !important;
+            background-size: 200% 200% !important;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background: transparent !important;
+        }
+
+        /* 💎 MASTER 1200PX CENTERED LAYOUT */
+        .main-container-fabric {
+            max-width: 1200px !important;
+            margin: 0 auto;
+            padding: 140px 5% 100px 5%;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .architecture-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(239, 68, 68, 0.08);
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            color: #f87171;
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 25px;
+            font-family: monospace;
+        }
+
+        .matrix-body-text {
+            color: var(--text-secondary);
+            font-size: 1.02rem;
+            line-height: 1.7;
+            margin: 0 0 20px 0;
+            font-weight: 300;
+        }
+
+        /* 📋 POLICY STEP CARDS STYLES */
+        .tech-step-box {
+            background: var(--bg-surface);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            padding: 35px;
+            margin: 30px 0;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .tech-step-box:hover {
+            border-color: rgba(239, 68, 68, 0.25);
+            box-shadow: 0 25px 45px rgba(239, 68, 68, 0.04);
+        }
+
+        .tech-step-box h4 {
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tech-step-box p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0 0 20px 0;
+        }
+
+        .tech-step-box ul {
+            margin: 0;
+            padding-left: 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px 40px;
+        }
+
+        .tech-step-box li {
+            color: #cbd5e1;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        /* 🌐 3-COLUMN MESH SECURITY BLOCK */
+        .vakra-mesh-container {
+            background: rgba(2, 6, 23, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            padding: 35px;
+            margin: 40px 0;
+        }
+
+        .vakra-mesh-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .vakra-mesh-card {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 25px;
+            box-sizing: border-box;
+        }
+
+        .dc-primary { border-left: 4px solid #ef4444; }
+        .workload-card { border-left: 4px solid #eab308; }
+        .dr-target { border-left: 4px solid #38bdf8; }
+
+        .vakra-mesh-card h5 {
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            font-size: 1.05rem;
+            margin: 0 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .vakra-sub-tier {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .vakra-tag-node {
+            font-size: 0.72rem;
+            font-family: monospace;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            color: #94a3b8;
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+
+        @media (max-width: 900px) {
+            .vakra-mesh-row, .tech-step-box ul {
+                grid-template-columns: 1fr !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header></header>
+
+    <main class="main-container-fabric">
+        
+        <span class="architecture-badge">
+            <i class="fa-solid fa-shield-halved"></i> Security Model // Zero Trust Architecture
+        </span>
+
+        <h1 style="font-family:'Poppins',sans-serif; color:#fff; font-size:2.5rem; font-weight:800; margin: 0 0 25px 0; background: linear-gradient(135deg, #fff 0%, var(--text-secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            Security Model & Zero Trust Platform Architecture
+        </h1>
+        
+        <p class="matrix-body-text">
+            Enterprise Kubernetes platforms must provide comprehensive security controls across infrastructure, workloads, networks, identities, software supply chains, and operational processes. Security can no longer be treated as a perimeter function and must be embedded throughout the platform lifecycle.
+        </p>
+        <p class="matrix-body-text">
+            Vakratron Systems adopts a Zero Trust security model where every user, workload, service, API, and infrastructure component is continuously authenticated, authorized, validated, and monitored.
+        </p>
+        <p class="matrix-body-text">
+            Our Kubernetes security architecture integrates identity management, workload protection, micro-segmentation, policy enforcement, secrets management, and compliance controls to reduce risk and strengthen operational resilience.
+        </p>
+
+        <div class="vakra-mesh-container">
+            <div class="vakra-mesh-row">
+                
+                <div class="vakra-mesh-card dc-primary">
+                    <h5><i class="fa-solid fa-user-lock" style="color: #ef4444;"></i> Identity Security</h5>
+                    <div class="vakra-sub-tier">
+                        <span class="vakra-tag-node">SSO</span>
+                        <span class="vakra-tag-node">MFA</span>
+                        <span class="vakra-tag-node">RBAC</span>
+                    </div>
+                </div>
+
+                <div class="vakra-mesh-card workload-card">
+                    <h5><i class="fa-solid fa-shield-halved" style="color: #eab308;"></i> Workload Security</h5>
+                    <div class="vakra-sub-tier">
+                        <span class="vakra-tag-node">Pod Security</span>
+                        <span class="vakra-tag-node">Policies</span>
+                        <span class="vakra-tag-node">Runtime Protection</span>
+                    </div>
+                </div>
+
+                <div class="vakra-mesh-card dr-target">
+                    <h5><i class="fa-solid fa-network-wired" style="color: #38bdf8;"></i> Network Security</h5>
+                    <div class="vakra-sub-tier">
+                        <span class="vakra-tag-node">mTLS</span>
+                        <span class="vakra-tag-node">Segmentation</span>
+                        <span class="vakra-tag-node">Zero Trust</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-id-card" style="color: var(--accent-blue);"></i> Identity & Access Management</h4>
+            <p>Identity serves as the primary security boundary within modern cloud-native platforms.</p>
+            <ul>
+                <li>Role-Based Access Control (RBAC)</li>
+                <li>Single Sign-On (SSO)</li>
+                <li>Multi-Factor Authentication (MFA)</li>
+                <li>LDAP & Active Directory Integration</li>
+                <li>OIDC Authentication</li>
+                <li>Least Privilege Access Models</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-cube" style="color: var(--accent-blue);"></i> Pod & Workload Security</h4>
+            <ul>
+                <li>Pod Security Standards</li>
+                <li>Namespace Isolation</li>
+                <li>Container Privilege Restrictions</li>
+                <li>Read-Only Filesystems</li>
+                <li>Security Context Enforcement</li>
+                <li>Workload Segmentation</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-lock" style="color: var(--accent-blue);"></i> Network Security & Micro-Segmentation</h4>
+            <p>Zero Trust networking prevents unrestricted east-west traffic movement within Kubernetes environments.</p>
+            <ul>
+                <li>Kubernetes Network Policies</li>
+                <li>Micro-Segmentation</li>
+                <li>Service Isolation</li>
+                <li>Ingress Security Controls</li>
+                <li>Egress Filtering</li>
+                <li>Encrypted Service Communications</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-route" style="color: var(--accent-blue);"></i> Service Mesh Security</h4>
+            <ul>
+                <li>Mutual TLS (mTLS)</li>
+                <li>Encrypted Service Traffic</li>
+                <li>Identity-Based Service Access</li>
+                <li>Traffic Policy Enforcement</li>
+                <li>Zero Trust Service Communications</li>
+                <li>Fine-Grained Access Controls</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-gavel" style="color: var(--accent-blue);"></i> Policy Enforcement & Admission Control</h4>
+            <p>Admission Controllers validate workloads before deployment to ensure compliance with security and governance policies.</p>
+            <ul>
+                <li>OPA Gatekeeper</li>
+                <li>Kyverno Policies</li>
+                <li>Resource Validation</li>
+                <li>Compliance Enforcement</li>
+                <li>Configuration Governance</li>
+                <li>Deployment Guardrails</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-key" style="color: var(--accent-blue);"></i> Secrets & Credential Protection</h4>
+            <ul>
+                <li>HashiCorp Vault Integration</li>
+                <li>Secrets Encryption</li>
+                <li>Credential Rotation</li>
+                <li>Certificate Lifecycle Management</li>
+                <li>API Key Protection</li>
+                <li>Identity Federation</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-box-open" style="color: var(--accent-blue);"></i> Container Image Security</h4>
+            <ul>
+                <li>Image Vulnerability Scanning</li>
+                <li>Secure Container Registries</li>
+                <li>Image Signing & Verification</li>
+                <li>Software Bill of Materials (SBOM)</li>
+                <li>Trusted Image Pipelines</li>
+                <li>Artifact Governance</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-user-secret" style="color: var(--accent-blue);"></i> Runtime Security Monitoring</h4>
+            <ul>
+                <li>Falco Runtime Monitoring</li>
+                <li>Threat Detection</li>
+                <li>Behavior Analytics</li>
+                <li>Workload Monitoring</li>
+                <li>Incident Alerting</li>
+                <li>Security Event Analysis</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-link" style="color: var(--accent-blue);"></i> Software Supply Chain Security</h4>
+            <p>Modern attacks increasingly target software delivery pipelines. Supply chain security protects applications from code to production.</p>
+            <ul>
+                <li>Secure CI/CD Pipelines</li>
+                <li>Dependency Validation</li>
+                <li>Artifact Verification</li>
+                <li>Source Code Security</li>
+                <li>Pipeline Governance</li>
+                <li>Compliance Validation</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-clipboard-check" style="color: var(--accent-blue);"></i> Governance & Compliance</h4>
+            <ul>
+                <li>Security Auditing</li>
+                <li>Regulatory Compliance</li>
+                <li>Policy Enforcement</li>
+                <li>Audit Trails</li>
+                <li>Configuration Management</li>
+                <li>Risk Assessment Frameworks</li>
+            </ul>
+        </div>
+
+        <div class="tech-step-box">
+            <h4><i class="fa-solid fa-trophy" style="color: #10b981;"></i> Security Outcomes</h4>
+            <ul>
+                <li>Zero Trust Architecture</li>
+                <li>Reduced Attack Surface</li>
+                <li>Improved Compliance Readiness</li>
+                <li>Enhanced Workload Protection</li>
+                <li>Secure Software Delivery</li>
+                <li>Enterprise Governance</li>
+                <li>Improved Operational Resilience</li>
+                <li>Continuous Security Validation</li>
+            </ul>
+        </div>
+
+    </main>
+
+    <footer></footer>
+
+    
+    
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

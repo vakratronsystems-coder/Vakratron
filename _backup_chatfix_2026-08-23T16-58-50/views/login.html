@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Employee Console Gateway | Vakratron Systems</title>
+    <meta name="description" content="Restricted access terminal for authorized Vakratron Systems technical architects and cloud personnel. Core authorization required.">
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-surface: rgba(15, 23, 42, 0.6);
+            --border-glow: rgba(194, 24, 91, 0.3);
+            --accent-neon: #C2185B;
+            --accent-blue: #38bdf8;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --glass-gradient: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(2, 6, 23, 0.9) 100%);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main) !important;
+            color: var(--text-primary);
+            
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(194, 24, 91, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(56, 189, 248, 0.07) 0%, transparent 50%) !important;
+            background-size: 200% 200% !important;
+            animation: cyberBackgroundMotion 20s ease infinite alternate !important;
+        }
+
+        @keyframes cyberBackgroundMotion {
+            0% { background-position: 0% 20%; }
+            50% { background-position: 100% 80%; }
+            100% { background-position: 20% 100%; }
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background: transparent !important;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.002) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.002) 1px, transparent 1px) !important;
+            background-size: 50px 50px !important;
+        }
+
+        /* 🕹️ COMMAND CONSOLE DROPDOWN STYLES */
+        .central-nav-container { position: relative; display: inline-block; }
+        .console-trigger-btn {
+            background: rgba(194, 24, 91, 0.05); border: 1px solid rgba(194, 24, 91, 0.3);
+            color: #fff; padding: 10px 22px; border-radius: 8px; font-size: 0.9rem; font-weight: 600;
+            cursor: pointer; display: flex; align-items: center; gap: 12px; transition: all 0.3s;
+        }
+        .central-nav-container:hover .console-trigger-btn { background: rgba(194, 24, 91, 0.15); border-color: rgba(194, 24, 91, 0.8); box-shadow: 0 0 20px rgba(194, 24, 91, 0.3); }
+        .console-dropdown-dashboard {
+            position: absolute; top: 100%; right: -120px; width: 780px; background: #030712 !important;
+            border: 1px solid rgba(194, 24, 91, 0.25); border-radius: 16px; padding: 30px;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.95); opacity: 0; pointer-events: none;
+            transform: translateY(10px) scale(0.98); transition: all 0.3s ease; z-index: 2000; margin-top: 10px; overflow: hidden;
+        }
+        .central-nav-container:hover .console-dropdown-dashboard { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); border-color: rgba(194, 24, 91, 0.6); }
+        .dashboard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .dashboard-col { display: flex; flex-direction: column; gap: 6px; }
+        .dashboard-col h4 { font-family: 'Poppins', sans-serif; color: #fff; font-size: 0.85rem; font-weight: 700; margin: 0 0 12px 0; padding-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .dashboard-col a { display: flex !important; align-items: center; gap: 10px; color: var(--text-secondary) !important; text-decoration: none; font-size: 0.85rem !important; padding: 6px 10px !important; border-radius: 6px; transition: all 0.2s; }
+        .dashboard-col a:hover { background: rgba(255, 255, 255, 0.03) !important; color: #fff !important; padding-left: 14px !important; }
+        .console-footer { margin-top: 25px; padding: 15px 30px !important; border-top: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.75rem; color: #475569; font-family: monospace; display: flex !important; background: #070b14 !important; margin: 25px -30px -30px -30px; }
+
+        /* 🔐 LOGIN CARD ANIMATIONS */
+        .secure-input:focus {
+            outline: none;
+            border-color: var(--accent-blue) !important;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header></header>
+
+    <section style="display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 120px 8% 60px 8% !important; box-sizing: border-box; position: relative; z-index: 10;">
+        <div style="width: 100%; max-width: 480px; background: var(--glass-gradient); padding: 45px; border-radius: 24px; border: 1px solid rgba(194, 24, 91, 0.25); box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8); box-sizing: border-box; text-align: center; position: relative;">
+            
+            <div style="position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%); width: 70px; height: 70px; background: #070d1e; border: 1px solid rgba(194, 24, 91, 0.4); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--accent-neon); font-size: 1.8rem; box-shadow: 0 10px 25px rgba(194, 24, 91, 0.3); container: body;">
+                <i class="fa-solid fa-user-shield"></i>
+            </div>
+
+            <div style="margin-top: 15px; margin-bottom: 35px;">
+                <h2 style="font-family: 'Poppins', sans-serif; font-size: 1.8rem; color: #fff; margin: 0 0 8px 0; font-weight: 700;">Employee Console</h2>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.5; margin: 0; font-weight: 300;">Authentication limited exclusively to verified <span style="color: var(--accent-blue); font-weight: 500;">@vakratronsys.com</span> identity clusters.</p>
+            </div>
+
+            <div style="margin-bottom: 30px;">
+                <a href="https://accounts.zoho.com/oauth/v2/auth?scope=ZohoProfile.profile.READ&client_id=YOUR_CLIENT_ID&response_type=code&redirect_uri=https://vakratronsys.com/index.html" 
+                   style="display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; padding: 15px; background: linear-gradient(135deg, #C2185B 0%, #9d174d 100%); color: #fff; text-decoration: none; border-radius: 10px; font-weight: 600; font-size: 0.95rem; transition: all 0.3s; box-shadow: 0 4px 20px rgba(194, 24, 91, 0.2);"
+                   onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 25px rgba(194, 24, 91, 0.35)'" 
+                   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 20px rgba(194, 24, 91, 0.2)'">
+                    <img src="https://www.zoho.com/favicon.ico" alt="Zoho" style="width: 18px; height: 18px; filter: brightness(1.5);">
+                    Sign In via Employee Email
+                </a>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 15px; color: #475569; font-size: 0.75rem; font-family: monospace; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 25px;">
+                <div style="flex:1; height: 1px; background: rgba(255,255,255,0.05);"></div>
+                Employee Control Matrix
+                <div style="flex:1; height: 1px; background: rgba(255,255,255,0.05);"></div>
+            </div>
+
+            <div style="background: rgba(2, 6, 23, 0.4); border: 1px solid rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; text-align: left;">
+                <p style="margin: 0; font-size: 0.75rem; line-height: 1.5; color: #64748b; font-family: monospace;">
+                    <i class="fa-solid fa-triangle-exclamation" style="color: #eab308; margin-right: 6px;"></i> 
+                    SECURITY WARNING: All access attempts are timestamped and audited. Unauthorized entry vectors trigger automated boundary containment protocols.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background: #01040f; padding: 60px 8% 30px 8%; border-top: 1px solid rgba(255,255,255,0.04); box-sizing: border-box; position: relative; clear: both; z-index: 15;">
+        <div class="footer-content" style="display: flex; justify-content: space-between; align-items: flex-start; gap: 50px; flex-wrap: wrap; margin-bottom: 40px;">
+            <div class="footer-brand" style="max-width: 450px; flex: 2;">
+                <h2 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1.5rem; font-weight: 700; margin: 0 0 15px 0; letter-spacing: 1px;">VAKRATRON <span style="color: var(--accent-neon); font-size: 0.85rem; letter-spacing: 3px; font-weight: 600; display: block; margin-top: 2px;">SYSTEMS</span></h2>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin: 0 0 25px 0;">Architecting resilient, hyper-secure, and dynamically scaled AI compute frameworks and cloud automation systems for enterprise governance matrices.</p>
+                <div class="social-channels" style="display: flex; gap: 15px; margin-bottom: 25px;">
+                    <a href="https://linkedin.com" target="_blank" style="width: 40px; height: 40px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #0077b5;"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://wa.me/919319666864" target="_blank" style="width: 40px; height: 40px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #25d366;"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="https://instagram.com" target="_blank" style="width: 40px; height: 40px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #e1306c;"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://facebook.com" target="_blank" style="width: 40px; height: 40px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #1877f2;"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.9rem; color: var(--text-secondary);"><span><i class="fa-solid fa-phone" style="color: var(--accent-neon); margin-right: 10px;"></i> +91 93196 66864</span><span><i class="fa-solid fa-envelope" style="color: var(--accent-neon); margin-right: 10px;"></i> connect@vakratronsys.com</span></div>
+            </div>
+            <div class="footer-links" style="flex: 1; min-width: 180px; display: flex; flex-direction: column; gap: 12px;">
+                <h4 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1.1rem; margin: 0 0 8px 0; font-weight: 600;">Compliance Matrix</h4>
+                <span style="color: var(--text-secondary); font-size: 0.9rem;"><i class="fa-solid fa-building" style="color: var(--accent-neon); margin-right: 8px;"></i> LLPIN: AAT-3851</span>
+                <span style="color: var(--text-secondary); font-size: 0.9rem;"><i class="fa-solid fa-certificate" style="color: var(--accent-neon); margin-right: 8px;"></i> DIPP No: DIPP247647</span>
+                <span style="color: var(--text-secondary); font-size: 0.9rem;"><i class="fa-solid fa-shield-halved" style="color: var(--accent-blue); margin-right: 8px;"></i> Data Protection Secure</span>
+            </div>
+            <div class="footer-links" style="flex: 1; min-width: 150px; display: flex; flex-direction: column; gap: 12px;">
+                <h4 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1.1rem; margin: 0 0 8px 0; font-weight: 600;">Structure Links</h4>
+                <a href="index.html" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Home Vector</a>
+                <a href="about.html" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">About Matrix</a>
+                <a href="products.html" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Portfolio Offerings</a>
+                <a href="services.html" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Expertise Matrix</a>
+                <a href="fabric.html" style="color: var(--text-secondary); text-decoration: none; font-size: 0.95rem; transition: color 0.3s; display: block;" onmouseover="this.style.color='var(--accent-neon)'" onmouseout="this.style.color='var(--text-secondary)'">Fabric Lab Matrix</a>
+                <a href="credentials.html" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Credentials Matrix</a>
+                <a href="contact.html" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Contact Vector</a>
+            </div>
+        </div>
+        
+        <div style="position: absolute; bottom: 25px; right: 8%; background: rgba(255,255,255,0.05); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #f43f5e; font-size: 1.1rem; cursor: pointer;">
+            <i class="fa-solid fa-file-pdf"></i>
+        </div>
+
+        <div class="footer-bottom" style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 25px; text-align: center; font-size: 0.85rem; color: #475569;"><p style="margin:0;">&copy; 2026 Vakratron Systems LLP | New Delhi, India. All Rights Reserved.</p></div>
+    </footer>
+
+    
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

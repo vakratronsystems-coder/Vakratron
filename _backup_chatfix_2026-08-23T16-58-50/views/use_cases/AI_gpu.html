@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+    <title>AI Infrastructure Reference Architecture for GPU Clusters | Vakratron Systems</title>
+    <meta name="description" content="A production-grade, 3-tier reference architecture for enterprise AI/ML GPU infrastructure — platform services, GPU compute clustering, east-west traffic design, and storage for training and inference workloads.">
+    <meta name="keywords" content="AI infrastructure architecture, GPU cluster design, NVIDIA H100 A100 infrastructure, Kubernetes AI platform, Vakratron Systems">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://vakratronsys.com/solutions/ai-infrastructure-reference-architecture.html">
+ 
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://vakratronsys.com/solutions/ai-infrastructure-reference-architecture.html">
+    <meta property="og:title" content="AI Infrastructure Reference Architecture for GPU Clusters">
+    <meta property="og:description" content="A production-grade blueprint for standing up multi-tenant GPU infrastructure — from ingress and model serving down to NVLink-connected compute and high-throughput storage.">
+    <meta property="og:image" content="https://vakratronsys.com/images/hero.png">
+ 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+ 
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "AI Infrastructure Reference Architecture for GPU Clusters",
+      "author": { "@type": "Organization", "name": "Vakratron Systems LLP" },
+      "publisher": { "@type": "Organization", "name": "Vakratron Systems LLP" },
+      "about": "GPU cluster reference architecture for enterprise AI/ML infrastructure"
+    }
+    </script>
+ 
+    <style>
+/* =========================================================
+   VAKRATRON SITE TOKENS WITH HARD BOUNDARY CONFIGURATION
+   ========================================================= */
+:root {
+    --bg-main: #020617;
+    --bg-surface: rgba(15, 23, 42, 0.6);
+    --border-glow: rgba(194, 24, 91, 0.3);
+    --accent-neon: #C2185B;
+    --accent-blue: #38bdf8;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --glass-gradient: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(2, 6, 23, 0.95) 100%);
+}
+ 
+* { box-sizing: border-box; }
+ 
+html {
+    scroll-behavior: smooth;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-main) !important;
+    color: var(--text-primary);
+    background-image:
+        radial-gradient(circle at 20% 30%, rgba(194, 24, 91, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(56, 189, 248, 0.07) 0%, transparent 50%) !important;
+    background-size: 200% 200% !important;
+    animation: cyberBackgroundMotion 20s ease infinite alternate !important;
+}
+ 
+@keyframes cyberBackgroundMotion {
+    0% { background-position: 0% 20%; }
+    50% { background-position: 100% 80%; }
+    100% { background-position: 20% 100%; }
+}
+ 
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background: transparent !important;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.002) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255, 255, 255, 0.002) 1px, transparent 1px) !important;
+    background-size: 50px 50px !important;
+}
+ 
+a { color: inherit; text-decoration: none; }
+img, svg { display: block; max-width: 100%; }
+ 
+.premium-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(194, 24, 91, 0.1);
+    border: 1px solid rgba(194, 24, 91, 0.3);
+    color: #f472b6;
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+ 
+.section-header-modern {
+    text-align: center;
+    margin-bottom: 60px;
+}
+ 
+.section-header-modern h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 10px 0;
+    background: linear-gradient(135deg, #fff 0%, var(--text-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+ 
+.section-header-modern p {
+    color: var(--text-secondary);
+    max-width: 640px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* 🎯 ANTI-CRUSH GRID INTERCEPTOR CLASSES - PREVENTS GLOBAL style.css OVERLAPS */
+.vakra-grid-container-fix {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 24px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.vk-isolated-card-tile {
+    background: var(--glass-gradient) !important;
+    border: 1px solid rgba(255, 255, 255, 0.04) !important;
+    border-radius: 20px !important;
+    padding: 36px 30px !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    min-height: 230px !important;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+ 
+.vk-isolated-card-tile:hover {
+    transform: translateY(-8px) !important;
+    border-color: rgba(56, 189, 248, 0.3) !important;
+    box-shadow: 0 30px 60px rgba(56, 189, 248, 0.1) !important;
+}
+ 
+.vk-isolated-icon-box {
+    width: 50px !important;
+    height: 50px !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border-radius: 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1.4rem !important;
+    margin-bottom: 22px !important;
+    transition: all 0.3s ease !important;
+}
+ 
+.vk-isolated-card-tile:hover .vk-isolated-icon-box {
+    background: rgba(56, 189, 248, 0.1) !important;
+    color: var(--accent-blue) !important;
+}
+ 
+/* =========================================================
+   VK — page-specific components
+   ========================================================= */
+.vk-wrap { max-width: 1180px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 2; }
+.vk-mono { font-family: 'Fira Code', monospace; }
+ 
+.vk-nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(2, 6, 23, 0.85); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.vk-nav .vk-wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+.vk-brand { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 16px; color: var(--text-primary); letter-spacing: 0.4px; display: flex; align-items: center; gap: 8px; }
+.vk-brand .mark { width: 8px; height: 8px; border-radius: 2px; background: linear-gradient(135deg, var(--accent-neon), var(--accent-blue)); }
+.vk-nav-links { display: flex; gap: 30px; align-items: center; }
+.vk-nav-links a { font-size: 13.5px; color: var(--text-secondary); font-weight: 500; text-decoration: none; }
+.vk-nav-links a:hover { color: var(--text-primary); }
+.vk-nav-cta { background: linear-gradient(135deg, var(--accent-neon) 0%, #9d174d 100%); color: #fff !important; padding: 10px 18px; border-radius: 8px; font-weight: 600; box-shadow: 0 4px 20px rgba(194,24,91,0.3); }
+ 
+.vk-hero { padding: 90px 0 76px; position: relative; overflow: hidden; }
+.vk-hero-inner { max-width: 800px; position: relative; z-index: 2; }
+.vk-hero h1 { font-family: 'Poppins', sans-serif; font-size: 48px; font-weight: 700; line-height: 1.14; color: var(--text-primary); margin: 18px 0 22px; letter-spacing: -0.5px; }
+.vk-hero h1 em { font-style: normal; background: linear-gradient(135deg, #fff 20%, var(--accent-neon) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.vk-hero p.lead { font-size: 18px; color: var(--text-secondary); max-width: 640px; line-height: 1.65; margin-bottom: 32px; font-weight: 300; }
+ 
+.vk-chip-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 36px; }
+.vk-chip {
+    font-family: 'Fira Code', monospace; font-size: 11.5px; letter-spacing: 0.4px; color: var(--text-secondary);
+    border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); padding: 7px 13px;
+    border-radius: 100px; display: flex; align-items: center; gap: 7px;
+}
+.vk-chip::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--accent-blue); }
+ 
+.vk-btn-row { display: flex; gap: 16px; flex-wrap: wrap; }
+.vk-btn {
+    font-family: 'Inter', sans-serif; font-size: 14.5px; font-weight: 600;
+    padding: 15px 28px; display: inline-flex; align-items: center; gap: 10px;
+    border-radius: 10px; text-decoration: none; transition: all 0.3s;
+}
+.vk-btn-primary { background: linear-gradient(135deg, var(--accent-neon) 0%, #9d174d 100%); color: #fff; box-shadow: 0 4px 25px rgba(194,24,91,0.3); }
+.vk-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 30px rgba(194,24,91,0.45); }
+.vk-btn-ghost { background: rgba(255,255,255,0.03); color: var(--text-primary); border: 1px solid rgba(255,255,255,0.08); }
+.vk-btn-ghost:hover { background: rgba(255,255,255,0.08); }
+ 
+.vk-sec { padding: 90px 0; position: relative; z-index: 2; }
+.vk-sec-alt { background: rgba(15, 23, 42, 0.25); border-top: 1px solid rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.04); }
+ 
+.vk-p-card .num { font-family: 'Fira Code', monospace; font-size: 12px; color: var(--accent-blue); letter-spacing: 1px; }
+.vk-p-card h3 { font-family: 'Poppins', sans-serif; font-size: 17px; margin: 12px 0 8px; color: var(--text-primary); font-weight: 600; }
+.vk-p-card p { font-size: 14.5px; color: var(--text-secondary); line-height: 1.65; font-weight: 300; }
+ 
+.vk-diagram-frame {
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5), inset 0 0 40px rgba(194,24,91,0.04);
+    margin-top: 24px; background: #020617;
+}
+.vk-diagram-tag {
+    display: flex; justify-content: space-between; align-items: center; padding: 12px 18px;
+    font-family: 'Fira Code', monospace; font-size: 10.5px; color: var(--text-secondary); letter-spacing: 1px;
+    border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(15,23,42,0.6);
+}
+.vk-diagram-tag span.dot { color: var(--accent-blue); }
+.vk-legend-row { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 24px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); }
+.vk-legend-item { display: flex; align-items: center; gap: 9px; font-family: 'Fira Code', monospace; font-size: 11px; color: var(--text-secondary); letter-spacing: 0.4px; }
+.vk-legend-line { width: 22px; height: 0; border-top: 2px solid; }
+ 
+.vk-principles { margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.06); }
+.vk-principle { display: grid; grid-template-columns: 66px 1fr; gap: 24px; padding: 26px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.vk-principle .pn { font-family: 'Fira Code', monospace; font-size: 14px; color: var(--accent-neon); font-weight: 600; padding-top: 2px; }
+.vk-principle h4 { font-family: 'Poppins', sans-serif; font-size: 16.5px; color: var(--text-primary); margin-bottom: 6px; font-weight: 600; }
+.vk-principle p { font-size: 14.5px; color: var(--text-secondary); line-height: 1.65; max-width: 640px; font-weight: 300; }
+ 
+.vk-stack-table { margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.06); }
+.vk-stack-tier { padding: 22px 0; border-bottom: 1px solid rgba(255,255,255,0.06); display: grid; grid-template-columns: 230px 1fr; gap: 24px; }
+.vk-stack-tier .tname { font-family: 'Fira Code', monospace; font-size: 12px; letter-spacing: 1px; color: var(--accent-neon); text-transform: uppercase; padding-top: 3px; }
+.vk-stack-items { display: flex; flex-wrap: wrap; gap: 9px; }
+.vk-stack-pill {
+    font-family: 'Fira Code', monospace; font-size: 12.5px; color: var(--text-primary);
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); padding: 7px 13px; border-radius: 100px;
+}
+ 
+.vk-note-box {
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 16px 20px;
+    font-family: 'Fira Code', monospace; font-size: 12px; color: var(--text-secondary);
+    margin-bottom: 32px; max-width: 700px; line-height: 1.7; background: rgba(255,255,255,0.02);
+}
+.vk-note-box b { color: var(--text-primary); }
+ 
+.vk-outcome-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.vk-o-card { background: var(--glass-gradient); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 26px 22px; }
+.vk-o-card .stat { font-family: 'Poppins', sans-serif; font-size: 27px; color: #fff; font-weight: 700; background: linear-gradient(135deg, #fff 0%, var(--accent-blue) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.vk-o-card .lbl { font-size: 13px; color: var(--text-secondary); margin-top: 10px; line-height: 1.5; font-weight: 300; }
+ 
+.vk-faq-item { border-bottom: 1px solid rgba(255,255,255,0.06); padding: 24px 0; }
+.vk-faq-q { font-size: 16.5px; font-weight: 600; color: var(--text-primary); font-family: 'Poppins', sans-serif; }
+.vk-faq-a { font-size: 14.5px; color: var(--text-secondary); margin-top: 10px; max-width: 720px; line-height: 1.65; font-weight: 300; }
+ 
+.vk-cta-sec { padding: 90px 0; text-align: center; position: relative; overflow: hidden; }
+.vk-cta-inner { max-width: 640px; margin: 0 auto; position: relative; z-index: 2; }
+.vk-cta-sec h2 { font-family: 'Poppins', sans-serif; color: var(--text-primary); font-size: 32px; margin-bottom: 16px; font-weight: 700; }
+.vk-cta-sec p { color: var(--text-secondary); font-size: 15.5px; margin-bottom: 30px; font-weight: 300; }
+.vk-cta-sec .vk-btn-row { justify-content: center; }
+
+/* 🎯 ISOLATED BASE LINK MATRIX GRID CARDS FOR FOOTER LOOKS */
+.vakra-footer-grid-engine {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 24px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+.vk-isolated-footer-card {
+    background: var(--glass-gradient) !important;
+    border: 1px solid rgba(255, 255, 255, 0.04) !important;
+    border-radius: 16px !important;
+    padding: 26px 22px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    transition: all 0.3s ease !important;
+}
+.vk-isolated-footer-card:hover {
+    transform: translateY(-4px) !important;
+    border-color: rgba(194, 24, 91, 0.4) !important;
+}
+
+.vk-r-tag { font-family: 'Fira Code', monospace; font-size: 10.5px; color: var(--accent-blue); letter-spacing: 1px; }
+.vk-r-card h4 { font-family: 'Poppins', sans-serif; font-size: 15.5px; margin-top: 12px; color: var(--text-primary); line-height: 1.4; font-weight: 600; }
+.vk-r-arrow { font-family: 'Fira Code', monospace; font-size: 12px; color: var(--accent-neon); margin-top: 16px; }
+ 
+.vk-foot { padding: 44px 0; border-top: 1px solid rgba(255,255,255,0.06); position: relative; z-index: 2; }
+.vk-foot-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+.vk-foot .vk-flinks { display: flex; gap: 24px; font-size: 13px; }
+.vk-foot .vk-flinks a { color: var(--text-secondary); text-decoration: none; }
+.vk-foot .vk-flinks a:hover { color: var(--text-primary); }
+.vk-fine { font-size: 12px; margin-top: 18px; color: #475569; }
+ 
+@media (max-width: 1024px) {
+    .vakra-grid-container-fix, .vakra-footer-grid-engine { grid-template-columns: repeat(2, 1fr) !important; }
+}
+@media (max-width: 860px) {
+    .vk-hero h1 { font-size: 32px; }
+    .vk-hero p.lead { font-size: 16px; }
+    .vakra-grid-container-fix, .vk-outcome-grid, .vakra-footer-grid-engine { grid-template-columns: 1fr !important; }
+    .vk-stack-tier { grid-template-columns: 1fr; }
+    .vk-principle { grid-template-columns: 1fr; gap: 8px; }
+    .vk-nav-links { display: none; }
+    .section-header-modern h2 { font-size: 26px; }
+    .vk-wrap { padding: 0 20px; }
+}
+    </style>
+</head>
+<body>
+ 
+    <nav class="vk-nav">
+      <div class="vk-wrap">
+        <div class="vk-brand"><span class="mark"></span>VAKRATRON SYSTEMS</div>
+        <div class="vk-nav-links">
+          <a href="/solutions.html">Solutions</a>
+          <a href="/about.html">About</a>
+          <a href="/credentials.html">Credentials</a>
+          <a href="/contact.html" class="vk-nav-cta">Talk to an Architect</a>
+        </div>
+      </div>
+    </nav>
+ 
+    <header class="vk-hero">
+      <div class="vk-wrap vk-hero-inner">
+        <div class="premium-badge"><i class="fa-solid fa-diagram-project"></i> Reference Architecture — 01 / Cloud &amp; Infrastructure</div>
+        <h1>AI Infrastructure Reference Architecture for <em>GPU Clusters</em></h1>
+        <p class="lead">A production-grade blueprint for standing up multi-tenant GPU infrastructure — from ingress and model serving down to NVLink-connected compute and high-throughput storage, built for real training and inference workloads.</p>
+        <div class="vk-chip-row">
+          <div class="vk-chip">3-Tier Design</div><div class="vk-chip">East–West Optimized</div><div class="vk-chip">H100 / A100 Ready</div><div class="vk-chip">Kubernetes-Native</div>
+        </div>
+        <div class="vk-btn-row">
+          <a href="/contact.html" class="vk-btn vk-btn-primary">Talk to an Architect <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="#architecture" class="vk-btn vk-btn-ghost">Explore the Architecture <i class="fa-solid fa-arrow-down"></i></a>
+        </div>
+      </div>
+    </header>
+ 
+    <section class="vk-sec">
+      <div class="vk-wrap">
+        <div class="section-header-modern" style="text-align:left; margin-bottom:44px;">
+          <span class="premium-badge"><i class="fa-solid fa-triangle-exclamation"></i> The Problem</span>
+          <h2 style="font-size:32px; background:none; -webkit-text-fill-color:var(--text-primary); text-align:left;">GPU infrastructure isn't just “more compute”</h2>
+          <p style="margin:14px 0 0; text-align:left; max-width:680px;">Most teams stand up GPU clusters by extending patterns built for stateless web applications — and it shows up as idle accelerators, saturated links, and storage that can't keep pace with data loaders.</p>
+        </div>
+        
+        <div class="vakra-grid-container-fix">
+          
+          <div class="vk-isolated-card-tile vk-p-card">
+            <div>
+              <div class="vk-isolated-icon-box" style="color:var(--accent-neon);"><i class="fa-solid fa-microchip"></i></div>
+              <div class="num vk-mono">01</div>
+              <h3>Idle GPUs, rising bills</h3>
+              <p>Without scheduling built for accelerators — MIG, time-slicing, priority classes — clusters run at 30–40% utilization while invoices assume 100%.</p>
+            </div>
+          </div>
+
+          <div class="vk-isolated-card-tile vk-p-card">
+            <div>
+              <div class="vk-isolated-icon-box" style="color:var(--accent-neon);"><i class="fa-solid fa-network-wired"></i></div>
+              <div class="num vk-mono">02</div>
+              <h3>East-west bottlenecks</h3>
+              <p>Distributed training moves gradients between GPUs constantly. Route that over generic VPC networking instead of NVLink/InfiniBand, and compute sits waiting on the network.</p>
+            </div>
+          </div>
+
+          <div class="vk-isolated-card-tile vk-p-card">
+            <div>
+              <div class="vk-isolated-icon-box" style="color:var(--accent-neon);"><i class="fa-solid fa-database"></i></div>
+              <div class="num vk-mono">03</div>
+              <h3>Storage can't keep up</h3>
+              <p>Object storage alone starves multi-GPU training jobs. Without a tiered storage layer, expensive accelerators idle waiting on I/O.</p>
+            </div>
+          </div>
+
+          <div class="vk-isolated-card-tile vk-p-card">
+            <div>
+              <div class="vk-isolated-icon-box" style="color:var(--accent-neon);"><i class="fa-solid fa-shield-halved"></i></div>
+              <div class="num vk-mono">04</div>
+              <h3>No governance boundary</h3>
+              <p>Shared clusters without namespace quotas and cost attribution turn into a free-for-all the moment a second team joins.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+ 
+    <section class="vk-sec vk-sec-alt" id="architecture">
+      <div class="vk-wrap">
+        <div class="section-header-modern" style="text-align:left; margin-bottom:44px;">
+          <span class="premium-badge"><i class="fa-solid fa-layer-group"></i> The Blueprint</span>
+          <h2 style="font-size:32px; background:none; -webkit-text-fill-color:var(--text-primary); text-align:left;">A three-tier architecture, built for GPU-native traffic</h2>
+          <p style="margin:14px 0 0; text-align:left; max-width:680px;">Presentation, platform, and infrastructure are kept as distinct tiers with clearly owned east-west paths — so scaling the GPU layer never means re-architecting the platform above it.</p>
+        </div>
+ 
+        <div class="vk-diagram-frame">
+          <div class="vk-diagram-tag">
+            <span>FIG. 01 — AI-INFRA-GPU-CLUSTER-REV3 <span class="dot">●</span> SCHEMATIC</span>
+            <span>3-TIER / EAST–WEST TRAFFIC MODEL</span>
+          </div>
+          <svg viewBox="0 0 1200 620" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;" font-family="'Fira Code', monospace">
+  <defs>
+    <pattern id="dotgrid" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" fill="rgba(148,163,184,0.14)"/>
+    </pattern>
+    <radialGradient id="glowbg1" cx="20%" cy="20%" r="60%">
+      <stop offset="0%" stop-color="#C2185B" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#C2185B" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowbg2" cx="85%" cy="80%" r="60%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.09"/>
+      <stop offset="100%" stop-color="#38BDF8" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="2.2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#38BDF8"/>
+    </marker>
+    <marker id="arrowNeon" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#C2185B"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="1200" height="620" fill="#020617"/>
+  <rect x="0" y="0" width="1200" height="620" fill="url(#glowbg1)"/>
+  <rect x="0" y="0" width="1200" height="620" fill="url(#glowbg2)"/>
+  <rect x="0" y="0" width="1200" height="620" fill="url(#dotgrid)"/>
+  <g><rect x="24" y="24" width="370" height="298" rx="10" fill="rgba(248,250,252,0.05)" stroke="rgba(148,163,184,0.22)" stroke-width="1"/>
+<rect x="24" y="24" width="370" height="36" rx="10" fill="#111A2E" stroke="rgba(148,163,184,0.22)" stroke-width="1"/>
+<rect x="24" y="42" width="370" height="18" fill="#111A2E"/>
+<line x1="38" y1="24" x2="38" y2="16" stroke="#38BDF8" stroke-width="2.5" filter="url(#glow)"/>
+<text x="40" y="47" fill="#F8FAFC" font-size="13" font-weight="600" letter-spacing="1">TIER 1 — ACCESS &amp; PRESENTATION</text>
+<text x="40" y="82" fill="#94A3B8" font-size="10.5" letter-spacing="1">INGRESS &amp; ROUTING</text>
+<text x="40" y="104" fill="#E2E8F0" font-size="12">NGINX / Istio Ingress · AuthN/AuthZ</text>
+<text x="40" y="122" fill="#E2E8F0" font-size="12">Rate Limiting</text>
+<line x1="40" y1="140" x2="378" y2="140" stroke="rgba(148,163,184,0.14)" stroke-width="1"/>
+<text x="40" y="164" fill="#94A3B8" font-size="10.5" letter-spacing="1">CLIENT ACCESS</text>
+<text x="40" y="186" fill="#E2E8F0" font-size="12">Web Portal · REST/API Clients</text>
+<text x="40" y="204" fill="#E2E8F0" font-size="12">JupyterHub · Model Catalog UI</text>
+<line x1="40" y1="222" x2="378" y2="222" stroke="rgba(148,163,184,0.14)" stroke-width="1"/>
+<text x="40" y="246" fill="#94A3B8" font-size="10.5" letter-spacing="1">EDGE SERVICES</text>
+<text x="40" y="268" fill="#E2E8F0" font-size="12">CDN · WAF / DDoS Protection</text>
+<text x="40" y="286" fill="#E2E8F0" font-size="12">Bot Protection</text></g>
+<g><rect x="414" y="24" width="370" height="298" rx="10" fill="rgba(248,250,252,0.05)" stroke="rgba(148,163,184,0.22)" stroke-width="1"/>
+<rect x="414" y="24" width="370" height="36" rx="10" fill="#111A2E" stroke="rgba(148,163,184,0.22)" stroke-width="1"/>
+<rect x="414" y="42" width="370" height="18" fill="#111A2E"/>
+<line x1="428" y1="24" x2="428" y2="16" stroke="#C2185B" stroke-width="2.5" filter="url(#glow)"/>
+<text x="430" y="47" fill="#F8FAFC" font-size="13" font-weight="600" letter-spacing="1">TIER 2 — AI / ML PLATFORM</text>
+<text x="430" y="82" fill="#94A3B8" font-size="10.5" letter-spacing="1">PLATFORM SERVICES</text>
+<text x="430" y="104" fill="#E2E8F0" font-size="12">API Services · Model Registry</text>
+<text x="430" y="122" fill="#E2E8F0" font-size="12">Feature Store · Prompt Library</text>
+<text x="430" y="140" fill="#E2E8F0" font-size="12">Experiment Tracking</text>
+<line x1="430" y1="158" x2="768" y2="158" stroke="rgba(148,163,184,0.14)" stroke-width="1"/>
+<text x="430" y="182" fill="#94A3B8" font-size="10.5" letter-spacing="1">WORKLOAD ORCHESTRATION</text>
+<text x="430" y="204" fill="#E2E8F0" font-size="12">Kubernetes · KServe / Ray Serve</text>
+<text x="430" y="222" fill="#E2E8F0" font-size="12">Argo Workflows · Job Scheduler</text>
+<line x1="430" y1="240" x2="768" y2="240" stroke="rgba(148,163,184,0.14)" stroke-width="1"/>
+<text x="430" y="264" fill="#94A3B8" font-size="10.5" letter-spacing="1">DATA &amp; VECTOR SERVICES</text>
+<text x="430" y="286" fill="#E2E8F0" font-size="12">Vector DB (Milvus / pgvector)</text>
+<text x="430" y="304" fill="#E2E8F0" font-size="12">Metadata Store · Redis Cache</text>
+<text x="430" y="322" fill="#E2E8F0" font-size="12">Kafka / RabbitMQ</text></g>
+<g><rect x="804" y="24" width="372" height="298" rx="10" fill="rgba(248,250,252,0.05)" stroke="rgba(148,163,184,0.22)" stroke-width="1"/>
+<rect x="804" y="24" width="372" height="36" rx="10" fill="#111A2E" stroke="rgba(148,163,184,0.22)" stroke-width="1"/>
+<rect x="804" y="42" width="372" height="18" fill="#111A2E"/>
+<line x1="818" y1="24" x2="818" y2="16" stroke="#38BDF8" stroke-width="2.5" filter="url(#glow)"/>
+<text x="820" y="47" fill="#F8FAFC" font-size="13" font-weight="600" letter-spacing="1">TIER 3 — GPU COMPUTE &amp; DATA</text>
+<text x="820" y="82" fill="#94A3B8" font-size="10.5" letter-spacing="1">GPU COMPUTE CLUSTER</text>
+<text x="820" y="104" fill="#E2E8F0" font-size="12">GPU Node 1 ··· GPU Node N</text>
+<text x="820" y="122" fill="#E2E8F0" font-size="12">NVIDIA H100 / A100</text>
+<text x="820" y="140" fill="#E2E8F0" font-size="12">NVLink/NVSwitch (intra) · IB/RoCE (inter)</text>
+<line x1="820" y1="158" x2="1160" y2="158" stroke="rgba(148,163,184,0.14)" stroke-width="1"/>
+<text x="820" y="182" fill="#94A3B8" font-size="10.5" letter-spacing="1">STORAGE LAYER</text>
+<text x="820" y="204" fill="#E2E8F0" font-size="12">NVMe High-Perf · Object Storage</text>
+<text x="820" y="222" fill="#E2E8F0" font-size="12">Parallel FS (Lustre / CEPH)</text>
+<text x="820" y="240" fill="#E2E8F0" font-size="12">Backup / Archive Storage</text>
+<line x1="820" y1="258" x2="1160" y2="258" stroke="rgba(148,163,184,0.14)" stroke-width="1"/>
+<text x="820" y="282" fill="#94A3B8" font-size="10.5" letter-spacing="1">SCHEDULING &amp; ISOLATION</text>
+<text x="820" y="304" fill="#E2E8F0" font-size="12">Node Pools · MIG / Time-Slicing</text>
+<text x="820" y="322" fill="#E2E8F0" font-size="12">Namespace Quotas · Priority Classes</text></g>
+  <line x1="394" y1="130" x2="414" y2="130" stroke="#38BDF8" stroke-width="1.6" marker-end="url(#arrowBlue)"/>
+  <line x1="394" y1="300" x2="414" y2="300" stroke="#C2185B" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#arrowNeon)"/>
+  <line x1="784" y1="130" x2="804" y2="130" stroke="#38BDF8" stroke-width="1.6" marker-end="url(#arrowBlue)"/>
+  <line x1="784" y1="300" x2="804" y2="300" stroke="#C2185B" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#arrowNeon)"/>
+  <rect x="24" y="348" width="1152" height="170" rx="10" fill="#0B1220" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+<text x="42" y="374" fill="#38BDF8" font-size="11" font-weight="600" letter-spacing="1.5">EAST–WEST TRAFFIC FLOW — WITHIN CLUSTER / VPC</text>
+  <rect x="52" y="394" width="132" height="40" rx="6" fill="rgba(248,250,252,0.05)" stroke="#38BDF8" stroke-width="1.2"/>
+<text x="118.0" y="418.0" text-anchor="middle" fill="#F8FAFC" font-size="11.5" font-family="'Fira Code', monospace">API Services</text><rect x="284" y="394" width="150" height="40" rx="6" fill="rgba(248,250,252,0.05)" stroke="#38BDF8" stroke-width="1.2"/>
+<text x="359.0" y="411.0" text-anchor="middle" fill="#F8FAFC" font-size="11.5" font-family="'Fira Code', monospace">Model Inference</text>
+<text x="359.0" y="425.0" text-anchor="middle" fill="#F8FAFC" font-size="11.5" font-family="'Fira Code', monospace">Service</text><rect x="534" y="394" width="132" height="40" rx="6" fill="rgba(248,250,252,0.05)" stroke="#38BDF8" stroke-width="1.2"/>
+<text x="600.0" y="418.0" text-anchor="middle" fill="#F8FAFC" font-size="11.5" font-family="'Fira Code', monospace">Feature Store</text><rect x="766" y="394" width="140" height="40" rx="6" fill="rgba(248,250,252,0.05)" stroke="#38BDF8" stroke-width="1.2"/>
+<text x="836.0" y="418.0" text-anchor="middle" fill="#F8FAFC" font-size="11.5" font-family="'Fira Code', monospace">Object Storage</text><rect x="1006" y="394" width="150" height="40" rx="6" fill="rgba(248,250,252,0.05)" stroke="#38BDF8" stroke-width="1.2"/>
+<text x="1081.0" y="418.0" text-anchor="middle" fill="#F8FAFC" font-size="11.5" font-family="'Fira Code', monospace">Model Registry</text>
+  <line x1="184" y1="414" x2="284" y2="414" stroke="#38BDF8" stroke-width="1.6" marker-end="url(#arrowBlue)"/><line x1="434" y1="414" x2="534" y2="414" stroke="#38BDF8" stroke-width="1.6" marker-end="url(#arrowBlue)"/><line x1="666" y1="414" x2="766" y2="414" stroke="#38BDF8" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#arrowBlue)"/><line x1="906" y1="414" x2="1006" y2="414" stroke="#C2185B" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#arrowNeon)"/>
+  <rect x="284" y="470" width="130" height="34" rx="6" fill="rgba(248,250,252,0.05)" stroke="#38BDF8" stroke-width="1.2"/>
+<text x="349.0" y="491.0" text-anchor="middle" fill="#F8FAFC" font-size="11.5" font-family="'Fira Code', monospace">Vector Database</text><rect x="446" y="470" width="120" height="34" rx="6" fill="rgba(248,250,252,0.05)" stroke="#C2185B" stroke-width="1.2"/>
+<text x="506.0" y="491.0" text-anchor="middle" fill="#F8FAFC" font-size="11.5" font-family="'Fira Code', monospace">Training Jobs</text>
+  <line x1="349" y1="434" x2="349" y2="470" stroke="#38BDF8" stroke-width="1.6" marker-end="url(#arrowBlue)"/><line x1="380" y1="470" x2="380" y2="434" stroke="#38BDF8" stroke-width="1.6" marker-end="url(#arrowBlue)"/><line x1="506" y1="470" x2="424" y2="434" stroke="#C2185B" stroke-width="1.4" stroke-dasharray="4 3" marker-end="url(#arrowNeon)"/>
+  <text x="42" y="526" fill="#64748B" font-size="10" letter-spacing="0.5">Vector DB and Training Jobs are queried synchronously by the inference service; checkpoints replicate to object storage asynchronously.</text>
+  <text x="24" y="558" fill="#C2185B" font-size="11" font-weight="600" letter-spacing="1.5">NETWORK &amp; CONNECTIVITY</text>
+<text x="24" y="578" fill="#94A3B8" font-size="12">VPC / VNet  ·  Private Subnets  ·  Security Groups / NSG  ·  NAT Gateway  ·  VPN / Direct Connect  ·  Peering</text>
+  <line x1="24" y1="590" x2="1176" y2="590" stroke="rgba(148,163,184,0.14)" stroke-width="1"/>
+<text x="24" y="608" fill="#64748B" font-size="10.5" letter-spacing="0.5">HARDWARE REF: GPU Servers (H100/A100) · CPU Control-Plane Nodes · Non-Blocking Fabric (IB/RoCE) · Spine-Leaf Switching · Redundant Power &amp; Cooling</text>
+</svg>
+        </div>
+ 
+        <div class="vk-legend-row">
+          <div class="vk-legend-item"><span class="vk-legend-line" style="border-color:var(--accent-blue);"></span> Sync data traffic (gRPC / HTTP)</div>
+          <div class="vk-legend-item"><span class="vk-legend-line" style="border-color:var(--accent-blue); border-top-style:dashed;"></span> Async traffic (events / streaming)</div>
+          <div class="vk-legend-item"><span class="vk-legend-line" style="border-color:var(--accent-neon); border-top-style:dashed;"></span> Management / control plane</div>
+          <div class="vk-legend-item"><span class="vk-legend-line" style="border-color:rgba(148,163,184,0.4);"></span> Tier boundary</div>
+        </div>
+      </div>
+    </section>
+ 
+    <section class="vk-sec">
+      <div class="vk-wrap">
+        <div class="section-header-modern" style="text-align:left; margin-bottom:44px;">
+          <span class="premium-badge"><i class="fa-solid fa-list-check"></i> Design Decisions</span>
+          <h2 style="font-size:32px; background:none; -webkit-text-fill-color:var(--text-primary); text-align:left;">Six decisions that make or break a GPU cluster</h2>
+          <p style="margin:14px 0 0; text-align:left; max-width:680px;">In order — the sequence architects actually work through when standing this up.</p>
+        </div>
+        <div class="vk-principles">
+          <div class="vk-principle"><div class="pn vk-mono">01</div><div><h4>Separate control plane from data plane traffic</h4><p>Management, monitoring, and orchestration traffic never shares a path with training or inference data — a noisy dashboard should never stall a training job.</p></div></div><div class="vk-principle"><div class="pn vk-mono">02</div><div><h4>Keep GPU traffic off generic networking</h4><p>NVLink / NVSwitch for intra-node, InfiniBand or RoCE for inter-node. Routing gradient sync over standard VPC networking is the single most common cause of idle accelerators.</p></div></div><div class="vk-principle"><div class="pn vk-mono">03</div><div><h4>Right-size storage by access pattern</h4><p>NVMe for hot checkpoints, a parallel file system for training data, object storage for archives. One tier of storage cannot serve all three access patterns well.</p></div></div><div class="vk-principle"><div class="pn vk-mono">04</div><div><h4>Treat the model registry as core infrastructure</h4><p>Model registry, feature store, and experiment tracking are platform services with their own SLAs — not an afterthought bolted onto the compute layer.</p></div></div><div class="vk-principle"><div class="pn vk-mono">05</div><div><h4>Design for multi-tenancy from day one</h4><p>Namespace quotas, MIG / time-slicing, and priority classes — retrofitting isolation onto a shared cluster after the second team joins is far more expensive.</p></div></div><div class="vk-principle"><div class="pn vk-mono">06</div><div><h4>Instrument what actually matters</h4><p>GPU utilization, network fabric saturation, and job queue depth — not just CPU and memory, which are the wrong signals for accelerator-bound workloads.</p></div></div>
+        </div>
+      </div>
+    </section>
+ 
+    <section class="vk-sec vk-sec-alt">
+      <div class="vk-wrap">
+        <div class="section-header-modern" style="text-align:left; margin-bottom:44px;">
+          <span class="premium-badge"><i class="fa-solid fa-cubes"></i> Reference Stack</span>
+          <h2 style="font-size:32px; background:none; -webkit-text-fill-color:var(--text-primary); text-align:left;">Technology choices by tier</h2>
+          <p style="margin:14px 0 0; text-align:left; max-width:680px;">Illustrative — final selection depends on existing platform investments, team skillset, and cloud vs. on-prem constraints.</p>
+        </div>
+        <div class="vk-stack-table">
+          <div class="vk-stack-tier">
+        <div class="tname">Tier 1 — Access &amp; Presentation</div>
+        <div class="vk-stack-items"><div class="vk-stack-pill">NGINX / Istio Ingress</div><div class="vk-stack-pill">AuthN/AuthZ</div><div class="vk-stack-pill">Rate Limiting</div><div class="vk-stack-pill">CDN</div><div class="vk-stack-pill">WAF / DDoS Protection</div><div class="vk-stack-pill">JupyterHub</div></div>
+      </div><div class="vk-stack-tier">
+        <div class="tname">Tier 2 — AI / ML Platform</div>
+        <div class="vk-stack-items"><div class="vk-stack-pill">Kubernetes</div><div class="vk-stack-pill">KServe / Ray Serve</div><div class="vk-stack-pill">Argo Workflows</div><div class="vk-stack-pill">MLflow / Model Registry</div><div class="vk-stack-pill">Milvus / pgvector</div><div class="vk-stack-pill">Kafka / RabbitMQ</div><div class="vk-stack-pill">Redis</div></div>
+      </div><div class="vk-stack-tier">
+        <div class="tname">Tier 3 — GPU Compute &amp; Data</div>
+        <div class="vk-stack-items"><div class="vk-stack-pill">NVIDIA H100 / A100</div><div class="vk-stack-pill">NVLink / NVSwitch</div><div class="vk-stack-pill">InfiniBand / RoCE</div><div class="vk-stack-pill">Lustre / CEPH</div><div class="vk-stack-pill">S3-Compatible Object Storage</div><div class="vk-stack-pill">MIG / Time-Slicing</div></div>
+      </div><div class="vk-stack-tier">
+        <div class="tname">Foundation Services</div>
+        <div class="vk-stack-items"><div class="vk-stack-pill">IAM / RBAC</div><div class="vk-stack-pill">Secrets Management</div><div class="vk-stack-pill">Policy as Code</div><div class="vk-stack-pill">Prometheus / Grafana</div><div class="vk-stack-pill">ELK / Loki</div><div class="vk-stack-pill">GitLab CI</div></div>
+      </div>
+        </div>
+      </div>
+    </section>
+ 
+    <section class="vk-sec">
+      <div class="vk-wrap">
+        <div class="section-header-modern" style="text-align:left; margin-bottom:28px;">
+          <span class="premium-badge"><i class="fa-solid fa-chart-line"></i> What This Is Designed to Deliver</span>
+          <h2 style="font-size:32px; background:none; -webkit-text-fill-color:var(--text-primary); text-align:left;">Engineering targets, not marketing claims</h2>
+          <p style="margin:14px 0 0; text-align:left; max-width:680px;">We haven't published a client case study for this pattern yet — these are the outcomes this architecture is engineered to hit, based on established infrastructure practice.</p>
+        </div>
+        <div class="vk-note-box"><b>A note on the numbers below:</b> these are industry-recognized engineering benchmarks for well-architected systems of this kind, not results from a specific Vakratron deployment. We'll publish real project data as engagements complete.</div>
+        <div class="vk-outcome-grid">
+          <div class="vk-o-card"><div class="stat">70–85%</div><div class="lbl">Sustained GPU utilization achievable with proper scheduling, vs. 30–40% in ad-hoc setups</div></div><div class="vk-o-card"><div class="stat">Sub-ms</div><div class="lbl">Intra-node latency with NVLink/NVSwitch vs. standard networking for gradient sync</div></div><div class="vk-o-card"><div class="stat">Per-team</div><div class="lbl">Cost attribution and quota enforcement across every namespace sharing the cluster</div></div><div class="vk-o-card"><div class="stat">Zero</div><div class="lbl">Cross-tenant interference when MIG / time-slicing and priority classes are enforced</div></div>
+        </div>
+      </div>
+    </section>
+ 
+    <section class="vk-sec vk-sec-alt">
+      <div class="vk-wrap">
+        <div class="section-header-modern" style="text-align:left; margin-bottom:44px;">
+          <span class="premium-badge"><i class="fa-solid fa-circle-question"></i> FAQ</span>
+          <h2 style="font-size:32px; background:none; -webkit-text-fill-color:var(--text-primary); text-align:left;">Common questions from platform teams</h2>
+        </div>
+        <div class="vk-faq-list">
+          <div class="vk-faq-item"><div class="vk-faq-q">How is this different from a standard Kubernetes cluster?</div><div class="vk-faq-a">Standard Kubernetes scheduling has no concept of GPU topology, NVLink domains, or accelerator fractioning. This architecture adds GPU-aware scheduling, a dedicated compute fabric, and storage tiers sized for training I/O — layered on top of, not instead of, Kubernetes.</div></div><div class="vk-faq-item"><div class="vk-faq-q">Do we need InfiniBand, or is high-speed Ethernet (RoCE) enough?</div><div class="vk-faq-a">RoCE over high-speed Ethernet gets close to InfiniBand performance for most training workloads at lower cost and operational complexity. InfiniBand still leads for the largest, most latency-sensitive distributed training jobs.</div></div><div class="vk-faq-item"><div class="vk-faq-q">How does this handle multiple teams sharing one cluster?</div><div class="vk-faq-a">Through namespace-level quotas, MIG or time-slicing for GPU fractioning, and priority classes for job scheduling — so one team's burst workload can't starve another's.</div></div><div class="vk-faq-item"><div class="vk-faq-q">Does this run on AWS / Azure / GCP, or only on-prem?</div><div class="vk-faq-a">The pattern is cloud-neutral. Managed GPU instances and equivalent networking exist on all three major clouds; the same tiering applies on-prem with NVIDIA DGX or comparable hardware.</div></div><div class="vk-faq-item"><div class="vk-faq-q">What's a realistic timeline to stand this up?</div><div class="vk-faq-a">For an existing Kubernetes footprint: 4–6 weeks for the platform and compute tiers. Add 2–4 weeks if InfiniBand fabric or new GPU hardware procurement is involved.</div></div>
+        </div>
+      </div>
+    </section>
+ 
+    <section class="vk-cta-sec">
+      <div style="position:absolute; inset:0; background:radial-gradient(circle at 30% 30%, rgba(194,24,91,0.12), transparent 55%), radial-gradient(circle at 75% 70%, rgba(56,189,248,0.10), transparent 55%); pointer-events:none;"></div>
+      <div class="vk-wrap vk-cta-inner">
+        <h2>Planning a GPU cluster or AI platform build-out?</h2>
+        <p>We design and stand up infrastructure like this for enterprise and government teams. Bring us your constraints — cloud, on-prem, or hybrid — and we'll work through the architecture with you.</p>
+        <div class="vk-btn-row"><a href="/contact.html" class="vk-btn vk-btn-primary">Talk to an Architect <i class="fa-solid fa-arrow-right"></i></a></div>
+      </div>
+    </section>
+ 
+    <section class="vk-sec">
+      <div class="vk-wrap">
+        <div class="section-header-modern" style="text-align:left; margin-bottom:44px;">
+          <span class="premium-badge"><i class="fa-solid fa-book-open"></i> Continue Reading</span>
+          <h2 style="font-size:32px; background:none; -webkit-text-fill-color:var(--text-primary); text-align:left;">More reference architectures</h2>
+        </div>
+        
+        <div class="vakra-footer-grid-engine">
+          
+          <a class="vk-isolated-footer-card vk-r-card" href="/solutions/kubernetes-platform-architecture.html">
+            <div>
+              <div class="vk-isolated-icon-box" style="color:var(--accent-blue);"><i class="fa-solid fa-dharmachakra"></i></div>
+              <div class="vk-r-tag vk-mono">02 / CLOUD &amp; INFRASTRUCTURE</div>
+              <h4>Kubernetes Platform Architecture</h4>
+            </div>
+            <div class="vk-r-arrow">Read the architecture →</div>
+          </a>
+
+          <a class="vk-isolated-footer-card vk-r-card" href="/solutions/hybrid-cloud-migration-blueprint.html">
+            <div>
+              <div class="vk-isolated-icon-box" style="color:var(--accent-blue);"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+              <div class="vk-r-tag vk-mono">03 / CLOUD &amp; INFRASTRUCTURE</div>
+              <h4>Hybrid Cloud Migration Blueprint</h4>
+            </div>
+            <div class="vk-r-arrow">Read the architecture →</div>
+          </a>
+
+          <a class="vk-isolated-footer-card vk-r-card" href="/solutions/rag-enterprise-llm-architecture.html">
+            <div>
+              <div class="vk-isolated-icon-box" style="color:var(--accent-blue);"><i class="fa-solid fa-brain"></i></div>
+              <div class="vk-r-tag vk-mono">12 / MODERN APPLICATIONS</div>
+              <h4>RAG + Enterprise LLM Architecture</h4>
+            </div>
+            <div class="vk-r-arrow">Read the architecture →</div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+ 
+    <footer></footer>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('code') || window.location.hash.includes('access_token')) {
+            localStorage.setItem('vakra_auth_token', 'SECURE_NODE_VALIDATED_2026');
+            window.location.href = '/index.html'; 
+        }
+
+        // --- INTERACTIVE CHAT ENGINE FRONTEND ADAPTER ---
+        const trigger = document.getElementById('chatTrigger');
+        const windowEl = document.getElementById('chatWindow');
+        const closeBtn = document.getElementById('chatClose');
+        const sendBtn = document.getElementById('chatSend');
+        const inputEl = document.getElementById('chatInput');
+        const messagesContainer = document.getElementById('chatMessages');
+
+     // Toggle Widget Interface Fix
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation(); // Global layouts ko trace capture karne se roko
+            windowEl.classList.toggle('active');
+            
+            if(windowEl.classList.contains('active')) {
+                windowEl.style.setProperty('display', 'flex', 'important');
+                windowEl.style.setProperty('width', '360px', 'important');
+                inputEl.focus();
+            } else {
+                windowEl.style.setProperty('display', 'none', 'important');
+            }
+        });
+
+        closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            windowEl.classList.remove('active');
+            windowEl.style.setProperty('display', 'none', 'important');
+        });
+
+        // Message Dispatcher Pipeline
+        // Message Dispatcher Pipeline
+        async function dispatchUserPrompt() {
+            const promptValue = inputEl.value.trim();
+            if (!promptValue) return;
+
+            // Render User Bubble
+            appendBubble(promptValue, 'user');
+            inputEl.value = '';
+
+            // Inject Streaming/Typing Matrix Indicator
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'vakra-msg system';
+            typingIndicator.innerHTML = `<div class="vakra-typing"><span></span><span></span><span></span></div>`;
+            messagesContainer.appendChild(typingIndicator);
+            scrollToBottom();
+
+            try {
+                // Secure Fetch Request to local API Gateway Route
+                const apiResponse = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: promptValue })
+                });
+
+                const dataset = await apiResponse.json();
+                typingIndicator.remove(); // Evacuate typing trace
+
+                if (apiResponse.ok && dataset.response) {
+                    appendBubble(dataset.response, 'system');
+
+                    // 🚨 NEXT-LEVEL AUTOMATED FRONTEND TRIGGER START
+                    const lowerMessage = promptValue.toLowerCase();
+                    if (
+                        lowerMessage.includes('connect') || 
+                        lowerMessage.includes('talk to human') || 
+                        lowerMessage.includes('contact team') || 
+                        lowerMessage.includes('representative') || 
+                        lowerMessage.includes('connect someone') ||
+                        lowerMessage.includes('team se connect')
+                    ) {
+                        setTimeout(() => {
+                            appendBubble("⚡ System Action: Redirecting token matrix to the Sovereign Advisory Desk...", 'system');
+                            
+                            // 1.5 Seconds ka delay taaki user bot ka message padh sake, fir auto-redirect
+                            setTimeout(() => {
+                                window.location.href = 'contact.html';
+                            }, 1500);
+                        }, 1000);
+                    }
+                    // 🚨 NEXT-LEVEL AUTOMATED FRONTEND TRIGGER END
+
+                } else {
+                    appendBubble("Execution Defect: Unable to pipeline calculated tokens from LLM core.", 'system');
+                }
+
+            } catch (networkError) {
+                if(typingIndicator) typingIndicator.remove();
+                appendBubble("Network Fault: Endpoint connectivity degraded or blocked.", 'system');
+                console.error("Pipeline Transmission Error:", networkError);
+            }
+        }
+
+        function appendBubble(content, actor) {
+            const bubble = document.createElement('div');
+            bubble.className = `vakra-msg ${actor}`;
+            // safe conversion, replace newlines with line-breaks for formatting comfort
+            bubble.innerHTML = content.replace(/\n/g, '<br>');
+            messagesContainer.appendChild(bubble);
+            scrollToBottom();
+        }
+
+        function scrollToBottom() {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Trigger Listeners Setup
+        sendBtn.addEventListener('click', dispatchUserPrompt);
+        inputEl.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') dispatchUserPrompt();
+        });
+    </script>
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

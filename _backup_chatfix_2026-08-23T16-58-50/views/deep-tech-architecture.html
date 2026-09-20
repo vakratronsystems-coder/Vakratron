@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep-Tech Architecture & Engineering Framework | Vakratron Systems</title>
+    <meta name="description" content="Enterprise Architecture Blueprints, Compliance Frameworks, and Advisory Practice for Public/Private Cloud, Zero-Trust Security, and Agentic AI.">
+    
+    <style>
+        :root {
+            --bg-dark: #07090e;
+            --card-bg: rgba(13, 18, 30, 0.75);
+            --card-border: rgba(255, 0, 85, 0.18);
+            --accent-red: #ff0055;
+            --accent-glow: rgba(255, 0, 85, 0.25);
+            --text-white: #f8fafc;
+            --text-dim: #94a3b8;
+            --pill-bg: rgba(255, 255, 255, 0.03);
+            --pill-border: rgba(255, 255, 255, 0.08);
+            --font-stack: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            font-family: var(--font-stack);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* Header */
+        .page-header {
+            text-align: center;
+            padding: 40px 20px 50px;
+            background: radial-gradient(circle at 50% 20%, rgba(255, 0, 85, 0.12) 0%, transparent 60%);
+        }
+
+        .badge-pill {
+            display: inline-block;
+            background: rgba(255, 0, 85, 0.08);
+            border: 1px solid var(--accent-red);
+            color: var(--accent-red);
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .page-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin: 0 0 15px 0;
+            background: linear-gradient(135deg, #ffffff 30%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .page-desc {
+            font-size: 1.1rem;
+            color: var(--text-dim);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Section Block */
+        .tech-block {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: border-color 0.3s ease;
+        }
+
+        .tech-block:hover {
+            border-color: rgba(255, 0, 85, 0.4);
+        }
+
+        .block-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .block-title {
+            font-size: 1.8rem;
+            margin: 0;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .cert-badge-official {
+            background: linear-gradient(135deg, rgba(255, 0, 85, 0.2) 0%, rgba(255, 0, 85, 0.05) 100%);
+            border: 1px solid var(--accent-red);
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cert-badge-alliance {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--text-dim);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Grid inside Block */
+        .framework-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .framework-box h4 {
+            color: var(--accent-red);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin: 0 0 12px 0;
+        }
+
+        .framework-box ul {
+            padding-left: 0;
+            list-style: none;
+            margin: 0;
+        }
+
+        .framework-box li {
+            position: relative;
+            padding-left: 18px;
+            margin-bottom: 8px;
+            color: #cbd5e1;
+            font-size: 0.92rem;
+        }
+
+        .framework-box li::before {
+            content: "▹";
+            color: var(--accent-red);
+            position: absolute;
+            left: 0;
+        }
+
+        /* Engineering Lifecycle */
+        .lifecycle-section {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 40px;
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .lifecycle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .step-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--pill-border);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .step-num {
+            color: var(--accent-red);
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .step-title {
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .step-desc {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        .btn-cta {
+            background: var(--accent-red);
+            color: #fff;
+            padding: 12px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 30px;
+            box-shadow: 0 0 20px rgba(255, 0, 85, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- Page Header -->
+        <section class="page-header">
+            <span class="badge-pill">Deep-Tech Engineering</span>
+            <h1 class="page-title">Enterprise Architecture & Compliance Frameworks</h1>
+            <p class="page-desc">
+                Technical reference architectures, compliance mappings, and engineering methodologies powering our independent advisory practice.
+            </p>
+        </section>
+
+        <!-- Pillar 1: Zero-Trust Defense (Sophos Official) -->
+        <div class="tech-block" id="cybersecurity">
+            <div class="block-header">
+                <h2 class="block-title">🛡️ Zero-Trust Security & Managed SOC Practice</h2>
+                <div class="cert-badge-official">
+                    <span>✓ Official Silver Partner</span>
+                </div>
+            </div>
+            <div class="framework-grid">
+                <div class="framework-box">
+                    <h4>Architecture Capabilities</h4>
+                    <ul>
+                        <li>24/7 Managed Detection & Response (MDR)</li>
+                        <li>XGS Next-Gen Firewall & TLS 1.3 Inspection</li>
+                        <li>Synchronized Security & Auto-Isolation</li>
+                    </ul>
+                </div>
+                <div class="framework-box">
+                    <h4>Compliance & Standards</h4>
+                    <ul>
+                        <li>NICSI & GeM Empanelment Ready</li>
+                        <li>ISO 27001 & SOC-2 Alignment</li>
+                        <li>MeitY Empanelled Cloud Security</li>
+                    </ul>
+                </div>
+                <div class="framework-box">
+                    <h4>Key Performance Indicators</h4>
+                    <ul>
+                        <li>< 15 Min Threat Containment SLA</li>
+                        <li>Zero-Impact Lateral Ransomware Prevention</li>
+                        <li>Proactive Cyber Insurance Readiness</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pillar 2: Cloud & Disaster Recovery -->
+        <div class="tech-block" id="cloud-dr">
+            <div class="block-header">
+                <h2 class="block-title">☁️ Public, Private & Hybrid Cloud Architecture</h2>
+                <div class="cert-badge-alliance">
+                    Enterprise Cloud Practice
+                </div>
+            </div>
+            <div class="framework-grid">
+                <div class="framework-box">
+                    <h4>Architecture Capabilities</h4>
+                    <ul>
+                        <li>Active-Active & Active-Passive DR Designs</li>
+                        <li>Multi-Cloud FinOps & Cost Governance</li>
+                        <li>Nutanix Hyperconverged Infrastructure (HCI)</li>
+                    </ul>
+                </div>
+                <div class="framework-box">
+                    <h4>Enterprise Blueprints</h4>
+                    <ul>
+                        <li>Zero Downtime Migration Roadmaps</li>
+                        <li>On-Premises to Sovereign Cloud DRaaS</li>
+                        <li>High-Density Enterprise Storage Fabrics</li>
+                    </ul>
+                </div>
+                <div class="framework-box">
+                    <h4>Key Performance Indicators</h4>
+                    <ul>
+                        <li>Near-Zero RTO / RPO Metrics</li>
+                        <li>30%+ Cloud Infrastructure Cost Optimization</li>
+                        <li>99.99% Availability Architecture SLAs</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pillar 3: Agentic AI & LLM Systems -->
+        <div class="tech-block" id="agentic-ai">
+            <div class="block-header">
+                <h2 class="block-title">🤖 Agentic AI & Enterprise GenAI Framework</h2>
+                <div class="cert-badge-alliance">
+                    Cognitive Systems Practice
+                </div>
+            </div>
+            <div class="framework-grid">
+                <div class="framework-box">
+                    <h4>Architecture Capabilities</h4>
+                    <ul>
+                        <li>Production-Grade Autonomous Agents</li>
+                        <li>Enterprise RAG & Hybrid Search Systems</li>
+                        <li>Private LLM & Data Governance Frameworks</li>
+                    </ul>
+                </div>
+                <div class="framework-box">
+                    <h4>Technology Orchestration</h4>
+                    <ul>
+                        <li>Anthropic Claude & Bedrock Integration</li>
+                        <li>LangChain & LangGraph Workflows</li>
+                        <li>Enterprise Vector Databases</li>
+                    </ul>
+                </div>
+                <div class="framework-box">
+                    <h4>Key Performance Indicators</h4>
+                    <ul>
+                        <li>Sub-Second Retrieval Latency</li>
+                        <li>100% On-Premises Data Privacy Protection</li>
+                        <li>Automated Multi-Step Task Execution</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pillar 4: Datacenter & GPU Fabric -->
+        <div class="tech-block" id="datacenter">
+            <div class="block-header">
+                <h2 class="block-title">⚡ Datacenter Switching & High-Performance Fabric</h2>
+                <div class="cert-badge-alliance">
+                    Infrastructure Practice
+                </div>
+            </div>
+            <div class="framework-grid">
+                <div class="framework-box">
+                    <h4>Architecture Capabilities</h4>
+                    <ul>
+                        <li>High-Density GPU Cluster Interconnects</li>
+                        <li>Active-Active Enterprise Network Fabrics</li>
+                        <li>Micro-segmentation & Datacenter Routing</li>
+                    </ul>
+                </div>
+                <div class="framework-box">
+                    <h4>Technology Orchestration</h4>
+                    <ul>
+                        <li>Cisco Enterprise Architecture Stack</li>
+                        <li>Nvidia High-Speed Compute Interconnects</li>
+                        <li>Low-Latency Switching Configurations</li>
+                    </ul>
+                </div>
+                <div class="framework-box">
+                    <h4>Key Performance Indicators</h4>
+                    <ul>
+                        <li>Ultra-Low Latency Inter-Node Throughput</li>
+                        <li>Redundant Active-Active Link Failover</li>
+                        <li>Scalable Multi-Rack Topology Designs</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4-Step Engineering Lifecycle -->
+        <div class="lifecycle-section">
+            <h2 style="margin: 0; color: #fff;">Our 4-Step Advisory & Engineering Practice</h2>
+            <p style="color: var(--text-dim); margin-top: 8px;">How we deliver architecture without vendor bias</p>
+            
+            <div class="lifecycle-grid">
+                <div class="step-card">
+                    <div class="step-num">01</div>
+                    <div class="step-title">Audit & Discover</div>
+                    <div class="step-desc">Analyzing SLAs, threat surfaces, and compliance requirements.</div>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">02</div>
+                    <div class="step-title">Architect Blueprint</div>
+                    <div class="step-desc">Designing cloud-neutral, zero-trust reference architectures.</div>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">03</div>
+                    <div class="step-title">Orchestrate</div>
+                    <div class="step-desc">Deploying hardware, software, and AI models seamlessly.</div>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">04</div>
+                    <div class="step-title">Govern & Manage</div>
+                    <div class="step-desc">Continuous posture review, cost optimization, and SOC advisory.</div>
+                </div>
+            </div>
+
+            <a href="/views/contact.html" class="btn-cta">Request Technical Architecture Review</a>
+        </div>
+
+    </div>
+
+</body>
+</html>
