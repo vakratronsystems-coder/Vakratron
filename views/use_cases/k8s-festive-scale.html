@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Use Case: Moving 30 Services to Kubernetes Before a Festive Sale | Vakratron Systems</title>
+    <meta name="description" content="An illustrative scenario: an online retailer moving about thirty services to managed Kubernetes with GitOps, autoscaling and circuit breakers before its peak sale.">
+    <link rel="canonical" href="https://vakratronsys.com/use_cases/k8s-festive-scale">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
+</head>
+<body>
+    <header></header>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/kubernetes-platform">Kubernetes</a> <span>/</span> <span>Use case: festive-season scale</span></div>
+            <div class="vk-label"><span>Illustrative scenario</span></div>
+            <h1>Thirty services onto Kubernetes before the biggest sale of the year</h1>
+            <p class="vk-lead">How we would help an online retailer whose traffic jumps several times over during the festive sale move its services to Kubernetes, without risking the sale itself.</p>
+            <div class="vk-note"><p class="vk-small">This is a composite example built from common enterprise requirements. It is not a specific client engagement, and the figures are design targets for the scenario, not measured results.</p></div>
+            <div class="vk-facts"><div class="vk-fact"><span class="k">Services</span><span class="v">~30</span></div><div class="vk-fact"><span class="k">Peak traffic</span><span class="v">Several times normal</span></div><div class="vk-fact"><span class="k">Platform</span><span class="v">Managed Kubernetes</span></div><div class="vk-fact"><span class="k">Deadline</span><span class="v">Before the festive sale</span></div></div>
+        </div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><span class="vk-eyebrow">The situation</span><h2>Over-provisioned all year, nervous all sale</h2>
+            <p>The retailer ran about thirty services on virtual machines sized for the festive peak, so most of that capacity sat idle for eleven months. Releases needed a weekend and a war room. Last year, a slow recommendation service backed up checkout during the busiest hour.</p>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><span class="vk-eyebrow">The approach</span><h2>What we would do</h2><ol class="vk-steps"><li><strong>Fit check:</strong> many services, weekly releases, big spikes and a team that already used containers. Kubernetes fits.</li><li><strong>Managed Kubernetes</strong> in the existing public cloud, with GitOps delivery from day one.</li><li><strong>Move low-risk services first</strong> (catalogue, search), then checkout and payments last.</li><li><strong>Autoscaling</strong> on request rate for customer-facing services, with tested upper limits.</li><li><strong>Timeouts and circuit breakers</strong> so a slow non-critical service cannot hold up checkout. See <a href="/portfolio/api-microservices#apisim">the API simulator</a>.</li><li><strong>Load test at twice the expected peak</strong> four weeks before the sale, and freeze changes in sale week.</li></ol>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><span class="vk-eyebrow">What changes</span><h2>Targets and how they are checked</h2><div class="vk-table-wrap"><table><thead><tr><th>Measure</th><th>Target</th><th>Checked by</th></tr></thead><tbody><tr><td>Idle capacity outside the sale</td><td>Much lower</td><td>Monthly cloud bill and utilisation</td></tr><tr><td>Release effort</td><td>Routine weekday releases</td><td>Deployment frequency and rollback count</td></tr><tr><td>Checkout during peak</td><td>Unaffected by non-critical services</td><td>Load test results and sale-day monitoring</td></tr></tbody></table></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><span class="vk-eyebrow">Trade-offs</span><h2>What we would flag</h2><ul><li><strong>The deadline is fixed.</strong> If checkout is not ready in time, it stays on virtual machines for this sale.</li><li><strong>Autoscaling needs warm-up.</strong> Pre-scale before known peaks; do not rely on reacting in the first minute.</li><li><strong>The database is the real limit.</strong> Scaling application pods does not help if the database cannot keep up.</li></ul>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Planning a Kubernetes platform, or fixing one?</h2>
+                <p class="vk-muted">Tell us how many applications and teams you have, how you deploy today and where it should run. We will come back with an honest view: whether Kubernetes fits, what a lean platform looks like, and what it takes to run.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book a platform review</a>
+                    <a class="vk-btn" href="/portfolio/kubernetes-platform">Back to Kubernetes</a>
+                </div>
+            </div>
+        </div></div>
+    </main>
+
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

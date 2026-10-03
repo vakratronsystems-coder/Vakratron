@@ -992,6 +992,18 @@ const LEGACY_REDIRECTS = {
     'solution_arch/cloud_solutions': '/solutions/cloud-solutions',
     'solutions/dc-dr/dc-dr_chat': '/solutions/master_dc-dr',
     'solutions/dc-dr/dc_dr_gem': '/solutions/master_dc-dr',
+    // Kubernetes and API consolidation (Oct 2026)
+    'solutions/platform_engineering/k8s-platform-scale': '/solutions/k8s/multi-cluster',
+    'solutions/platform_engineering/k8s-platform-security': '/solutions/k8s/k8s-security',
+    'solutions/platform_engineering/k8s-platform-usecases': '/use_cases/k8s-festive-scale',
+    'solutions/platform_engineering/k8s_components': '/solutions/k8s/platform-design',
+    'solutions/platform_engineering/k8s_framework': '/portfolio/kubernetes-platform',
+    'solutions/api_services/api-design-principles': '/solutions/api/api-design',
+    'solutions/api_services/api-devops-automation': '/solutions/api/api-design',
+    'solutions/api_services/api-event-driven': '/solutions/api/event-driven',
+    'solutions/api_services/api-security-governance': '/solutions/api/api-security',
+    'solutions/api_services/api-solution-framework': '/portfolio/api-microservices',
+    'solutions/api_services/api-usecases': '/use_cases/partner-api-logistics',
     // GenAI consolidation: LLM, RAG, agents (Oct 2026)
     'solutions/ent_llm/enterprise-llm-framework': '/portfolio/enterprise-llm',
     'solutions/ent_llm/gpu-orchestration': '/solutions/ai-infra/gpu-inference-platform',
@@ -1050,7 +1062,7 @@ app.use((req, res, next) => {
 });
 
 app.get(['/use_cases/k8s', '/use_cases/k8s.html'], (req, res) => {
-    res.redirect(301, '/solutions/master_k8s');
+    res.redirect(301, '/portfolio/kubernetes-platform');
 });
 
 app.get(['/use_cases/Multi_cloud', '/use_cases/Multi_cloud.html'], (req, res) => {

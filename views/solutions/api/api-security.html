@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Security: OWASP API Top 10 Risks and the Controls That Stop Them | Vakratron Systems</title>
+    <meta name="description" content="Practical API security based on the OWASP API Security Top 10: object-level authorisation, authentication, data exposure, rate limits, function-level authorisation and API inventory.">
+    <link rel="canonical" href="https://vakratronsys.com/solutions/api/api-security">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
+</head>
+<body>
+    <header></header>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/api-microservices">APIs and microservices</a> <span>/</span> <span>API security</span></div>
+            <div class="vk-pills"><a class="vk-pill" href="/solutions/api/api-design">API design and gateway</a><a class="vk-pill" href="/solutions/api/monolith-or-microservices">Monolith or microservices?</a><a class="vk-pill" href="/solutions/api/event-driven">Event-driven integration</a><a class="vk-pill on" href="/solutions/api/api-security">API security</a></div><span class="vk-eyebrow">API guide</span>
+            <h1>API security</h1>
+            <p class="vk-lead">APIs expose your business logic and data directly. The most common API breaches are not clever hacks; they are missing checks, such as letting a logged-in user read someone else's record by changing an ID in the URL.</p>
+            <div class="vk-facts"><div class="vk-fact"><span class="k">Top risk</span><span class="v">Broken object-level authorisation</span></div><div class="vk-fact"><span class="k">Identity</span><span class="v">OAuth 2.0 / OpenID Connect</span></div><div class="vk-fact"><span class="k">Partners</span><span class="v">Keys plus mTLS</span></div><div class="vk-fact"><span class="k">Know</span><span class="v">Every API you expose</span></div></div>
+        </div>
+        <div class="vk-sec"><div class="vk-wrap"><h2>The risks that matter most</h2><p class="vk-prose">Based on the OWASP API Security Top 10 (2023).</p><div class="vk-table-wrap"><table><thead><tr><th>Risk</th><th>What it looks like</th><th>Control</th></tr></thead><tbody><tr><td>Broken object-level authorisation</td><td>Change /orders/1001 to /orders/1002 and see another customer's order</td><td>Check ownership of every object in the service, not only at the gateway</td></tr><tr><td>Broken authentication</td><td>Weak tokens, keys in URLs, no expiry</td><td>OAuth 2.0 / OIDC, short-lived tokens, mTLS for partners</td></tr><tr><td>Excessive data exposure</td><td>The API returns full records and the app hides fields</td><td>Return only the fields the caller needs</td></tr><tr><td>No rate limits</td><td>Scraping, brute force, cost spikes</td><td>Limits per caller at the gateway</td></tr><tr><td>Function-level authorisation</td><td>A normal user can call admin endpoints</td><td>Separate admin APIs and check roles on every endpoint</td></tr><tr><td>Improper inventory</td><td>Old versions and test APIs still exposed</td><td>An API catalogue, and retire old versions on a schedule</td></tr></tbody></table></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><h2>Also essential</h2><ul><li>Validate every input against the API contract.</li><li>Log every call with caller identity, and alert on unusual patterns.</li><li>Test APIs for these risks before release, not after.</li><li>Keep secrets and keys out of code and front-end apps.</li></ul>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><p class="vk-small"><strong>More API guides:</strong> <a href="/solutions/api/api-design">API design and gateway</a> &middot; <a href="/solutions/api/monolith-or-microservices">Monolith or microservices?</a> &middot; <a href="/solutions/api/event-driven">Event-driven integration</a> &middot; <a href="/solutions/api/faq">API FAQ</a> &middot; <a href="/use_cases/partner-api-logistics">Use case: partner APIs</a></p>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Untangling integrations, or opening APIs to partners?</h2>
+                <p class="vk-muted">Tell us which systems need to talk, who will call your APIs, and what breaks today. We will come back with a plain view of the right structure, what to change first, and what to leave alone.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book an integration review</a>
+                    <a class="vk-btn" href="/portfolio/api-microservices">Back to APIs and microservices</a>
+                </div>
+            </div>
+        </div></div>
+    </main>
+
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

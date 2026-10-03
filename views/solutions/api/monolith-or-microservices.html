@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monolith or Microservices? An Honest Comparison | Vakratron Systems</title>
+    <meta name="description" content="When microservices are worth it and when a modular monolith is the better answer: honest comparison, signs to split or not, and modernising legacy systems with the strangler pattern.">
+    <link rel="canonical" href="https://vakratronsys.com/solutions/api/monolith-or-microservices">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
+</head>
+<body>
+    <header></header>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/api-microservices">APIs and microservices</a> <span>/</span> <span>Monolith or microservices?</span></div>
+            <div class="vk-pills"><a class="vk-pill" href="/solutions/api/api-design">API design and gateway</a><a class="vk-pill on" href="/solutions/api/monolith-or-microservices">Monolith or microservices?</a><a class="vk-pill" href="/solutions/api/event-driven">Event-driven integration</a><a class="vk-pill" href="/solutions/api/api-security">API security</a></div><span class="vk-eyebrow">API guide</span>
+            <h1>Monolith or microservices?</h1>
+            <p class="vk-lead">Microservices solve a specific problem: many teams needing to change and release parts of a system independently. If you do not have that problem, they mostly add cost. A well-structured monolith is often the better first answer.</p>
+            <div class="vk-facts"><div class="vk-fact"><span class="k">Start with</span><span class="v">A modular monolith</span></div><div class="vk-fact"><span class="k">Split when</span><span class="v">Teams block each other</span></div><div class="vk-fact"><span class="k">For legacy</span><span class="v">Strangler pattern</span></div><div class="vk-fact"><span class="k">Avoid</span><span class="v">The distributed monolith</span></div></div>
+        </div>
+        <div class="vk-sec"><div class="vk-wrap"><h2>Honest comparison</h2><div class="vk-table-wrap"><table><thead><tr><th></th><th>Modular monolith</th><th>Microservices</th></tr></thead><tbody><tr><td>Best for</td><td>One or a few teams, a product still taking shape</td><td>Many teams, parts with very different scale or release needs</td></tr><tr><td>Deploy</td><td>One unit, simple</td><td>Many units, needs a platform and automation</td></tr><tr><td>Data</td><td>One database, simple transactions</td><td>A database per service, harder consistency</td></tr><tr><td>Failure</td><td>In-process calls rarely fail</td><td>Every network call can fail and must be handled</td></tr><tr><td>Cost to run</td><td>Lower</td><td>Higher: platform, monitoring, more infrastructure</td></tr></tbody></table></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><h2>Signs you should split a service out</h2><ul><li>Teams wait on each other to release.</li><li>One part needs to scale very differently from the rest.</li><li>One part changes daily while the rest is stable.</li><li>A clear business boundary exists, with its own data.</li></ul><h2>Signs you split too early</h2><ul><li>Every feature needs changes in several services at once.</li><li>Services share a database.</li><li>You cannot test anything without starting everything.</li></ul>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><h2>Modernising a legacy system</h2><ol class="vk-steps"><li>Put an API or gateway in front of the legacy system.</li><li>Build new capabilities as separate services behind the same front.</li><li>Move existing features out one at a time, routing traffic to the new version.</li><li>Retire the old parts as they empty out. This is called the strangler pattern.</li></ol>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><p class="vk-small"><strong>More API guides:</strong> <a href="/solutions/api/api-design">API design and gateway</a> &middot; <a href="/solutions/api/event-driven">Event-driven integration</a> &middot; <a href="/solutions/api/api-security">API security</a> &middot; <a href="/solutions/api/faq">API FAQ</a> &middot; <a href="/use_cases/partner-api-logistics">Use case: partner APIs</a></p>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Untangling integrations, or opening APIs to partners?</h2>
+                <p class="vk-muted">Tell us which systems need to talk, who will call your APIs, and what breaks today. We will come back with a plain view of the right structure, what to change first, and what to leave alone.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book an integration review</a>
+                    <a class="vk-btn" href="/portfolio/api-microservices">Back to APIs and microservices</a>
+                </div>
+            </div>
+        </div></div>
+    </main>
+
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

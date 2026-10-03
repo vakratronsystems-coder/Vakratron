@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kubernetes Security: RBAC, Network Policies, Pod Security, Images, Upgrades | Vakratron Systems</title>
+    <meta name="description" content="The Kubernetes security controls that matter most: RBAC, namespaces, network policies, pod security, image scanning and signing, policy engines, secrets, audit, benchmarks and upgrades.">
+    <link rel="canonical" href="https://vakratronsys.com/solutions/k8s/k8s-security">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
+</head>
+<body>
+    <header></header>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/kubernetes-platform">Kubernetes</a> <span>/</span> <span>Security</span></div>
+            <div class="vk-pills"><a class="vk-pill" href="/solutions/k8s/platform-design">Platform design</a><a class="vk-pill" href="/solutions/k8s/gitops-delivery">GitOps delivery</a><a class="vk-pill on" href="/solutions/k8s/k8s-security">Security</a><a class="vk-pill" href="/solutions/k8s/multi-cluster">Multi-cluster and on-prem</a></div><span class="vk-eyebrow">Kubernetes guide</span>
+            <h1>Kubernetes security</h1>
+            <p class="vk-lead">Out of the box, Kubernetes is permissive: containers can run as root and any pod can reach any other. A handful of controls, applied consistently from templates, closes most of the gaps. Keeping clusters upgraded closes most of the rest.</p>
+            <div class="vk-facts"><div class="vk-fact"><span class="k">Default</span><span class="v">Deny, then allow</span></div><div class="vk-fact"><span class="k">Images</span><span class="v">Scanned and signed</span></div><div class="vk-fact"><span class="k">Policies</span><span class="v">Enforced at admission</span></div><div class="vk-fact"><span class="k">Upgrades</span><span class="v">Every few months</span></div></div>
+        </div>
+        <div class="vk-sec"><div class="vk-wrap"><h2>The controls that matter most</h2><div class="vk-table-wrap"><table><thead><tr><th>Control</th><th>What it does</th><th>Common choices</th></tr></thead><tbody><tr><td>Access control (RBAC)</td><td>People and systems get only the permissions they need</td><td>Groups from your identity provider, no shared admin accounts</td></tr><tr><td>Namespaces and quotas</td><td>Teams are separated and cannot use up the whole cluster</td><td>One namespace per team and environment</td></tr><tr><td>Network policies</td><td>Pods can only talk to what they need to</td><td>Default-deny, with Cilium or Calico</td></tr><tr><td>Pod security</td><td>Blocks root containers and risky settings</td><td>Pod Security Standards at the restricted level</td></tr><tr><td>Image security</td><td>Only trusted, scanned images run</td><td>Trivy scanning, cosign signatures, a private registry</td></tr><tr><td>Policy engine</td><td>Enforces your rules when anything is created</td><td>Kyverno or OPA Gatekeeper</td></tr><tr><td>Secrets</td><td>Keeps passwords and keys out of Git and images</td><td>Vault or cloud secret stores via External Secrets</td></tr><tr><td>Audit and runtime</td><td>Records changes and spots suspicious behaviour</td><td>API audit logs, Falco</td></tr><tr><td>Benchmarks</td><td>Checks clusters against known good settings</td><td>CIS Kubernetes Benchmark with kube-bench</td></tr></tbody></table></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><h2>Keeping clusters upgraded</h2><ul><li>Kubernetes ships about three minor versions a year, and each is supported for roughly fourteen months.</li><li>Clusters more than a couple of versions behind become hard to upgrade and lose security fixes.</li><li>Upgrade on a schedule: non-production first, a short soak, then production. Practise it, so it becomes routine.</li><li>Track deprecated APIs in your manifests before each upgrade, so applications do not break.</li></ul>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><p class="vk-small"><strong>More Kubernetes guides:</strong> <a href="/solutions/k8s/platform-design">Platform design</a> &middot; <a href="/solutions/k8s/gitops-delivery">GitOps delivery</a> &middot; <a href="/solutions/k8s/multi-cluster">Multi-cluster and on-prem</a> &middot; <a href="/solutions/k8s/faq">Kubernetes FAQ</a> &middot; <a href="/use_cases/k8s-festive-scale">Use case: festive-season scale</a></p>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Planning a Kubernetes platform, or fixing one?</h2>
+                <p class="vk-muted">Tell us how many applications and teams you have, how you deploy today and where it should run. We will come back with an honest view: whether Kubernetes fits, what a lean platform looks like, and what it takes to run.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book a platform review</a>
+                    <a class="vk-btn" href="/portfolio/kubernetes-platform">Back to Kubernetes</a>
+                </div>
+            </div>
+        </div></div>
+    </main>
+
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

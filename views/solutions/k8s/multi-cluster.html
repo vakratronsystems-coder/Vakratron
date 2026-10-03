@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Cluster and On-Premises Kubernetes: Fleets, OpenStack, Bare Metal | Vakratron Systems</title>
+    <meta name="description" content="When to run more than one Kubernetes cluster, how to manage clusters as a fleet, and how to run Kubernetes on OpenStack or bare metal with storage and backup.">
+    <link rel="canonical" href="https://vakratronsys.com/solutions/k8s/multi-cluster">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
+</head>
+<body>
+    <header></header>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/kubernetes-platform">Kubernetes</a> <span>/</span> <span>Multi-cluster and on-prem</span></div>
+            <div class="vk-pills"><a class="vk-pill" href="/solutions/k8s/platform-design">Platform design</a><a class="vk-pill" href="/solutions/k8s/gitops-delivery">GitOps delivery</a><a class="vk-pill" href="/solutions/k8s/k8s-security">Security</a><a class="vk-pill on" href="/solutions/k8s/multi-cluster">Multi-cluster and on-prem</a></div><span class="vk-eyebrow">Kubernetes guide</span>
+            <h1>Multi-cluster and on-premises Kubernetes</h1>
+            <p class="vk-lead">One well-run cluster is better than five neglected ones. More clusters make sense for clear reasons: separating production, meeting data rules, or running close to users. When you do need several, manage them as one fleet.</p>
+            <div class="vk-facts"><div class="vk-fact"><span class="k">Start with</span><span class="v">As few clusters as possible</span></div><div class="vk-fact"><span class="k">Split for</span><span class="v">Environment, region, rules</span></div><div class="vk-fact"><span class="k">Manage as</span><span class="v">A fleet</span></div><div class="vk-fact"><span class="k">On-prem</span><span class="v">OpenStack or bare metal</span></div></div>
+        </div>
+        <div class="vk-sec"><div class="vk-wrap"><h2>When to add a cluster</h2><div class="vk-table-wrap"><table><thead><tr><th>Reason</th><th>Example</th><th>Alternative to consider first</th></tr></thead><tbody><tr><td>Separate production</td><td>Production and non-production on different clusters</td><td>Usually worth it</td></tr><tr><td>Data rules</td><td>Customer data must stay in a specific location</td><td>Usually worth it</td></tr><tr><td>Regions or sites</td><td>Users in two regions, or disaster recovery</td><td>Usually worth it</td></tr><tr><td>Each team wants its own</td><td>Ten teams, ten clusters</td><td>Namespaces with quotas and policies on a shared cluster</td></tr><tr><td>Different Kubernetes versions</td><td>One application cannot upgrade yet</td><td>Fix the application; old clusters become a risk</td></tr></tbody></table></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><h2>Managing a fleet</h2><ul><li>Build every cluster from the same code (Cluster API, Terraform or your distribution's tooling).</li><li>Apply the same baseline policies and add-ons to every cluster from Git, for example with Argo CD ApplicationSets.</li><li>Send metrics and logs from all clusters to one place.</li><li>Upgrade the fleet in waves, with the same routine every time.</li></ul>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><h2>Kubernetes on-premises</h2><div class="vk-table-wrap"><table><thead><tr><th>Topic</th><th>What to plan</th></tr></thead><tbody><tr><td>On OpenStack</td><td>Clusters created by Cluster API or Magnum, using Cinder for volumes and Octavia for load balancers. See <a href="/solutions/cloud/private-cloud-openstack">private cloud on OpenStack</a>.</td></tr><tr><td>On bare metal</td><td>Best performance and GPU access; needs MetalLB or similar for load balancers and a plan for replacing failed hardware.</td></tr><tr><td>Storage</td><td>Rook-Ceph or a vendor CSI driver for persistent volumes.</td></tr><tr><td>Backup</td><td>Velero for cluster resources and volumes, with copies off the cluster. Disaster recovery for the platform: see <a href="/portfolio/dr-solutions">DR</a>.</td></tr></tbody></table></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><p class="vk-small"><strong>More Kubernetes guides:</strong> <a href="/solutions/k8s/platform-design">Platform design</a> &middot; <a href="/solutions/k8s/gitops-delivery">GitOps delivery</a> &middot; <a href="/solutions/k8s/k8s-security">Security</a> &middot; <a href="/solutions/k8s/faq">Kubernetes FAQ</a> &middot; <a href="/use_cases/k8s-festive-scale">Use case: festive-season scale</a></p>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Planning a Kubernetes platform, or fixing one?</h2>
+                <p class="vk-muted">Tell us how many applications and teams you have, how you deploy today and where it should run. We will come back with an honest view: whether Kubernetes fits, what a lean platform looks like, and what it takes to run.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book a platform review</a>
+                    <a class="vk-btn" href="/portfolio/kubernetes-platform">Back to Kubernetes</a>
+                </div>
+            </div>
+        </div></div>
+    </main>
+
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

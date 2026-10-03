@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Use Case: Shipment-Tracking APIs for 40 Partners | Vakratron Systems</title>
+    <meta name="description" content="An illustrative scenario: a logistics company replacing file transfers and custom links with one secure tracking API, webhooks and a partner portal.">
+    <link rel="canonical" href="https://vakratronsys.com/use_cases/partner-api-logistics">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
+</head>
+<body>
+    <header></header>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/api-microservices">APIs and microservices</a> <span>/</span> <span>Use case: partner APIs</span></div>
+            <div class="vk-label"><span>Illustrative scenario</span></div>
+            <h1>Opening shipment-tracking APIs to 40 partners</h1>
+            <p class="vk-lead">How we would help a logistics company replace file transfers and one-off integrations with a single, secure set of APIs for its retail and marketplace partners.</p>
+            <div class="vk-note"><p class="vk-small">This is a composite example built from common enterprise requirements. It is not a specific client engagement, and the figures are design targets for the scenario, not measured results.</p></div>
+            <div class="vk-facts"><div class="vk-fact"><span class="k">Partners</span><span class="v">~40</span></div><div class="vk-fact"><span class="k">Today</span><span class="v">Files and custom links</span></div><div class="vk-fact"><span class="k">Target</span><span class="v">One API, one portal</span></div><div class="vk-fact"><span class="k">Key risk</span><span class="v">One partner seeing another's data</span></div></div>
+        </div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><span class="vk-eyebrow">The situation</span><h2>Forty partners, forty integrations</h2>
+            <p>Each retail or marketplace partner had its own integration: some received hourly CSV files over SFTP, some called an old SOAP service, two had direct database access. Adding a partner took weeks. A missed file meant customers saw stale tracking.</p>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><span class="vk-eyebrow">The approach</span><h2>What we would do</h2><ol class="vk-steps"><li><strong>One contract:</strong> a tracking API and a webhook for status changes, designed with three friendly partners and written in OpenAPI.</li><li><strong>Gateway and portal:</strong> partner sign-up, keys, sandbox and documentation in one place.</li><li><strong>Events behind the API:</strong> status changes published once, delivered to partner webhooks with retries.</li><li><strong>Strict object checks:</strong> every request verifies that the shipment belongs to the calling partner.</li><li><strong>Migrate partners in batches,</strong> keeping the old file feeds running until each partner is live.</li><li><strong>Retire direct database access first,</strong> because it is the highest risk.</li></ol>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><span class="vk-eyebrow">What changes</span><h2>Targets and how they are checked</h2><div class="vk-table-wrap"><table><thead><tr><th>Measure</th><th>Target</th><th>Checked by</th></tr></thead><tbody><tr><td>Time to onboard a partner</td><td>Days instead of weeks</td><td>Onboarding records</td></tr><tr><td>Tracking freshness</td><td>Minutes instead of hours</td><td>Event delivery metrics</td></tr><tr><td>Partners seeing others' data</td><td>Never</td><td>Automated authorisation tests on every release</td></tr></tbody></table></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><span class="vk-eyebrow">Trade-offs</span><h2>What we would flag</h2><ul><li><strong>Partners move at their own pace.</strong> Old feeds may need to run for months.</li><li><strong>Webhooks need care.</strong> Partners' endpoints go down; retries and a replay option are essential.</li><li><strong>Versioning discipline matters from day one,</strong> because forty partners will depend on the contract.</li></ul>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Untangling integrations, or opening APIs to partners?</h2>
+                <p class="vk-muted">Tell us which systems need to talk, who will call your APIs, and what breaks today. We will come back with a plain view of the right structure, what to change first, and what to leave alone.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book an integration review</a>
+                    <a class="vk-btn" href="/portfolio/api-microservices">Back to APIs and microservices</a>
+                </div>
+            </div>
+        </div></div>
+    </main>
+
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

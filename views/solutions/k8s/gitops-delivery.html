@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitOps Delivery on Kubernetes: Argo CD, Flux, Rollbacks and Drift | Vakratron Systems</title>
+    <meta name="description" content="How GitOps works on Kubernetes, with an interactive simulation of a rolling update, a server failure and automatic drift correction. Includes good practice and tools.">
+    <link rel="canonical" href="https://vakratronsys.com/solutions/k8s/gitops-delivery">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
+</head>
+<body>
+    <header></header>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/kubernetes-platform">Kubernetes</a> <span>/</span> <span>GitOps delivery</span></div>
+            <div class="vk-pills"><a class="vk-pill" href="/solutions/k8s/platform-design">Platform design</a><a class="vk-pill on" href="/solutions/k8s/gitops-delivery">GitOps delivery</a><a class="vk-pill" href="/solutions/k8s/k8s-security">Security</a><a class="vk-pill" href="/solutions/k8s/multi-cluster">Multi-cluster and on-prem</a></div><span class="vk-eyebrow">Kubernetes guide</span>
+            <h1>GitOps delivery</h1>
+            <p class="vk-lead">With GitOps, Git is the single source of truth for what runs in your clusters. A controller watches Git and keeps the cluster matching it. Deployments become pull requests, rollbacks become reverts, and every change is reviewed and recorded.</p>
+            <div class="vk-facts"><div class="vk-fact"><span class="k">Source of truth</span><span class="v">Git</span></div><div class="vk-fact"><span class="k">Controller</span><span class="v">Argo CD or Flux</span></div><div class="vk-fact"><span class="k">Rollback</span><span class="v">Revert a commit</span></div><div class="vk-fact"><span class="k">Drift</span><span class="v">Fixed automatically</span></div></div>
+        </div>
+        <div class="vk-sec"><div class="vk-wrap"><span class="vk-eyebrow">See it working</span><h2>Release, fail, and drift</h2>
+            <p class="vk-prose">Release a new version and watch pods update one at a time with no downtime. Lose a server and watch Kubernetes replace its pods. Then make a change directly in the cluster, bypassing Git, and watch the controller put it back.</p>
+            <div class="vk-tool vk-gitops"></div><noscript><p class="vk-muted">This simulation needs JavaScript.</p></noscript>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><h2>How a change reaches production</h2><ol class="vk-steps"><li>A developer opens a pull request that changes the image version or configuration.</li><li>Automated checks run: policy tests, configuration validation, security scans.</li><li>A reviewer approves and the change is merged.</li><li>The controller applies it to the test environment, then to production after promotion.</li><li>If something goes wrong, the commit is reverted and the controller rolls back.</li></ol>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><h2>Good practice</h2><ul><li><strong>Separate application code from deployment configuration,</strong> usually in different repositories or folders.</li><li><strong>Promote between environments through Git,</strong> not by rebuilding images.</li><li><strong>Keep secrets out of Git.</strong> Use External Secrets with Vault or a cloud secret store, or encrypted Sealed Secrets.</li><li><strong>Turn on self-healing and pruning carefully,</strong> starting with non-production clusters.</li></ul>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><h2>Typical tools</h2><div class="vk-table-wrap"><table><thead><tr><th>Area</th><th>Common choices</th></tr></thead><tbody><tr><td>Controllers</td><td>Argo CD, Flux</td></tr><tr><td>Packaging</td><td>Helm, Kustomize</td></tr><tr><td>Secrets</td><td>External Secrets Operator, HashiCorp Vault, Sealed Secrets</td></tr><tr><td>Progressive delivery</td><td>Argo Rollouts, Flagger</td></tr></tbody></table></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><p class="vk-small"><strong>More Kubernetes guides:</strong> <a href="/solutions/k8s/platform-design">Platform design</a> &middot; <a href="/solutions/k8s/k8s-security">Security</a> &middot; <a href="/solutions/k8s/multi-cluster">Multi-cluster and on-prem</a> &middot; <a href="/solutions/k8s/faq">Kubernetes FAQ</a> &middot; <a href="/use_cases/k8s-festive-scale">Use case: festive-season scale</a></p>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Planning a Kubernetes platform, or fixing one?</h2>
+                <p class="vk-muted">Tell us how many applications and teams you have, how you deploy today and where it should run. We will come back with an honest view: whether Kubernetes fits, what a lean platform looks like, and what it takes to run.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book a platform review</a>
+                    <a class="vk-btn" href="/portfolio/kubernetes-platform">Back to Kubernetes</a>
+                </div>
+            </div>
+        </div></div>
+    </main>
+
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+    <script src="/vk-platform-tools.js" defer></script>
+</body>
+</html>

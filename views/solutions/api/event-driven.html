@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event-Driven Integration: When to Use Events, Outbox, Idempotency | Vakratron Systems</title>
+    <meta name="description" content="When to use events instead of API calls, and how to do event-driven integration reliably: outbox pattern, idempotent consumers, schemas, dead-letter queues and ordering.">
+    <link rel="canonical" href="https://vakratronsys.com/solutions/api/event-driven">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
+</head>
+<body>
+    <header></header>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/api-microservices">APIs and microservices</a> <span>/</span> <span>Event-driven integration</span></div>
+            <div class="vk-pills"><a class="vk-pill" href="/solutions/api/api-design">API design and gateway</a><a class="vk-pill" href="/solutions/api/monolith-or-microservices">Monolith or microservices?</a><a class="vk-pill on" href="/solutions/api/event-driven">Event-driven integration</a><a class="vk-pill" href="/solutions/api/api-security">API security</a></div><span class="vk-eyebrow">API guide</span>
+            <h1>Event-driven integration</h1>
+            <p class="vk-lead">An API call says "do this now and tell me the answer". An event says "this happened". When many systems need to react to the same thing, events keep them loosely connected: the sender does not need to know who is listening.</p>
+            <div class="vk-facts"><div class="vk-fact"><span class="k">Use calls for</span><span class="v">Questions needing an answer now</span></div><div class="vk-fact"><span class="k">Use events for</span><span class="v">News others react to</span></div><div class="vk-fact"><span class="k">Brokers</span><span class="v">Kafka, RabbitMQ, NATS</span></div><div class="vk-fact"><span class="k">Consumers</span><span class="v">Must be idempotent</span></div></div>
+        </div>
+        <div class="vk-sec"><div class="vk-wrap"><h2>Call or event?</h2><div class="vk-table-wrap"><table><thead><tr><th>Situation</th><th>Use</th><th>Example</th></tr></thead><tbody><tr><td>Caller needs an answer to continue</td><td>API call</td><td>Check stock before confirming an order</td></tr><tr><td>Several systems react to the same thing</td><td>Event</td><td>"Order placed" updates warehouse, billing and notifications</td></tr><tr><td>The receiver may be offline for a while</td><td>Event</td><td>A branch system that syncs every few minutes</td></tr><tr><td>Very high volume of updates</td><td>Event stream</td><td>Tracking pings from thousands of vehicles</td></tr></tbody></table></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><h2>Doing it reliably</h2><ul><li><strong>Outbox pattern:</strong> save the change and the event in the same database transaction, then publish, so you never update the database without telling others.</li><li><strong>Idempotent consumers:</strong> messages can arrive twice. Processing the same event twice must be harmless.</li><li><strong>Schemas:</strong> describe events with a schema and a registry, and evolve them without breaking consumers.</li><li><strong>Dead-letter queues:</strong> messages that keep failing go aside for a person to inspect, instead of blocking the rest.</li><li><strong>Ordering:</strong> decide where order matters, and partition events by the right key, such as order ID.</li></ul>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><h2>Typical tools</h2><div class="vk-table-wrap"><table><thead><tr><th>Need</th><th>Common choices</th></tr></thead><tbody><tr><td>High-volume event streams</td><td>Apache Kafka</td></tr><tr><td>Work queues and routing</td><td>RabbitMQ</td></tr><tr><td>Lightweight messaging</td><td>NATS</td></tr><tr><td>Schemas</td><td>AsyncAPI, a schema registry with Avro or JSON Schema</td></tr></tbody></table></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><p class="vk-small"><strong>More API guides:</strong> <a href="/solutions/api/api-design">API design and gateway</a> &middot; <a href="/solutions/api/monolith-or-microservices">Monolith or microservices?</a> &middot; <a href="/solutions/api/api-security">API security</a> &middot; <a href="/solutions/api/faq">API FAQ</a> &middot; <a href="/use_cases/partner-api-logistics">Use case: partner APIs</a></p>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Untangling integrations, or opening APIs to partners?</h2>
+                <p class="vk-muted">Tell us which systems need to talk, who will call your APIs, and what breaks today. We will come back with a plain view of the right structure, what to change first, and what to leave alone.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book an integration review</a>
+                    <a class="vk-btn" href="/portfolio/api-microservices">Back to APIs and microservices</a>
+                </div>
+            </div>
+        </div></div>
+    </main>
+
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

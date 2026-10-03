@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API and Microservices FAQ: REST vs GraphQL, Gateways, Mesh, Versioning | Vakratron Systems</title>
+    <meta name="description" content="Plain answers on APIs and microservices: REST, GraphQL or gRPC, API gateways, service meshes, versioning, legacy systems and rewrites.">
+    <link rel="canonical" href="https://vakratronsys.com/solutions/api/faq">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
+</head>
+<body>
+    <header></header>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/api-microservices">APIs and microservices</a> <span>/</span> <span>FAQ</span></div>
+            <span class="vk-eyebrow">API guide</span>
+            <h1>API and microservices questions, answered</h1>
+            <p class="vk-lead">Short answers to the questions we hear most often about APIs, integration and microservices.</p>
+            
+        </div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><details><summary>REST, GraphQL or gRPC?</summary><div><p>REST for most public and partner APIs: widely understood and easy to cache. GraphQL when many different front-ends need different shapes of data. gRPC for fast internal service-to-service calls.</p></div></details><details><summary>Do we need an API gateway?</summary><div><p>If you expose APIs to partners or the internet, yes. It gives you one place for authentication, rate limits, routing and monitoring.</p></div></details><details><summary>Do we need a service mesh?</summary><div><p>Not usually at first. Libraries and the gateway cover most needs. A mesh such as Istio or Linkerd helps when you have many services and need consistent encryption and traffic control between them.</p></div></details><details><summary>How do we version APIs?</summary><div><p>Avoid breaking changes. When one is unavoidable, publish a new version, run both for an agreed period, tell callers early, and track who still uses the old one.</p></div></details><details><summary>Can our legacy systems take part?</summary><div><p>Yes. Wrap them with small adapters or put the gateway in front, then modernise behind that front over time.</p></div></details><details><summary>Should we rewrite our application as microservices?</summary><div><p>Rarely in one go. See <a href="/solutions/api/monolith-or-microservices">monolith or microservices</a>.</p></div></details>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><p class="vk-small"><strong>More API guides:</strong> <a href="/solutions/api/api-design">API design and gateway</a> &middot; <a href="/solutions/api/monolith-or-microservices">Monolith or microservices?</a> &middot; <a href="/solutions/api/event-driven">Event-driven integration</a> &middot; <a href="/solutions/api/api-security">API security</a> &middot; <a href="/solutions/api/faq">API FAQ</a> &middot; <a href="/use_cases/partner-api-logistics">Use case: partner APIs</a></p>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Untangling integrations, or opening APIs to partners?</h2>
+                <p class="vk-muted">Tell us which systems need to talk, who will call your APIs, and what breaks today. We will come back with a plain view of the right structure, what to change first, and what to leave alone.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book an integration review</a>
+                    <a class="vk-btn" href="/portfolio/api-microservices">Back to APIs and microservices</a>
+                </div>
+            </div>
+        </div></div>
+    </main>
+
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>
