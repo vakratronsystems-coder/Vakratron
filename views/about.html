@@ -18,12 +18,90 @@
 
     <main class="vk">
 
-        <div class="vk-wrap vk-hero">
+        <div class="vk-wrap vk-hero vk-ahero">
             <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <span>About</span></div>
-            <span class="vk-eyebrow">About Vakratron</span>
-            <h1>An infrastructure design firm that writes its reasoning down</h1>
-            <p class="vk-lead">Vakratron Systems designs data centre, disaster recovery, cloud, GPU and AI platforms for enterprises and government buyers. We are not tied to a vendor, we put our assumptions on paper, and we stay with a design until it is running and tested.</p>
-            <div class="vk-facts"><div class="vk-fact"><span class="k">Founded</span><span class="v">2020</span></div><div class="vk-fact"><span class="k">Solution areas</span><span class="v">8</span></div><div class="vk-fact"><span class="k">Approach</span><span class="v">Vendor-neutral</span></div><div class="vk-fact"><span class="k">Recognition</span><span class="v">DPIIT startup</span></div></div><div class="vk-actions"><a class="vk-btn primary" href="/contact">Talk to us</a><a class="vk-btn" href="/solutions">See what we do</a></div>
+            <div class="vk-ahero-grid">
+                <div>
+                    <span class="vk-eyebrow">About Vakratron</span>
+                    <h1>An infrastructure design firm that writes its reasoning down</h1>
+                    <p class="vk-lead">Vakratron Systems designs data centre, disaster recovery, cloud, GPU and AI platforms for enterprises and government buyers. We are not tied to a vendor, we put our assumptions on paper, and we stay with a design until it is running and tested.</p>
+                    <div class="vk-actions"><a class="vk-btn primary" href="/contact">Talk to us</a><a class="vk-btn" href="/solutions">See what we do</a></div>
+                </div>
+                <figure class="vk-bpfig"><svg class="vk-bp" viewBox="0 0 560 470" role="img" aria-labelledby="bpT bpD" xmlns="http://www.w3.org/2000/svg">
+  <title id="bpT">How a Vakratron design comes together</title>
+  <desc id="bpD">A design sheet draws itself: the workload and two sites appear, assumptions are written in the margin, two options are compared on cost, and the design is stamped as failover tested.</desc>
+  <defs>
+    <pattern id="bpGrid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="rgba(56,189,248,0.07)" stroke-width="1"/></pattern>
+    <linearGradient id="bpCard" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d1630"/><stop offset="1" stop-color="#070c1c"/></linearGradient>
+  </defs>
+  <rect x="8" y="8" width="544" height="454" rx="18" fill="url(#bpCard)" stroke="rgba(255,255,255,0.09)"/>
+  <rect x="8" y="8" width="544" height="454" rx="18" fill="url(#bpGrid)"/>
+  <text x="32" y="42" class="bp-meta">HIGH-LEVEL DESIGN</text>
+  <text x="528" y="42" class="bp-meta" text-anchor="end">rev 1.3 &#183; for review</text>
+  <line x1="32" y1="56" x2="528" y2="56" stroke="rgba(255,255,255,0.08)"/>
+
+  <!-- stage 1: workload and sites -->
+  <g class="bp-s1">
+    <rect x="195" y="76" width="170" height="50" rx="10" class="bp-box bp-blue"/>
+    <text x="280" y="97" class="bp-h" text-anchor="middle">Your workload</text>
+    <text x="280" y="115" class="bp-sub" text-anchor="middle">ERP &#183; clinical apps &#183; 3 TB</text>
+  </g>
+  <path class="bp-draw bp-d1" d="M280 126 V150 H140 V180"/>
+  <path class="bp-draw bp-d1" d="M280 150 H420 V180"/>
+  <g class="bp-s1">
+    <rect x="50" y="180" width="180" height="96" rx="12" class="bp-box"/>
+    <text x="66" y="203" class="bp-h">Primary site</text>
+    <rect x="66" y="216" width="46" height="44" rx="5" class="bp-rack"/><rect x="118" y="216" width="46" height="44" rx="5" class="bp-rack"/><rect x="170" y="216" width="46" height="44" rx="5" class="bp-rack"/>
+    <circle cx="76" cy="228" r="3" class="bp-led"/><circle cx="128" cy="228" r="3" class="bp-led"/><circle cx="180" cy="228" r="3" class="bp-led"/>
+  </g>
+  <g class="bp-s1">
+    <rect x="330" y="180" width="180" height="96" rx="12" class="bp-box bp-dr"/>
+    <text x="346" y="203" class="bp-h">DR site</text>
+    <rect x="346" y="216" width="46" height="44" rx="5" class="bp-rack"/><rect x="398" y="216" width="46" height="44" rx="5" class="bp-rack"/><rect x="450" y="216" width="46" height="44" rx="5" class="bp-rack bp-dim"/>
+    <circle cx="356" cy="228" r="3" class="bp-led bp-led-dr"/><circle cx="408" cy="228" r="3" class="bp-led bp-led-dr"/>
+  </g>
+
+  <!-- stage 2: assumptions written in the margin -->
+  <g class="bp-s2">
+    <path class="bp-flow" d="M230 238 H330"/>
+    <text x="280" y="230" class="bp-sub" text-anchor="middle">async copy</text>
+    <path d="M195 101 C182 101 178 96 172 92" class="bp-lead"/>
+    <text x="34" y="82" class="bp-note">assume: 2 TB/day changes</text>
+    <text x="34" y="98" class="bp-note">peak 400 users</text>
+    <path d="M420 276 C420 292 430 298 440 300" class="bp-lead"/>
+    <text x="352" y="316" class="bp-note">RPO 15 min &#183; RTO 1 h</text>
+  </g>
+
+  <!-- stage 3: options compared -->
+  <g class="bp-s3">
+    <rect x="32" y="306" width="262" height="124" rx="12" class="bp-box"/>
+    <text x="48" y="330" class="bp-h">Options compared</text>
+    <text x="48" y="356" class="bp-sub">A &#183; active-passive</text>
+    <rect x="48" y="363" width="150" height="10" rx="5" class="bp-bar bp-bar-a"/>
+    <text x="206" y="372" class="bp-sub">1.0&#215; cost</text>
+    <text x="48" y="396" class="bp-sub">B &#183; active-active</text>
+    <rect x="48" y="403" width="200" height="10" rx="5" class="bp-bar bp-bar-b"/>
+    <text x="252" y="396" class="bp-sub" text-anchor="end">1.7&#215; cost</text>
+    <g class="bp-pick"><rect x="160" y="344" width="58" height="17" rx="8.5" class="bp-chip"/><text x="189" y="356" class="bp-chiptx" text-anchor="middle">chosen</text></g>
+  </g>
+
+  <!-- stage 4: tested -->
+  <g class="bp-s4">
+    <g class="bp-stamp">
+      <rect x="326" y="346" width="196" height="78" rx="10" class="bp-stamp-box"/>
+      <text x="424" y="376" class="bp-stamp-h" text-anchor="middle">&#10003; FAILOVER TESTED</text>
+      <text x="424" y="398" class="bp-stamp-s" text-anchor="middle">measured RTO 48 min</text>
+      <text x="424" y="413" class="bp-stamp-s" text-anchor="middle">runbook handed over</text>
+    </g>
+  </g>
+</svg><ol class="vk-bp-steps">
+  <li class="c1"><span>1</span>Know the workload</li>
+  <li class="c2"><span>2</span>Write assumptions down</li>
+  <li class="c3"><span>3</span>Compare options</li>
+  <li class="c4"><span>4</span>Test and hand over</li>
+</ol></figure>
+            </div>
+            <div class="vk-facts"><div class="vk-fact"><span class="k">Founded</span><span class="v">2020</span></div><div class="vk-fact"><span class="k">Solution areas</span><span class="v">8</span></div><div class="vk-fact"><span class="k">Approach</span><span class="v">Vendor-neutral</span></div><div class="vk-fact"><span class="k">Recognition</span><span class="v">DPIIT startup</span></div></div>
         </div>
         <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose">
             <span class="vk-eyebrow">Why we exist</span>

@@ -621,3 +621,80 @@ main.vk ul.vk-dd .mk { display: inline-flex; align-items: center; justify-conten
 main.vk ul.vk-dd-do .mk { color: #34d399; background: rgba(52, 211, 153, 0.12); }
 main.vk ul.vk-dd-dont .mk { color: #f43f5e; background: rgba(244, 63, 94, 0.12); }
 /* === END ABOUT PAGE === */
+/* === ABOUT BLUEPRINT === */
+main.vk .vk-ahero-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; }
+main.vk .vk-ahero-grid .vk-actions { margin-top: 22px; }
+main.vk figure.vk-bpfig { margin: 0; }
+main.vk svg.vk-bp { width: 100%; height: auto; display: block; filter: drop-shadow(0 30px 50px rgba(0,0,0,0.45)); }
+main.vk .vk-bp text { font-family: 'Inter', sans-serif; }
+main.vk .vk-bp .bp-meta { fill: #64748b; font-size: 10.5px; letter-spacing: 0.14em; font-weight: 600; }
+main.vk .vk-bp .bp-h { fill: #f1f5f9; font-size: 13px; font-weight: 600; }
+main.vk .vk-bp .bp-sub { fill: #94a3b8; font-size: 11px; }
+main.vk .vk-bp .bp-box { fill: rgba(15,23,42,0.85); stroke: rgba(148,163,184,0.35); stroke-width: 1.2; }
+main.vk .vk-bp .bp-blue { stroke: #38bdf8; }
+main.vk .vk-bp .bp-rack { fill: rgba(56,189,248,0.08); stroke: rgba(56,189,248,0.35); }
+main.vk .vk-bp .bp-dim { opacity: 0.45; }
+main.vk .vk-bp .bp-led { fill: #34d399; }
+main.vk .vk-bp .bp-led-dr { fill: #64748b; }
+main.vk .vk-bp .bp-draw { fill: none; stroke: #38bdf8; stroke-width: 1.5; stroke-dasharray: 320; stroke-dashoffset: 320; }
+main.vk .vk-bp .bp-flow { fill: none; stroke: #C2185B; stroke-width: 2; stroke-dasharray: 6 6; }
+main.vk .vk-bp .bp-lead { fill: none; stroke: #f472b6; stroke-width: 1; stroke-dasharray: 3 3; }
+main.vk .vk-bp .bp-note { fill: #f472b6; font-size: 11.5px; font-style: italic; }
+main.vk .vk-bp .bp-bar { transform-box: fill-box; transform-origin: left center; }
+main.vk .vk-bp .bp-bar-a { fill: #C2185B; }
+main.vk .vk-bp .bp-bar-b { fill: #475569; }
+main.vk .vk-bp .bp-chip { fill: rgba(52,211,153,0.15); stroke: #34d399; }
+main.vk .vk-bp .bp-chiptx { fill: #34d399; font-size: 10px; font-weight: 700; letter-spacing: 0.05em; }
+main.vk .vk-bp .bp-stamp { transform-box: fill-box; transform-origin: center; transform: rotate(-6deg); }
+main.vk .vk-bp .bp-stamp-box { fill: rgba(194,24,91,0.12); stroke: #C2185B; stroke-width: 2; stroke-dasharray: 2 0; }
+main.vk .vk-bp .bp-stamp-h { fill: #f9a8d4; font-size: 14px; font-weight: 800; letter-spacing: 0.08em; }
+main.vk .vk-bp .bp-stamp-s { fill: #f9a8d4; font-size: 11px; opacity: 0.85; }
+
+main.vk .vk-bp-steps { list-style: none !important; margin: 16px 0 0 !important; padding: 0 !important; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+main.vk .vk-bp-steps li { margin: 0 !important; padding: 8px 10px !important; border-radius: 10px; border: 1px solid rgba(255,255,255,0.07); font-size: 0.78rem !important; line-height: 1.35; color: #64748b !important; display: flex; gap: 8px; align-items: flex-start; }
+main.vk .vk-bp-steps li::before, main.vk .vk-bp-steps li::marker { content: none !important; display: none !important; }
+main.vk .vk-bp-steps li span { flex: 0 0 18px; height: 18px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; background: rgba(255,255,255,0.06); color: #94a3b8; }
+
+@media (prefers-reduced-motion: no-preference) {
+  main.vk .vk-bp .bp-s1 { animation: bpIn1 16s ease infinite; }
+  main.vk .vk-bp .bp-d1 { animation: bpDraw 16s ease infinite; }
+  main.vk .vk-bp .bp-s2 { animation: bpIn2 16s ease infinite; }
+  main.vk .vk-bp .bp-flow { animation: bpIn2 16s ease infinite, bpFlow 1s linear infinite; }
+  main.vk .vk-bp .bp-s3 { animation: bpIn3 16s ease infinite; }
+  main.vk .vk-bp .bp-bar-a { animation: bpGrowA 16s ease infinite; }
+  main.vk .vk-bp .bp-bar-b { animation: bpGrowB 16s ease infinite; }
+  main.vk .vk-bp .bp-pick { animation: bpPick 16s ease infinite; }
+  main.vk .vk-bp .bp-s4 { animation: bpIn4 16s ease infinite; }
+  main.vk .vk-bp .bp-stamp { animation: bpStamp 16s cubic-bezier(.2,1.4,.4,1) infinite; }
+  main.vk .vk-bp .bp-led-dr { animation: bpLed 16s ease infinite; }
+  main.vk .vk-bp-steps li { animation: bpCap 16s ease infinite; }
+  main.vk .vk-bp-steps li span { animation: bpCapN 16s ease infinite; }
+  main.vk .vk-bp-steps li.c2, main.vk .vk-bp-steps li.c2 span { animation-delay: 4s; }
+  main.vk .vk-bp-steps li.c3, main.vk .vk-bp-steps li.c3 span { animation-delay: 8s; }
+  main.vk .vk-bp-steps li.c4, main.vk .vk-bp-steps li.c4 span { animation-delay: 12s; }
+}
+@media (prefers-reduced-motion: reduce) {
+  main.vk .vk-bp .bp-draw { stroke-dashoffset: 0; }
+  main.vk .vk-bp .bp-led-dr { fill: #34d399; }
+}
+@keyframes bpIn1 { 0% { opacity: 0; } 4%, 94% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes bpDraw { 0% { stroke-dashoffset: 320; opacity: 1; } 10%, 94% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+@keyframes bpIn2 { 0%, 25% { opacity: 0; } 30%, 94% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes bpFlow { to { stroke-dashoffset: -24; } }
+@keyframes bpIn3 { 0%, 50% { opacity: 0; } 54%, 94% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes bpGrowA { 0%, 53% { transform: scaleX(0); } 61%, 100% { transform: scaleX(1); } }
+@keyframes bpGrowB { 0%, 55% { transform: scaleX(0); } 64%, 100% { transform: scaleX(1); } }
+@keyframes bpPick { 0%, 66% { opacity: 0; } 70%, 94% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes bpIn4 { 0%, 75% { opacity: 0; } 78%, 94% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes bpStamp { 0%, 75% { transform: rotate(-6deg) scale(1.5); } 80%, 100% { transform: rotate(-6deg) scale(1); } }
+@keyframes bpLed { 0%, 77% { fill: #64748b; } 80%, 96% { fill: #34d399; } 100% { fill: #64748b; } }
+@keyframes bpCap { 0% { color: #64748b; border-color: rgba(255,255,255,0.07); background: transparent; } 2%, 23% { color: #fff; border-color: rgba(194,24,91,0.55); background: rgba(194,24,91,0.10); } 25%, 100% { color: #64748b; border-color: rgba(255,255,255,0.07); background: transparent; } }
+@keyframes bpCapN { 0% { background: rgba(255,255,255,0.06); color: #94a3b8; } 2%, 23% { background: #C2185B; color: #fff; } 25%, 100% { background: rgba(255,255,255,0.06); color: #94a3b8; } }
+
+@media (max-width: 900px) {
+  main.vk .vk-ahero-grid { grid-template-columns: 1fr; gap: 28px; }
+}
+@media (max-width: 560px) {
+  main.vk .vk-bp-steps { grid-template-columns: 1fr 1fr; }
+}
+/* === END ABOUT BLUEPRINT === */

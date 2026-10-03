@@ -4,8 +4,9 @@ import os, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, '..', 'dr'))
 sys.path.insert(0, os.path.join(HERE, '..', 'cloud'))
-from tpl import page
-from cloud_pages import hero, sec, table
+from tpl import page, crumb
+from blueprint import SVG, CAPTION
+from cloud_pages import sec, table
 
 def card(title, text, href=None, label=None):
     lab = '<span class="vk-label"><span>' + label + '</span></span>' if label else ''
@@ -66,14 +67,24 @@ FACTS = [
     ['Enquiries', '<a href="mailto:connect@vakratronsys.com">connect@vakratronsys.com</a>'],
 ]
 
-body = hero(
-    [('Home', '/'), ('About', None)],
-    'About Vakratron',
-    'An infrastructure design firm that writes its reasoning down',
-    'Vakratron Systems designs data centre, disaster recovery, cloud, GPU and AI platforms for enterprises and government buyers. We are not tied to a vendor, we put our assumptions on paper, and we stay with a design until it is running and tested.',
-    facts=[('Founded', '2020'), ('Solution areas', '8'), ('Approach', 'Vendor-neutral'), ('Recognition', 'DPIIT startup')],
-    actions=[('Talk to us', '/contact'), ('See what we do', '/solutions')],
-)
+LEAD = 'Vakratron Systems designs data centre, disaster recovery, cloud, GPU and AI platforms for enterprises and government buyers. We are not tied to a vendor, we put our assumptions on paper, and we stay with a design until it is running and tested.'
+FACTS_TOP = [('Founded', '2020'), ('Solution areas', '8'), ('Approach', 'Vendor-neutral'), ('Recognition', 'DPIIT startup')]
+facts_html = '<div class="vk-facts">' + ''.join('<div class="vk-fact"><span class="k">' + k + '</span><span class="v">' + v + '</span></div>' for k, v in FACTS_TOP) + '</div>'
+
+body = '''
+        <div class="vk-wrap vk-hero vk-ahero">
+            ''' + crumb(('Home', '/'), ('About', None)) + '''
+            <div class="vk-ahero-grid">
+                <div>
+                    <span class="vk-eyebrow">About Vakratron</span>
+                    <h1>An infrastructure design firm that writes its reasoning down</h1>
+                    <p class="vk-lead">''' + LEAD + '''</p>
+                    <div class="vk-actions"><a class="vk-btn primary" href="/contact">Talk to us</a><a class="vk-btn" href="/solutions">See what we do</a></div>
+                </div>
+                <figure class="vk-bpfig">''' + SVG + CAPTION + '''</figure>
+            </div>
+            ''' + facts_html + '''
+        </div>'''
 
 body += sec('''
             <span class="vk-eyebrow">Why we exist</span>
