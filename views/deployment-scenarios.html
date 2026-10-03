@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Deployment Scenarios | AI, Cloud, DR & Platform Engineering | Vakratron</title>
+    <meta name="description" content="Explore ten representative enterprise deployment scenarios for AI infrastructure, private cloud, cloud migration, hybrid cloud, DRaaS, platform engineering, and private AI systems.">
+    <link rel="canonical" href="https://vakratronsys.com/deployment-scenarios">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        :root { --ds-bg: #030d1a; --ds-panel: #0b1728; --ds-panel-2: #071321; --ds-line: rgba(255,255,255,.08); --ds-text: #f8fafc; --ds-muted: #a7b5c9; --ds-blue: #38bdf8; --ds-pink: #c2185b; --ds-green: #34d399; }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { margin: 0; padding-top: 80px; background: var(--ds-bg); color: var(--ds-text); font-family: Inter, sans-serif; }
+        .ds-wrap { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+        .ds-hero { padding: 92px 0 58px; text-align: center; background: radial-gradient(circle at 50% 0, rgba(56,189,248,.13), transparent 42%), radial-gradient(circle at 75% 35%, rgba(194,24,91,.1), transparent 36%); border-bottom: 1px solid var(--ds-line); }
+        .ds-badge { display: inline-flex; align-items: center; gap: 8px; padding: 7px 13px; border: 1px solid rgba(56,189,248,.32); border-radius: 99px; color: var(--ds-blue); background: rgba(56,189,248,.06); font: 500 .76rem 'IBM Plex Mono', monospace; letter-spacing: .08em; text-transform: uppercase; }
+        h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
+        .ds-hero h1 { max-width: 850px; margin: 20px auto 18px; color: #fff; font-size: clamp(2.35rem, 5vw, 4.3rem); line-height: 1.08; letter-spacing: -.045em; }
+        .ds-hero h1 span { color: var(--ds-blue); }
+        .ds-lead { max-width: 790px; margin: 0 auto; color: var(--ds-muted); font-size: 1.08rem; line-height: 1.75; }
+        .ds-note { max-width: 940px; margin: 36px auto 0; padding: 16px 18px; border-left: 3px solid var(--ds-pink); background: rgba(194,24,91,.06); color: #dbe5f0; text-align: left; line-height: 1.6; font-size: .92rem; }
+        .ds-section { padding: 72px 0; border-bottom: 1px solid var(--ds-line); }
+        .ds-section-title { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 30px; }
+        .ds-section-title h2 { margin: 10px 0 0; font-size: clamp(1.8rem, 3vw, 2.6rem); letter-spacing: -.035em; }
+        .ds-section-title p { max-width: 510px; margin: 0; color: var(--ds-muted); line-height: 1.65; }
+        .ds-index { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+        .ds-index a { position: relative; display: block; min-height: 154px; padding: 22px; color: inherit; text-decoration: none; background: linear-gradient(145deg, rgba(15,31,51,.96), rgba(5,15,27,.96)); border: 1px solid var(--ds-line); border-radius: 14px; transition: transform .2s ease, border-color .2s ease, background .2s ease; }
+        .ds-index a:hover { transform: translateY(-4px); border-color: rgba(56,189,248,.55); background: linear-gradient(145deg, rgba(16,42,68,.96), rgba(5,15,27,.96)); }
+        .ds-index-number { color: var(--ds-blue); font: 500 .72rem 'IBM Plex Mono', monospace; letter-spacing: .08em; }
+        .ds-index h3 { margin: 11px 0 8px; font-size: 1.12rem; }
+        .ds-index p { margin: 0; color: var(--ds-muted); font-size: .88rem; line-height: 1.55; }
+        .ds-arrow { position: absolute; right: 20px; bottom: 19px; color: var(--ds-pink); }
+        .ds-scenario { scroll-margin-top: 100px; padding: 64px 0; border-bottom: 1px solid var(--ds-line); }
+        .ds-scenario-top { display: grid; grid-template-columns: 110px 1fr; gap: 24px; margin-bottom: 26px; }
+        .ds-num { width: 86px; height: 86px; display: grid; place-items: center; color: var(--ds-blue); background: rgba(56,189,248,.08); border: 1px solid rgba(56,189,248,.24); border-radius: 14px; font: 600 1.08rem 'IBM Plex Mono', monospace; }
+        .ds-scenario h2 { margin: 0 0 10px; font-size: clamp(1.7rem, 3vw, 2.5rem); letter-spacing: -.035em; }
+        .ds-scenario-top p { max-width: 820px; margin: 0; color: var(--ds-muted); line-height: 1.7; }
+        .ds-architecture { margin: 25px 0; padding: 16px 18px; color: #dcebf7; background: #06101d; border: 1px solid rgba(56,189,248,.19); border-radius: 10px; font: 500 .84rem/1.7 'IBM Plex Mono', monospace; }
+        .ds-architecture b { color: var(--ds-blue); }
+        .ds-detail-grid { display: grid; grid-template-columns: 1.05fr .95fr .95fr; gap: 16px; }
+        .ds-panel { padding: 22px; background: rgba(9,23,39,.78); border: 1px solid var(--ds-line); border-radius: 12px; }
+        .ds-panel h3 { margin: 0 0 11px; font-size: 1.02rem; color: #fff; }
+        .ds-panel h3 i { margin-right: 8px; color: var(--ds-pink); }
+        .ds-panel p, .ds-panel li { color: var(--ds-muted); font-size: .9rem; line-height: 1.6; }
+        .ds-panel p { margin: 0; }
+        .ds-panel ul { padding-left: 18px; margin: 0; }
+        .ds-panel li + li { margin-top: 7px; }
+        .ds-delivery { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+        .ds-delivery .ds-panel { background: linear-gradient(145deg, rgba(11,31,49,.86), rgba(6,17,30,.86)); }
+        .ds-accept { color: #ccefe3 !important; }
+        .ds-accept i { color: var(--ds-green) !important; }
+        .ds-final { padding: 75px 0 90px; text-align: center; background: radial-gradient(circle at 50% 0, rgba(194,24,91,.12), transparent 52%); }
+        .ds-final h2 { margin: 14px 0; font-size: clamp(1.9rem, 3.5vw, 2.7rem); }
+        .ds-final p { max-width: 700px; margin: 0 auto 28px; color: var(--ds-muted); line-height: 1.7; }
+        .ds-button { display: inline-flex; align-items: center; gap: 10px; padding: 14px 22px; color: #fff; background: var(--ds-pink); border-radius: 8px; text-decoration: none; font-weight: 700; }
+        @media (max-width: 800px) { .ds-section-title, .ds-scenario-top { display: block; } .ds-scenario-top .ds-num { margin-bottom: 18px; } .ds-index, .ds-detail-grid, .ds-delivery { grid-template-columns: 1fr; } .ds-section-title p { margin-top: 16px; } .ds-hero { padding-top: 62px; } }
+    </style>
+</head>
+<body>
+    <header></header>
+
+    <main>
+        <section class="ds-hero">
+            <div class="ds-wrap">
+                <div class="ds-badge"><i class="fa-solid fa-briefcase"></i> Enterprise deployment scenarios</div>
+                <h1>From a technical problem to a <span>working deployment plan.</span></h1>
+                <p class="ds-lead">These scenarios show how a typical enterprise engagement is scoped: where the problem starts, what needs to be designed, the components that must work together, and what a team should validate before handover.</p>
+                <p class="ds-note"><strong>How to read this page:</strong> These are representative delivery scenarios, not published client case studies. The component lists are indicative starting points for discovery and sizing, not a quotation or a claim about a specific client deployment.</p>
+            </div>
+        </section>
+
+        <section class="ds-section">
+            <div class="ds-wrap">
+                <div class="ds-section-title">
+                    <div><div class="ds-badge"><i class="fa-solid fa-list-check"></i> Choose a scenario</div><h2>Ten situations enterprise teams bring to us.</h2></div>
+                    <p>Each scenario has a different starting condition. The final architecture, BoM, cost, and recovery objectives are confirmed only after workload discovery.</p>
+                </div>
+                <nav class="ds-index" aria-label="Deployment scenarios">
+                    <a href="#ai-infrastructure"><span class="ds-index-number">01 / AI PLATFORM</span><h3>AI infrastructure deployment</h3><p>GPU capacity, data paths, inference, training, and platform operations.</p><i class="fa-solid fa-arrow-down ds-arrow"></i></a>
+                    <a href="#private-cloud"><span class="ds-index-number">02 / PRIVATE CLOUD</span><h3>On-premises private cloud</h3><p>Build a shared infrastructure platform without giving up local control.</p><i class="fa-solid fa-arrow-down ds-arrow"></i></a>
+                    <a href="#public-cloud-migration"><span class="ds-index-number">03 / CLOUD MIGRATION</span><h3>On-premises to public cloud</h3><p>Move a selected application estate with a tested cutover path.</p><i class="fa-solid fa-arrow-down ds-arrow"></i></a>
+                    <a href="#private-cloud-migration"><span class="ds-index-number">04 / PRIVATE CLOUD MIGRATION</span><h3>On-premises to private cloud</h3><p>Consolidate legacy systems into a standardised virtual platform.</p><i class="fa-solid fa-arrow-down ds-arrow"></i></a>
+                    <a href="#hybrid-cloud"><span class="ds-index-number">05 / HYBRID CLOUD</span><h3>Hybrid cloud operating model</h3><p>Connect on-premises systems and cloud services without creating two silos.</p><i class="fa-solid fa-arrow-down ds-arrow"></i></a>
+                    <a href="#draas"><span class="ds-index-number">06 / RESILIENCE</span><h3>Disaster Recovery as a Service</h3><p>Define recovery objectives, replication, runbooks, and recovery testing.</p><i class="fa-solid fa-arrow-down ds-arrow"></i></a>
+                    <a href="#cloud-foundation"><span class="ds-index-number">07 / CLOUD FOUNDATION</span><h3>Enterprise cloud foundation</h3><p>Set up accounts, access, policy, logging, and cost ownership before workloads move.</p><i class="fa-solid fa-arrow-down ds-arrow"></i></a>
+                    <a href="#paas"><span class="ds-index-number">08 / PLATFORM ENGINEERING</span><h3>PaaS and developer platform</h3><p>Give application teams a governed path from code to a running service.</p><i class="fa-solid fa-arrow-down ds-arrow"></i></a>
+                    <a href="#vmware-kvm"><span class="ds-index-number">09 / VIRTUALISATION</span><h3>VMware to KVM migration</h3><p>Exit a legacy virtualisation estate in controlled, reversible waves.</p><i class="fa-solid fa-arrow-down ds-arrow"></i></a>
+                    <a href="#private-ai"><span class="ds-index-number">10 / PRIVATE AI</span><h3>Private RAG and agent workflow</h3><p>Use internal knowledge safely with access controls and review gates.</p><i class="fa-solid fa-arrow-down ds-arrow"></i></a>
+                </nav>
+            </div>
+        </section>
+
+        <section class="ds-wrap" aria-label="Detailed deployment scenarios">
+            <article class="ds-scenario" id="ai-infrastructure">
+                <div class="ds-scenario-top"><div class="ds-num">01</div><div><h2>AI infrastructure deployment for training and inference</h2><p>A data or engineering team has model experiments, growing inference demand, and no reliable way to allocate GPU capacity, protect datasets, or see who is using shared compute.</p></div></div>
+                <div class="ds-architecture"><b>Typical flow:</b> Identity and access → AI portal / API ingress → Kubernetes or workload scheduler → GPU compute pool → high-speed data and model storage → monitoring, quota, and audit services</div>
+                <div class="ds-detail-grid"><div class="ds-panel"><h3><i class="fa-solid fa-circle-question"></i>When this becomes a project</h3><p>GPU jobs compete with one another, teams copy datasets between machines, inference endpoints are managed manually, or a planned AI programme needs a defensible capacity and security design.</p></div><div class="ds-panel"><h3><i class="fa-solid fa-compass-drafting"></i>Delivery scope</h3><ul><li>Profile training, batch, and inference workloads.</li><li>Define tenancy, quota, and model release controls.</li><li>Design the network, storage, and GPU scheduling model.</li></ul></div><div class="ds-panel"><h3><i class="fa-solid fa-boxes-stacked"></i>Indicative BoM / stack</h3><ul><li>GPU servers sized after workload profiling.</li><li>High-bandwidth fabric and resilient storage tiers.</li><li>Kubernetes, model serving, registry, observability, and secrets management.</li></ul></div></div>
+                <div class="ds-delivery"><div class="ds-panel"><h3><i class="fa-solid fa-screwdriver-wrench"></i>Implementation path</h3><p>Start with a representative workload and a small compute pool. Test scheduling, data throughput, model deployment, access boundaries, and a node failure before adding capacity.</p></div><div class="ds-panel ds-accept"><h3><i class="fa-solid fa-clipboard-check"></i>Acceptance checks</h3><p>Documented workload sizing, repeatable environment provisioning, approved access model, monitored GPU use, and a test record for model deployment and recovery.</p></div></div>
+            </article>
+
+            <article class="ds-scenario" id="private-cloud">
+                <div class="ds-scenario-top"><div class="ds-num">02</div><div><h2>On-premises private cloud for shared enterprise workloads</h2><p>An organisation has separate server islands, uneven utilisation, slow VM provisioning, and inconsistent backup or access controls. It wants a shared platform that stays in its own data centre.</p></div></div>
+                <div class="ds-architecture"><b>Typical flow:</b> User and admin access → identity services → cloud control plane → compute clusters → software-defined network → block, file, and object storage → backup and monitoring</div>
+                <div class="ds-detail-grid"><div class="ds-panel"><h3><i class="fa-solid fa-circle-question"></i>When this becomes a project</h3><p>New applications wait for infrastructure, hardware is purchased without a common capacity plan, and each team operates its own VM, network, and backup process.</p></div><div class="ds-panel"><h3><i class="fa-solid fa-compass-drafting"></i>Delivery scope</h3><ul><li>Assess workloads, dependencies, and growth assumptions.</li><li>Design tenancy, network zones, storage classes, and operational ownership.</li><li>Plan pilot migration and service handover.</li></ul></div><div class="ds-panel"><h3><i class="fa-solid fa-boxes-stacked"></i>Indicative BoM / stack</h3><ul><li>Compute nodes, redundant switching, and storage nodes.</li><li>Virtualisation or cloud control plane with load balancing.</li><li>Backup repository, monitoring, logging, and identity integration.</li></ul></div></div>
+                <div class="ds-delivery"><div class="ds-panel"><h3><i class="fa-solid fa-screwdriver-wrench"></i>Implementation path</h3><p>Build the management plane first, then add a workload zone. Migrate a low-risk application group before moving business-critical systems in agreed waves.</p></div><div class="ds-panel ds-accept"><h3><i class="fa-solid fa-clipboard-check"></i>Acceptance checks</h3><p>Tenant separation, tested backup and restore, VM provisioning workflow, capacity alerts, access review, and a documented procedure for routine operations.</p></div></div>
+            </article>
+
+            <article class="ds-scenario" id="public-cloud-migration">
+                <div class="ds-scenario-top"><div class="ds-num">03</div><div><h2>Migration from on-premises systems to public cloud</h2><p>A business wants to move selected applications out of its data centre, but the application inventory, network dependencies, data movement, and cutover ownership are still unclear.</p></div></div>
+                <div class="ds-architecture"><b>Typical flow:</b> Existing application and data estate → secure connectivity → cloud landing zone → application runtime and managed data services → backup, logging, and cost controls</div>
+                <div class="ds-detail-grid"><div class="ds-panel"><h3><i class="fa-solid fa-circle-question"></i>When this becomes a project</h3><p>Data-centre hardware reaches refresh date, teams need elastic capacity, or application owners need a safe way to move without treating every workload as a lift-and-shift candidate.</p></div><div class="ds-panel"><h3><i class="fa-solid fa-compass-drafting"></i>Delivery scope</h3><ul><li>Inventory applications and map dependencies.</li><li>Classify each workload: retain, rehost, replatform, refactor, or retire.</li><li>Define connectivity, identity federation, migration waves, and rollback.</li></ul></div><div class="ds-panel"><h3><i class="fa-solid fa-boxes-stacked"></i>Indicative BoM / stack</h3><ul><li>Cloud accounts, network hub, secure connectivity, and IAM roles.</li><li>Compute, containers, managed database, and object storage where appropriate.</li><li>Migration tooling, backup, logging, budget alerts, and security controls.</li></ul></div></div>
+                <div class="ds-delivery"><div class="ds-panel"><h3><i class="fa-solid fa-screwdriver-wrench"></i>Implementation path</h3><p>Establish the landing zone and connectivity before the first migration. Move one low-risk workload to validate the process, then schedule waves around dependency groups and business windows.</p></div><div class="ds-panel ds-accept"><h3><i class="fa-solid fa-clipboard-check"></i>Acceptance checks</h3><p>Approved application inventory, tested connectivity, verified data cutover, known rollback point, security and logging coverage, and a cost owner for each migrated service.</p></div></div>
+            </article>
+
+            <article class="ds-scenario" id="private-cloud-migration">
+                <div class="ds-scenario-top"><div class="ds-num">04</div><div><h2>Consolidating legacy workloads into a private cloud</h2><p>Servers and virtual machines have grown over time, but the organisation needs a standard platform for its existing estate without moving sensitive workloads to a public cloud.</p></div></div>
+                <div class="ds-architecture"><b>Typical flow:</b> Legacy servers and VMs → discovery and dependency map → private cloud landing zone → shared compute and storage → segmented network zones → backup, monitoring, and operations</div>
+                <div class="ds-detail-grid"><div class="ds-panel"><h3><i class="fa-solid fa-circle-question"></i>When this becomes a project</h3><p>Hardware renewal, inconsistent virtualisation practices, weak recovery processes, or a requirement to keep workloads and data within a controlled environment trigger the change.</p></div><div class="ds-panel"><h3><i class="fa-solid fa-compass-drafting"></i>Delivery scope</h3><ul><li>Map the existing environment and group workloads into migration waves.</li><li>Design the target platform and security zones.</li><li>Define cutover, validation, and rollback for every wave.</li></ul></div><div class="ds-panel"><h3><i class="fa-solid fa-boxes-stacked"></i>Indicative BoM / stack</h3><ul><li>Compute and storage clusters with redundant network paths.</li><li>Private-cloud control plane, image catalogue, and automation tooling.</li><li>Backup, replication, monitoring, and privileged-access controls.</li></ul></div></div>
+                <div class="ds-delivery"><div class="ds-panel"><h3><i class="fa-solid fa-screwdriver-wrench"></i>Implementation path</h3><p>Build and baseline the target platform, migrate a non-critical workload group, record the operating procedure, and then move subsequent waves after each acceptance review.</p></div><div class="ds-panel ds-accept"><h3><i class="fa-solid fa-clipboard-check"></i>Acceptance checks</h3><p>Successful application validation after migration, tested backup and restore, documented ownership, approved network segmentation, and a completed rollback test for the pilot wave.</p></div></div>
+            </article>
+
+            <article class="ds-scenario" id="hybrid-cloud">
+                <div class="ds-scenario-top"><div class="ds-num">05</div><div><h2>Hybrid cloud setup with one operating model</h2><p>An organisation needs some workloads to remain on premises while others use cloud services. The challenge is avoiding two disconnected platforms with duplicate identity, monitoring, and security processes.</p></div></div>
+                <div class="ds-architecture"><b>Typical flow:</b> On-premises applications and data → redundant private connectivity → cloud landing zone → shared identity and policy → central monitoring and logging → replicated data and backup services</div>
+                <div class="ds-detail-grid"><div class="ds-panel"><h3><i class="fa-solid fa-circle-question"></i>When this becomes a project</h3><p>Data residency, latency, existing hardware investment, or specialised applications keep part of the estate local while new services need cloud elasticity or managed capabilities.</p></div><div class="ds-panel"><h3><i class="fa-solid fa-compass-drafting"></i>Delivery scope</h3><ul><li>Define workload placement and integration boundaries.</li><li>Design redundant connectivity, identity federation, and DNS patterns.</li><li>Set common logging, backup, monitoring, and incident ownership.</li></ul></div><div class="ds-panel"><h3><i class="fa-solid fa-boxes-stacked"></i>Indicative BoM / stack</h3><ul><li>Private connectivity with VPN failover where required.</li><li>Federated identity, network firewalling, and central DNS.</li><li>Cloud and on-premises monitoring, backup, and data replication services.</li></ul></div></div>
+                <div class="ds-delivery"><div class="ds-panel"><h3><i class="fa-solid fa-screwdriver-wrench"></i>Implementation path</h3><p>First establish identity and network connectivity. Then connect a single non-critical application flow, verify monitoring and support hand-offs, and scale the pattern to other workloads.</p></div><div class="ds-panel ds-accept"><h3><i class="fa-solid fa-clipboard-check"></i>Acceptance checks</h3><p>Tested primary and failover connectivity, single sign-on where planned, visible health signals across both environments, and a documented response path for cross-platform incidents.</p></div></div>
+            </article>
+
+            <article class="ds-scenario" id="draas">
+                <div class="ds-scenario-top"><div class="ds-num">06</div><div><h2>Disaster Recovery as a Service for business-critical applications</h2><p>Backup exists, but the business does not know how long recovery will take, which systems must be recovered together, or whether the recovery plan works outside a document.</p></div></div>
+                <div class="ds-architecture"><b>Typical flow:</b> Protected workloads → replication and backup policy → isolated recovery site or cloud environment → recovery orchestration → tested runbooks → monitoring, evidence, and review records</div>
+                <div class="ds-detail-grid"><div class="ds-panel"><h3><i class="fa-solid fa-circle-question"></i>When this becomes a project</h3><p>Audit requirements, outage exposure, ransomware risk, or a business decision to define realistic recovery objectives makes a repeatable recovery service necessary.</p></div><div class="ds-panel"><h3><i class="fa-solid fa-compass-drafting"></i>Delivery scope</h3><ul><li>Run a business impact and dependency assessment.</li><li>Set workload-specific RPO and RTO targets.</li><li>Design replication, recovery order, communications, and test cadence.</li></ul></div><div class="ds-panel"><h3><i class="fa-solid fa-boxes-stacked"></i>Indicative BoM / stack</h3><ul><li>Backup and replication tooling with immutable recovery copies.</li><li>Recovery compute, network, storage, and secure administrative access.</li><li>Runbooks, monitoring, test evidence, and service reporting.</li></ul></div></div>
+                <div class="ds-delivery"><div class="ds-panel"><h3><i class="fa-solid fa-screwdriver-wrench"></i>Implementation path</h3><p>Protect one application group first, complete a measured recovery exercise, resolve the gaps found, and then extend the service to the next business priority group.</p></div><div class="ds-panel ds-accept"><h3><i class="fa-solid fa-clipboard-check"></i>Acceptance checks</h3><p>Approved recovery objectives, successful restore and application validation, recovery-time evidence, named service owners, and an agreed schedule for future recovery tests.</p></div></div>
+            </article>
+
+            <article class="ds-scenario" id="cloud-foundation">
+                <div class="ds-scenario-top"><div class="ds-num">07</div><div><h2>Enterprise cloud foundation, governance, and landing zone</h2><p>Cloud accounts are being created by separate teams. Access is inconsistent, logs are incomplete, and no one has a reliable view of policy compliance or ownership of spend.</p></div></div>
+                <div class="ds-architecture"><b>Typical flow:</b> Organisation hierarchy → account or subscription structure → identity federation → policy guardrails → network hub → central logs, security findings, and cost reporting</div>
+                <div class="ds-detail-grid"><div class="ds-panel"><h3><i class="fa-solid fa-circle-question"></i>When this becomes a project</h3><p>Cloud use has moved beyond a single team, audit questions are increasing, or a migration programme needs a stable foundation before the first production workload arrives.</p></div><div class="ds-panel"><h3><i class="fa-solid fa-compass-drafting"></i>Delivery scope</h3><ul><li>Define account, subscription, and ownership model.</li><li>Set identity, network, encryption, and logging baselines.</li><li>Implement policy controls and an exception workflow.</li></ul></div><div class="ds-panel"><h3><i class="fa-solid fa-boxes-stacked"></i>Indicative BoM / stack</h3><ul><li>Organisation management, identity federation, and privileged access.</li><li>Network hub, DNS, firewalling, and private service access.</li><li>Central logging, security posture management, and cost allocation tags.</li></ul></div></div>
+                <div class="ds-delivery"><div class="ds-panel"><h3><i class="fa-solid fa-screwdriver-wrench"></i>Implementation path</h3><p>Agree the operating rules with security, finance, and application owners first. Create a pilot account or subscription, validate the guardrails, and then use automation for every new environment.</p></div><div class="ds-panel ds-accept"><h3><i class="fa-solid fa-clipboard-check"></i>Acceptance checks</h3><p>Provisioning through a defined process, federated access, mandatory logging, policy violation reporting, cost allocation, and an approved exception route.</p></div></div>
+            </article>
+
+            <article class="ds-scenario" id="paas">
+                <div class="ds-scenario-top"><div class="ds-num">08</div><div><h2>PaaS implementation and internal developer platform</h2><p>Application teams spend too much time requesting environments, creating pipelines, and solving the same deployment problems. Security and operations teams then have to support each project differently.</p></div></div>
+                <div class="ds-architecture"><b>Typical flow:</b> Developer portal and templates → source control and CI → artifact registry → security checks → Kubernetes or application runtime → secrets, observability, and service catalogue</div>
+                <div class="ds-detail-grid"><div class="ds-panel"><h3><i class="fa-solid fa-circle-question"></i>When this becomes a project</h3><p>Teams need a faster but governed path from code to production, and the organisation wants standard templates rather than a new deployment method for every service.</p></div><div class="ds-panel"><h3><i class="fa-solid fa-compass-drafting"></i>Delivery scope</h3><ul><li>Map the developer journey and current delivery bottlenecks.</li><li>Design reusable service templates and golden paths.</li><li>Integrate security checks, secrets, and operations signals into delivery.</li></ul></div><div class="ds-panel"><h3><i class="fa-solid fa-boxes-stacked"></i>Indicative BoM / stack</h3><ul><li>Kubernetes or managed application runtime.</li><li>Source control, CI/CD, artifact registry, and GitOps tooling.</li><li>Secrets management, policy checks, observability, and developer portal.</li></ul></div></div>
+                <div class="ds-delivery"><div class="ds-panel"><h3><i class="fa-solid fa-screwdriver-wrench"></i>Implementation path</h3><p>Choose one application type and build its path end to end. Let a delivery team use it, fix the friction they find, then add other templates and a measured adoption plan.</p></div><div class="ds-panel ds-accept"><h3><i class="fa-solid fa-clipboard-check"></i>Acceptance checks</h3><p>A developer can provision an approved service path, deploy through controlled automation, view runtime health, rotate secrets, and recover a prior release without an ad hoc procedure.</p></div></div>
+            </article>
+
+            <article class="ds-scenario" id="vmware-kvm">
+                <div class="ds-scenario-top"><div class="ds-num">09</div><div><h2>VMware to KVM migration in controlled waves</h2><p>A virtualisation estate is facing licensing, refresh, or operating-cost pressure. The aim is to migrate workloads without treating the hypervisor change as a simple file conversion.</p></div></div>
+                <div class="ds-architecture"><b>Typical flow:</b> VMware inventory and dependencies → target KVM or OpenStack cluster → network and storage mappings → test migration wave → production cutover → validation and decommissioning</div>
+                <div class="ds-detail-grid"><div class="ds-panel"><h3><i class="fa-solid fa-circle-question"></i>When this becomes a project</h3><p>Licensing change, hardware renewal, vendor strategy, or the need for an open virtualisation platform creates an exit case, but application compatibility and downtime risk remain unclear.</p></div><div class="ds-panel"><h3><i class="fa-solid fa-compass-drafting"></i>Delivery scope</h3><ul><li>Inventory virtual machines, dependencies, and recovery needs.</li><li>Design target compute, storage, network, and image standards.</li><li>Plan migration waves, testing, rollback, and decommissioning.</li></ul></div><div class="ds-panel"><h3><i class="fa-solid fa-boxes-stacked"></i>Indicative BoM / stack</h3><ul><li>KVM or OpenStack compute cluster and shared storage.</li><li>Network segmentation, image management, and backup integration.</li><li>Migration tooling, test environment, monitoring, and operating runbooks.</li></ul></div></div>
+                <div class="ds-delivery"><div class="ds-panel"><h3><i class="fa-solid fa-screwdriver-wrench"></i>Implementation path</h3><p>Build the target platform and prove it with a low-risk, representative workload. Only after compatibility and operational checks pass should the migration wave size increase.</p></div><div class="ds-panel ds-accept"><h3><i class="fa-solid fa-clipboard-check"></i>Acceptance checks</h3><p>Successful conversion and boot test, application-owner validation, backup coverage, mapped network policy, documented rollback, and a post-cutover performance review.</p></div></div>
+            </article>
+
+            <article class="ds-scenario" id="private-ai">
+                <div class="ds-scenario-top"><div class="ds-num">10</div><div><h2>Private RAG and agent workflow for internal knowledge</h2><p>Teams want faster answers from policies, documents, tickets, and internal systems, but cannot send all information to an uncontrolled external service or allow an AI workflow to act without review.</p></div></div>
+                <div class="ds-architecture"><b>Typical flow:</b> Identity-aware user access → application interface → retrieval and orchestration layer → approved document sources and tools → model endpoint → audit, evaluation, and human approval controls</div>
+                <div class="ds-detail-grid"><div class="ds-panel"><h3><i class="fa-solid fa-circle-question"></i>When this becomes a project</h3><p>Knowledge is spread across repositories, teams repeat the same research work, or the organisation needs an internal AI service with visibility into access, sources, and actions.</p></div><div class="ds-panel"><h3><i class="fa-solid fa-compass-drafting"></i>Delivery scope</h3><ul><li>Classify source data and define access rules.</li><li>Design retrieval, citations, evaluation, and model-hosting options.</li><li>Set approval gates for tool use and a process for feedback and improvement.</li></ul></div><div class="ds-panel"><h3><i class="fa-solid fa-boxes-stacked"></i>Indicative BoM / stack</h3><ul><li>Document connectors, ingestion pipeline, and vector or search store.</li><li>Private or managed model endpoint with policy and identity gateway.</li><li>Evaluation set, observability, audit logs, and workflow approval service.</li></ul></div></div>
+                <div class="ds-delivery"><div class="ds-panel"><h3><i class="fa-solid fa-screwdriver-wrench"></i>Implementation path</h3><p>Begin with one approved data source and a narrow question set. Evaluate answer quality and access enforcement with business owners before adding more sources or any action-taking tool.</p></div><div class="ds-panel ds-accept"><h3><i class="fa-solid fa-clipboard-check"></i>Acceptance checks</h3><p>Source-aware answers, access controls verified against user roles, documented evaluation results, audit records for tool calls, and clear human approval for sensitive actions.</p></div></div>
+            </article>
+        </section>
+
+        <section class="ds-final">
+            <div class="ds-wrap"><div class="ds-badge"><i class="fa-solid fa-pen-ruler"></i> Start with your environment</div><h2>Need a scenario turned into a project plan?</h2><p>Bring the workload list, existing constraints, target timeline, and the people who own the application, security, and operations decisions. The first output should be a scoped plan, not a generic architecture diagram.</p><a class="ds-button" href="/contact.html">Discuss your deployment <i class="fa-solid fa-arrow-right"></i></a></div>
+        </section>
+    </main>
+
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+    <script src="/vakra-chat.js"></script>
+</body>
+</html>

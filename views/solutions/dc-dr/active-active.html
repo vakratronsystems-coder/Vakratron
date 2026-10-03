@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Active-Active Architecture for DC/DR | Zero Downtime | Vakratron Systems</title>
-    <meta name="description" content="Implement fault-tolerant Active-Active Data Center & DR architectures with Vakratron Systems. Achieve continuous operations and high availability for critical applications. Explore solutions.">
+    <title>Active-Active DC/DR Architecture | High Availability Design | Vakratron</title>
+    <meta name="description" content="Reference design for active-active data centre and disaster recovery environments. Evaluate synchronous replication, traffic routing, failure domains, recovery objectives, and operating trade-offs.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -123,11 +123,11 @@
         <div class="meta-grid">
             <div class="meta-item" style="border-top: 3px solid #10b981;">
                 <label>Recovery Point Objective</label>
-                <span>Absolute Zero</span>
+                <span>Workload-specific; validate with synchronous replication</span>
             </div>
             <div class="meta-item" style="border-top: 3px solid #10b981;">
                 <label>Recovery Time Objective</label>
-                <span>Near Instant</span>
+                <span>Automated failover target; validate by testing</span>
             </div>
             <div class="meta-item" style="border-top: 3px solid #ef4444;">
                 <label>Cost Factor</label>
@@ -137,8 +137,8 @@
 
         <div class="content-card">
             <h3 style="font-family:'Poppins',sans-serif;color:var(--accent-blue);font-size:1.5rem;margin-bottom:15px;font-weight:600;">Model 5: Active-Active</h3>
-            <p>Active-Active is the most resilient disaster recovery architecture available.</p>
-            <p>Both data centers actively serve production traffic at the same time. If one site becomes unavailable, traffic automatically continues through the remaining site. This architecture delivers the lowest downtime and lowest data loss but requires the highest investment.</p>
+            <p>Active-active is a high-availability pattern for workloads that can run across more than one site.</p>
+            <p>Both sites can serve production traffic. If one site becomes unavailable, traffic can be routed to the remaining site when the application, data replication, network routing, and failover runbook have been designed and tested together. The achievable recovery objectives depend on those workload-specific details and should be validated through failure testing.</p>
 
             <div class="vakra-mesh-container" style="padding: 40px 30px;">
                 <div style="text-align:center; margin-bottom:30px;">

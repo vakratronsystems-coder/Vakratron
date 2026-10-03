@@ -982,6 +982,17 @@ app.get('/footer.html', (req, res) => {
     res.sendFile(path.join(baseDir, 'views/footer.html'));
 });
 
+// Legacy URLs that contained duplicate VMware-to-KVM content now point to the
+// relevant maintained architecture pages. This preserves old links and keeps
+// search engines from indexing the same document under multiple topics.
+app.get(['/use_cases/k8s', '/use_cases/k8s.html'], (req, res) => {
+    res.redirect(301, '/solutions/master_k8s');
+});
+
+app.get(['/use_cases/Multi_cloud', '/use_cases/Multi_cloud.html'], (req, res) => {
+    res.redirect(301, '/solutions/cloud-solutions');
+});
+
 // ======================================================================
 // ⚡ 7. RECURSIVE & CASE-INSENSITIVE CATCH-ALL ROUTER
 // Serves the SAME html to every visitor — humans and Googlebot alike.
