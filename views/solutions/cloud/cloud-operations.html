@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Operations (Day 2): Monitoring, Patching, Upgrades, Capacity and Cost | Vakratron Systems</title>
+    <meta name="description" content="How to run a private or public cloud platform after go-live: daily, monthly and yearly routines, runbooks, upgrades, capacity planning and cost control.">
+    <link rel="canonical" href="https://vakratronsys.com/solutions/cloud/cloud-operations">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
+</head>
+<body>
+    <header></header>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/cloud-solutions">Cloud</a> <span>/</span> <span>Running the platform</span></div>
+            <div class="vk-pills"><a class="vk-pill" href="/solutions/cloud/private-cloud-openstack">Private cloud on OpenStack</a><a class="vk-pill" href="/solutions/cloud/vmware-to-kvm-migration">VMware to KVM migration</a><a class="vk-pill" href="/solutions/cloud/hybrid-cloud">Hybrid cloud</a><a class="vk-pill" href="/solutions/cloud/multi-cloud-landing-zone">Public and multi-cloud landing zones</a><a class="vk-pill on" href="/solutions/cloud/cloud-operations">Running the platform (Day 2)</a><a class="vk-pill" href="/solutions/cloud/cloud-cost">Private vs public cloud cost</a></div><span class="vk-eyebrow">Cloud guide</span>
+            <h1>Running the platform after go-live</h1>
+            <p class="vk-lead">A cloud platform is only as good as the way it is run. Most private clouds that disappoint were built well and then left without monitoring, upgrades or capacity planning. We design the day-to-day operating model with you, hand it over to your team with runbooks, and can support it on agreed terms if you want.</p>
+            <div class="vk-facts"><div class="vk-fact"><span class="k">Covers</span><span class="v">Monitoring, patching, upgrades, capacity, cost</span></div><div class="vk-fact"><span class="k">Delivered as</span><span class="v">Runbooks your team owns</span></div><div class="vk-fact"><span class="k">Support</span><span class="v">Optional, on agreed terms</span></div><div class="vk-fact"><span class="k">Goal</span><span class="v">No upgrade you are afraid of</span></div></div>
+        </div>
+        <div class="vk-sec"><div class="vk-wrap"><h2>The Day-2 routine</h2><div class="vk-table-wrap"><table><thead><tr><th>Activity</th><th>How often</th><th>What good looks like</th></tr></thead><tbody><tr><td>Health and alert review</td><td>Daily</td><td>Alerts that matter reach a person. Noise is tuned out, not ignored.</td></tr><tr><td>Security patching</td><td>Monthly</td><td>Hosts patched in rolling order with no VM downtime, using live migration.</td></tr><tr><td>Capacity review</td><td>Monthly</td><td>A forecast of when compute, storage and IP ranges run out, with time to buy.</td></tr><tr><td>Backup restore test</td><td>Monthly</td><td>One real restore, timed and recorded.</td></tr><tr><td>Cost review (public cloud)</td><td>Monthly</td><td>Idle and oversized resources removed. Commitments matched to steady usage.</td></tr><tr><td>Platform upgrade</td><td>Once or twice a year</td><td>Tested in a staging environment first, then rolled out with a rollback plan.</td></tr><tr><td>DR test</td><td>Twice a year</td><td>See <a href="/solutions/dc-dr/best-practices">testing DR</a>.</td></tr></tbody></table></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><h2>What we hand over</h2><ul><li><strong>Monitoring and alerting</strong> already wired up, with dashboards for the platform and for each tenant.</li><li><strong>Runbooks</strong> for the common tasks: adding a compute node, replacing a failed disk, rotating certificates, patching, upgrading.</li><li><strong>An upgrade plan</strong> that keeps you within one or two releases of current.</li><li><strong>A capacity model</strong> your team can update with real numbers each month.</li><li><strong>Cost controls</strong> for public cloud: tags, budgets, alerts and a monthly report.</li></ul>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><h2>Tools we typically use</h2><div class="vk-table-wrap"><table><thead><tr><th>Area</th><th>Common choices</th></tr></thead><tbody><tr><td>Metrics and alerts</td><td>Prometheus, Alertmanager, Grafana</td></tr><tr><td>Logs</td><td>OpenSearch or Grafana Loki</td></tr><tr><td>Automation</td><td>Ansible, Terraform, GitLab CI or Jenkins</td></tr><tr><td>Public cloud cost</td><td>Native cost tools, tagging policies, budgets and commitment planning</td></tr></tbody></table></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><p class="vk-small"><strong>More cloud guides:</strong> <a href="/solutions/cloud/private-cloud-openstack">Private cloud on OpenStack</a> &middot; <a href="/solutions/cloud/vmware-to-kvm-migration">VMware to KVM migration</a> &middot; <a href="/solutions/cloud/hybrid-cloud">Hybrid cloud</a> &middot; <a href="/solutions/cloud/multi-cloud-landing-zone">Public and multi-cloud landing zones</a> &middot; <a href="/solutions/cloud/cloud-cost">Private vs public cloud cost</a> &middot; <a href="/solutions/cloud/faq">Cloud FAQ</a> &middot; <a href="/use_cases/cloud-vmware-exit">Use case: leaving VMware</a></p>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Planning a cloud move or a VMware exit?</h2>
+                <p class="vk-muted">Send us a VM inventory export (RVTools is fine) and a line on what is driving the change. We will come back with a plain first view: what could move where, in what order, and roughly what it would cost to run.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book a cloud review</a>
+                    <a class="vk-btn" href="/portfolio/cloud-solutions">Back to cloud overview</a>
+                </div>
+            </div>
+        </div></div>
+    </main>
+
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+    <script src="/vk-cloud-tools.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+
+/* Scroll hint for wide diagrams: mobile only */
+main.vk .vk-scroll-hint { display: none !important; }
+@media (max-width: 760px) { main.vk .vk-scroll-hint { display: block !important; font-size: 0.82rem !important; color: var(--vk-muted) !important; margin: 0 0 8px; } }

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Use Case: Leaving VMware, 300 VMs to OpenStack in Six Waves | Vakratron Systems</title>
+    <meta name="description" content="An illustrative scenario: moving 300 VMs from VMware vSphere to OpenStack on KVM in six dependency-based waves, with rollback, platform design and trade-offs.">
+    <link rel="canonical" href="https://vakratronsys.com/use_cases/cloud-vmware-exit">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
+</head>
+<body>
+    <header></header>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/cloud-solutions">Cloud</a> <span>/</span> <span>Use case: leaving VMware</span></div>
+            <div class="vk-label"><span>Illustrative scenario</span></div>
+            <h1>Leaving VMware: 300 VMs to OpenStack in six waves</h1>
+            <p class="vk-lead">How we would approach a VMware exit for a manufacturing company facing a sharp renewal increase, with a plant ERP that cannot afford a bad weekend.</p>
+            <div class="vk-note"><p class="vk-small">This is a composite example built from requirements that are common in mid-sized enterprises. It is not a specific client engagement, and the figures are design targets for the scenario, not measured results.</p></div>
+            <div class="vk-facts">
+                <div class="vk-fact"><span class="k">Starting point</span><span class="v">300 VMs on vSphere</span></div>
+                <div class="vk-fact"><span class="k">Driver</span><span class="v">Licence renewal</span></div>
+                <div class="vk-fact"><span class="k">Target</span><span class="v">OpenStack on KVM, Ceph</span></div>
+                <div class="vk-fact"><span class="k">Timeline</span><span class="v">About 5 months</span></div>
+            </div>
+        </div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><span class="vk-eyebrow">The situation</span><h2>A renewal quote and a fixed date</h2>
+            <p>The company ran about 300 VMs on a six-host vSphere cluster: plant ERP, MES on the shop floor, email, file servers, HR and a long tail of small applications. The VMware renewal quote under the new subscription model was several times the previous support cost, and the renewal date was seven months away.</p>
+            <p>The IT head had two constraints: the ERP could only be touched on a planned weekend, and the infrastructure team of four could not double in size to run a new platform.</p>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><span class="vk-eyebrow">What we found</span><h2>Most VMs were easy. A few were not.</h2><ul><li>About 85 percent of VMs were standard Linux and Windows servers with no special dependencies.</li><li>Two vendor appliances were supported only on VMware.</li><li>The MES system licensed itself against a MAC address.</li><li>Several Windows VMs ran old versions that needed virtio drivers added before conversion.</li><li>Dependency mapping showed the ERP talked to eleven other systems, four of which nobody had listed.</li></ul><p>That last point alone justified two weeks of discovery before any conversion.</p>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><span class="vk-eyebrow">The design</span><h2>Target platform and waves</h2><div class="vk-table-wrap"><table><thead><tr><th>Component</th><th>Design</th></tr></thead><tbody><tr><td>Control plane</td><td>3 nodes, also running network gateways</td></tr><tr><td>Compute</td><td>7 KVM hosts, sized for current load plus one spare and growth</td></tr><tr><td>Storage</td><td>5-node Ceph cluster, NVMe for databases, three copies of all data</td></tr><tr><td>Deployment</td><td>Kolla-Ansible, so the in-house team can run upgrades</td></tr><tr><td>Backup</td><td>New backup for KVM, tested before the pilot wave</td></tr><tr><td>Kept on VMware</td><td>The two vendor appliances, on a small licensed host, until the vendor certifies KVM</td></tr></tbody></table></div><div class="vk-table-wrap"><table><thead><tr><th>Wave</th><th>What moves</th><th>Why in this order</th></tr></thead><tbody><tr><td>1 (pilot)</td><td>15 test and tool VMs</td><td>Prove the tooling, drivers and runbook</td></tr><tr><td>2</td><td>40 file, print and intranet VMs</td><td>Simple workloads, quick wins</td></tr><tr><td>3</td><td>50 small business apps</td><td>Builds speed with low risk</td></tr><tr><td>4</td><td>HR, email and collaboration</td><td>Business-visible, but well understood</td></tr><tr><td>5</td><td>MES, after fixing the MAC licence binding</td><td>Plant-facing, so tested with shop-floor users</td></tr><tr><td>6</td><td>ERP and the systems it depends on</td><td>Most critical last, on a planned weekend</td></tr></tbody></table></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><span class="vk-eyebrow">Rollback</span><h2>The safety net</h2>
+            <p>Every wave was converted and tested on KVM while the VMware VMs stayed live. Only after the application owner signed off were users moved. The VMware copies stayed intact, powered off, for two weeks after each wave. The vSphere licence was kept for one extra month after the final wave, so a rollback remained possible right up to the end.</p>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><span class="vk-eyebrow">What changes</span><h2>Before and after (design targets)</h2><div class="vk-table-wrap"><table><thead><tr><th></th><th>Before</th><th>After (target)</th></tr></thead><tbody><tr><td>Hypervisor licence cost</td><td>Large renewal increase</td><td>Platform subscriptions and support only</td></tr><tr><td>VMs on VMware</td><td>300</td><td>2 vendor appliances</td></tr><tr><td>Upgrades</td><td>Done by the vendor partner</td><td>Run by the in-house team with runbooks</td></tr><tr><td>New VM for a project</td><td>Ticket to IT, days</td><td>Self-service portal, minutes</td></tr><tr><td>Rollback during migration</td><td>Not applicable</td><td>Available for every wave</td></tr></tbody></table></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><span class="vk-eyebrow">Trade-offs</span><h2>What we would flag</h2><ul><li><strong>No automatic load balancing like DRS.</strong> Capacity is planned with more headroom and reviewed monthly.</li><li><strong>New skills for the team.</strong> Two engineers need OpenStack and Ceph training, and the first upgrade should be done together with us.</li><li><strong>Two platforms for a while.</strong> Until the appliances are certified for KVM, a small VMware footprint remains.</li><li><strong>Testing time is the real bottleneck.</strong> Application owners must make time to test each wave, or the plan slips.</li></ul>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><p>See the method in detail on <a href="/solutions/cloud/vmware-to-kvm-migration">VMware to KVM migration</a>, including an animated wave simulation.</p>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Planning a cloud move or a VMware exit?</h2>
+                <p class="vk-muted">Send us a VM inventory export (RVTools is fine) and a line on what is driving the change. We will come back with a plain first view: what could move where, in what order, and roughly what it would cost to run.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book a cloud review</a>
+                    <a class="vk-btn" href="/portfolio/cloud-solutions">Back to cloud overview</a>
+                </div>
+            </div>
+        </div></div>
+    </main>
+
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

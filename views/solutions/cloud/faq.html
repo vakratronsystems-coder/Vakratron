@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud FAQ: OpenStack, VMware Exit, Public Cloud Cost, Data in India | Vakratron Systems</title>
+    <meta name="description" content="Plain answers to common cloud questions: is OpenStack too complex, how long a VMware to KVM migration takes, public cloud cost, data residency in India, lock-in and skills.">
+    <link rel="canonical" href="https://vakratronsys.com/solutions/cloud/faq">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
+</head>
+<body>
+    <header></header>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/cloud-solutions">Cloud</a> <span>/</span> <span>FAQ</span></div>
+            <span class="vk-eyebrow">Cloud guide</span>
+            <h1>Cloud questions, answered</h1>
+            <p class="vk-lead">Short answers to the questions IT heads ask us most often about private cloud, public cloud and leaving VMware.</p>
+            
+        </div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><details><summary>Is OpenStack too complex for a mid-sized organisation?</summary><div><p>It can be. OpenStack makes sense when you need multi-tenancy, self-service and an API that teams build on. If you mainly need to run VMs reliably, Proxmox VE or a smaller KVM platform is simpler to operate. We recommend the smallest platform that meets the need.</p></div></details><details><summary>How long does a VMware to KVM migration take?</summary><div><p>For a few hundred VMs, typically three to six months: a few weeks for inventory and design, a few weeks to build and test the target, then waves every week or two. The pace is usually set by application owners' testing time, not by conversion speed.</p></div></details><details><summary>Can we keep some VMs on VMware?</summary><div><p>Yes. Some appliances and vendor applications are only supported on VMware. A small remaining vSphere cluster, or moving those few systems to public cloud, is often cheaper than forcing them onto KVM.</p></div></details><details><summary>Will moving to public cloud save us money?</summary><div><p>Sometimes. It usually saves money for spiky, short-lived or fast-growing workloads, and costs more for large, steady ones running 24x7. Use the <a href="/solutions/cloud/cloud-cost">cost calculator</a> with your own numbers.</p></div></details><details><summary>Can our data stay in India?</summary><div><p>Yes. Major public clouds have Indian regions, and a private cloud can sit in any data centre you choose. Check what your regulator or contracts require: some need data in India, some need it on infrastructure you control.</p></div></details><details><summary>How do we avoid lock-in?</summary><div><p>Build with open tools where you can (KVM, Ceph, Kubernetes, Terraform), keep infrastructure as code, and be deliberate about which managed services you depend on. Some lock-in is a fair price for a service you would not want to run yourself.</p></div></details><details><summary>What skills does our team need to run a private cloud?</summary><div><p>Linux, networking and automation (Ansible or similar) are the foundation. OpenStack and Ceph skills can be built over the first months with good runbooks and some support. We plan this handover as part of the project.</p></div></details><details><summary>What do you need from us to start?</summary><div><p>An export of your VM inventory (RVTools is ideal), a short list of your most important applications and their owners, and what is driving the change: cost, a renewal date, compliance or growth.</p></div></details>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><p class="vk-small"><strong>More cloud guides:</strong> <a href="/solutions/cloud/private-cloud-openstack">Private cloud on OpenStack</a> &middot; <a href="/solutions/cloud/vmware-to-kvm-migration">VMware to KVM migration</a> &middot; <a href="/solutions/cloud/hybrid-cloud">Hybrid cloud</a> &middot; <a href="/solutions/cloud/multi-cloud-landing-zone">Public and multi-cloud landing zones</a> &middot; <a href="/solutions/cloud/cloud-operations">Running the platform (Day 2)</a> &middot; <a href="/solutions/cloud/cloud-cost">Private vs public cloud cost</a> &middot; <a href="/solutions/cloud/faq">Cloud FAQ</a> &middot; <a href="/use_cases/cloud-vmware-exit">Use case: leaving VMware</a></p>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Planning a cloud move or a VMware exit?</h2>
+                <p class="vk-muted">Send us a VM inventory export (RVTools is fine) and a line on what is driving the change. We will come back with a plain first view: what could move where, in what order, and roughly what it would cost to run.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book a cloud review</a>
+                    <a class="vk-btn" href="/portfolio/cloud-solutions">Back to cloud overview</a>
+                </div>
+            </div>
+        </div></div>
+    </main>
+
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

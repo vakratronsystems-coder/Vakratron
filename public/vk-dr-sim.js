@@ -99,7 +99,7 @@
     var dash = (c.style === 'none' || c.style === 'off' || c.style === 'build') ? ' stroke-dasharray="6 5"' : '';
     out += '<g opacity="' + (c.style === 'none' ? 0.6 : 1) + '"' + (c.style === 'build' ? ' class="vk-pulse"' : '') + '>';
     out += '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="8" fill="#0f172a" stroke="' + col + '" stroke-width="1.5"' + dash + (c.style === 'idle' ? ' stroke-opacity="0.45"' : '') + '/>';
-    if (c.cap > 0) out += '<rect class="vk-cap" x="' + (x + 1) + '" y="' + (y + 1) + '" width="' + Math.max(0, (w - 2) * c.cap) + '" height="' + (h - 2) + '" rx="7" fill="' + col + '" opacity="' + (c.style === 'idle' ? 0.06 : c.style === 'down' ? 0.12 : 0.24) + '"/>';
+    if (c.cap > 0) out += '<rect class="vk-cap" x="' + (x + 1) + '" y="' + (y + 1) + '" width="' + Math.max(0, (w - 2) * c.cap) + '" height="' + (h - 2) + '" rx="7" fill="' + col + '" opacity="' + (c.style === 'idle' ? 0.16 : c.style === 'down' ? 0.12 : 0.26) + '"/>';
     out += '<text x="' + (x + 12) + '" y="' + (y + 23) + '" font-size="' + G.f1 + '" font-weight="600" fill="' + (c.style === 'none' ? C.muted : C.text) + '">' + esc(G.short ? SHORT[layer] : title) + '</text>';
     out += '<text x="' + (x + 12) + '" y="' + (y + 43) + '" font-size="' + G.f2 + '" fill="' + (c.style === 'down' ? '#fca5a5' : C.muted) + '">' + esc(G.short ? shortLabel(c.label) : c.label) + '</text>';
     return out + '</g>';

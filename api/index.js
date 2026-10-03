@@ -992,6 +992,20 @@ const LEGACY_REDIRECTS = {
     'solution_arch/cloud_solutions': '/solutions/cloud-solutions',
     'solutions/dc-dr/dc-dr_chat': '/solutions/master_dc-dr',
     'solutions/dc-dr/dc_dr_gem': '/solutions/master_dc-dr',
+    // Cloud consolidation (Oct 2026): 11 thin module pages merged into guides
+    'solutions/cloud_model/cloud-consulting': '/portfolio/cloud-solutions',
+    'solutions/cloud_model/cloud-dep': '/portfolio/cloud-solutions#which-model',
+    'solutions/cloud_model/cloud-ecosystem': '/solutions/cloud/cloud-operations',
+    'solutions/cloud_model/cloud-ha-ops': '/solutions/cloud/cloud-operations',
+    'solutions/cloud_model/cloud-managed': '/solutions/cloud/cloud-operations',
+    'solutions/cloud_model/cloud-migration': '/solutions/cloud/vmware-to-kvm-migration',
+    'solutions/cloud_model/cloud-networking': '/solutions/cloud/private-cloud-openstack',
+    'solutions/cloud_model/cloud-openstack': '/solutions/cloud/private-cloud-openstack',
+    'solutions/cloud_model/cloud-private': '/solutions/cloud/private-cloud-openstack',
+    'solutions/cloud_model/cloud-security': '/solutions/cloud/multi-cloud-landing-zone',
+    'solutions/cloud_model/cloud-storage': '/solutions/cloud/private-cloud-openstack',
+    'use_cases/vmware-kvm': '/solutions/cloud/vmware-to-kvm-migration',
+    'use_cases/hybrid_cloud': '/solutions/cloud/hybrid-cloud',
     // DC-DR consolidation (each DR pattern now has its own rewritten page)
     'solutions/dc-dr/dc-dr': '/portfolio/dr-solutions',
     'solutions/dc-dr/industry-use-cases': '/use_cases/dr-hospital-group',
@@ -1012,7 +1026,7 @@ app.get(['/use_cases/k8s', '/use_cases/k8s.html'], (req, res) => {
 });
 
 app.get(['/use_cases/Multi_cloud', '/use_cases/Multi_cloud.html'], (req, res) => {
-    res.redirect(301, '/solutions/cloud-solutions');
+    res.redirect(301, '/solutions/cloud/multi-cloud-landing-zone');
 });
 
 // ======================================================================
