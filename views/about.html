@@ -3,440 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>We Help Organizations Make Better Technology Decisions | Vakratron Systems</title>
-    <meta name="description" content="Enterprise architecture and infrastructure consulting engineered for strategic business objectives.">
-
-    <!-- Fonts -->
+    <title>About Vakratron Systems | Vendor-neutral infrastructure design</title>
+    <meta name="description" content="Vakratron Systems LLP designs data centre, DR, cloud, GPU and AI platforms for enterprises and government buyers. Vendor-neutral, assumptions written down, tested before handover.">
+    <link rel="canonical" href="https://vakratronsys.com/about">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- === MASTER STYLESHEET RESETS === -->
     <link rel="stylesheet" href="/style.css">
-
-    <style>
-         :root {
-            --bg-obsidian: #030d1a;
-            --accent-blue: #38bdf8;
-            --accent-pink: #c2185b;
-            --text-secondary: #94a3b8;
-        }
-
-        /* MASTER STRUCTURE DIRECTIVE */
-        html, body {
-            margin: 0 !important;
-            padding: 0 !important;
-            box-sizing: border-box !important;
-            background-color: #030d1a !important;
-            font-family: 'Inter', sans-serif !important;
-            color: #f1f5f9 !important;
-            overflow-x: hidden !important;
-        }
-
-        h1, h2, h3, h4 { font-family: 'Poppins', sans-serif !important; margin-top: 0; }
-        p { line-height: 1.6; font-family: 'Inter', sans-serif !important; }
-
-        header {
-            display: flex !important;
-            justify-content: space-between !important;
-            align-items: center !important;
-            padding: 15px 5% !important;
-            position: sticky !important;
-            top: 0 !important;
-            z-index: 1000 !important;
-            background: rgba(3, 13, 26, 0.95) !important;
-            backdrop-filter: blur(20px) !important;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
-        }
-
-        section.vakra-block-fix {
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-            background-color: #030d1a !important;
-            padding: 90px 8% !important;
-            clear: both !important;
-            position: relative !important;
-            box-sizing: border-box !important;
-        }
-
-        /* MCKINSEY STYLE COMMON HEADERS */
-        .consulting-header { text-align: center !important; margin-bottom: 50px !important; }
-        .consulting-header span {
-            color: #c2185b !important; text-transform: uppercase !important;
-            letter-spacing: 2px !important; font-size: 0.85rem !important;
-            font-weight: 600 !important; display: block !important; margin-bottom: 12px !important;
-        }
-        .consulting-header h2 { font-size: 2.4rem !important; color: #fff !important; font-weight: 700 !important; margin-bottom: 15px !important; }
-
-        /* GRID FLEX MATRIX */
-        .vakra-grid-wrapper { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 24px !important; width: 100% !important; align-items: stretch !important; }
-        
-        .vakra-premium-card {
-            background: linear-gradient(145deg, #091a30, #040f1d) !important;
-            border: 1px solid rgba(255,255,255,0.04) !important;
-            padding: 35px 25px !important;
-            border-radius: 12px !important;
-            display: flex !important;
-            flex-direction: column !important;
-            height: 100% !important;
-            box-sizing: border-box !important;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4) !important;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        }
-        .vakra-premium-card:hover { transform: translateY(-5px) !important; border-color: rgba(194, 24, 91, 0.45) !important; background: rgba(9, 26, 48, 0.8) !important; box-shadow: 0 20px 40px rgba(194, 24, 91, 0.08) !important; }
-        
-        .why-icon-box { width: 44px !important; height: 44px !important; border-radius: 8px !important; display: flex !important; align-items: center !important; justify-content: center !important; font-size: 1.3rem !important; margin-bottom: 20px !important; }
-        .vakra-premium-card h3 { font-size: 1.25rem !important; font-weight: 600 !important; margin-bottom: 12px !important; color: #fff !important; }
-        .vakra-premium-card p { font-size: 0.88rem !important; color: #94a3b8 !important; margin: 0 !important; line-height: 1.6 !important; }
-
-        /* SPLIT PARADIGM CONTAINER */
-        .split-container { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 45px !important; align-items: flex-start !important; background: rgba(9, 26, 48, 0.3) !important; padding: 45px !important; border-radius: 14px !important; border: 1px solid rgba(255,255,255,0.03) !important; }
-        .problem-box { border-left: 3px solid #ef4444 !important; padding-left: 24px !important; }
-        .solution-box { border-left: 3px solid #38bdf8 !important; padding-left: 24px !important; }
-
-        /* PROCESS FLOW LAYOUT */
-        .process-flow { display: flex !important; justify-content: space-between !important; align-items: flex-start !important; gap: 12px !important; width: 100% !important; margin-top: 20px !important; }
-        .process-step { flex: 1 !important; text-align: center !important; position: relative !important; }
-        .step-number { width: 34px !important; height: 34px !important; background: rgba(194, 24, 91, 0.08) !important; border: 1px solid #c2185b !important; color: #c2185b !important; border-radius: 50% !important; display: flex !important; align-items: center !important; justify-content: center !important; margin: 0 auto 15px auto !important; font-weight: 600 !important; font-size: 0.85rem !important; transition: all 0.3s ease !important; }
-        .process-step:hover .step-number { background: #c2185b !important; color: #fff !important; transform: scale(1.05); box-shadow: 0 0 15px rgba(194,24,91,0.4); }
-        .process-step p { font-size: 0.85rem !important; font-weight: 500 !important; line-height: 1.4 !important; color: #f1f5f9 !important; margin: 0 !important; }
-
-        /* TEAM METRIC COMPONENT */
-        .team-layout { display: grid !important; grid-template-columns: 280px 1fr !important; gap: 50px !important; align-items: center !important; }
-        .big-stat { font-size: 6.5rem !important; font-weight: 800 !important; line-height: 1 !important; color: #fff !important; margin-bottom: 5px !important; }
-        .badge-grid { display: flex !important; flex-wrap: wrap !important; gap: 10px !important; }
-        .tag-badge { background: rgba(255,255,255,0.03) !important; border: 1px solid rgba(255,255,255,0.06) !important; padding: 8px 16px !important; border-radius: 20px !important; font-size: 0.82rem !important; color: #94a3b8 !important; font-weight: 500 !important; transition: all 0.2s ease !important; }
-        .tag-badge:hover { border-color: rgba(255,255,255,0.2) !important; color: #fff !important; background: rgba(255,255,255,0.06) !important; }
-
-        /* CAPABILITIES MINIMALIST MATRIX */
-        .capability-grid { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 16px !important; width: 100% !important; }
-        .capability-node { background: rgba(9, 26, 48, 0.4) !important; border: 1px solid rgba(255,255,255,0.04) !important; padding: 22px 15px !important; border-radius: 10px !important; text-align: center !important; font-size: 0.9rem !important; font-weight: 500 !important; color: #fff !important; transition: all 0.25s ease !important; }
-        .capability-node:hover { border-color: rgba(56, 189, 248, 0.4) !important; background: rgba(9, 26, 48, 0.6) !important; transform: translateY(-2px); }
-
-        /* STRATEGIC CTA BLOCK */
-        .cta-consulting-box { text-align: center !important; background: linear-gradient(180deg, rgba(9,26,48,0.3) 0%, rgba(4,15,29,0.6) 100%) !important; border: 1px solid rgba(194, 24, 91, 0.15) !important; padding: 65px 30px !important; border-radius: 16px !important; box-shadow: 0 15px 40px rgba(0,0,0,0.4) !important; max-width: 950px !important; margin: 0 auto !important; }
-
-        /* ==========================================
-           🎯 NEW ANIMATION ARCHITECTURE SYSTEM (CSS)
-           ========================================== */
-        
-        /* Initial state elements fade up setup */
-        .vakra-fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
-                        transform 0.8s cubic-bezier(0.25, 1, 0.5, 1) !important;
-            will-change: opacity, transform;
-        }
-
-        /* Active Trigger State */
-        .vakra-fade-in.animated-active {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-
-        /* Staggered Delay Engine for Sequential Cards & Steps */
-        .stagger-wrapper > *.animated-active:nth-child(1) { transition-delay: 0.05s !important; }
-        .stagger-wrapper > *.animated-active:nth-child(2) { transition-delay: 0.15s !important; }
-        .stagger-wrapper > *.animated-active:nth-child(3) { transition-delay: 0.25s !important; }
-        .stagger-wrapper > *.animated-active:nth-child(4) { transition-delay: 0.35s !important; }
-        .stagger-wrapper > *.animated-active:nth-child(5) { transition-delay: 0.45s !important; }
-        .stagger-wrapper > *.animated-active:nth-child(6) { transition-delay: 0.55s !important; }
-        .stagger-wrapper > *.animated-active:nth-child(7) { transition-delay: 0.65s !important; }
-        .stagger-wrapper > *.animated-active:nth-child(8) { transition-delay: 0.75s !important; }
-
-        /* RESPONSIVE LAYOUT BREAKPOINTS */
-        @media (max-width: 992px) { 
-            .vakra-grid-wrapper { grid-template-columns: repeat(2, 1fr) !important; } 
-            .capability-grid { grid-template-columns: repeat(2, 1fr) !important; }
-            .process-flow { flex-wrap: wrap !important; gap: 25px !important; justify-content: center !important; }
-            .process-step { flex: none !important; width: 40% !important; }
-        }
-        @media (max-width: 768px) {
-            section.vakra-block-fix { padding: 60px 5% !important; }
-            .split-container, .team-layout { grid-template-columns: 1fr !important; gap: 30px !important; padding: 30px !important; }
-            .vakra-grid-wrapper, .capability-grid { grid-template-columns: 1fr !important; }
-            .process-step { width: 100% !important; }
-            .big-stat { font-size: 5rem !important; }
-        }
-    </style>
+    <link rel="stylesheet" href="/vk-content.css">
 </head>
 <body>
     <header></header>
 
-    <!-- 🎯 HERO SECTION (Loads instantly) -->
-    <section class="vakra-block-fix" style="display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 130px 8% 90px 8% !important; gap: 60px !important; max-width: 1400px !important; margin: 0 auto !important; width: 100% !important;">
-        <div class="hero-left" style="width: 100% !important; display: block !important;">
-            <div class="tag-badge" style="margin-bottom: 25px !important; display: inline-flex !important; align-items: center !important; gap: 8px !important; background: rgba(194, 24, 91, 0.1) !important; border: 1px solid rgba(194, 24, 91, 0.3) !important; color: #f472b6 !important; padding: 8px 18px !important; border-radius: 100px !important; font-size: 0.85rem !important; font-weight: 600 !important; text-transform: uppercase !important;"><i class="fa-solid fa-compass"></i> Strategic Advisory</div>
-            <h1 style="font-size: 3.4rem !important; line-height: 1.15 !important; margin-bottom: 25px !important; font-weight: 700 !important; color: #fff !important; letter-spacing: -1px !important;">We Help Organizations Make<br><span style="color: #c2185b !important;">Better Technology Decisions.</span></h1>
-            <p style="font-size: 1.1rem !important; color: #cbd5e1 !important; line-height: 1.75 !important; margin-bottom: 35px !important; font-weight: 300; max-width: 850px !important;">Before cloud migration, AI adoption, infrastructure modernization, or disaster recovery begins, every organization faces critical technology decisions. Vakratron helps enterprises make those decisions with confidence.</p>
-            
-            <div style="display: flex !important; gap: 20px !important; flex-wrap: wrap !important;">
-                <a href="/contact.html" 
-                   style="background: linear-gradient(135deg, #c2185b 0%, #9d174d 100%) !important; color: #fff !important; text-decoration: none !important; padding: 16px 32px !important; border-radius: 10px !important; font-weight: 600 !important; font-size: 1rem !important; display: inline-flex !important; align-items: center !important; gap: 10px !important; box-shadow: 0 4px 25px rgba(194, 24, 91, 0.3) !important; transition: all 0.3s !important;" 
-                   onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
-                    Talk to an Enterprise Architect <i class="fa-solid fa-arrow-right"></i>
-                </a>
-                <a href="#how-we-work" 
-                   style="background: rgba(255,255,255,0.03) !important; border: 1px solid rgba(255,255,255,0.08) !important; color: #fff !important; text-decoration: none !important; padding: 16px 32px !important; border-radius: 10px !important; font-weight: 600 !important; font-size: 1rem !important; display: inline-flex !important; align-items: center !important; gap: 10px !important; transition: all 0.3s !important;"
-                   onmouseover="this.style.background='rgba(255,255,255,0.06)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'">
-                    See Our Consulting Approach
-                </a>
-            </div>
-        </div>
-    </section>
+    <main class="vk">
 
-    <!-- 🎯 WHY WE EXIST SECTION -->
-    <section class="vakra-block-fix" style="border-top: 1px solid rgba(255, 255, 255, 0.05) !important;">
-        <div class="consulting-header vakra-fade-in">
-            <span>Corporate Paradigm</span>
-            <h2>Why Vakratron Exists</h2>
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <span>About</span></div>
+            <span class="vk-eyebrow">About Vakratron</span>
+            <h1>An infrastructure design firm that writes its reasoning down</h1>
+            <p class="vk-lead">Vakratron Systems designs data centre, disaster recovery, cloud, GPU and AI platforms for enterprises and government buyers. We are not tied to a vendor, we put our assumptions on paper, and we stay with a design until it is running and tested.</p>
+            <div class="vk-facts"><div class="vk-fact"><span class="k">Founded</span><span class="v">2020</span></div><div class="vk-fact"><span class="k">Solution areas</span><span class="v">8</span></div><div class="vk-fact"><span class="k">Approach</span><span class="v">Vendor-neutral</span></div><div class="vk-fact"><span class="k">Recognition</span><span class="v">DPIIT startup</span></div></div><div class="vk-actions"><a class="vk-btn primary" href="/contact">Talk to us</a><a class="vk-btn" href="/solutions">See what we do</a></div>
         </div>
-        <div class="split-container vakra-fade-in">
-            <div class="problem-box">
-                <h3 style="color: #ef4444; font-size: 1.3rem !important; font-weight: 600 !important; margin-bottom: 12px !important;">The Problem</h3>
-                <p style="color: #94a3b8 !important; font-size: 0.95rem !important; line-height: 1.65 !important; margin: 0 !important;">
-                    Organizations don't fail because technology is unavailable. They fail because technology decisions are made too early, too late, or without understanding long-term consequences.
-                </p>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose">
+            <span class="vk-eyebrow">Why we exist</span>
+            <h2>Most designs reach you through someone selling the hardware</h2>
+            <p>That is not a criticism of vendors or integrators. It is simply how the market works: the people who design an infrastructure platform are often the same people who supply it, so the design leans towards what they sell.</p>
+            <p>The result is familiar. GPU clusters sized for a brochure rather than a workload. DR sites that have never been failed over. Private clouds with licence costs nobody modelled. Kubernetes where a few virtual machines would have done the job.</p>
+            <p>Vakratron sits on your side of the table. Our job is the design and whether it works for you: the right size, the right cost, and something your own team can run after we step back.</p>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <span class="vk-eyebrow">What you can hold us to</span>
+            <h2>What we do, and what we will not do</h2>
+            <div class="vk-two" style="margin-top:22px">
+                <div class="vk-card"><h3>We will</h3><ul class="vk-dd vk-dd-do"><li><span class="mk" aria-hidden="true">&#10003;</span><span>Start from your workloads, data and constraints, and size from those.</span></li><li><span class="mk" aria-hidden="true">&#10003;</span><span>Compare at least two realistic options, with cost and risk for each.</span></li><li><span class="mk" aria-hidden="true">&#10003;</span><span>Write every sizing and cost assumption down, so your team can check it.</span></li><li><span class="mk" aria-hidden="true">&#10003;</span><span>Test failover, restores and load before handover, and share the results.</span></li><li><span class="mk" aria-hidden="true">&#10003;</span><span>Hand over documents and runbooks your own team can maintain.</span></li></ul></div>
+                <div class="vk-card"><h3>We will not</h3><ul class="vk-dd vk-dd-dont"><li><span class="mk" aria-hidden="true">&#10005;</span><span>Recommend Kubernetes, fine-tuning or a second data centre when you do not need it.</span></li><li><span class="mk" aria-hidden="true">&#10005;</span><span>Tie a design to one vendor without showing you the alternative.</span></li><li><span class="mk" aria-hidden="true">&#10005;</span><span>Quote performance or recovery numbers we have not tested.</span></li><li><span class="mk" aria-hidden="true">&#10005;</span><span>Leave you with a platform only we can operate.</span></li><li><span class="mk" aria-hidden="true">&#10005;</span><span>Use your name, data or project in our marketing without written approval.</span></li></ul></div>
             </div>
-            <div class="solution-box">
-                <h3 style="color: #38bdf8; font-size: 1.3rem !important; font-weight: 600 !important; margin-bottom: 12px !important;">The Solution</h3>
-                <p style="color: #f1f5f9 !important; font-size: 0.95rem !important; line-height: 1.65 !important; margin-bottom: 14px !important;">
-                    Vakratron was founded to bridge the gap between business objectives and technology implementation.
-                </p>
-                <p style="color: #94a3b8 !important; font-size: 0.95rem !important; line-height: 1.65 !important; margin: 0 !important;">
-                    We help organizations answer critical framework questions before capital is invested.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- 🎯 PROBLEMS WE SOLVE (WHAT CLIENTS ACTUALLY ASK US) -->
-    <section class="vakra-block-fix" style="border-top: 1px solid rgba(255, 255, 255, 0.05) !important;">
-        <div class="consulting-header vakra-fade-in">
-            <span>Real Challenges</span>
-            <h2>What Clients Actually Ask Us</h2>
-        </div>
-        <div class="vakra-grid-wrapper stagger-wrapper">
-            <div class="vakra-premium-card vakra-fade-in">
-                <div class="why-icon-box" style="color: #38bdf8 !important; background: rgba(56, 189, 248, 0.06) !important; border: 1px solid rgba(56,189,248,0.15) !important;"><i class="fa-solid fa-cloud"></i></div>
-                <h3 style="font-size: 1.1rem !important; margin: 0 !important; font-weight: 500 !important; color: #fff !important; line-height: 1.4 !important;">Which cloud platform should we choose?</h3>
-            </div>
-            <div class="vakra-premium-card vakra-fade-in">
-                <div class="why-icon-box" style="color: #38bdf8 !important; background: rgba(56, 189, 248, 0.06) !important; border: 1px solid rgba(56,189,248,0.15) !important;"><i class="fa-solid fa-bolt"></i></div>
-                <h3 style="font-size: 1.1rem !important; margin: 0 !important; font-weight: 500 !important; color: #fff !important; line-height: 1.4 !important;">Can we migrate without downtime?</h3>
-            </div>
-            <div class="vakra-premium-card vakra-fade-in">
-                <div class="why-icon-box" style="color: #38bdf8 !important; background: rgba(56, 189, 248, 0.06) !important; border: 1px solid rgba(56,189,248,0.15) !important;"><i class="fa-solid fa-arrows-rotate"></i></div>
-                <h3 style="font-size: 1.1rem !important; margin: 0 !important; font-weight: 500 !important; color: #fff !important; line-height: 1.4 !important;">Should we modernize or rebuild?</h3>
-            </div>
-            <div class="vakra-premium-card vakra-fade-in">
-                <div class="why-icon-box" style="color: #38bdf8 !important; background: rgba(56, 189, 248, 0.06) !important; border: 1px solid rgba(56,189,248,0.15) !important;"><i class="fa-solid fa-shield-halved"></i></div>
-                <h3 style="font-size: 1.1rem !important; margin: 0 !important; font-weight: 500 !important; color: #fff !important; line-height: 1.4 !important;">How will DR work after migration?</h3>
-            </div>
-            <div class="vakra-premium-card vakra-fade-in">
-                <div class="why-icon-box" style="color: #38bdf8 !important; background: rgba(56, 189, 248, 0.06) !important; border: 1px solid rgba(56,189,248,0.15) !important;"><i class="fa-solid fa-microchip"></i></div>
-                <h3 style="font-size: 1.1rem !important; margin: 0 !important; font-weight: 500 !important; color: #fff !important; line-height: 1.4 !important;">Can AI run on-premises?</h3>
-            </div>
-            <div class="vakra-premium-card vakra-fade-in">
-                <div class="why-icon-box" style="color: #38bdf8 !important; background: rgba(56, 189, 248, 0.06) !important; border: 1px solid rgba(56,189,248,0.15) !important;"><i class="fa-solid fa-cubes"></i></div>
-                <h3 style="font-size: 1.1rem !important; margin: 0 !important; font-weight: 500 !important; color: #fff !important; line-height: 1.4 !important;">Do we really need Kubernetes?</h3>
-            </div>
-        </div>
-    </section>
-
-    <!-- 🎯 HOW WE WORK (HORIZONTAL FRAMEWORK) -->
-    <section class="vakra-block-fix" id="how-we-work" style="border-top: 1px solid rgba(255, 255, 255, 0.05) !important; background: rgba(9, 26, 48, 0.1) !important;">
-        <div class="consulting-header vakra-fade-in">
-            <span>Execution Framework</span>
-            <h2>How We Work</h2>
-        </div>
-        <div class="process-flow stagger-wrapper">
-            <div class="process-step vakra-fade-in">
-                <div class="step-number">01</div>
-                <p>Business Discovery</p>
-            </div>
-            <div class="process-step vakra-fade-in">
-                <div class="step-number">02</div>
-                <p>Current State Assessment</p>
-            </div>
-            <div class="process-step vakra-fade-in">
-                <div class="step-number">03</div>
-                <p>Architecture Evaluation</p>
-            </div>
-            <div class="process-step vakra-fade-in">
-                <div class="step-number">04</div>
-                <p>Technology Recommendation</p>
-            </div>
-            <div class="process-step vakra-fade-in">
-                <div class="step-number">05</div>
-                <p>Target Architecture</p>
-            </div>
-            <div class="process-step vakra-fade-in">
-                <div class="step-number">06</div>
-                <p>Implementation Guidance</p>
-            </div>
-            <div class="process-step vakra-fade-in">
-                <div class="step-number">07</div>
-                <p>Operational Optimization</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- 🎯 OUR CONSULTING PRINCIPLES -->
-    <section class="vakra-block-fix" style="border-top: 1px solid rgba(255, 255, 255, 0.05) !important;">
-        <div class="consulting-header vakra-fade-in">
-            <span>Philosophy</span>
-            <h2>Our Principles</h2>
-        </div>
-        <div class="vakra-grid-wrapper stagger-wrapper">
-            <div class="vakra-premium-card vakra-fade-in">
-                <h3>Architecture First</h3>
-                <p>Every engagement starts with clear business objectives, not technology selection loops.</p>
-            </div>
-            <div class="vakra-premium-card vakra-fade-in">
-                <h3>Vendor Neutral</h3>
-                <p>Recommendations solely mapped to technological fit, completely free from partner biases.</p>
-            </div>
-            <div class="vakra-premium-card vakra-fade-in">
-                <h3>Evidence Driven</h3>
-                <p>Architecture milestones and paths validated directly via trade-off and rigorous assessment analysis.</p>
-            </div>
-            <div class="vakra-premium-card vakra-fade-in">
-                <h3>Business Before Technology</h3>
-                <p>Ensuring technological roadmap changes directly serve corporate efficiency and ROI scale benchmarks.</p>
-            </div>
-            <div class="vakra-premium-card vakra-fade-in">
-                <h3>Scalable by Design</h3>
-                <p>Systems built dynamically to handle future computational workloads seamlessly without structural debt.</p>
-            </div>
-            <div class="vakra-premium-card vakra-fade-in">
-                <h3>Long-Term Thinking</h3>
-                <p>Decisions calibrated specifically to prevent legacy technical friction over multi-year business lifecycles.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- TEAM EXPERIENCE & INDUSTRIES -->
-    <section class="vakra-block-fix" style="border-top: 1px solid rgba(255, 255, 255, 0.05) !important; background: rgba(9, 26, 48, 0.15) !important;">
-        <div class="team-layout vakra-fade-in">
-            <div style="text-align: center !important;">
-                <div class="big-stat">13+</div>
-                <p style="text-transform: uppercase !important; font-size: 0.8rem !important; letter-spacing: 1px !important; color: #c2185b !important; margin: 0 !important; font-weight: 600 !important; line-height: 1.3 !important;">Years of Team Experience in Enterprise Infrastructure</p>
-            </div>
-            <div>
-                <h3 style="margin-top: 0; font-size: 1.25rem !important; font-weight: 600 !important; margin-bottom: 15px !important; color: #fff !important;">Core Domains Built</h3>
-                <div class="badge-grid style="margin-bottom: 35px !important;">
-                    <span class="tag-badge" style="border-color: #38bdf8 !important; color: #fff !important;">Government</span>
-                    <span class="tag-badge" style="border-color: #38bdf8 !important; color: #fff !important;">Enterprise</span>
-                    <span class="tag-badge">Cloud</span>
-                    <span class="tag-badge">AI</span>
-                    <span class="tag-badge">DC</span>
-                    <span class="tag-badge">DR</span>
-                    <span class="tag-badge">Migration</span>
-                    <span class="tag-badge">Platform Engineering</span>
-                    <span class="tag-badge">Modernization</span>
-                </div>
-                
-                <h3 style="font-size: 1.25rem !important; font-weight: 600 !important; margin-bottom: 15px !important; color: #fff !important; margin-top: 25px !important;">Industries We Support</h3>
-                <div class="badge-grid">
-                    <span class="tag-badge">Government</span>
-                    <span class="tag-badge">BFSI</span>
-                    <span class="tag-badge">Healthcare</span>
-                    <span class="tag-badge">Manufacturing</span>
-                    <span class="tag-badge">Education</span>
-                    <span class="tag-badge">Energy</span>
-                    <span class="tag-badge">AI Startups</span>
-                    <span class="tag-badge">Telecom</span>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose">
+            <span class="vk-eyebrow">Who you will work with</span>
+            <h2>One senior architect, from first call to handover</h2>
+            <p>Every engagement is led by a senior architect who stays with it throughout. They run the workshops, own the design and are the person you call when something does not add up. You meet them on the first call. Their background and relevant experience are shared with you directly once an NDA is in place.</p>
+            <p>Where a piece of work needs a specialist, for example facility power and cooling or a particular vendor platform, we tell you who is doing that part and in what role. You will never find an unknown subcontractor on your project.</p>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <span class="vk-eyebrow">Judge the work, not the brochure</span>
+            <h2>How we think is already on this site</h2>
+            <p class="vk-prose vk-muted">You do not have to take our word for anything. Most of our method is published here, open to anyone, with no sign-up.</p>
+            <div class="vk-grid" style="margin-top:18px"><a class="vk-card" href="/portfolio/dr-solutions"><h3>DR patterns, side by side</h3><p class="vk-muted">Five recovery patterns with reference architectures and a simulator showing what happens when the primary site fails.</p><span class="vk-go">Open &rarr;</span></a><a class="vk-card" href="/portfolio/ai-gpu-cloud#gpucalc"><h3>GPU cluster sizing</h3><p class="vk-muted">A calculator that turns model size and users into GPUs, power and rack space, with the workings shown.</p><span class="vk-go">Open &rarr;</span></a><a class="vk-card" href="/solutions/cloud/vmware-to-kvm-migration"><h3>VMware exit planning</h3><p class="vk-muted">How a VMware estate moves to KVM in waves, and what each wave depends on.</p><span class="vk-go">Open &rarr;</span></a><a class="vk-card" href="/solutions/rag/rag-architecture"><h3>Private RAG architecture</h3><p class="vk-muted">How a document assistant is built so people only see answers from documents they are allowed to read.</p><span class="vk-go">Open &rarr;</span></a><a class="vk-card" href="/portfolio/kubernetes-platform#k8scheck"><h3>Do we need Kubernetes?</h3><p class="vk-muted">A short checker that gives an honest answer, including when the answer is no.</p><span class="vk-go">Open &rarr;</span></a><a class="vk-card" href="/use_cases/dr-hospital-group"><h3>Worked scenarios</h3><p class="vk-muted">Problem, design, architecture and results for common requirements, written end to end.</p><span class="vk-go">Open &rarr;</span></a></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <span class="vk-eyebrow">Ways to work with us</span>
+            <h2>Engagements, and what you get from each</h2>
+            <div class="vk-table-wrap"><table><thead><tr><th>Engagement</th><th>When it fits</th><th>What you get</th></tr></thead><tbody><tr><td><strong>Architecture review</strong></td><td>You have a design, a vendor proposal or a running platform and want an independent view.</td><td>A findings report: risks, gaps, what to fix first, and what can wait.</td></tr><tr><td><strong>Design and sizing</strong></td><td>You are planning something new: a GPU cluster, private cloud, DR site or AI platform.</td><td>HLD, LLD, sizing workings and a bill of quantities you can take to vendors.</td></tr><tr><td><strong>Tender and RFP support</strong></td><td>You are a government or PSU buyer writing a specification, or evaluating bids.</td><td>A vendor-neutral specification, evaluation criteria and a technical comparison of responses.</td></tr><tr><td><strong>Build and migration oversight</strong></td><td>The design is approved and a system integrator is building it.</td><td>Stage-by-stage checks, migration waves with a way back, and test sign-off.</td></tr><tr><td><strong>DR readiness and testing</strong></td><td>You have DR on paper but have not proved it recently.</td><td>A planned DR drill, measured recovery times, and a short list of fixes.</td></tr></tbody></table></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <span class="vk-eyebrow">Who we work with</span>
+            <h2>Sectors where getting infrastructure wrong is expensive</h2>
+            <div class="vk-grid" style="margin-top:18px"><div class="vk-card"><h3>Government and PSU</h3><p class="vk-muted">Specifications, evaluation support and data residency inside India.</p></div><div class="vk-card"><h3>Banking and insurance</h3><p class="vk-muted">DR to regulator expectations, private AI on sensitive documents.</p></div><div class="vk-card"><h3>Healthcare</h3><p class="vk-muted">Recovery tiers for clinical systems, records kept on-premises.</p></div><div class="vk-card"><h3>Manufacturing and energy</h3><p class="vk-muted">Plant and head-office systems, hybrid cloud, site resilience.</p></div><div class="vk-card"><h3>Education and research</h3><p class="vk-muted">Shared GPU capacity, fair scheduling between teams.</p></div><div class="vk-card"><h3>AI product companies</h3><p class="vk-muted">Right-sizing GPU spend, moving from API to self-hosted when it pays.</p></div></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <span class="vk-eyebrow">Company facts</span>
+            <h2>Registered, recognised, and easy to verify</h2>
+            <div class="vk-table-wrap"><table><tbody><tr><td>Legal name</td><td>Vakratron Systems LLP</td></tr><tr><td>Entity type</td><td>Limited Liability Partnership, incorporated 18 August 2020</td></tr><tr><td>Startup recognition</td><td>DPIIT-recognised startup, certificate no. DIPP247647</td></tr><tr><td>MSME registration</td><td>Udyam-registered micro enterprise, UDYAM-DL-07-0001129</td></tr><tr><td>Enquiries</td><td><a href="mailto:connect@vakratronsys.com">connect@vakratronsys.com</a></td></tr></tbody></table></div>
+            <p class="vk-muted" style="margin-top:14px">Certificates and registration documents are on our <a href="/credentials">company documents</a> page. Procurement declarations for a specific tender are provided on request.</p>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Have a design you want a second opinion on?</h2>
+                <p class="vk-muted">Send us a vendor proposal, an existing HLD or just a few lines about what you are planning. We will come back with a plain first view: what looks right, what we would question, and what we would test.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Talk to us</a>
+                    <a class="vk-btn" href="/solutions">Explore solutions</a>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- 🎯 OUR EXPERTISE (CAPABILITIES) -->
-    <section class="vakra-block-fix" style="border-top: 1px solid rgba(255, 255, 255, 0.05) !important;">
-        <div class="consulting-header vakra-fade-in">
-            <span>Expertise</span>
-            <h2>Our Capabilities</h2>
-        </div>
-        <div class="capability-grid stagger-wrapper">
-            <div class="capability-node vakra-fade-in">Enterprise Architecture</div>
-            <div class="capability-node vakra-fade-in">Cloud Advisory</div>
-            <div class="capability-node vakra-fade-in">AI Infrastructure</div>
-            <div class="capability-node vakra-fade-in">Platform Engineering</div>
-            <div class="capability-node vakra-fade-in">DR Consulting</div>
-            <div class="capability-node vakra-fade-in">Application Modernization</div>
-            <div class="capability-node vakra-fade-in">Technology Assessment</div>
-            <div class="capability-node vakra-fade-in">Architecture Review</div>
-        </div>
-    </section>
-
-    <!-- 🎯 FINAL STRATEGIC CTA -->
-    <section class="vakra-block-fix" style="border-top: 1px solid rgba(255, 255, 255, 0.05) !important; padding-bottom: 120px !important;">
-        <div class="cta-consulting-box vakra-fade-in">
-            <h2 style="font-size: 2.2rem !important; font-weight: 700 !important; color: #fff !important; margin: 0 0 15px 0 !important;">Still evaluating your options?</h2>
-            <p style="color: #94a3b8 !important; max-width: 650px !important; margin: 0 auto 35px auto !important; font-size: 1.02rem !important; line-height: 1.65 !important;">
-                Let's discuss your architecture before you invest. Schedule a strategic 30-minute consultation.
-            </p>
-            <a href="/contact.html" 
-               style="background: linear-gradient(135deg, #c2185b 0%, #9d174d 100%) !important; 
-                      color: #fff !important; 
-                      text-decoration: none !important; 
-                      padding: 16px 36px !important; 
-                      border-radius: 10px !important; 
-                      font-weight: 600 !important; 
-                      font-size: 1rem !important; 
-                      display: inline-flex !important; 
-                      align-items: center !important; 
-                      gap: 12px !important; 
-                      box-shadow: 0 4px 25px rgba(194, 24, 91, 0.35) !important; 
-                      transition: all 0.3s !important;" 
-               onmouseover="this.style.transform='translateY(-2px)';" 
-               onmouseout="this.style.transform='translateY(0)';"
-            >
-               Schedule a 30-minute consultation <i class="fa-solid fa-arrow-right"></i>
-            </a>
-        </div>
-    </section>
+        </div></div>
+    </main>
 
     <footer></footer>
-
-    <!-- ==========================================
-       🎯 NEW HIGH-PERFORMANCE ANIMATION ENGINE (JS)
-       ========================================== -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const animatedElements = document.querySelectorAll('.vakra-fade-in');
-            
-            // Ultra-smooth configuration using Intersection Observer
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px 0px -80px 0px', // Triggers slightly before element enters view
-                threshold: 0.05
-            };
-
-            const animationObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animated-active');
-                        observer.unobserve(entry.target); // Runs animation only once for better execution performance
-                    }
-                });
-            }, observerOptions);
-
-            animatedElements.forEach(element => {
-                animationObserver.observe(element);
-            });
-        });
-    </script>
-
-    <!-- Chat Framework Scripts Restored Unchanged -->
-    
     <script src="/vakra-loader.js"></script>
-    <script src="/vakra-chat.js"></script>
 </body>
 </html>

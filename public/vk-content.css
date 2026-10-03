@@ -613,3 +613,11 @@ main.vk .vk-orbit-cap .go { margin-left: auto; font-size: 0.85rem !important; fo
   .vk-orbit .vk-spoke { stroke-dasharray: none; stroke-dashoffset: 0; opacity: .35; }
 }
 @media (max-width: 640px) { .vk-orbit .vk-nlabel { font-size: 23px; } }
+/* === ABOUT PAGE === */
+main.vk ul.vk-dd { list-style: none !important; padding: 0 !important; margin: 14px 0 0 !important; display: grid; gap: 12px; }
+main.vk ul.vk-dd li { display: grid !important; grid-template-columns: 24px 1fr; gap: 10px; align-items: start; color: #cbd5e1 !important; line-height: 1.55; margin: 0 !important; padding: 0 !important; list-style: none !important; }
+main.vk ul.vk-dd li::before, main.vk ul.vk-dd li::marker { content: none !important; display: none !important; }
+main.vk ul.vk-dd .mk { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; font-size: 0.75rem; font-weight: 700; margin-top: 1px; }
+main.vk ul.vk-dd-do .mk { color: #34d399; background: rgba(52, 211, 153, 0.12); }
+main.vk ul.vk-dd-dont .mk { color: #f43f5e; background: rgba(244, 63, 94, 0.12); }
+/* === END ABOUT PAGE === */
