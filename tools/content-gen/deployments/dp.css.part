@@ -1,0 +1,20 @@
+/* === DEPLOYMENT SCENARIOS === */
+main.vk .vk-refdep { margin: 4px 0 14px; display: inline-flex; }
+main.vk .vk-dp-jump { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+main.vk .vk-dp-jump a { font-size: 0.8rem !important; color: #94a3b8 !important; border: 1px solid rgba(255,255,255,0.1); border-radius: 99px; padding: 5px 12px; text-decoration: none !important; }
+main.vk .vk-dp-jump a:hover { color: #fff !important; border-color: rgba(194,24,91,0.6); }
+main.vk .vk-dp-constraints { align-self: start; }
+main.vk .vk-dp-constraints h3 { margin-top: 0 !important; }
+main.vk .vk-dp-constraints ul.vk-dd .mk { color: #fbbf24; background: rgba(251,191,36,0.12); }
+main.vk .vk-dp-options td:last-child { font-weight: 600; color: #fff !important; white-space: nowrap; }
+main.vk .vk-dp-options tr.pick td, main.vk .vk-dp-options td .pick { color: #34d399 !important; }
+main.vk figure.vk-dgfig svg.vk-dg { width: 100%; height: auto; display: block; min-width: 900px; }
+main.vk .vk-dp-dur { font-size: 0.78rem !important; text-transform: uppercase; letter-spacing: 0.08em; color: #f472b6 !important; margin: -4px 0 8px !important; font-weight: 600; }
+main.vk .vk-dp-phases { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important; }
+main.vk .vk-dp-metric { display: inline-block; font-family: var(--vk-head) !important; font-size: 1.35rem !important; font-weight: 700; color: #f472b6 !important; margin-bottom: 6px; }
+main.vk .vk-dp-outcomes td:last-child { color: #34d399 !important; font-weight: 600; }
+main.vk .vk-dp-skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin-top: 18px; }
+main.vk .vk-dp-skills .vk-card h3 { margin-top: 0 !important; font-size: 1rem !important; }
+main.vk .vk-dp-disclaimer { font-size: 0.88rem !important; }
+@media (max-width: 760px) { main.vk figure.vk-dgfig svg.vk-dg { min-width: 820px; } }
+/* === END DEPLOYMENT SCENARIOS === */
