@@ -49,6 +49,12 @@ body = f'''
             <p class="vk-prose">Pick a pattern to see what is running at the DR site on a normal day. Then press <strong>Simulate a disaster</strong> to watch the primary site go down and the DR site take over, step by step. Notice how much longer the cheaper patterns take to recover.</p>
             <div class="vk-drsim" data-start="pilot-light"></div>
             <noscript><p class="vk-muted">This interactive diagram needs JavaScript. The <a href="/solutions/dc-dr/strategy-selection">DR patterns guide</a> compares the same five patterns in a table.</p></noscript>
+            <p class="vk-small" style="margin-top:18px">Each pattern in detail, with its own reference architecture and runbook:
+                <a href="/solutions/dc-dr/backup-restore">Backup and restore</a> &middot;
+                <a href="/solutions/dc-dr/pilot-light">Pilot light</a> &middot;
+                <a href="/solutions/dc-dr/warm-standby">Warm standby</a> &middot;
+                <a href="/solutions/dc-dr/active-passive">Active-passive</a> &middot;
+                <a href="/solutions/dc-dr/active-active">Active-active</a></p>
         </div></div>
         <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose">
             <span class="vk-eyebrow">How we work</span>

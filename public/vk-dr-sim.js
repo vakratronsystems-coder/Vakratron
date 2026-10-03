@@ -98,8 +98,8 @@
     var col = C[c.style] || C.run, out = '';
     var dash = (c.style === 'none' || c.style === 'off' || c.style === 'build') ? ' stroke-dasharray="6 5"' : '';
     out += '<g opacity="' + (c.style === 'none' ? 0.6 : 1) + '"' + (c.style === 'build' ? ' class="vk-pulse"' : '') + '>';
-    out += '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="8" fill="#0f172a" stroke="' + col + '" stroke-width="1.5"' + dash + '/>';
-    if (c.cap > 0) out += '<rect class="vk-cap" x="' + (x + 1) + '" y="' + (y + 1) + '" width="' + Math.max(0, (w - 2) * c.cap) + '" height="' + (h - 2) + '" rx="7" fill="' + col + '" opacity="' + (c.style === 'idle' || c.style === 'down' ? 0.12 : 0.24) + '"/>';
+    out += '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="8" fill="#0f172a" stroke="' + col + '" stroke-width="1.5"' + dash + (c.style === 'idle' ? ' stroke-opacity="0.45"' : '') + '/>';
+    if (c.cap > 0) out += '<rect class="vk-cap" x="' + (x + 1) + '" y="' + (y + 1) + '" width="' + Math.max(0, (w - 2) * c.cap) + '" height="' + (h - 2) + '" rx="7" fill="' + col + '" opacity="' + (c.style === 'idle' ? 0.06 : c.style === 'down' ? 0.12 : 0.24) + '"/>';
     out += '<text x="' + (x + 12) + '" y="' + (y + 23) + '" font-size="' + G.f1 + '" font-weight="600" fill="' + (c.style === 'none' ? C.muted : C.text) + '">' + esc(G.short ? SHORT[layer] : title) + '</text>';
     out += '<text x="' + (x + 12) + '" y="' + (y + 43) + '" font-size="' + G.f2 + '" fill="' + (c.style === 'down' ? '#fca5a5' : C.muted) + '">' + esc(G.short ? shortLabel(c.label) : c.label) + '</text>';
     return out + '</g>';
@@ -158,7 +158,8 @@
   function dots(n) { var s = ''; for (var i = 1; i <= 5; i++) s += '<span class="' + (i <= n ? 'on' : '') + '"></span>'; return s; }
 
   function init(root) {
-    var cur = root.getAttribute('data-start') || 'pilot-light', run = 0, st;
+    var only = root.getAttribute('data-only');
+    var cur = only || root.getAttribute('data-start') || 'pilot-light', run = 0, st;
     root.innerHTML =
       '<div class="vk-drsim-tabs" role="tablist" aria-label="DR patterns"></div>' +
       '<div class="vk-drsim-body"><div class="vk-drsim-fig"><div class="vk-drsim-svg"></div>' +
@@ -171,6 +172,7 @@
       '<div class="vk-drsim-run"><div class="vk-drsim-btns"><button type="button" class="vk-btn primary vk-drsim-go">&#9654; Simulate a disaster</button><button type="button" class="vk-btn vk-drsim-reset">Reset</button></div>' +
       '<ol class="vk-drsim-steps" aria-live="polite"></ol></div></div></div>';
     var tabs = root.querySelector('.vk-drsim-tabs');
+    if (only) tabs.style.display = 'none';
     ORDER.forEach(function (k) {
       var b = document.createElement('button');
       b.type = 'button'; b.textContent = P[k].name; b.setAttribute('role', 'tab'); b.setAttribute('data-k', k);
