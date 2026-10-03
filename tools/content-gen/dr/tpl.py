@@ -1,7 +1,8 @@
 import os
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..', 'views')
-def page(rel, title, desc, body):
+def page(rel, title, desc, body, scripts=()):
     url = '/' + rel[:-5]
+    extra = ''.join(f'    <script src="{s}" defer></script>\n' for s in scripts)
     html = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +27,7 @@ def page(rel, title, desc, body):
 
     <footer></footer>
     <script src="/vakra-loader.js"></script>
-</body>
+{extra}</body>
 </html>
 '''
     path = os.path.join(ROOT, rel)

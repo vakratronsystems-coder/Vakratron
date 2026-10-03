@@ -17,6 +17,14 @@ body = f'''
             <p class="vk-lead">There are five common ways to set up disaster recovery. They differ in how much data you can lose, how quickly you come back, and how much you pay to keep the DR site ready. Most organisations end up using two or three of them at once, one for each tier of applications.</p>
         </div>
 
+
+        <div class="vk-sec" id="see-it-work"><div class="vk-wrap">
+            <span class="vk-eyebrow">See it working</span>
+            <h2>What happens to each pattern in a disaster</h2>
+            <p class="vk-prose">Pick a pattern to see what is running at the DR site on a normal day. Then press <strong>Simulate a disaster</strong> to watch the primary site go down and the DR site take over, step by step. Notice how much longer the cheaper patterns take to recover.</p>
+            <div class="vk-drsim" data-start="backup-restore"></div>
+            <noscript><p class="vk-muted">This interactive diagram needs JavaScript. The table below compares the same five patterns.</p></noscript>
+        </div></div>
         <div class="vk-sec"><div class="vk-wrap">
             <h2>The five patterns side by side</h2>
             <div class="vk-table-wrap"><table>
@@ -77,4 +85,4 @@ body = f'''
         </div></div></div>
 {CTA}'''
 page('solutions/dc-dr/strategy-selection.html', 'Choosing a DR Pattern: Backup, Pilot Light, Warm Standby, Active-Passive, Active-Active | Vakratron Systems',
-     'A plain comparison of the five common disaster recovery patterns: what each one keeps ready, typical RPO and RTO, relative cost, and where each one fits.', body)
+     'A plain comparison of the five common disaster recovery patterns: what each one keeps ready, typical RPO and RTO, relative cost, and where each one fits.', body, scripts=['/vk-dr-sim.js'])

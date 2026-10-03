@@ -146,3 +146,71 @@ main.vk .vk-two { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
 main.vk pre { background: #0a0f1d; border: 1px solid var(--vk-line); border-radius: 10px; padding: 14px 16px; overflow-x: auto; margin: 0 0 18px; }
 main.vk code, main.vk pre, main.vk pre * { font-family: "JetBrains Mono", Consolas, monospace !important; font-size: 0.88rem !important; color: #e2e8f0 !important; }
 main.vk p code, main.vk li code, main.vk td code { background: #0f172a; padding: 1px 6px; border-radius: 4px; }
+/* ---------- DR pattern simulator (.vk-drsim) ---------- */
+main.vk .vk-drsim { margin-top: 24px; }
+main.vk .vk-drsim-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+main.vk .vk-drsim-tabs button {
+  font-family: var(--vk-head); font-size: 0.92rem; font-weight: 600; color: var(--vk-muted);
+  background: var(--vk-surface); border: 1px solid var(--vk-line); border-radius: 999px; padding: 9px 16px; cursor: pointer;
+}
+main.vk .vk-drsim-tabs button:hover { color: #fff; border-color: rgba(194, 24, 91, 0.5); }
+main.vk .vk-drsim-tabs button.on { color: #fff; background: var(--vk-accent); border-color: var(--vk-accent); }
+main.vk .vk-drsim-body { display: grid; grid-template-columns: 1fr; gap: 16px; }
+main.vk .vk-drsim-fig { background: var(--vk-surface); border: 1px solid var(--vk-line); border-radius: 14px; padding: 14px; }
+main.vk .vk-drsim-svg svg { width: 100%; height: auto; display: block; }
+main.vk .vk-drsim-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--vk-line); }
+main.vk .vk-drsim-legend span { font-size: 0.8rem !important; color: var(--vk-muted) !important; display: inline-flex; align-items: center; gap: 6px; }
+main.vk .vk-drsim-legend i { display: inline-block; width: 14px; height: 10px; border-radius: 3px; }
+main.vk .vk-drsim-legend .l-run { background: rgba(56, 189, 248, 0.45); border: 1px solid #38bdf8; }
+main.vk .vk-drsim-legend .l-idle { background: rgba(56, 189, 248, 0.12); border: 1px solid #38bdf8; }
+main.vk .vk-drsim-legend .l-off { border: 1px dashed #64748b; }
+main.vk .vk-drsim-legend .l-build { border: 1px dashed #f59e0b; background: rgba(245, 158, 11, 0.2); }
+main.vk .vk-drsim-legend .l-flow { height: 3px; background: #C2185B; border-radius: 2px; }
+main.vk .vk-drsim-side { background: var(--vk-surface); border: 1px solid var(--vk-line); border-radius: 14px; padding: 22px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 28px; }
+main.vk .vk-drsim-kv { grid-template-columns: 1fr 1fr; }
+main.vk .vk-drsim-kv > div:first-child { grid-column: 1 / -1; }
+main.vk .vk-drsim-side h3 { margin-bottom: 8px !important; }
+main.vk .vk-drsim-sum { color: #cbd5e1 !important; font-size: 0.95rem !important; }
+main.vk .vk-drsim-kv { display: grid; gap: 10px; margin: 6px 0 16px; }
+main.vk .vk-drsim-kv > div { border-top: 1px solid var(--vk-line); padding-top: 9px; }
+main.vk .vk-drsim-kv .k { display: block; font-size: 0.74rem !important; text-transform: uppercase; letter-spacing: 0.08em !important; color: var(--vk-muted) !important; }
+main.vk .vk-drsim-kv .v { display: block; font-size: 0.95rem !important; color: #fff !important; font-weight: 500 !important; }
+main.vk .vk-dots { display: flex !important; gap: 5px; margin-top: 5px; }
+main.vk .vk-dots span { width: 12px; height: 12px; border-radius: 50%; border: 1px solid #475569; display: inline-block; }
+main.vk .vk-dots span.on { background: var(--vk-accent); border-color: var(--vk-accent); }
+main.vk .vk-drsim-btns { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+main.vk .vk-drsim-btns .vk-btn { cursor: pointer; font-size: 0.9rem !important; padding: 10px 16px; }
+main.vk .vk-drsim-btns .vk-btn:disabled { opacity: 0.55; cursor: default; transform: none; }
+main.vk ol.vk-drsim-steps { list-style: none; padding: 0; margin: 0; }
+main.vk ol.vk-drsim-steps li { position: relative; padding: 6px 0 6px 26px; margin: 0; font-size: 0.9rem !important; color: #64748b !important; line-height: 1.45 !important; }
+main.vk ol.vk-drsim-steps li::before { content: ""; position: absolute; left: 4px; top: 11px; width: 10px; height: 10px; border-radius: 50%; border: 1px solid #475569; }
+main.vk ol.vk-drsim-steps li.active { color: #fde68a !important; }
+main.vk ol.vk-drsim-steps li.active::before { background: #f59e0b; border-color: #f59e0b; animation: vkBlink 0.8s ease-in-out infinite; }
+main.vk ol.vk-drsim-steps li.done { color: #e2e8f0 !important; }
+main.vk ol.vk-drsim-steps li.done::before { background: #38bdf8; border-color: #38bdf8; }
+main.vk ol.vk-drsim-steps li.hint { color: var(--vk-muted) !important; padding-left: 0; }
+main.vk ol.vk-drsim-steps li.hint::before, main.vk ol.vk-drsim-steps li.result::before { display: none; }
+main.vk ol.vk-drsim-steps li.result { display: none; padding-left: 0; margin-top: 8px; }
+main.vk ol.vk-drsim-steps li.result.show { display: block; color: #e2e8f0 !important; background: rgba(56, 189, 248, 0.08); border-left: 3px solid #38bdf8; padding: 10px 12px; border-radius: 0 8px 8px 0; }
+/* SVG animation */
+.vk-drsim .vk-flow.vk-stream { stroke-dasharray: 3 9; animation: vkFlow 1.1s linear infinite; }
+.vk-drsim .vk-flow.vk-sync { stroke-dasharray: 3 5; animation: vkFlow 0.45s linear infinite; }
+.vk-drsim .vk-flow.vk-bi { stroke-dasharray: 3 8; animation: vkFlow 0.8s linear infinite; }
+.vk-drsim .vk-flow.vk-bi.vk-rev { animation-name: vkFlow; }
+.vk-drsim .vk-flow.vk-batch { stroke-dasharray: 26 400; animation: vkBatch 3.2s linear infinite; }
+.vk-drsim .vk-flow.vk-traffic { stroke-dasharray: 2 7; animation: vkFlow 1s linear infinite; }
+.vk-drsim .vk-flow.vk-stopped { animation: none; stroke: #334155; stroke-dasharray: 3 9; }
+.vk-drsim .vk-pulse { animation: vkBlink 1s ease-in-out infinite; }
+.vk-drsim .vk-boom { animation: vkBlink 0.9s ease-in-out infinite; }
+@keyframes vkFlow { to { stroke-dashoffset: -24; } }
+@keyframes vkBatch { from { stroke-dashoffset: 26; } to { stroke-dashoffset: -400; } }
+@keyframes vkBlink { 50% { opacity: 0.45; } }
+@media (prefers-reduced-motion: reduce) {
+  .vk-drsim .vk-flow, .vk-drsim .vk-pulse, .vk-drsim .vk-boom, main.vk ol.vk-drsim-steps li.active::before { animation: none !important; }
+}
+@media (max-width: 900px) {
+  main.vk .vk-drsim-side { grid-template-columns: 1fr; gap: 10px; }
+  main.vk .vk-drsim-kv { grid-template-columns: 1fr; }
+  main.vk .vk-drsim-tabs { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; }
+  main.vk .vk-drsim-tabs button { white-space: nowrap; }
+}
