@@ -985,6 +985,24 @@ app.get('/footer.html', (req, res) => {
 // Legacy URLs that contained duplicate VMware-to-KVM content now point to the
 // relevant maintained architecture pages. This preserves old links and keeps
 // search engines from indexing the same document under multiple topics.
+// Content consolidation (Oct 2026): views/solution_arch/ was a byte-for-byte
+// copy of views/solutions/. Old URLs now 301 to the maintained copy so search
+// engines merge the duplicates instead of splitting ranking between them.
+const LEGACY_REDIRECTS = {
+    'solution_arch/cloud_solutions': '/solutions/cloud-solutions',
+    'solutions/dc-dr/dc-dr_chat': '/solutions/master_dc-dr',
+    'solutions/dc-dr/dc_dr_gem': '/solutions/master_dc-dr',
+};
+
+app.use((req, res, next) => {
+    if (req.method !== 'GET' && req.method !== 'HEAD') return next();
+    const clean = req.path.replace(/^\/+/, '').replace(/^views\//i, '').replace(/\.html$/i, '').replace(/\/+$/, '').toLowerCase();
+    if (LEGACY_REDIRECTS[clean]) return res.redirect(301, LEGACY_REDIRECTS[clean]);
+    const m = req.path.match(/^\/(?:views\/)?solution_arch\/(.+?)(?:\.html)?$/i);
+    if (m) return res.redirect(301, '/solutions/' + m[1]);
+    return next();
+});
+
 app.get(['/use_cases/k8s', '/use_cases/k8s.html'], (req, res) => {
     res.redirect(301, '/solutions/master_k8s');
 });
