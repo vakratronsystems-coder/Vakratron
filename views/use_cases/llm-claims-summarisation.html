@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Use Case: Claim File Summaries with a Private LLM | Vakratron Systems</title>
+    <meta name="description" content="An illustrative scenario: an insurer summarising long claim files with a privately hosted open LLM, including model testing, guardrails, targets and trade-offs.">
+    <link rel="canonical" href="https://vakratronsys.com/use_cases/llm-claims-summarisation">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
+</head>
+<body>
+    <header></header>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/enterprise-llm">Enterprise LLM</a> <span>/</span> <span>Use case: claims summaries</span></div>
+            <div class="vk-label"><span>Illustrative scenario</span></div>
+            <h1>Summarising claim files with a private LLM</h1>
+            <p class="vk-lead">How we would approach an insurer that wants claims handlers to spend less time reading and more time deciding, without sending health and personal data outside its own network.</p>
+            <div class="vk-note"><p class="vk-small">This is a composite example built from common enterprise requirements. It is not a specific client engagement, and the figures are design targets for the scenario, not measured results.</p></div>
+            <div class="vk-facts"><div class="vk-fact"><span class="k">Organisation</span><span class="v">Mid-size general insurer</span></div><div class="vk-fact"><span class="k">Task</span><span class="v">Summarise claim files</span></div><div class="vk-fact"><span class="k">Model</span><span class="v">70B-class open model</span></div><div class="vk-fact"><span class="k">Hosting</span><span class="v">Private, on own GPUs</span></div></div>
+        </div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><span class="vk-eyebrow">The situation</span><h2>Long files, short on time</h2>
+            <p>Each health or motor claim arrives with 30 to 80 pages: forms, hospital bills, discharge summaries, surveyor reports and emails. Handlers spend much of their day reading before they can decide. The company wanted a one-page summary for each file, with the key facts and anything unusual flagged. Health and identity data could not leave its own infrastructure.</p>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><span class="vk-eyebrow">The approach</span><h2>What we would do</h2><ol class="vk-steps"><li><strong>Define the summary with handlers.</strong> Ten fields every summary must contain, and the red flags they look for.</li><li><strong>Build a test set.</strong> 200 past claims, anonymised, with summaries written by senior handlers.</li><li><strong>Compare three open models</strong> at two sizes, scored by handlers on accuracy, missing facts and usefulness.</li><li><strong>Choose the smallest model that passes.</strong> In this scenario, a 70B-class model at 8-bit, served on the insurer's own GPUs.</li><li><strong>No fine-tuning at first.</strong> A clear prompt with two worked examples met the bar. Fine-tuning stays an option if format drifts.</li><li><strong>Guardrails.</strong> Personal identifiers masked in logs, every summary linked to its source pages, and the handler always makes the decision.</li></ol>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><span class="vk-eyebrow">What changes</span><h2>Targets and how they are checked</h2><div class="vk-table-wrap"><table><thead><tr><th>Measure</th><th>Before</th><th>Target</th><th>Checked by</th></tr></thead><tbody><tr><td>Reading time per claim</td><td>About 25 minutes</td><td>About 10 minutes</td><td>Time study on a sample of claims</td></tr><tr><td>Summary accuracy</td><td>Not applicable</td><td>95% of key facts correct</td><td>Weekly review of 5% of summaries</td></tr><tr><td>Data leaving the network</td><td>Not applicable</td><td>None</td><td>Network controls and audit logs</td></tr></tbody></table></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><span class="vk-eyebrow">Trade-offs</span><h2>What we would flag</h2><ul><li><strong>Scanned documents.</strong> Poor scans need good OCR first, or the model summarises garbage.</li><li><strong>Handlers must still read the flagged pages.</strong> The summary speeds up reading; it does not replace judgement.</li><li><strong>The test set needs owners.</strong> Someone in claims must keep it current as products and rules change.</li></ul>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Starting with LLMs, or stuck after a pilot?</h2>
+                <p class="vk-muted">Tell us the task you want AI to help with and any rules about where your data can go. We will come back with a plain recommendation: which kind of model, where to run it, roughly what it costs, and how to know if it is working.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book an LLM review</a>
+                    <a class="vk-btn" href="/portfolio/enterprise-llm">Back to enterprise LLM</a>
+                </div>
+            </div>
+        </div></div>
+    </main>
+
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

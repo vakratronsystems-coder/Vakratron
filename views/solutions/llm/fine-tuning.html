@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Fine-Tuning: When It Helps, When to Use RAG Instead | Vakratron Systems</title>
+    <meta name="description" content="When fine-tuning an LLM is worth it and when retrieval (RAG) or better prompting is the right answer, plus what fine-tuning takes: data, LoRA, compute and evaluation.">
+    <link rel="canonical" href="https://vakratronsys.com/solutions/llm/fine-tuning">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
+</head>
+<body>
+    <header></header>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/enterprise-llm">Enterprise LLM</a> <span>/</span> <span>Fine-tuning</span></div>
+            <div class="vk-pills"><a class="vk-pill" href="/solutions/llm/model-selection">Choosing a model</a><a class="vk-pill" href="/solutions/llm/private-llm-hosting">Private hosting</a><a class="vk-pill on" href="/solutions/llm/fine-tuning">Fine-tuning</a><a class="vk-pill" href="/solutions/llm/llm-governance">Governance and LLMOps</a></div><span class="vk-eyebrow">LLM guide</span>
+            <h1>Fine-tuning: when it helps, and when it does not</h1>
+            <p class="vk-lead">Fine-tuning changes how a model behaves. It is good at teaching style, format and specialised tasks. It is poor at teaching facts that change, such as policies, prices or product details. Most enterprise projects need retrieval first, and fine-tuning only sometimes.</p>
+            <div class="vk-facts"><div class="vk-fact"><span class="k">First try</span><span class="v">Better prompts</span></div><div class="vk-fact"><span class="k">For your facts</span><span class="v">RAG</span></div><div class="vk-fact"><span class="k">For style and format</span><span class="v">Fine-tuning</span></div><div class="vk-fact"><span class="k">Usual method</span><span class="v">LoRA</span></div></div>
+        </div>
+        <div class="vk-sec"><div class="vk-wrap"><h2>Which approach fits your problem?</h2><div class="vk-table-wrap"><table><thead><tr><th>The problem</th><th>Try first</th><th>Why</th></tr></thead><tbody><tr><td>The model does not know our policies or products</td><td><a href="/portfolio/rag-solutions">RAG</a></td><td>Facts change. Looking them up at question time keeps answers current and shows sources.</td></tr><tr><td>Answers are in the wrong format or tone</td><td>Better prompts and examples, then fine-tuning</td><td>A few good examples in the prompt often fix it. Fine-tune if it still drifts.</td></tr><tr><td>A narrow, repeated task (classify, extract, route)</td><td>Fine-tune a small model</td><td>A small fine-tuned model can match a large general one at a fraction of the cost.</td></tr><tr><td>Specialised language (legal, medical, internal jargon)</td><td>RAG plus a glossary, then fine-tuning if needed</td><td>Fine-tuning helps the model use terms naturally once retrieval supplies the facts.</td></tr></tbody></table></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><h2>What fine-tuning takes</h2><ul><li><strong>Data:</strong> hundreds to a few thousand high-quality examples of input and ideal output. Quality matters far more than quantity.</li><li><strong>Method:</strong> usually LoRA, which trains a small set of extra weights instead of the whole model. Cheaper, faster and easier to roll back.</li><li><strong>Compute:</strong> LoRA on a 70B-class model fits on one 8-GPU server; on an 8B model, a single GPU can be enough. See the <a href="/portfolio/ai-gpu-cloud#gpucalc">GPU calculator</a>.</li><li><strong>Evaluation:</strong> the same test set used for model selection, so you can prove the fine-tuned model is actually better.</li><li><strong>Maintenance:</strong> when the base model is updated, the fine-tuning usually has to be repeated.</li></ul>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><p class="vk-small"><strong>More LLM guides:</strong> <a href="/solutions/llm/model-selection">Choosing a model</a> &middot; <a href="/solutions/llm/private-llm-hosting">Private hosting</a> &middot; <a href="/solutions/llm/llm-governance">Governance and LLMOps</a> &middot; <a href="/solutions/llm/faq">LLM FAQ</a> &middot; <a href="/use_cases/llm-claims-summarisation">Use case: claims summaries</a></p>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Starting with LLMs, or stuck after a pilot?</h2>
+                <p class="vk-muted">Tell us the task you want AI to help with and any rules about where your data can go. We will come back with a plain recommendation: which kind of model, where to run it, roughly what it costs, and how to know if it is working.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book an LLM review</a>
+                    <a class="vk-btn" href="/portfolio/enterprise-llm">Back to enterprise LLM</a>
+                </div>
+            </div>
+        </div></div>
+    </main>
+
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

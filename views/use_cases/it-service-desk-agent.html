@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Use Case: Introducing an AI Agent to an IT Service Desk | Vakratron Systems</title>
+    <meta name="description" content="An illustrative scenario: an IT service desk agent using five MCP servers, introduced in three phases from shadow mode to approved actions, with limits, targets and trade-offs.">
+    <link rel="canonical" href="https://vakratronsys.com/use_cases/it-service-desk-agent">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
+</head>
+<body>
+    <header></header>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/agentic-ai">Agentic AI</a> <span>/</span> <span>Use case: IT service desk agent</span></div>
+            <div class="vk-label"><span>Illustrative scenario</span></div>
+            <h1>An IT service desk agent, introduced in three phases</h1>
+            <p class="vk-lead">How we would introduce an agent to a 15-person IT service desk handling about 1,200 tickets a month, starting read-only and earning the right to act.</p>
+            <div class="vk-note"><p class="vk-small">This is a composite example built from common enterprise requirements. It is not a specific client engagement, and the figures are design targets for the scenario, not measured results.</p></div>
+            <div class="vk-facts"><div class="vk-fact"><span class="k">Tickets</span><span class="v">~1,200 a month</span></div><div class="vk-fact"><span class="k">Routine share</span><span class="v">About 40%</span></div><div class="vk-fact"><span class="k">Tools</span><span class="v">5 MCP servers</span></div><div class="vk-fact"><span class="k">Rollout</span><span class="v">3 phases</span></div></div>
+        </div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><span class="vk-eyebrow">The situation</span><h2>Routine tickets crowd out real work</h2>
+            <p>About 40% of tickets were routine: VPN problems, account unlocks, certificate renewals and access requests. Each took a few minutes of work but often hours of waiting, because engineers were busy with harder problems.</p>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><span class="vk-eyebrow">The design</span><h2>Tools and limits</h2><div class="vk-table-wrap"><table><thead><tr><th>MCP server</th><th>Tools</th><th>Limit</th></tr></thead><tbody><tr><td>Directory</td><td>Look up user, team, manager</td><td>Read only</td></tr><tr><td>Monitoring</td><td>Read VPN and device logs</td><td>Read only</td></tr><tr><td>VPN service</td><td>Renew device certificate</td><td>Allowed automatically, logged</td></tr><tr><td>Access management</td><td>Request and grant access</td><td>Manager approval required</td></tr><tr><td>Ticketing</td><td>Create, update and close tickets</td><td>Allowed, logged</td></tr></tbody></table></div><p>MFA settings, admin rights and deletions are not available to the agent at all. You can watch this design in the <a href="/portfolio/agentic-ai#agentloop">interactive demo</a>.</p>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><span class="vk-eyebrow">Rollout</span><h2>Three phases</h2><ol class="vk-steps"><li><strong>Month 1, shadow:</strong> the agent diagnoses each routine ticket and suggests the fix. Engineers act and mark whether it was right.</li><li><strong>Months 2-3, low-risk actions:</strong> certificate renewals and unlocks run automatically. Everything else is drafted for an engineer.</li><li><strong>Month 4 onward, approvals:</strong> access requests are prepared and sent to the manager for one-click approval.</li></ol>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><span class="vk-eyebrow">What changes</span><h2>Targets and how they are checked</h2><div class="vk-table-wrap"><table><thead><tr><th>Measure</th><th>Target</th><th>Checked by</th></tr></thead><tbody><tr><td>Routine tickets resolved without an engineer</td><td>Most low-risk ones</td><td>Ticket data by category</td></tr><tr><td>Time to resolve routine tickets</td><td>Minutes instead of hours</td><td>Ticket timestamps</td></tr><tr><td>Harmful or wrong actions</td><td>None</td><td>Weekly review of the audit log</td></tr></tbody></table></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><span class="vk-eyebrow">Trade-offs</span><h2>What we would flag</h2><ul><li><strong>Engineers must review in month one.</strong> Without their feedback, there is no evidence to move to phase two.</li><li><strong>Managers must answer approvals quickly,</strong> or access requests simply wait somewhere new.</li><li><strong>Tools will need tuning.</strong> Expect to adjust tool descriptions and limits after the first weeks.</li></ul>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Thinking about AI agents?</h2>
+                <p class="vk-muted">Tell us the process you would like to automate and the systems it touches. We will come back with a plain view of what an agent could safely do, what should stay with people, and how to start small.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book an agent review</a>
+                    <a class="vk-btn" href="/portfolio/agentic-ai">Back to agentic AI</a>
+                </div>
+            </div>
+        </div></div>
+    </main>
+
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

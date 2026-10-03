@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preparing Documents for RAG: PDFs, Tables, Scans and Chunking | Vakratron Systems</title>
+    <meta name="description" content="How to prepare documents for retrieval-augmented generation: parsing PDFs, tables, scans and slides, splitting into passages, metadata, versions and keeping the index current.">
+    <link rel="canonical" href="https://vakratronsys.com/solutions/rag/document-ingestion">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
+</head>
+<body>
+    <header></header>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/rag-solutions">RAG</a> <span>/</span> <span>Preparing documents</span></div>
+            <div class="vk-pills"><a class="vk-pill" href="/solutions/rag/rag-architecture">How RAG is built</a><a class="vk-pill on" href="/solutions/rag/document-ingestion">Preparing documents</a><a class="vk-pill" href="/solutions/rag/retrieval-quality">Better retrieval</a><a class="vk-pill" href="/solutions/rag/access-control">Permissions</a><a class="vk-pill" href="/solutions/rag/rag-evaluation">Measuring answers</a></div><span class="vk-eyebrow">RAG guide</span>
+            <h1>Preparing documents</h1>
+            <p class="vk-lead">If a fact is mangled when a document is converted, no model can find it later. Document preparation is unglamorous and decides most of a RAG system's quality.</p>
+            <div class="vk-facts"><div class="vk-fact"><span class="k">Hardest content</span><span class="v">Tables and scans</span></div><div class="vk-fact"><span class="k">Keep</span><span class="v">Headings and dates</span></div><div class="vk-fact"><span class="k">Remove</span><span class="v">Old versions</span></div><div class="vk-fact"><span class="k">Sync</span><span class="v">Daily or on change</span></div></div>
+        </div>
+        <div class="vk-sec"><div class="vk-wrap"><h2>What makes documents hard</h2><div class="vk-table-wrap"><table><thead><tr><th>Content</th><th>Problem</th><th>What we do</th></tr></thead><tbody><tr><td>Tables in PDFs</td><td>Rows and columns get scrambled into a stream of numbers</td><td>Layout-aware parsing that keeps tables as tables</td></tr><tr><td>Scanned forms</td><td>No text at all until OCR runs</td><td>OCR with quality checks; flag pages that cannot be read reliably</td></tr><tr><td>Slides</td><td>Meaning is in layout and images</td><td>Extract text per slide and keep the slide title with it</td></tr><tr><td>Many versions</td><td>Old and new policies contradict each other</td><td>Keep only current versions searchable, or mark versions clearly</td></tr><tr><td>Long documents</td><td>A passage loses its context</td><td>Keep section headings with each passage</td></tr></tbody></table></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><h2>Splitting into passages</h2><ul><li><strong>Split by structure, not by character count.</strong> Sections and paragraphs make better passages than fixed-size blocks.</li><li><strong>Keep passages a sensible size.</strong> Typically a few hundred words: big enough to carry meaning, small enough to be precise.</li><li><strong>Carry metadata.</strong> Document title, section, date, owner and permissions travel with every passage.</li></ul>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><h2>Keeping it current</h2><ul><li>Sync changed documents daily or as they change, and remove deleted ones from the index the same day.</li><li>Give every source an owner who is told when their documents produce wrong answers.</li><li>Often the fastest way to improve answers is to fix the documents themselves.</li></ul>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><p class="vk-small"><strong>More RAG guides:</strong> <a href="/solutions/rag/rag-architecture">How RAG is built</a> &middot; <a href="/solutions/rag/retrieval-quality">Better retrieval</a> &middot; <a href="/solutions/rag/access-control">Permissions</a> &middot; <a href="/solutions/rag/rag-evaluation">Measuring answers</a> &middot; <a href="/solutions/rag/faq">RAG FAQ</a> &middot; <a href="/use_cases/hr-policy-assistant">Use case: HR policy assistant</a></p>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Want answers from your own documents?</h2>
+                <p class="vk-muted">Tell us where the documents live, who should be able to ask, and ten questions people ask today. We will come back with a plain view of what it takes to answer them well, and safely.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book a RAG review</a>
+                    <a class="vk-btn" href="/portfolio/rag-solutions">Back to RAG</a>
+                </div>
+            </div>
+        </div></div>
+    </main>
+
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

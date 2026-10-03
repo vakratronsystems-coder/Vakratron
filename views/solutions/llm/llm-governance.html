@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Governance and LLMOps: Access, Data Protection, Quality, Audit | Vakratron Systems</title>
+    <meta name="description" content="Practical LLM governance: access by group, personal-data masking, DPDP Act considerations, quality testing, prompt-injection defences, audit trails, cost control and safe model changes.">
+    <link rel="canonical" href="https://vakratronsys.com/solutions/llm/llm-governance">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
+</head>
+<body>
+    <header></header>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/enterprise-llm">Enterprise LLM</a> <span>/</span> <span>Governance and LLMOps</span></div>
+            <div class="vk-pills"><a class="vk-pill" href="/solutions/llm/model-selection">Choosing a model</a><a class="vk-pill" href="/solutions/llm/private-llm-hosting">Private hosting</a><a class="vk-pill" href="/solutions/llm/fine-tuning">Fine-tuning</a><a class="vk-pill on" href="/solutions/llm/llm-governance">Governance and LLMOps</a></div><span class="vk-eyebrow">LLM guide</span>
+            <h1>Governance and LLMOps</h1>
+            <p class="vk-lead">Once an LLM is in use, someone has to answer simple questions: who can use it, what data it sees, how good its answers are this month, and what happens when a model changes. Governance is the set of controls that makes those answers easy.</p>
+            <div class="vk-facts"><div class="vk-fact"><span class="k">Measure</span><span class="v">Quality, monthly</span></div><div class="vk-fact"><span class="k">Control</span><span class="v">Access by group</span></div><div class="vk-fact"><span class="k">Protect</span><span class="v">Personal data</span></div><div class="vk-fact"><span class="k">Record</span><span class="v">Every request</span></div></div>
+        </div>
+        <div class="vk-sec"><div class="vk-wrap"><h2>The controls we put in place</h2><div class="vk-table-wrap"><table><thead><tr><th>Area</th><th>What it means in practice</th></tr></thead><tbody><tr><td>Access</td><td>Use is tied to company sign-in. Groups decide which models and data each team may use.</td></tr><tr><td>Data protection</td><td>Personal data is masked where it is not needed. Retention of prompts and answers follows your policy and, in India, the Digital Personal Data Protection Act, 2023.</td></tr><tr><td>Quality</td><td>A test set is re-run on every model or prompt change, and a sample of live answers is reviewed every month.</td></tr><tr><td>Safety</td><td>Filters for harmful content, and defences against prompt injection, which is the top risk in the OWASP Top 10 for LLM applications.</td></tr><tr><td>Audit</td><td>Who asked what, which model answered, and what sources were used, kept for an agreed period.</td></tr><tr><td>Cost</td><td>Usage and cost per team, with quotas and alerts.</td></tr><tr><td>Change</td><td>New models and prompts go through test, approval and gradual rollout, with a quick way back.</td></tr></tbody></table></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><h2>Measuring quality without guesswork</h2><ul><li><strong>Offline:</strong> the test set, scored automatically and by reviewers, before every change.</li><li><strong>Online:</strong> thumbs up or down from users, plus a small weekly sample reviewed by experts.</li><li><strong>Drift:</strong> watch for falling scores or rising complaints after model, prompt or data changes.</li></ul>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><h2>Typical tools</h2><div class="vk-table-wrap"><table><thead><tr><th>Area</th><th>Common choices</th></tr></thead><tbody><tr><td>Tracing and evaluation</td><td>Langfuse, OpenTelemetry, Ragas for retrieval quality</td></tr><tr><td>Personal data</td><td>Microsoft Presidio, custom rules for Indian identifiers</td></tr><tr><td>Guardrails</td><td>NVIDIA NeMo Guardrails, gateway policies</td></tr><tr><td>Cost and usage</td><td>Gateway metrics with Prometheus and Grafana</td></tr></tbody></table></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><p class="vk-small"><strong>More LLM guides:</strong> <a href="/solutions/llm/model-selection">Choosing a model</a> &middot; <a href="/solutions/llm/private-llm-hosting">Private hosting</a> &middot; <a href="/solutions/llm/fine-tuning">Fine-tuning</a> &middot; <a href="/solutions/llm/faq">LLM FAQ</a> &middot; <a href="/use_cases/llm-claims-summarisation">Use case: claims summaries</a></p>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Starting with LLMs, or stuck after a pilot?</h2>
+                <p class="vk-muted">Tell us the task you want AI to help with and any rules about where your data can go. We will come back with a plain recommendation: which kind of model, where to run it, roughly what it costs, and how to know if it is working.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book an LLM review</a>
+                    <a class="vk-btn" href="/portfolio/enterprise-llm">Back to enterprise LLM</a>
+                </div>
+            </div>
+        </div></div>
+    </main>
+
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

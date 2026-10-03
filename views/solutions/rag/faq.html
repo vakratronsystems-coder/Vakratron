@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG FAQ: Vector Databases, Accuracy, Hindi, Sources, Cost | Vakratron Systems</title>
+    <meta name="description" content="Plain answers on retrieval-augmented generation: whether you need a vector database, accuracy, Hindi support, citing sources, running cost and taking actions.">
+    <link rel="canonical" href="https://vakratronsys.com/solutions/rag/faq">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
+</head>
+<body>
+    <header></header>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/rag-solutions">RAG</a> <span>/</span> <span>FAQ</span></div>
+            <span class="vk-eyebrow">RAG guide</span>
+            <h1>RAG questions, answered</h1>
+            <p class="vk-lead">Short answers to the questions we hear most often about answering questions from company documents.</p>
+            
+        </div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><details><summary>Do we need a vector database?</summary><div><p>Not necessarily. OpenSearch, Elasticsearch and PostgreSQL with pgvector all support vector search. Start with what you run today; move to a dedicated vector database only if scale or features demand it.</p></div></details><details><summary>How accurate will the answers be?</summary><div><p>That depends mostly on document quality and retrieval, and it should be measured, not promised. With good documents and a tuned system, most answers to questions covered by the documents should be correct, and the rest should say they do not know.</p></div></details><details><summary>Can it answer in Hindi?</summary><div><p>Yes, with a multilingual embedding model and an LLM that handles Hindi well. Test with real questions from your users.</p></div></details><details><summary>Will it show where answers come from?</summary><div><p>It should. Every answer should cite the documents and sections it used, so users can check.</p></div></details><details><summary>What does it cost to run?</summary><div><p>Mostly the LLM usage and the search infrastructure. For a few thousand employees, running costs are usually modest compared with the time saved. The bigger cost is the initial work on documents and testing.</p></div></details><details><summary>Can RAG take actions, like raising a ticket?</summary><div><p>That is the next step: an agent that uses tools. See <a href="/portfolio/agentic-ai">agentic AI</a>.</p></div></details>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><p class="vk-small"><strong>More RAG guides:</strong> <a href="/solutions/rag/rag-architecture">How RAG is built</a> &middot; <a href="/solutions/rag/document-ingestion">Preparing documents</a> &middot; <a href="/solutions/rag/retrieval-quality">Better retrieval</a> &middot; <a href="/solutions/rag/access-control">Permissions</a> &middot; <a href="/solutions/rag/rag-evaluation">Measuring answers</a> &middot; <a href="/solutions/rag/faq">RAG FAQ</a> &middot; <a href="/use_cases/hr-policy-assistant">Use case: HR policy assistant</a></p>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Want answers from your own documents?</h2>
+                <p class="vk-muted">Tell us where the documents live, who should be able to ask, and ten questions people ask today. We will come back with a plain view of what it takes to answer them well, and safely.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book a RAG review</a>
+                    <a class="vk-btn" href="/portfolio/rag-solutions">Back to RAG</a>
+                </div>
+            </div>
+        </div></div>
+    </main>
+
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

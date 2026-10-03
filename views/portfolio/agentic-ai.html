@@ -2,390 +2,53 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Autonomous Agent Architecture | Agentic AI Systems & Frameworks by Vakratron</title>
-    <meta name="description" content="Reference architecture for enterprise autonomous agents, covering data boundaries, MCP integrations, approval gates, observability, and deployment choices.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic AI and MCP: AI Agents with Tools, Guardrails and Approvals | Vakratron Systems</title>
+    <meta name="description" content="AI agents explained plainly, with an interactive service desk demo: tools via the Model Context Protocol, least privilege, human approval for risky actions, and where agents work today.">
     <link rel="canonical" href="https://vakratronsys.com/portfolio/agentic-ai">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-   <style>
-    :root {
-        --bg-main: #020617;
-        --bg-surface: rgba(15, 23, 42, 0.6);
-        --border-glow: rgba(194, 24, 91, 0.3);
-        --accent-neon: #C2185B;
-        --accent-blue: #38bdf8;
-        --text-primary: #f8fafc;
-        --text-secondary: #94a3b8;
-        --glass-gradient: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(2, 6, 23, 0.9) 100%);
-    }
-
-    /* ====================================================================== */
-    /* 🏁 VAKRATRON AGENTIC-AI GAP TERMINATOR MATRIX                          */
-    /* ====================================================================== */
-
-    /* 1. HTML par se padding bilkul zero rakhi */
-    html {
-        scroll-behavior: smooth;
-        font-family: 'Inter', sans-serif;
-        background-color: var(--bg-main) !important;
-        color: var(--text-primary);
-        background-image: 
-            radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 50%),
-            radial-gradient(circle at 20% 80%, rgba(194, 24, 91, 0.07) 0%, transparent 50%) !important;
-        background-size: 200% 200% !important;
-        animation: cyberBackgroundMotion 20s ease infinite alternate !important;
-        padding-top: 0 !important; /* Force neutral */
-    }
-
-    @keyframes cyberBackgroundMotion {
-        0% { background-position: 0% 20%; }
-        50% { background-position: 100% 80%; }
-        100% { background-position: 20% 100%; }
-    }
-
-    /* 2. Body par single strict layout shift lock (Only 1 entry) */
-    body {
-        padding-top: 82px !important; /* Fixed header compensation */
-        margin: 0 !important;
-        box-sizing: border-box !important;
-    }
-
-    /* 3. Section padding ko structural alignment ke liye fix kiya */
-    section {
-        padding: 15px 8% !important; 
-        box-sizing: border-box;
-    }
-
-    /* 4. Hero section layout adjustments */
-    .solution-hero, .solutions-hero {
-        padding-top: 0px !important;   /* Extra double spacing collapse */
-        padding-bottom: 30px !important;
-        text-align: center;
-        box-sizing: border-box;
-        margin-top: 0 !important;
-    }
-
-    /* 5. Badge elements space management */
-    .premium-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        background: rgba(194, 24, 91, 0.06);
-        border: 1px solid rgba(194, 24, 91, 0.25);
-        color: #f472b6;
-        padding: 8px 18px;
-        border-radius: 100px;
-        font-family: 'Space Grotesk', sans-serif;
-        font-size: 0.8rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        margin-top: 0 !important;       /* Removes margin collapse push */
-        margin-bottom: 25px !important;
-    }
-
-    .solution-hero .premium-badge, 
-    .solutions-hero .premium-badge {
-        margin-top: 0 !important;
-        margin-bottom: 25px !important;
-    }
-
-    .solution-hero h1 {
-        font-family: 'Space Grotesk', sans-serif;
-        font-size: 2.8rem;
-        font-weight: 700;
-        margin: 15px 0;
-        color: #fff;
-        letter-spacing: -0.5px;
-        line-height: 1.2;
-    }
-
-    .solution-hero h1 span {
-        background: linear-gradient(135deg, #fff 30%, var(--accent-blue) 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        display: block;
-        margin-top: 5px;
-    }
-
-    .solution-hero p {
-        color: var(--text-secondary);
-        max-width: 800px;
-        margin: 0 auto 30px auto;
-        font-size: 1.05rem;
-        line-height: 1.6;
-    }
-
-    .hero-actions {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 16px;
-        flex-wrap: wrap;
-    }
-
-    .btn-primary, .btn-secondary {
-        font-family: 'Space Grotesk', sans-serif;
-        font-size: 0.88rem;
-        font-weight: 600;
-        text-decoration: none;
-        padding: 14px 28px;
-        border-radius: 8px;
-        display: inline-flex;
-        align-items: center;
-        transition: all 0.25s;
-        letter-spacing: 0.5px;
-    }
-
-    .btn-primary {
-        background: var(--accent-neon);
-        border: 1px solid var(--accent-neon);
-        color: #fff;
-        box-shadow: 0 4px 20px rgba(194, 24, 91, 0.25);
-    }
-
-    .btn-primary:hover {
-        background: #9e1147;
-        border-color: #9e1147;
-        transform: translateY(-2px);
-    }
-
-    .btn-secondary {
-        background: rgba(255, 255, 255, 0.02);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        color: #94a3b8;
-    }
-
-    .btn-secondary:hover {
-        background: rgba(255, 255, 255, 0.05);
-        border-color: rgba(255, 255, 255, 0.15);
-        color: #fff;
-        transform: translateY(-2px);
-    }
-
-    /* ====================================================================== */
-    /* 🎯 INDEPENDENT LAYOUT INSURANCE FOR INTERLINKING                       */
-    /* ====================================================================== */
-
-    .architecture-container {
-        width: 100% !important;
-        max-width: 1150px !important;
-        margin: 0 auto !important;
-        display: block !important;
-    }
-
-    header {
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100% !important;
-        height: 82px !important;
-    }
-</style>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
 </head>
 <body>
-
-    <!-- 📥 DYNAMIC HEADER PLACEHOLDER -->
     <header></header>
-        
-    <main class="solution-page">
 
-        <!-- 🚀 1. HERO SECTION -->
-        <section class="solution-hero">
-            <div class="premium-badge">
-                <i class="fas fa-robot"></i> AGENTIC AI & MCP SYSTEMS
-            </div>
-            <h1>Autonomous AI Agents <span>for Controlled Enterprise Workflows</span></h1>
-            <p>Plan AI-assisted workflows with explicit tool permissions, data boundaries, approval steps, and operational visibility before connecting an agent to business systems.</p>
-            <div class="hero-actions">
-                <a href="contact.html" class="btn-primary">Schedule AI Strategy Session</a>
-                <a href="contact.html" class="btn-secondary">Talk To An Architect</a>
-            </div>
-        </section>
+    <main class="vk">
 
-        <!-- 🛡️ 2. CHALLENGES SECTION -->
-        <section class="solution-challenges" style="position: relative; padding: 60px 8% !important; border-top: 1px solid rgba(255, 255, 255, 0.04); background: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.02) 0%, transparent 60%);">
-            <div class="section-header" style="text-align: center; margin-bottom: 45px;">
-                <div class="premium-badge">
-                    <i class="fa-solid fa-gears"></i> DESIGN CONSTRAINTS
-                </div>
-                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; font-weight: 700; margin: 0 0 12px 0; color: #fff; letter-spacing: -0.5px;">
-                    Common Enterprise Agentic AI Challenges
-                </h2>
-                <p style="color: var(--text-secondary); max-width: 740px; margin: 0 auto; font-size: 1rem; line-height: 1.6; font-family: 'Inter', sans-serif;">
-                    An agent can retrieve information, call a tool, or trigger a workflow. The difficult part is deciding which actions are allowed, what data is exposed, and how each action can be reviewed.
-                </p>
-            </div>
-
-            <!-- 📊 HORIZONTAL 4-COLUMN INLINE GRID -->
-            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 100%; box-sizing: border-box;">
-                
-                <!-- CARD 1: WORKFLOW AUTOMATION -->
-                <div class="info-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.04); padding: 30px 24px; border-radius: 16px; box-shadow: 0 30px 60px -20px rgba(0,0,0,0.7); display: flex; flex-direction: column; justify-content: flex-start; min-height: 240px; transition: all 0.3s ease; box-sizing: border-box;" onmouseover="this.style.borderColor='rgba(56, 189, 248, 0.4)'; this.style.transform='translateY(-6px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.04)'; this.style.transform='translateY(0)';">
-                    <div style="width: 44px; height: 42px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--accent-blue); font-size: 1rem; margin-bottom: 18px;"><i class="fa-solid fa-network-wired"></i></div>
-                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; color: #fff; margin: 0 0 10px 0; font-weight: 600;">Workflow Automation</h3>
-                    <p style="color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.5; margin: 0;">Identify the specific hand-offs an agent can assist with, where a person approves an action, and when the workflow should stop.</p>
-                </div>
-
-                <!-- CARD 2: TOOL INTEGRATION -->
-                <div class="info-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.04); padding: 30px 24px; border-radius: 16px; box-shadow: 0 30px 60px -20px rgba(0,0,0,0.7); display: flex; flex-direction: column; justify-content: flex-start; min-height: 240px; transition: all 0.3s ease; box-sizing: border-box;" onmouseover="this.style.borderColor='rgba(194, 24, 91, 0.5)'; this.style.transform='translateY(-6px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.04)'; this.style.transform='translateY(0)';">
-                    <div style="width: 44px; height: 42px; background: rgba(194, 24, 91, 0.04); border: 1px solid rgba(194, 24, 91, 0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--accent-neon); font-size: 1rem; margin-bottom: 18px;"><i class="fa-solid fa-link"></i></div>
-                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; color: #fff; margin: 0 0 10px 0; font-weight: 600;">Tool Integration</h3>
-                    <p style="color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.5; margin: 0;">Connect approved APIs, enterprise data, and legacy systems through a defined interface, with least-privilege access for every tool.</p>
-                </div>
-
-                <!-- CARD 3: AGENT GOVERNANCE -->
-                <div class="info-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.04); padding: 30px 24px; border-radius: 16px; box-shadow: 0 30px 60px -20px rgba(0,0,0,0.7); display: flex; flex-direction: column; justify-content: flex-start; min-height: 240px; transition: all 0.3s ease; box-sizing: border-box;" onmouseover="this.style.borderColor='rgba(56, 189, 248, 0.4)'; this.style.transform='translateY(-6px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.04)'; this.style.transform='translateY(0)';">
-                    <div style="width: 44px; height: 42px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--accent-blue); font-size: 1rem; margin-bottom: 18px;"><i class="fa-solid fa-gavel"></i></div>
-                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; color: #fff; margin: 0 0 10px 0; font-weight: 600;">Agent Governance</h3>
-                    <p style="color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.5; margin: 0;">Set identity, allowed actions, approval gates, audit events, data retention, and escalation rules before the workflow is released.</p>
-                </div>
-
-                <!-- CARD 4: MULTI-AGENT COLLABORATION -->
-                <div class="info-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.04); padding: 30px 24px; border-radius: 16px; box-shadow: 0 30px 60px -20px rgba(0,0,0,0.7); display: flex; flex-direction: column; justify-content: flex-start; min-height: 240px; transition: all 0.3s ease; box-sizing: border-box;" onmouseover="this.style.borderColor='rgba(194, 24, 91, 0.5)'; this.style.transform='translateY(-6px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.04)'; this.style.transform='translateY(0)';">
-                    <div style="width: 44px; height: 42px; background: rgba(194, 24, 91, 0.04); border: 1px solid rgba(194, 24, 91, 0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--accent-neon); font-size: 1rem; margin-bottom: 18px;"><i class="fa-solid fa-people-group"></i></div>
-                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; color: #fff; margin: 0 0 10px 0; font-weight: 600;">Multi-Agent Collaboration</h3>
-                    <p style="color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.5; margin: 0;">Use multiple agents only when clear ownership, hand-off contracts, and failure handling make the additional complexity worthwhile.</p>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- 🖼️ 3. REFERENCE ARCHITECTURE DIAGRAM SECTION -->
-        <section class="architecture-preview" style="position: relative; padding: 60px 8% !important; border-top: 1px solid rgba(255, 255, 255, 0.04); display: flex; flex-direction: column; align-items: center;">
-            <div class="section-header" style="text-align: center; margin-bottom: 40px; width: 100%;">
-                <div class="premium-badge" style="color: var(--accent-blue); background: rgba(56, 189, 248, 0.05); border-color: rgba(56, 189, 248, 0.2);">
-                    <i class="fas fa-sitemap"></i> MODEL CONTEXT PROTOCOL LAYER
-                </div>
-                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; font-weight: 700; margin: 0 0 12px 0; color: #fff; letter-spacing: -0.5px;">Enterprise Agentic AI Reference Architecture</h2>
-                <p style="color: var(--text-secondary); max-width: 740px; margin: 0 auto; font-size: 1rem; line-height: 1.6; font-family: 'Inter', sans-serif;">
-                    A high-level pattern for an enterprise agent system: user access, orchestration, approved tools, data retrieval, policy enforcement, and observability.
-                </p>
-            </div>
-
-            <!-- Image Viewframe Box -->
-            <div class="architecture-container" style="width: 100%; max-width: 1150px; background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(194, 24, 91, 0.15); border-radius: 20px; padding: 24px; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6); box-sizing: border-box; display: flex; justify-content: center; align-items: center; overflow: hidden; margin-bottom: 25px;">
-                <img src="/images/agentic_ai.png" alt="Enterprise Agentic AI and MCP Reference Architecture Blueprint" class="architecture-image" style="width: 100%; height: auto; object-fit: contain; border-radius: 12px;">
-            </div>
-
-            <!-- 4-Line Structural Architecture Summary Block -->
-            <div class="architecture-overview" style="max-width: 850px; width: 100%; margin: 15px auto 5px auto; box-sizing: border-box; text-align: left;">
-                <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; color: #fff; margin: 0 0 10px 0; font-weight: 600; letter-spacing: -0.3px;">Architecture Overview</h3>
-                <p style="color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.92rem; line-height: 1.6; margin: 0; font-weight: 400;">
-                    Keep the agent runtime separate from the systems it can affect. Each tool call should have a defined identity, permitted action, input boundary, and audit trail. Model Context Protocol can provide a consistent interface to approved tools, but the final design still depends on the organisation's access model, data classification, integration estate, and review process. Start with a narrow workflow, test it against realistic failure cases, and expand only after the controls work as intended.
-                </p>
-            </div>
-        </section>
-
-        <!-- 📈 4. ADVISORY APPROACH SECTION -->
-        <section class="advisory-framework" style="border-top: 1px solid rgba(255, 255, 255, 0.04); background: radial-gradient(circle at 50% 0%, rgba(194, 24, 91, 0.02) 0%, transparent 60%); padding: 60px 8% !important;">
-            <div class="section-header" style="text-align: center; margin-bottom: 40px;">
-                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; font-weight: 700; margin: 0 0 10px 0; color: #fff; letter-spacing: -0.5px;">
-                    A Practical <span style="color: var(--accent-blue);">Design Sequence</span>
-                </h2>
-            </div>
-
-            <!-- 🔄 FLEX PROGRESSION STEP MAP -->
-            <div class="framework-flow" style="display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; box-sizing: border-box;">
-                <div class="flow-box" style="background: var(--glass-gradient); border: 1px solid rgba(56, 189, 248, 0.15); padding: 14px 20px; border-radius: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 500; color: #fff; text-align: center;">Workflow &amp; Risk</div>
-                <div class="flow-arrow" style="color: var(--accent-neon); font-weight: 700; font-size: 1.1rem;"><i class="fa-solid fa-arrow-right"></i></div>
-
-                <div class="flow-box" style="background: var(--glass-gradient); border: 1px solid rgba(56, 189, 248, 0.15); padding: 14px 20px; border-radius: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 500; color: #fff; text-align: center;">Data &amp; Access Mapping</div>
-                <div class="flow-arrow" style="color: var(--accent-neon); font-weight: 700; font-size: 1.1rem;"><i class="fa-solid fa-arrow-right"></i></div>
-
-                <div class="flow-box" style="background: var(--glass-gradient); border: 1px solid rgba(56, 189, 248, 0.15); padding: 14px 20px; border-radius: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 500; color: #fff; text-align: center;">Agent &amp; Tool Design</div>
-                <div class="flow-arrow" style="color: var(--accent-neon); font-weight: 700; font-size: 1.1rem;"><i class="fa-solid fa-arrow-right"></i></div>
-
-                <div class="flow-box" style="background: var(--glass-gradient); border: 1px solid rgba(56, 189, 248, 0.15); padding: 14px 20px; border-radius: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 500; color: #fff; text-align: center;">MCP Integration</div>
-                <div class="flow-arrow" style="color: var(--accent-neon); font-weight: 700; font-size: 1.1rem;"><i class="fa-solid fa-arrow-right"></i></div>
-
-                <div class="flow-box" style="background: var(--glass-gradient); border: 1px solid rgba(56, 189, 248, 0.15); padding: 14px 20px; border-radius: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 500; color: #fff; text-align: center;">Controls &amp; Validation</div>
-                <div class="flow-arrow" style="color: var(--accent-neon); font-weight: 700; font-size: 1.1rem;"><i class="fa-solid fa-arrow-right"></i></div>
-
-                <div class="flow-box" style="background: var(--glass-gradient); border: 1px solid rgba(56, 189, 248, 0.15); padding: 14px 20px; border-radius: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 500; color: #fff; text-align: center;">Pilot &amp; Operations</div>
-            </div>
-        </section>
-
-        <!-- 📦 5. WHAT WE DELIVER SECTION -->
-        <section class="deliverables-section" style="border-top: 1px solid rgba(255, 255, 255, 0.04); padding: 60px 8% !important;">
-            <div class="section-header" style="text-align: center; margin-bottom: 40px;">
-                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; font-weight: 700; margin: 0 0 10px 0; color: #fff; letter-spacing: -0.5px;">What We Deliver</h2>
-            </div>
-
-            <!-- 📊 3-COLUMN CONTROL GRID -->
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; box-sizing: border-box;">
-                <div class="deliverable-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.02); padding: 25px 22px; border-radius: 14px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 12px; box-sizing: border-box; transition: all 0.3s ease;" onmouseover="this.style.borderColor='rgba(56, 189, 248, 0.3)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.02)'; this.style.transform='translateY(0)';">
-                    <i class="fa-solid fa-user-gear" style="color: var(--accent-blue); font-size: 0.95rem;"></i> AI Agent Assessment
-                </div>
-                <div class="deliverable-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.02); padding: 25px 22px; border-radius: 14px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 12px; box-sizing: border-box; transition: all 0.3s ease;" onmouseover="this.style.borderColor='rgba(56, 189, 248, 0.3)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.02)'; this.style.transform='translateY(0)';">
-                    <i class="fa-solid fa-diagram-project" style="color: var(--accent-blue); font-size: 0.95rem;"></i> Agent Architecture Blueprint
-                </div>
-                <div class="deliverable-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.02); padding: 25px 22px; border-radius: 14px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 12px; box-sizing: border-box; transition: all 0.3s ease;" onmouseover="this.style.borderColor='rgba(56, 189, 248, 0.3)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.02)'; this.style.transform='translateY(0)';">
-                    <i class="fa-solid fa-circle-nodes" style="color: var(--accent-blue); font-size: 0.95rem;"></i> MCP Integration Design
-                </div>
-                <div class="deliverable-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.02); padding: 25px 22px; border-radius: 14px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 12px; box-sizing: border-box; transition: all 0.3s ease;" onmouseover="this.style.borderColor='rgba(56, 189, 248, 0.3)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.02)'; this.style.transform='translateY(0)';">
-                    <i class="fa-solid fa-bolt-lightning" style="color: var(--accent-blue); font-size: 0.95rem;"></i> Tool Connectivity Framework
-                </div>
-                <div class="deliverable-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.02); padding: 25px 22px; border-radius: 14px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 12px; box-sizing: border-box; transition: all 0.3s ease;" onmouseover="this.style.borderColor='rgba(56, 189, 248, 0.3)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.02)'; this.style.transform='translateY(0)';">
-                    <i class="fa-solid fa-shield-halved" style="color: var(--accent-blue); font-size: 0.95rem;"></i> Governance & Security Model
-                </div>
-                <div class="deliverable-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.02); padding: 25px 22px; border-radius: 14px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 12px; box-sizing: border-box; transition: all 0.3s ease;" onmouseover="this.style.borderColor='rgba(56, 189, 248, 0.3)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.02)'; this.style.transform='translateY(0)';">
-                    <i class="fa-solid fa-route" style="color: var(--accent-blue); font-size: 0.95rem;"></i> Enterprise Deployment Roadmap
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/solutions">Solutions</a> <span>/</span> <span>Agentic AI</span></div>
+            <span class="vk-eyebrow">Agentic AI and MCP</span>
+            <h1>AI agents that do real work, within clear limits</h1>
+            <p class="vk-lead">An AI agent does not just answer. It plans steps, uses tools such as your ticketing, directory or ERP systems, and checks its own results. That makes it useful, and it also makes limits essential: what it may read, what it may change, and what a person must approve.</p>
+            <div class="vk-actions"><a class="vk-btn primary" href="/contact">Book an agent review</a><a class="vk-btn" href="#agentloop">Watch an agent work</a></div>
+        </div>
+        <div class="vk-sec" id="agentloop"><div class="vk-wrap"><span class="vk-eyebrow">See it working</span><h2>An IT service desk agent, step by step</h2>
+            <p class="vk-prose">The agent fixes a VPN problem on its own, is blocked when it tries something outside its permissions, and stops to ask a manager before granting access to financial data. You decide whether the manager approves.</p>
+            <div class="vk-tool vk-agentloop"></div><noscript><p class="vk-muted">This demonstration needs JavaScript.</p></noscript>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><span class="vk-eyebrow">Plain words</span><h2>Chatbot, assistant or agent?</h2><div class="vk-table-wrap"><table><thead><tr><th></th><th>What it does</th><th>Example</th><th>Risk if it goes wrong</th></tr></thead><tbody><tr><td>Chatbot</td><td>Answers from what it knows</td><td>General questions</td><td>Wrong answer</td></tr><tr><td>Assistant with RAG</td><td>Answers from your documents, with sources</td><td>Policy and product questions</td><td>Wrong answer, or a leak if permissions are ignored</td></tr><tr><td>Agent with read-only tools</td><td>Looks things up in your systems to help</td><td>Checks order status, reads logs</td><td>Wrong conclusion</td></tr><tr><td>Agent that can act</td><td>Changes things: creates tickets, resets accounts, updates records</td><td>Renews a certificate, raises a purchase request</td><td>A wrong change in a real system</td></tr></tbody></table></div><p>Most organisations should move down this table one step at a time, proving each level before adding the next.</p>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><span class="vk-eyebrow">Go deeper</span><h2>Guides and examples</h2><div class="vk-grid" style="margin-top:22px"><a class="vk-card" href="/solutions/agents/mcp-architecture"><h3>MCP architecture</h3><p>How the Model Context Protocol connects agents to your systems, and how to design the servers.</p><span class="vk-go">Read the guide &rarr;</span></a><a class="vk-card" href="/solutions/agents/guardrails-and-approvals"><h3>Guardrails and approvals</h3><p>Least privilege, human approval, prompt injection and audit.</p><span class="vk-go">Read the guide &rarr;</span></a><a class="vk-card" href="/solutions/agents/agent-operations"><h3>Running agents</h3><p>Tracing, evaluation, cost and how to roll out safely.</p><span class="vk-go">Read the guide &rarr;</span></a><a class="vk-card" href="/use_cases/it-service-desk-agent"><h3>Use case: IT service desk agent</h3><p>An illustrative scenario: from read-only helper to approved actions, in three phases.</p><span class="vk-go">Read the use case &rarr;</span></a><a class="vk-card" href="/solutions/agents/faq"><h3>Agent questions, answered</h3><p>Autonomy, safety, cost and where agents work well today.</p><span class="vk-go">Read the FAQ &rarr;</span></a></div><p class="vk-small" style="margin-top:18px">Related: <a href="/portfolio/rag-solutions">RAG</a> for answering from documents, and <a href="/portfolio/enterprise-llm">enterprise LLM</a> for the model behind the agent. Full reference: <a href="/solutions/master_agentic">agentic AI whitepaper</a>.</p>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><span class="vk-eyebrow">Where agents work today</span><h2>Good first candidates</h2><ul><li><strong>IT and HR service desks:</strong> triage, diagnosis, and routine fixes such as unlocks and certificate renewals.</li><li><strong>Document-heavy checks:</strong> comparing invoices with purchase orders, or tender documents with requirements.</li><li><strong>Operations support:</strong> gathering logs and metrics during an incident and drafting the summary for engineers.</li><li><strong>Internal requests:</strong> collecting details, checking policy and raising a correctly filled request for approval.</li></ul><p>Good candidates are frequent, rule-based, involve several systems, and have a clear point where a person can approve.</p>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Thinking about AI agents?</h2>
+                <p class="vk-muted">Tell us the process you would like to automate and the systems it touches. We will come back with a plain view of what an agent could safely do, what should stay with people, and how to start small.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book an agent review</a>
+                    <a class="vk-btn" href="/portfolio/agentic-ai">Back to agentic AI</a>
                 </div>
             </div>
-        </section>
-
-        <!-- 🛡️ 6. WHY VAKRATRON SECTION: AUTONOMOUS AUTOMATION STABILITY -->
-        <section class="why-vakratron" style="border-top: 1px solid rgba(255, 255, 255, 0.04); background: radial-gradient(circle at 50% 100%, rgba(194, 24, 91, 0.02) 0%, transparent 60%); padding: 60px 8% !important;">
-            <div class="section-header" style="text-align: center; margin-bottom: 40px;">
-                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; font-weight: 700; margin: 0 0 10px 0; color: #fff; letter-spacing: -0.5px;">What a Defensible Agent Design Includes</h2>
-            </div>
-
-            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 100%; box-sizing: border-box;">
-                <div class="info-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.04); padding: 30px 24px; border-radius: 16px; min-height: 230px; box-sizing: border-box; transition: all 0.3s ease;" onmouseover="this.style.borderColor='rgba(194, 24, 91, 0.5)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.04)'; this.style.transform='translateY(0)';">
-                    <div style="width: 42px; height: 40px; background: rgba(56, 189, 248, 0.04); border: 1px solid rgba(56, 189, 248, 0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--accent-blue); font-size: 1rem; margin-bottom: 18px;"><i class="fas fa-scale-balanced"></i></div>
-                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; color: #fff; margin: 0 0 10px 0; font-weight: 600;">Clear Selection Criteria</h3>
-                    <p style="color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.5; margin: 0;">Models, frameworks, and hosting options are assessed against the workflow, security constraints, integration needs, operating cost, and team capability.</p>
-                </div>
-                <div class="info-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.04); padding: 30px 24px; border-radius: 16px; min-height: 230px; box-sizing: border-box; transition: all 0.3s ease;" onmouseover="this.style.borderColor='rgba(194, 24, 91, 0.5)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.04)'; this.style.transform='translateY(0)';">
-                    <div style="width: 42px; height: 40px; background: rgba(194, 24, 91, 0.04); border: 1px solid rgba(194, 24, 91, 0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--accent-neon); font-size: 1rem; margin-bottom: 18px;"><i class="fas fa-drafting-compass"></i></div>
-                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; color: #fff; margin: 0 0 10px 0; font-weight: 600;">Architecture First</h3>
-                    <p style="color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.5; margin: 0;">The architecture identifies the system boundary, data path, tool permissions, ownership model, and audit requirements before runtime configuration begins.</p>
-                </div>
-                <div class="info-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.04); padding: 30px 24px; border-radius: 16px; min-height: 230px; box-sizing: border-box; transition: all 0.3s ease;" onmouseover="this.style.borderColor='rgba(56, 189, 248, 0.04)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.04)'; this.style.transform='translateY(0)';">
-                    <div style="width: 42px; height: 40px; background: rgba(56, 189, 248, 0.04); border: 1px solid rgba(56, 189, 248, 0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--accent-blue); font-size: 1rem; margin-bottom: 18px;"><i class="fas fa-building-shield"></i></div>
-                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; color: #fff; margin: 0 0 10px 0; font-weight: 600;">Governed Tool Access</h3>
-                    <p style="color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.5; margin: 0;">Tool access is tied to a defined identity, least-privilege permission set, review path, and log record. Sensitive actions can require human approval.</p>
-                </div>
-                <div class="info-card" style="background: var(--glass-gradient); border: 1px solid rgba(255, 255, 255, 0.04); padding: 30px 24px; border-radius: 16px; min-height: 230px; box-sizing: border-box; transition: all 0.3s ease;" onmouseover="this.style.borderColor='rgba(194, 24, 91, 0.5)'; this.style.transform='translateY(-4px)';" onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.04)'; this.style.transform='translateY(0)';">
-                    <div style="width: 42px; height: 40px; background: rgba(194, 24, 91, 0.04); border: 1px solid rgba(194, 24, 91, 0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--accent-neon); font-size: 1rem; margin-bottom: 18px;"><i class="fas fa-bullseye"></i></div>
-                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; color: #fff; margin: 0 0 10px 0; font-weight: 600;">Observable Operation</h3>
-                    <p style="color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.5; margin: 0;">The operating plan defines the success metric, failure behaviour, monitoring signals, incident owner, and review cadence before the pilot expands.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 🎯 7. FINAL CTA SECTION -->
-        <section class="final-cta" style="border-top: 1px solid rgba(255, 255, 255, 0.04); background: radial-gradient(circle at 50% 0%, rgba(194, 24, 91, 0.03) 0%, transparent 70%); display: flex; justify-content: center; width: 100%; box-sizing: border-box; padding: 60px 8% 80px 8% !important;">
-            <div style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(3, 7, 18, 0.95) 100%); border: 1px solid rgba(194, 24, 91, 0.2); border-radius: 20px; padding: 50px 40px; text-align: center; max-width: 950px; width: 100%; box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8); box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8); box-sizing: border-box;">
-                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.3rem; font-weight: 700; margin: 0 0 15px 0; color: #fff; letter-spacing: -0.5px;">Planning an Enterprise Agent Workflow?</h2>
-                <p style="color: var(--text-secondary); max-width: 720px; margin: 0 auto 30px auto; font-size: 1rem; line-height: 1.6; font-family: 'Inter', sans-serif;">Start with one workflow, the systems it touches, the decision rights it needs, and the evidence required to show that it works safely in your environment.</p>
-                <div class="hero-actions">
-                    <a href="contact.html" class="btn-primary">Schedule Discovery Workshop</a>
-                    <a href="contact.html" class="btn-secondary">Request Assessment</a>
-                </div>
-            </div>
-        </section>
-
+        </div></div>
     </main>
 
-    <!-- 📥 DYNAMIC FOOTER PLACEHOLDER -->
     <footer></footer>
-
     <script src="/vakra-loader.js"></script>
+    <script src="/vk-genai-tools.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG Access Control: Enforcing Document Permissions | Vakratron Systems</title>
+    <meta name="description" content="How to enforce document permissions in a RAG system so people only get answers from documents they may read: access lists in the index, filtering at search time, sync and testing.">
+    <link rel="canonical" href="https://vakratronsys.com/solutions/rag/access-control">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
+</head>
+<body>
+    <header></header>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/rag-solutions">RAG</a> <span>/</span> <span>Permissions</span></div>
+            <div class="vk-pills"><a class="vk-pill" href="/solutions/rag/rag-architecture">How RAG is built</a><a class="vk-pill" href="/solutions/rag/document-ingestion">Preparing documents</a><a class="vk-pill" href="/solutions/rag/retrieval-quality">Better retrieval</a><a class="vk-pill on" href="/solutions/rag/access-control">Permissions</a><a class="vk-pill" href="/solutions/rag/rag-evaluation">Measuring answers</a></div><span class="vk-eyebrow">RAG guide</span>
+            <h1>Permissions: the right answers for the right people</h1>
+            <p class="vk-lead">A RAG system that ignores document permissions is a data leak with a chat interface. Anyone could ask about salaries, board decisions or customer data and get an answer. Permissions must be enforced before the model sees anything.</p>
+            <div class="vk-facts"><div class="vk-fact"><span class="k">Check at</span><span class="v">Search time</span></div><div class="vk-fact"><span class="k">Source of truth</span><span class="v">Original document permissions</span></div><div class="vk-fact"><span class="k">Sync</span><span class="v">With every change</span></div><div class="vk-fact"><span class="k">Test with</span><span class="v">Real user roles</span></div></div>
+        </div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><h2>How it works</h2><ol class="vk-steps"><li>When a document is indexed, its access list (users and groups) is stored with every passage.</li><li>When someone asks a question, the system knows who they are from company sign-in.</li><li>Search only returns passages that person is allowed to read. Everything else is filtered out before the model is involved.</li><li>When permissions change at the source, the index is updated too.</li></ol><p>Try it in the <a href="/portfolio/rag-solutions#ragflow">interactive demo</a>: ask the salary question as an employee and as an HR manager.</p>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><h2>Mistakes to avoid</h2><ul><li><strong>Filtering after the model answers.</strong> Too late: the model has already seen the restricted text.</li><li><strong>One shared index for everything, with no access lists.</strong> Simple to build, unsafe to run.</li><li><strong>Forgetting removed access.</strong> When someone leaves a team, their access to its documents must disappear from the index too.</li><li><strong>Not testing with real roles.</strong> Test with accounts from different departments before go-live.</li></ul>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><p class="vk-small"><strong>More RAG guides:</strong> <a href="/solutions/rag/rag-architecture">How RAG is built</a> &middot; <a href="/solutions/rag/document-ingestion">Preparing documents</a> &middot; <a href="/solutions/rag/retrieval-quality">Better retrieval</a> &middot; <a href="/solutions/rag/rag-evaluation">Measuring answers</a> &middot; <a href="/solutions/rag/faq">RAG FAQ</a> &middot; <a href="/use_cases/hr-policy-assistant">Use case: HR policy assistant</a></p>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Want answers from your own documents?</h2>
+                <p class="vk-muted">Tell us where the documents live, who should be able to ask, and ten questions people ask today. We will come back with a plain view of what it takes to answer them well, and safely.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book a RAG review</a>
+                    <a class="vk-btn" href="/portfolio/rag-solutions">Back to RAG</a>
+                </div>
+            </div>
+        </div></div>
+    </main>
+
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

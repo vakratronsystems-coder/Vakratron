@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Running AI Agents in Production: Phased Rollout, Tracing, Metrics | Vakratron Systems</title>
+    <meta name="description" content="How to run AI agents in production: phased rollout from shadow mode to approved actions, tracing every step, measuring task success, escalations, cost and blocked actions.">
+    <link rel="canonical" href="https://vakratronsys.com/solutions/agents/agent-operations">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
+</head>
+<body>
+    <header></header>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/agentic-ai">Agentic AI</a> <span>/</span> <span>Running agents</span></div>
+            <div class="vk-pills"><a class="vk-pill" href="/solutions/agents/mcp-architecture">MCP architecture</a><a class="vk-pill" href="/solutions/agents/guardrails-and-approvals">Guardrails and approvals</a><a class="vk-pill on" href="/solutions/agents/agent-operations">Running agents</a></div><span class="vk-eyebrow">Agent guide</span>
+            <h1>Running agents in production</h1>
+            <p class="vk-lead">An agent that works in a demo can fail quietly in production: looping, calling the wrong tool, or costing more per task than a person. Running agents well means seeing every step, measuring outcomes, and rolling out in stages.</p>
+            <div class="vk-facts"><div class="vk-fact"><span class="k">See</span><span class="v">Every step traced</span></div><div class="vk-fact"><span class="k">Measure</span><span class="v">Task success, cost</span></div><div class="vk-fact"><span class="k">Roll out</span><span class="v">Read only first</span></div><div class="vk-fact"><span class="k">Review</span><span class="v">Weekly at first</span></div></div>
+        </div>
+        <div class="vk-sec"><div class="vk-wrap"><h2>Roll out in phases</h2><div class="vk-table-wrap"><table><thead><tr><th>Phase</th><th>What the agent may do</th><th>Move on when</th></tr></thead><tbody><tr><td>1. Shadow</td><td>Suggests actions; people do them</td><td>Suggestions are right most of the time</td></tr><tr><td>2. Read and draft</td><td>Reads systems, drafts tickets and replies for people to send</td><td>Drafts need few edits</td></tr><tr><td>3. Low-risk actions</td><td>Performs reversible, low-risk changes on its own</td><td>No harmful mistakes over an agreed period</td></tr><tr><td>4. Approved actions</td><td>Prepares high-risk changes for one-click approval</td><td>Approvers trust the preparation</td></tr></tbody></table></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><h2>What to measure</h2><ul><li><strong>Task success:</strong> did the request actually get resolved, judged by the requester or a reviewer.</li><li><strong>Steps and tool calls per task:</strong> rising numbers often mean the agent is confused.</li><li><strong>Escalation rate:</strong> how often it hands over to a person, and why.</li><li><strong>Cost per task:</strong> model usage and tool calls, compared with doing it by hand.</li><li><strong>Blocked actions:</strong> attempts stopped by guardrails, each one worth a look.</li></ul>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><h2>Typical tools</h2><div class="vk-table-wrap"><table><thead><tr><th>Area</th><th>Common choices</th></tr></thead><tbody><tr><td>Agent frameworks</td><td>LangGraph, Microsoft Semantic Kernel, vendor agent SDKs</td></tr><tr><td>Tool connections</td><td>MCP servers</td></tr><tr><td>Tracing</td><td>Langfuse, OpenTelemetry</td></tr><tr><td>Evaluation</td><td>Recorded test tasks re-run on every change</td></tr></tbody></table></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><p class="vk-small"><strong>More agent guides:</strong> <a href="/solutions/agents/mcp-architecture">MCP architecture</a> &middot; <a href="/solutions/agents/guardrails-and-approvals">Guardrails and approvals</a> &middot; <a href="/solutions/agents/faq">Agent FAQ</a> &middot; <a href="/use_cases/it-service-desk-agent">Use case: IT service desk agent</a></p>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Thinking about AI agents?</h2>
+                <p class="vk-muted">Tell us the process you would like to automate and the systems it touches. We will come back with a plain view of what an agent could safely do, what should stay with people, and how to start small.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book an agent review</a>
+                    <a class="vk-btn" href="/portfolio/agentic-ai">Back to agentic AI</a>
+                </div>
+            </div>
+        </div></div>
+    </main>
+
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluating RAG: Test Sets, Retrieval Hit Rate, Faithfulness | Vakratron Systems</title>
+    <meta name="description" content="How to measure a RAG system: building a test set from real questions, retrieval hit rate, faithfulness, correctness, refusals and user feedback, re-run on every change.">
+    <link rel="canonical" href="https://vakratronsys.com/solutions/rag/rag-evaluation">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
+</head>
+<body>
+    <header></header>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/rag-solutions">RAG</a> <span>/</span> <span>Measuring answers</span></div>
+            <div class="vk-pills"><a class="vk-pill" href="/solutions/rag/rag-architecture">How RAG is built</a><a class="vk-pill" href="/solutions/rag/document-ingestion">Preparing documents</a><a class="vk-pill" href="/solutions/rag/retrieval-quality">Better retrieval</a><a class="vk-pill" href="/solutions/rag/access-control">Permissions</a><a class="vk-pill on" href="/solutions/rag/rag-evaluation">Measuring answers</a></div><span class="vk-eyebrow">RAG guide</span>
+            <h1>Measuring answers</h1>
+            <p class="vk-lead">Without measurement, every change to a RAG system is a guess. A small, well-built test set turns quality into a number you can track and improve.</p>
+            <div class="vk-facts"><div class="vk-fact"><span class="k">Test set</span><span class="v">100-200 real questions</span></div><div class="vk-fact"><span class="k">Check 1</span><span class="v">Right passage found?</span></div><div class="vk-fact"><span class="k">Check 2</span><span class="v">Answer faithful?</span></div><div class="vk-fact"><span class="k">Run</span><span class="v">On every change</span></div></div>
+        </div>
+        <div class="vk-sec"><div class="vk-wrap"><h2>What to measure</h2><div class="vk-table-wrap"><table><thead><tr><th>Measure</th><th>Question it answers</th><th>How</th></tr></thead><tbody><tr><td>Retrieval hit rate</td><td>Did the right passage come back at all?</td><td>Automatic, using the source marked in the test set</td></tr><tr><td>Faithfulness</td><td>Does the answer stick to the passages, without inventing?</td><td>Automatic scoring plus expert review of a sample</td></tr><tr><td>Correctness</td><td>Is the answer actually right?</td><td>Compared with the agreed answer</td></tr><tr><td>Refusals</td><td>Does it say "I don't know" when the answer is not in the documents?</td><td>Include questions with no answer in the test set</td></tr><tr><td>User feedback</td><td>Do people find it useful?</td><td>Thumbs up or down, plus comments</td></tr></tbody></table></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><h2>Building the test set</h2><ul><li>Collect real questions from help desks, email and chat, not invented ones.</li><li>For each, record the right answer and the document it comes from.</li><li>Include hard questions, questions with no answer, and questions that need permissions.</li><li>Re-run it on every change to documents, prompts, models or search settings. Tools such as Ragas help automate scoring.</li></ul>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><p class="vk-small"><strong>More RAG guides:</strong> <a href="/solutions/rag/rag-architecture">How RAG is built</a> &middot; <a href="/solutions/rag/document-ingestion">Preparing documents</a> &middot; <a href="/solutions/rag/retrieval-quality">Better retrieval</a> &middot; <a href="/solutions/rag/access-control">Permissions</a> &middot; <a href="/solutions/rag/faq">RAG FAQ</a> &middot; <a href="/use_cases/hr-policy-assistant">Use case: HR policy assistant</a></p>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Want answers from your own documents?</h2>
+                <p class="vk-muted">Tell us where the documents live, who should be able to ask, and ten questions people ask today. We will come back with a plain view of what it takes to answer them well, and safely.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book a RAG review</a>
+                    <a class="vk-btn" href="/portfolio/rag-solutions">Back to RAG</a>
+                </div>
+            </div>
+        </div></div>
+    </main>
+
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

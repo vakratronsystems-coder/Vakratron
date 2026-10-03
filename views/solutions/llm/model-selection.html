@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choosing an LLM: Open vs Commercial, Size, Languages and Testing | Vakratron Systems</title>
+    <meta name="description" content="How to choose a large language model for an enterprise task: open vs commercial, model size, Indian languages, licences, and a practical way to test models on your own examples.">
+    <link rel="canonical" href="https://vakratronsys.com/solutions/llm/model-selection">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
+</head>
+<body>
+    <header></header>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/enterprise-llm">Enterprise LLM</a> <span>/</span> <span>Choosing a model</span></div>
+            <div class="vk-pills"><a class="vk-pill on" href="/solutions/llm/model-selection">Choosing a model</a><a class="vk-pill" href="/solutions/llm/private-llm-hosting">Private hosting</a><a class="vk-pill" href="/solutions/llm/fine-tuning">Fine-tuning</a><a class="vk-pill" href="/solutions/llm/llm-governance">Governance and LLMOps</a></div><span class="vk-eyebrow">LLM guide</span>
+            <h1>Choosing a model</h1>
+            <p class="vk-lead">There is no single best model. The right one is the cheapest model that does your task well enough, on infrastructure your data rules allow. The only reliable way to find it is to test candidates on your own examples.</p>
+            <div class="vk-facts"><div class="vk-fact"><span class="k">Start from</span><span class="v">Your task, not a leaderboard</span></div><div class="vk-fact"><span class="k">Test on</span><span class="v">100-300 real examples</span></div><div class="vk-fact"><span class="k">Compare</span><span class="v">Quality, speed, cost</span></div><div class="vk-fact"><span class="k">Revisit</span><span class="v">Every few months</span></div></div>
+        </div>
+        <div class="vk-sec"><div class="vk-wrap"><h2>The main choices</h2><div class="vk-table-wrap"><table><thead><tr><th>Question</th><th>Options</th><th>How to decide</th></tr></thead><tbody><tr><td>Commercial or open-weight?</td><td>Commercial models via API; open models (Llama, Mistral, Qwen and others) you can run yourself</td><td>Data rules and volume first. Open models are good enough for many enterprise tasks today.</td></tr><tr><td>How big?</td><td>Small (around 8B parameters), medium (around 70B), very large</td><td>Use the smallest that passes your test set. Small models are far cheaper and faster.</td></tr><tr><td>General or specialised?</td><td>General chat models, code models, embedding models for search</td><td>Use specialised models where they exist, especially for search embeddings.</td></tr><tr><td>Which languages?</td><td>English-first models, multilingual models</td><td>If users write in Hindi or other Indian languages, test that explicitly. Quality varies a lot.</td></tr><tr><td>Licence</td><td>Apache 2.0 and similar, or custom community licences</td><td>Read the licence. Some restrict use above a user count or in certain products.</td></tr></tbody></table></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><h2>How we test models</h2><ol class="vk-steps"><li><strong>Collect real examples.</strong> Questions or documents from the actual workflow, with the answers a good employee would give.</li><li><strong>Define what good means.</strong> Correct facts, right format, right tone, says "I don't know" when it should.</li><li><strong>Run each candidate.</strong> Same prompts, same examples, recorded outputs.</li><li><strong>Score.</strong> Automatic checks where possible, plus review by the people who do the work.</li><li><strong>Weigh cost and speed.</strong> A model 3% better but 10 times more expensive is rarely the right choice.</li></ol><p>Keep the test set. When a new model version arrives, you can re-run it in an afternoon and decide with evidence.</p>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><h2>Common mistakes</h2><ul><li><strong>Choosing from public leaderboards.</strong> General benchmarks say little about your documents and your users.</li><li><strong>Testing only on easy examples.</strong> Include the messy, ambiguous and edge cases. That is where models differ.</li><li><strong>Locking in one model forever.</strong> Put a gateway in front so the model behind it can change without changing every application.</li></ul>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><p class="vk-small"><strong>More LLM guides:</strong> <a href="/solutions/llm/private-llm-hosting">Private hosting</a> &middot; <a href="/solutions/llm/fine-tuning">Fine-tuning</a> &middot; <a href="/solutions/llm/llm-governance">Governance and LLMOps</a> &middot; <a href="/solutions/llm/faq">LLM FAQ</a> &middot; <a href="/use_cases/llm-claims-summarisation">Use case: claims summaries</a></p>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Starting with LLMs, or stuck after a pilot?</h2>
+                <p class="vk-muted">Tell us the task you want AI to help with and any rules about where your data can go. We will come back with a plain recommendation: which kind of model, where to run it, roughly what it costs, and how to know if it is working.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book an LLM review</a>
+                    <a class="vk-btn" href="/portfolio/enterprise-llm">Back to enterprise LLM</a>
+                </div>
+            </div>
+        </div></div>
+    </main>
+
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

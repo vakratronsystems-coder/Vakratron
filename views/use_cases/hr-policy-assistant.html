@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Use Case: HR Policy Assistant with RAG for 3,000 Employees | Vakratron Systems</title>
+    <meta name="description" content="An illustrative scenario: an HR policy assistant built with RAG, answering in English and Hindi from current documents with sources and strict permissions.">
+    <link rel="canonical" href="https://vakratronsys.com/use_cases/hr-policy-assistant">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
+</head>
+<body>
+    <header></header>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/rag-solutions">RAG</a> <span>/</span> <span>Use case: HR policy assistant</span></div>
+            <div class="vk-label"><span>Illustrative scenario</span></div>
+            <h1>An HR policy assistant for 3,000 employees</h1>
+            <p class="vk-lead">How we would build an assistant that answers HR and policy questions in English and Hindi, from current documents only, without exposing HR-only material.</p>
+            <div class="vk-note"><p class="vk-small">This is a composite example built from common enterprise requirements. It is not a specific client engagement, and the figures are design targets for the scenario, not measured results.</p></div>
+            <div class="vk-facts"><div class="vk-fact"><span class="k">Users</span><span class="v">~3,000 employees</span></div><div class="vk-fact"><span class="k">Languages</span><span class="v">English and Hindi</span></div><div class="vk-fact"><span class="k">Sources</span><span class="v">SharePoint and HR system</span></div><div class="vk-fact"><span class="k">Rule</span><span class="v">Answer with sources, or say so</span></div></div>
+        </div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><span class="vk-eyebrow">The situation</span><h2>The same questions, every day</h2>
+            <p>The HR team answered hundreds of emails a month about leave, reimbursements, travel rules and benefits. Answers existed in policy documents, but there were several versions of many of them, some scanned, and some HR-only documents sat in the same folders as staff policies.</p>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><span class="vk-eyebrow">The approach</span><h2>What we would do</h2><ol class="vk-steps"><li><strong>Collect 150 real questions</strong> from the HR mailbox, with the right answers marked by the HR team.</li><li><strong>Clean up sources with HR.</strong> Archive old versions, re-scan unreadable PDFs, and separate HR-only documents.</li><li><strong>Carry permissions into the index</strong> from Active Directory groups, so HR-only content is invisible to other staff.</li><li><strong>Hybrid search with reranking</strong> and a multilingual embedding model for Hindi questions.</li><li><strong>Answer only with sources.</strong> If nothing relevant is found, say so and point to the HR helpdesk.</li><li><strong>Pilot with two departments</strong>, then roll out company-wide.</li></ol>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><span class="vk-eyebrow">What changes</span><h2>Targets and how they are checked</h2><div class="vk-table-wrap"><table><thead><tr><th>Measure</th><th>Target</th><th>Checked by</th></tr></thead><tbody><tr><td>Policy questions reaching the HR mailbox</td><td>Down by about half</td><td>Monthly mailbox volume by category</td></tr><tr><td>Correct answers on the test set</td><td>90% or better</td><td>Test set re-run on every change</td></tr><tr><td>HR-only content shown to staff</td><td>Never</td><td>Permission tests with real accounts before each release</td></tr></tbody></table></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><span class="vk-eyebrow">Trade-offs</span><h2>What we would flag</h2><ul><li><strong>Document owners are essential.</strong> When a policy changes, someone must update the source, or the assistant repeats the old rule.</li><li><strong>Some questions need a person.</strong> Personal cases and exceptions should be routed to HR, not answered by the assistant.</li><li><strong>Hindi quality needs its own testing.</strong> Include enough Hindi questions in the test set.</li></ul>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Want answers from your own documents?</h2>
+                <p class="vk-muted">Tell us where the documents live, who should be able to ask, and ten questions people ask today. We will come back with a plain view of what it takes to answer them well, and safely.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book a RAG review</a>
+                    <a class="vk-btn" href="/portfolio/rag-solutions">Back to RAG</a>
+                </div>
+            </div>
+        </div></div>
+    </main>
+
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

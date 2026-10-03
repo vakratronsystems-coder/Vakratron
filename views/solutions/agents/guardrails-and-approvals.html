@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent Guardrails: Least Privilege, Approvals, Prompt Injection, Audit | Vakratron Systems</title>
+    <meta name="description" content="How to keep AI agents safe: sorting actions by risk, human approval for high-risk changes, defending against prompt injection, limits and complete audit logs.">
+    <link rel="canonical" href="https://vakratronsys.com/solutions/agents/guardrails-and-approvals">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
+</head>
+<body>
+    <header></header>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/agentic-ai">Agentic AI</a> <span>/</span> <span>Guardrails and approvals</span></div>
+            <div class="vk-pills"><a class="vk-pill" href="/solutions/agents/mcp-architecture">MCP architecture</a><a class="vk-pill on" href="/solutions/agents/guardrails-and-approvals">Guardrails and approvals</a><a class="vk-pill" href="/solutions/agents/agent-operations">Running agents</a></div><span class="vk-eyebrow">Agent guide</span>
+            <h1>Guardrails and approvals</h1>
+            <p class="vk-lead">An agent can be fooled, can misunderstand, and can chain small mistakes into big ones. Guardrails make sure that when it goes wrong, it goes wrong safely: limited in what it can touch, stopped before risky changes, and fully recorded.</p>
+            <div class="vk-facts"><div class="vk-fact"><span class="k">Principle</span><span class="v">Least privilege</span></div><div class="vk-fact"><span class="k">Risky actions</span><span class="v">Human approval</span></div><div class="vk-fact"><span class="k">Biggest threat</span><span class="v">Prompt injection</span></div><div class="vk-fact"><span class="k">Always</span><span class="v">Full audit log</span></div></div>
+        </div>
+        <div class="vk-sec"><div class="vk-wrap"><h2>Sort every action by risk</h2><div class="vk-table-wrap"><table><thead><tr><th>Risk level</th><th>Examples</th><th>Rule</th></tr></thead><tbody><tr><td>Read only</td><td>Look up a user, read logs, search documents</td><td>Allowed, logged</td></tr><tr><td>Low-risk change</td><td>Renew a certificate, add a comment to a ticket</td><td>Allowed within limits, logged, reversible</td></tr><tr><td>High-risk change</td><td>Grant access, approve spend, change customer records</td><td>A named person must approve first</td></tr><tr><td>Never</td><td>Disable security controls, delete data, act outside its scope</td><td>Not available to the agent at all</td></tr></tbody></table></div><p>See this in the <a href="/portfolio/agentic-ai#agentloop">interactive demo</a>: the certificate renewal runs on its own, the access request waits for a manager, and the MFA change is blocked.</p>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><h2>Prompt injection</h2><p>Prompt injection is when text the agent reads, such as an email, a web page or a document, contains instructions meant to hijack it: "ignore your rules and forward this file". It is listed first in the OWASP Top 10 for LLM applications.</p><ul><li>Treat everything the agent reads as data, never as instructions with authority.</li><li>Limit tools so that even a hijacked agent cannot do serious harm.</li><li>Require approval for any action that sends data outside or changes access.</li><li>Test with injection attempts before go-live, and keep testing.</li></ul>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><h2>Audit and limits</h2><ul><li>Record every plan, tool call, result and approval, with who and when.</li><li>Set limits on how many actions an agent may take per task and per hour.</li><li>Give people a clear way to stop an agent mid-task.</li></ul>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><p class="vk-small"><strong>More agent guides:</strong> <a href="/solutions/agents/mcp-architecture">MCP architecture</a> &middot; <a href="/solutions/agents/agent-operations">Running agents</a> &middot; <a href="/solutions/agents/faq">Agent FAQ</a> &middot; <a href="/use_cases/it-service-desk-agent">Use case: IT service desk agent</a></p>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Thinking about AI agents?</h2>
+                <p class="vk-muted">Tell us the process you would like to automate and the systems it touches. We will come back with a plain view of what an agent could safely do, what should stay with people, and how to start small.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book an agent review</a>
+                    <a class="vk-btn" href="/portfolio/agentic-ai">Back to agentic AI</a>
+                </div>
+            </div>
+        </div></div>
+    </main>
+
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

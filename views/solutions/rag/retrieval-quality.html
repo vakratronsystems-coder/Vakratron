@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Improving RAG Retrieval: Hybrid Search, Reranking and Filters | Vakratron Systems</title>
+    <meta name="description" content="How to improve retrieval in a RAG system: hybrid vector and keyword search, reranking, number of passages, metadata filters, query rewriting and multilingual search.">
+    <link rel="canonical" href="https://vakratronsys.com/solutions/rag/retrieval-quality">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
+</head>
+<body>
+    <header></header>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/rag-solutions">RAG</a> <span>/</span> <span>Better retrieval</span></div>
+            <div class="vk-pills"><a class="vk-pill" href="/solutions/rag/rag-architecture">How RAG is built</a><a class="vk-pill" href="/solutions/rag/document-ingestion">Preparing documents</a><a class="vk-pill on" href="/solutions/rag/retrieval-quality">Better retrieval</a><a class="vk-pill" href="/solutions/rag/access-control">Permissions</a><a class="vk-pill" href="/solutions/rag/rag-evaluation">Measuring answers</a></div><span class="vk-eyebrow">RAG guide</span>
+            <h1>Better retrieval</h1>
+            <p class="vk-lead">If the right passage is not among the few sent to the model, the answer will be wrong or empty, however good the model is. Retrieval is where most of the tuning effort pays off.</p>
+            <div class="vk-facts"><div class="vk-fact"><span class="k">Search</span><span class="v">Hybrid: meaning plus keywords</span></div><div class="vk-fact"><span class="k">Then</span><span class="v">Rerank</span></div><div class="vk-fact"><span class="k">Send to model</span><span class="v">A few best passages</span></div><div class="vk-fact"><span class="k">Measure</span><span class="v">Did the right passage come back?</span></div></div>
+        </div>
+        <div class="vk-sec"><div class="vk-wrap"><h2>The choices that matter</h2><div class="vk-table-wrap"><table><thead><tr><th>Choice</th><th>What it does</th><th>Our usual default</th></tr></thead><tbody><tr><td>Hybrid search</td><td>Combines meaning-based (vector) search with keyword search</td><td>Always on. Keywords catch policy numbers, product codes and names that vector search misses.</td></tr><tr><td>Reranking</td><td>A second model re-scores the top results for relevance</td><td>On for most use cases. Often the single biggest quality gain.</td></tr><tr><td>Number of passages</td><td>How many passages the model sees</td><td>Start with 3 to 8, tuned on the test set</td></tr><tr><td>Metadata filters</td><td>Restrict by department, date, document type or permission</td><td>Use whenever the question implies a scope</td></tr><tr><td>Query rewriting</td><td>Turns a vague or follow-up question into a clear search</td><td>On for chat assistants with follow-up questions</td></tr></tbody></table></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><h2>Languages</h2><p>For users who ask in Hindi or mix Hindi and English, use a multilingual embedding model and test with real questions. Keyword search on transliterated text needs extra care.</p>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><p class="vk-small"><strong>More RAG guides:</strong> <a href="/solutions/rag/rag-architecture">How RAG is built</a> &middot; <a href="/solutions/rag/document-ingestion">Preparing documents</a> &middot; <a href="/solutions/rag/access-control">Permissions</a> &middot; <a href="/solutions/rag/rag-evaluation">Measuring answers</a> &middot; <a href="/solutions/rag/faq">RAG FAQ</a> &middot; <a href="/use_cases/hr-policy-assistant">Use case: HR policy assistant</a></p>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Want answers from your own documents?</h2>
+                <p class="vk-muted">Tell us where the documents live, who should be able to ask, and ten questions people ask today. We will come back with a plain view of what it takes to answer them well, and safely.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book a RAG review</a>
+                    <a class="vk-btn" href="/portfolio/rag-solutions">Back to RAG</a>
+                </div>
+            </div>
+        </div></div>
+    </main>
+
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>
