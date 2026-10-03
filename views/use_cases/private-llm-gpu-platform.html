@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Use Case: Sizing a Private LLM Platform on 32 GPUs | Vakratron Systems</title>
+    <meta name="description" content="An illustrative scenario: sizing a private LLM platform for 2,000 staff with inference and fine-tuning on 32 H200 GPUs, including fabric, storage, power and trade-offs.">
+    <link rel="canonical" href="https://vakratronsys.com/use_cases/private-llm-gpu-platform">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
+</head>
+<body>
+    <header></header>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/ai-gpu-cloud">AI infrastructure</a> <span>/</span> <span>Use case: private LLM platform</span></div>
+            <div class="vk-label"><span>Illustrative scenario</span></div>
+            <h1>A private LLM platform on 32 GPUs</h1>
+            <p class="vk-lead">How we would size a GPU platform for a financial-services group that wants an internal AI assistant for 2,000 staff, plus regular fine-tuning, without sending data outside its own infrastructure.</p>
+            <div class="vk-note"><p class="vk-small">This is a composite example built from requirements common in regulated enterprises. It is not a specific client engagement, and the figures are design estimates for the scenario, not measured results.</p></div>
+            <div class="vk-facts">
+                <div class="vk-fact"><span class="k">Users</span><span class="v">~2,000 staff</span></div>
+                <div class="vk-fact"><span class="k">Models</span><span class="v">70B and 8B class</span></div>
+                <div class="vk-fact"><span class="k">GPUs</span><span class="v">32 x H200</span></div>
+                <div class="vk-fact"><span class="k">Power</span><span class="v">~47 kW, 2 racks</span></div>
+            </div>
+        </div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><span class="vk-eyebrow">The situation</span><h2>Useful AI, but no data leaving the building</h2>
+            <p>The group wanted an assistant that could answer questions on policies, products and internal procedures, and summarise long documents. Its risk team ruled out sending customer or internal data to an external AI service. It also wanted to fine-tune models on its own terminology every quarter.</p>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><span class="vk-eyebrow">Sizing</span><h2>Working out how many GPUs</h2><div class="vk-table-wrap"><table><thead><tr><th>Workload</th><th>Assumption</th><th>GPUs</th></tr></thead><tbody><tr><td>Assistant (70B-class model, 8-bit)</td><td>Peak 200 people asking at once, up to 8,000 tokens of context each</td><td>8 GPUs: 4 replicas of 2 x H200</td></tr><tr><td>Quick tasks (8B-class model)</td><td>Classification, extraction, short answers</td><td>4 GPUs, shared</td></tr><tr><td>Fine-tuning</td><td>LoRA on the 70B model, full fine-tune of the 8B model, quarterly</td><td>8 GPUs (one server), idle between runs for burst inference</td></tr><tr><td>Headroom and failover</td><td>One server can fail without losing the service</td><td>12 GPUs</td></tr><tr><td>Total</td><td></td><td><strong>32 GPUs in 4 servers</strong></td></tr></tbody></table></div><p class="vk-small vk-muted">KV cache for 200 users at 8,000 tokens on a 70B-class model at 8-bit is roughly 250 GB, spread across the replicas. H200's 141 GB per GPU leaves room for it alongside the weights.</p>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><span class="vk-eyebrow">The design</span><h2>What gets built</h2><div class="vk-table-wrap"><table><thead><tr><th>Component</th><th>Design</th></tr></thead><tbody><tr><td>GPU servers</td><td>4 x 8-GPU H200 servers</td></tr><tr><td>GPU fabric</td><td>One 64-port 400G InfiniBand switch: 32 ports used, room to double</td></tr><tr><td>Front-end and storage network</td><td>100/200 Gb/s Ethernet, separate from the GPU fabric</td></tr><tr><td>Storage</td><td>About 300 TB all-flash parallel file system, plus object storage for documents and models</td></tr><tr><td>Platform</td><td>Kubernetes with GPU Operator, vLLM model servers, API gateway with per-department quotas</td></tr><tr><td>Facility</td><td>~47 kW across 2 racks at ~24 kW each, with rear-door heat exchangers</td></tr></tbody></table></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><span class="vk-eyebrow">Trade-offs</span><h2>What we would flag</h2><ul><li><strong>H200 costs more per GPU than H100.</strong> Its extra memory means fewer GPUs per model replica, so the total can come out similar. Compare complete configurations, not unit prices.</li><li><strong>The data centre decides the timeline.</strong> If the facility needs new power or chilled water for two 24 kW racks, that work starts before the order is placed.</li><li><strong>Peak usage drives cost.</strong> Most demand comes in the first hours of the working day. A short queue at peak can save several GPUs.</li><li><strong>The model is only half of it.</strong> Answers about internal policies need good retrieval from internal documents. See <a href="/portfolio/rag-solutions">RAG solutions</a>.</li></ul>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Planning a GPU cluster?</h2>
+                <p class="vk-muted">Tell us the models you want to run or train, how many users, and where it will be hosted. We will come back with a first sizing: GPUs, servers, network, storage, and the power and cooling your data centre will need.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book a GPU sizing review</a>
+                    <a class="vk-btn" href="/portfolio/ai-gpu-cloud">Back to AI infrastructure</a>
+                </div>
+            </div>
+        </div></div>
+    </main>
+
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

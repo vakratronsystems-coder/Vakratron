@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPU and AI Infrastructure FAQ: Buy or Rent, H100 vs H200, InfiniBand, Power | Vakratron Systems</title>
+    <meta name="description" content="Plain answers on GPU infrastructure: buying vs renting GPUs, H100 vs H200 vs L40S, InfiniBand, lead times, data-centre power, utilisation and mixing training with inference.">
+    <link rel="canonical" href="https://vakratronsys.com/solutions/ai-infra/faq">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
+</head>
+<body>
+    <header></header>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/ai-gpu-cloud">AI infrastructure</a> <span>/</span> <span>FAQ</span></div>
+            <span class="vk-eyebrow">AI infrastructure guide</span>
+            <h1>GPU and AI infrastructure questions, answered</h1>
+            <p class="vk-lead">Short answers to the questions we hear most often when organisations plan GPU infrastructure.</p>
+            
+        </div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><details><summary>Should we buy GPUs or rent them from a GPU cloud?</summary><div><p>Rent while you learn your real usage, or for short projects. Buy when you have steady, long-term demand, or when data must stay on your premises. Many organisations do both: own the steady base, rent for peaks.</p></div></details><details><summary>H100, H200 or L40S?</summary><div><p>H100 and H200 are built for training and large-model serving; H200 has much more memory (141 GB vs 80 GB), which helps large models and long contexts. L40S is a cheaper PCIe GPU that serves small and mid-size models well but is not designed for multi-server training.</p></div></details><details><summary>Do we need InfiniBand?</summary><div><p>For training across several servers, you need a high-speed GPU fabric: InfiniBand or well-tuned RoCE Ethernet. For inference where each model fits in one server, standard data-centre networking is usually enough.</p></div></details><details><summary>How long do GPU servers take to arrive?</summary><div><p>It varies with demand and model. Lead times of several weeks to a few months are common. Facility upgrades for power and cooling can take longer, so start that check first.</p></div></details><details><summary>Can our existing data centre host a GPU cluster?</summary><div><p>Often only partly. One 8-GPU server draws about 10 kW, more than many enterprise racks are built for. We check power, cooling and floor loading before anything is ordered. See <a href="/solutions/ai-infra/power-and-cooling">power and cooling</a>.</p></div></details><details><summary>How do we keep GPUs busy?</summary><div><p>A scheduler that understands GPUs, quotas per team, GPU sharing (MIG) for small workloads, and monitoring that shows utilisation per team. Clusters without these often run far below capacity.</p></div></details><details><summary>Can we run training and inference on the same cluster?</summary><div><p>Yes, with care. Inference needs steady capacity during working hours; training can use what is left, especially at night. Kubernetes or a scheduler with priorities and pre-emption makes this work.</p></div></details><details><summary>What do you need from us to start?</summary><div><p>The models you plan to use, training or inference, rough user numbers, and where the hardware will live. We will start from that and the data-centre details.</p></div></details>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><p class="vk-small"><strong>More AI infrastructure guides:</strong> <a href="/solutions/ai-infra/gpu-training-cluster">Training cluster</a> &middot; <a href="/solutions/ai-infra/gpu-inference-platform">Inference platform</a> &middot; <a href="/solutions/ai-infra/ai-network-fabric">GPU network fabric</a> &middot; <a href="/solutions/ai-infra/ai-storage">Storage for AI</a> &middot; <a href="/solutions/ai-infra/power-and-cooling">Power and cooling</a> &middot; <a href="/solutions/ai-infra/faq">FAQ</a> &middot; <a href="/use_cases/private-llm-gpu-platform">Use case: private LLM platform</a></p>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Planning a GPU cluster?</h2>
+                <p class="vk-muted">Tell us the models you want to run or train, how many users, and where it will be hosted. We will come back with a first sizing: GPUs, servers, network, storage, and the power and cooling your data centre will need.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book a GPU sizing review</a>
+                    <a class="vk-btn" href="/portfolio/ai-gpu-cloud">Back to AI infrastructure</a>
+                </div>
+            </div>
+        </div></div>
+    </main>
+
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storage for AI: Parallel File Systems, Checkpoints and Throughput | Vakratron Systems</title>
+    <meta name="description" content="How to design storage for GPU clusters: local NVMe, parallel file systems and object storage, checkpoint sizes and write times, and what really decides storage speed.">
+    <link rel="canonical" href="https://vakratronsys.com/solutions/ai-infra/ai-storage">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
+</head>
+<body>
+    <header></header>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/ai-gpu-cloud">AI infrastructure</a> <span>/</span> <span>Storage for AI</span></div>
+            <div class="vk-pills"><a class="vk-pill" href="/solutions/ai-infra/gpu-training-cluster">Training cluster</a><a class="vk-pill" href="/solutions/ai-infra/gpu-inference-platform">Inference platform</a><a class="vk-pill" href="/solutions/ai-infra/ai-network-fabric">GPU network fabric</a><a class="vk-pill on" href="/solutions/ai-infra/ai-storage">Storage for AI</a><a class="vk-pill" href="/solutions/ai-infra/power-and-cooling">Power and cooling</a></div><span class="vk-eyebrow">AI infrastructure guide</span>
+            <h1>Storage for AI</h1>
+            <p class="vk-lead">GPUs can only work as fast as data reaches them. Storage for AI has two jobs: feed training data quickly, and absorb very large checkpoints without stopping the GPUs for long. General-purpose file servers are rarely up to either.</p>
+            <div class="vk-facts"><div class="vk-fact"><span class="k">Fast tier</span><span class="v">Parallel file system</span></div><div class="vk-fact"><span class="k">Capacity tier</span><span class="v">Object storage</span></div><div class="vk-fact"><span class="k">Biggest writes</span><span class="v">Checkpoints</span></div><div class="vk-fact"><span class="k">Network</span><span class="v">Separate from GPU fabric</span></div></div>
+        </div>
+        <div class="vk-sec"><div class="vk-wrap"><h2>Three tiers</h2><div class="vk-table-wrap"><table><thead><tr><th>Tier</th><th>Holds</th><th>Typical technology</th></tr></thead><tbody><tr><td>Local NVMe in each server</td><td>Scratch space and cached data</td><td>NVMe drives inside the GPU servers</td></tr><tr><td>Parallel file system</td><td>Active datasets and checkpoints</td><td>Lustre, IBM Storage Scale (GPFS), WEKA, VAST, DDN</td></tr><tr><td>Object storage</td><td>Raw data, archives, finished models</td><td>S3-compatible storage such as Ceph RGW or MinIO</td></tr></tbody></table></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><h2>Checkpoint maths</h2>
+            <p>During training, the full state of the model is saved regularly so a failure does not lose days of work. With mixed-precision training and the Adam optimizer, that state is roughly <strong>16 bytes per parameter</strong>.</p><div class="vk-table-wrap"><table><thead><tr><th>Model</th><th>Checkpoint size (approx.)</th><th>Time to write at 10 GB/s</th><th>At 50 GB/s</th></tr></thead><tbody><tr><td>8B</td><td>~130 GB</td><td>~13 seconds</td><td>~3 seconds</td></tr><tr><td>70B</td><td>~1.1 TB</td><td>~2 minutes</td><td>~22 seconds</td></tr><tr><td>405B</td><td>~6.5 TB</td><td>~11 minutes</td><td>~2 minutes</td></tr></tbody></table></div><p>Multiply the write time by how often you checkpoint, and you have GPU time spent waiting. That number, more than capacity, is what decides how fast the storage needs to be.</p>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><h2>Getting it right</h2><ul><li><strong>Size for throughput first, then capacity.</strong> A small, fast tier in front of large, cheap object storage is usually better value than a large fast tier.</li><li><strong>Use asynchronous checkpointing where your framework supports it.</strong> The GPUs carry on while the checkpoint is written in the background.</li><li><strong>Keep many small files out of the fast tier.</strong> Pack datasets into larger shards. Millions of tiny files slow any file system down.</li><li><strong>Back up what matters.</strong> Datasets and final models need backup. Intermediate checkpoints usually do not.</li></ul>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><p class="vk-small"><strong>More AI infrastructure guides:</strong> <a href="/solutions/ai-infra/gpu-training-cluster">Training cluster</a> &middot; <a href="/solutions/ai-infra/gpu-inference-platform">Inference platform</a> &middot; <a href="/solutions/ai-infra/ai-network-fabric">GPU network fabric</a> &middot; <a href="/solutions/ai-infra/power-and-cooling">Power and cooling</a> &middot; <a href="/solutions/ai-infra/faq">FAQ</a> &middot; <a href="/use_cases/private-llm-gpu-platform">Use case: private LLM platform</a></p>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Planning a GPU cluster?</h2>
+                <p class="vk-muted">Tell us the models you want to run or train, how many users, and where it will be hosted. We will come back with a first sizing: GPUs, servers, network, storage, and the power and cooling your data centre will need.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book a GPU sizing review</a>
+                    <a class="vk-btn" href="/portfolio/ai-gpu-cloud">Back to AI infrastructure</a>
+                </div>
+            </div>
+        </div></div>
+    </main>
+
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

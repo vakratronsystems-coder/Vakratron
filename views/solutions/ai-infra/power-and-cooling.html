@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power and Cooling for GPU Clusters: kW per Rack, Air vs Liquid | Vakratron Systems</title>
+    <meta name="description" content="Plan power and cooling for GPU clusters: kW per 8-GPU server and per rack, a worked example, air vs rear-door vs direct liquid cooling, and a data-centre readiness checklist.">
+    <link rel="canonical" href="https://vakratronsys.com/solutions/ai-infra/power-and-cooling">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
+</head>
+<body>
+    <header></header>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/ai-gpu-cloud">AI infrastructure</a> <span>/</span> <span>Power and cooling</span></div>
+            <div class="vk-pills"><a class="vk-pill" href="/solutions/ai-infra/gpu-training-cluster">Training cluster</a><a class="vk-pill" href="/solutions/ai-infra/gpu-inference-platform">Inference platform</a><a class="vk-pill" href="/solutions/ai-infra/ai-network-fabric">GPU network fabric</a><a class="vk-pill" href="/solutions/ai-infra/ai-storage">Storage for AI</a><a class="vk-pill on" href="/solutions/ai-infra/power-and-cooling">Power and cooling</a></div><span class="vk-eyebrow">AI infrastructure guide</span>
+            <h1>Power and cooling for GPU clusters</h1>
+            <p class="vk-lead">This is where many GPU projects stall. Modern GPU servers draw far more power than the racks most data centres were built for, and all of that power becomes heat. Checking the facility early saves months.</p>
+            <div class="vk-facts"><div class="vk-fact"><span class="k">8-GPU H100 server</span><span class="v">up to ~10.2 kW</span></div><div class="vk-fact"><span class="k">Typical enterprise rack</span><span class="v">5 to 10 kW</span></div><div class="vk-fact"><span class="k">GPU racks</span><span class="v">30 to 40 kW+</span></div><div class="vk-fact"><span class="k">Above ~40 kW</span><span class="v">Liquid cooling</span></div></div>
+        </div>
+        <div class="vk-sec"><div class="vk-wrap"><h2>Power figures to plan with</h2><div class="vk-table-wrap"><table><thead><tr><th>System</th><th>Approximate maximum power</th></tr></thead><tbody><tr><td>8-GPU A100 server (DGX A100 class)</td><td>~6.5 kW</td></tr><tr><td>8-GPU H100 or H200 server (DGX H100 class)</td><td>~10.2 kW</td></tr><tr><td>8-GPU B200 server (DGX B200 class)</td><td>~14.3 kW</td></tr><tr><td>Rack-scale GB200 NVL72 system</td><td>around 120 kW per rack, liquid-cooled</td></tr><tr><td>Single L40S GPU</td><td>~350 W</td></tr></tbody></table></div><p class="vk-small vk-muted">Vendor maximum figures. Real draw under training load is close to the maximum, so plan with these numbers, not with averages.</p>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><h2>A quick worked example</h2>
+            <p>Four 8-GPU H100 servers draw about 41 kW. Add network switches, storage and management servers and the total is around 47 kW.</p>
+            <ul><li>In a data centre built for 8 kW racks, that is six racks mostly empty, and cooling may still not cope with the hot spots.</li>
+            <li>In racks rated for 25 kW with rear-door heat exchangers, it fits in two racks.</li>
+            <li>With direct liquid cooling, the same servers can be packed even tighter, but the facility needs water connections to the racks.</li></ul>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><h2>Cooling options</h2><div class="vk-table-wrap"><table><thead><tr><th>Option</th><th>Practical rack density</th><th>Notes</th></tr></thead><tbody><tr><td>Air with hot and cold aisle containment</td><td>Up to about 20 to 25 kW</td><td>Works for small clusters if the room has spare cooling</td></tr><tr><td>Rear-door heat exchangers</td><td>Roughly 30 to 50 kW</td><td>Chilled water at the rack door; servers stay air-cooled</td></tr><tr><td>Direct liquid cooling</td><td>50 kW to 100 kW and more</td><td>Coolant to the chips; needed for the newest rack-scale systems</td></tr></tbody></table></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><h2>Data-centre readiness checklist</h2><ul><li>Power per rack available, and on which circuits (A and B feeds)</li><li>Total spare power and cooling capacity in the room, not just per rack</li><li>Floor loading: fully loaded GPU racks are heavy</li><li>Chilled water availability if rear-door or liquid cooling is needed</li><li>Space for cable trays: a 32-server cluster has hundreds of fabric cables</li><li>Lead time for any facility upgrades, which is often longer than for the servers</li></ul>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap"><p class="vk-small"><strong>More AI infrastructure guides:</strong> <a href="/solutions/ai-infra/gpu-training-cluster">Training cluster</a> &middot; <a href="/solutions/ai-infra/gpu-inference-platform">Inference platform</a> &middot; <a href="/solutions/ai-infra/ai-network-fabric">GPU network fabric</a> &middot; <a href="/solutions/ai-infra/ai-storage">Storage for AI</a> &middot; <a href="/solutions/ai-infra/faq">FAQ</a> &middot; <a href="/use_cases/private-llm-gpu-platform">Use case: private LLM platform</a></p>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Planning a GPU cluster?</h2>
+                <p class="vk-muted">Tell us the models you want to run or train, how many users, and where it will be hosted. We will come back with a first sizing: GPUs, servers, network, storage, and the power and cooling your data centre will need.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book a GPU sizing review</a>
+                    <a class="vk-btn" href="/portfolio/ai-gpu-cloud">Back to AI infrastructure</a>
+                </div>
+            </div>
+        </div></div>
+    </main>
+
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

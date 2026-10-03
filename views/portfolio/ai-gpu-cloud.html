@@ -3,456 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Infrastructure & GPU Cloud Framework | Vakratron Systems</title>
-    
+    <title>AI Infrastructure and GPU Clusters: Sizing, Fabric, Storage, Power | Vakratron Systems</title>
+    <meta name="description" content="Design GPU clusters that stay busy: GPU sizing calculator, training and inference platforms, InfiniBand and RoCE fabrics, AI storage, and data-centre power and cooling.">
+    <link rel="canonical" href="https://vakratronsys.com/portfolio/ai-gpu-cloud">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        :root {
-            --bg-main: #020617;
-            --bg-surface: rgba(15, 23, 42, 0.6);
-            --border-glow: rgba(194, 24, 91, 0.3);
-            --accent-neon: #C2185B;
-            --accent-blue: #38bdf8;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --glass-gradient: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(2, 6, 23, 0.9) 100%);
-        }
-
-        html {
-            scroll-behavior: smooth;
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-main) !important;
-            color: var(--text-primary);
-            background-image: 
-                radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 20% 80%, rgba(194, 24, 91, 0.07) 0%, transparent 50%) !important;
-            background-size: 200% 200% !important;
-            animation: cyberBackgroundMotion 20s ease infinite alternate !important;
-        }
-
-        @keyframes cyberBackgroundMotion {
-            0% { background-position: 0% 20%; }
-            50% { background-position: 100% 80%; }
-            100% { background-position: 20% 100%; }
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            background: transparent !important;
-            background-image: linear-gradient(rgba(255, 255, 255, 0.002) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(255, 255, 255, 0.002) 1px, transparent 1px) !important;
-            background-size: 50px 50px !important;
-        }
-
-  section {
-    padding: 50px 8% !important;     /* Top/Bottom padding ko balanced kiya */
-    box-sizing: border-box;
-}
-
-        .premium-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(194, 24, 91, 0.06);
-            border: 1px solid rgba(194, 24, 91, 0.25);
-            color: #f472b6;
-            padding: 8px 18px;
-            border-radius: 100px;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 25px;
-        }
-
-      .solution-hero, .solutions-hero {
-    padding-top: 60px !important;    /* Pehle jo 140px/150px tha use kam kiya */
-    padding-bottom: 40px !important;
-    text-align: center;
-    box-sizing: border-box;
-}
-        .solution-hero h1 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2.8rem;
-            font-weight: 700;
-            margin: 15px 0;
-            color: #fff;
-            letter-spacing: -0.5px;
-            line-height: 1.2;
-        }
-
-        .solution-hero h1 span {
-            background: linear-gradient(135deg, #fff 30%, var(--accent-blue) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: block;
-            margin-top: 5px;
-        }
-
-        .solution-hero p {
-            color: var(--text-secondary);
-            max-width: 800px;
-            margin: 0 auto 30px auto;
-            font-size: 1.05rem;
-            line-height: 1.6;
-        }
-
-        .hero-actions {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary, .btn-secondary {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.88rem;
-            font-weight: 600;
-            text-decoration: none;
-            padding: 14px 28px;
-            border-radius: 8px;
-            display: inline-flex;
-            align-items: center;
-            transition: all 0.25s;
-            letter-spacing: 0.5px;
-        }
-
-        .btn-primary {
-            background: var(--accent-neon);
-            border: 1px solid var(--accent-neon);
-            color: #fff;
-            box-shadow: 0 4px 20px rgba(194, 24, 91, 0.25);
-        }
-
-        .btn-primary:hover {
-            background: #9e1147;
-            border-color: #9e1147;
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: #94a3b8;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 255, 255, 0.15);
-            color: #fff;
-            transform: translateY(-2px);
-        }
-
-        /* 🎛️ Symmetric Grids Engine */
-        .grid-4 {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        @media (max-width: 1024px) {
-            .grid-4 { grid-template-columns: repeat(2, 1fr); }
-            .grid-3 { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 768px) {
-            .grid-4 { grid-template-columns: 1fr; }
-            .grid-3 { grid-template-columns: 1fr; }
-        }
-
-        .info-card, .deliverable-card {
-            background: var(--glass-gradient);
-            border: 1px solid rgba(255, 255, 255, 0.02);
-            padding: 28px 24px;
-            border-radius: 16px;
-            box-sizing: border-box;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .info-card:hover, .deliverable-card:hover {
-            border-color: rgba(194, 24, 91, 0.4);
-            transform: translateY(-4px);
-        }
-
-        .info-card h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.15rem;
-            color: #fff;
-            margin: 0 0 10px 0;
-            font-weight: 600;
-        }
-
-        .info-card p {
-            color: var(--text-secondary);
-            font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
-            line-height: 1.5;
-            margin: 0;
-        }
-
-        /* 📈 Flow Box Engine */
-        .framework-flow {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .flow-box {
-            background: var(--glass-gradient);
-            border: 1px solid rgba(56, 189, 248, 0.15);
-            padding: 14px 24px;
-            border-radius: 8px;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: #fff;
-            text-align: center;
-        }
-
-        .flow-arrow {
-            color: var(--accent-neon);
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
-
-        @media (max-width: 900px) {
-            .framework-flow { flex-direction: column; }
-            .flow-arrow { transform: rotate(0deg); margin: 2px 0; }
-        }
-
-        .deliverable-card {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.05rem;
-            font-weight: 600;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .deliverable-card::before {
-            content: "\f15c";
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-            color: var(--accent-blue);
-            font-size: 0.95rem;
-        }
-
-        /* 🖼️ Architecture Layout */
-        .architecture-preview {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.04);
-        }
-
-        .architecture-container {
-            width: 100%;
-            max-width: 1150px;
-            background: rgba(15, 23, 42, 0.4);
-            border: 1px solid rgba(194, 24, 91, 0.15);
-            border-radius: 20px;
-            padding: 24px;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
-            box-sizing: border-box;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            margin-bottom: 25px;
-        }
-
-        .architecture-image {
-            width: 100%;
-            height: auto;
-            object-fit: contain;
-            border-radius: 12px;
-        }
-
-        .architecture-note {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.88rem;
-            line-height: 1.6;
-            color: #64748b;
-            background: rgba(56, 189, 248, 0.03);
-            border: 1px dashed rgba(56, 189, 248, 0.2);
-            padding: 16px 24px;
-            border-radius: 10px;
-            max-width: 850px;
-            width: 100%;
-            box-sizing: border-box;
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-        }
-
-        .architecture-note i {
-            color: var(--accent-blue);
-            font-size: 1.1rem;
-            margin-top: 2px;
-        }
-    </style>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
 </head>
 <body>
-
     <header></header>
-        
-    <main class="solution-page">
 
-        <section class="solution-hero">
-            <div class="premium-badge">
-                <i class="fas fa-microchip"></i> AI INFRASTRUCTURE & GPU CLOUD
-            </div>
-            <h1>AI Infrastructure & <span>GPU Cloud Architecture</span></h1>
-            <p>Helping organizations design, assess, and modernize AI-ready infrastructure platforms capable of supporting training, inferencing, and enterprise-scale AI initiatives.</p>
-            <div class="hero-actions">
-                <a href="contact.html" class="btn-primary">Schedule AI Assessment</a>
-                <a href="contact.html" class="btn-secondary">Talk To An Architect</a>
-            </div>
-        </section>
+    <main class="vk">
 
-        <section class="solution-challenges" style="border-top: 1px solid rgba(255, 255, 255, 0.04);">
-            <div class="section-header" style="text-align: center; margin-bottom: 40px;">
-                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; font-weight: 700; margin: 0 0 12px 0; color: #fff;">Common Challenges We Help Solve</h2>
-                <p style="color: var(--text-secondary); max-width: 700px; margin: 0 auto; font-size: 1rem; line-height: 1.6;">Organizations frequently encounter infrastructure, platform, and scalability challenges when planning AI initiatives.</p>
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/solutions">Solutions</a> <span>/</span> <span>AI infrastructure</span></div>
+            <span class="vk-eyebrow">AI infrastructure and GPU cloud</span>
+            <h1>GPU clusters that are busy, not waiting</h1>
+            <p class="vk-lead">GPUs are the most expensive part of an AI platform, and also the easiest to waste. They sit idle when the network is too slow, when storage cannot feed them data, or when the data centre cannot power and cool them. We design the whole stack around the GPUs: servers, fabric, storage, scheduling, power and cooling.</p>
+            <div class="vk-actions"><a class="vk-btn primary" href="/contact">Book a GPU sizing review</a><a class="vk-btn" href="#gpucalc">How many GPUs do I need?</a></div>
+        </div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <span class="vk-eyebrow">What usually goes wrong</span>
+            <h2>Why GPU projects disappoint</h2>
+            <div class="vk-grid" style="margin-top:22px">
+                <div class="vk-card"><h3>The data centre is not ready</h3><p class="vk-muted">One 8-GPU server draws about 10 kW. Many enterprise racks are built for 5 to 10 kW in total. The servers arrive and there is nowhere to plug them in.</p></div>
+                <div class="vk-card"><h3>GPUs wait on the network</h3><p class="vk-muted">Training across servers exchanges data after every step. On ordinary data-centre networking, GPUs spend much of their time waiting.</p></div>
+                <div class="vk-card"><h3>Storage cannot keep up</h3><p class="vk-muted">Loading data and writing checkpoints on general-purpose storage leaves expensive GPUs idle for minutes at a time.</p></div>
+                <div class="vk-card"><h3>Nobody can see utilisation</h3><p class="vk-muted">Without GPU-aware scheduling and monitoring, shared clusters run well below capacity while teams queue for access.</p></div>
             </div>
-
-            <div class="grid-4">
-                <div class="info-card">
-                    <h3>AI Readiness Assessment</h3>
-                    <p>Understanding whether current infrastructure parameters can properly support future multi-tenant model compute loads.</p>
-                </div>
-                <div class="info-card">
-                    <h3>GPU Capacity Planning</h3>
-                    <p>Selecting appropriate hardware execution engines and nodes aligned directly with active training token counts.</p>
-                </div>
-                <div class="info-card">
-                    <h3>Platform Complexity</h3>
-                    <p>Integrating complex storage, parallel fabrics, network connectivity pipelines, and base orchestration frames.</p>
-                </div>
-                <div class="info-card">
-                    <h3>Performance Optimization</h3>
-                    <p>Balancing scale thresholds, hypervisor parameters, and dynamic capital efficiency without bottlenecking pipelines.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="advisory-framework" style="border-top: 1px solid rgba(255, 255, 255, 0.04); background: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.02) 0%, transparent 60%);">
-            <div class="section-header" style="text-align: center; margin-bottom: 40px;">
-                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; font-weight: 700; margin: 0 0 10px 0; color: #fff;">How We Approach AI Infrastructure Strategy</h2>
-            </div>
-
-            <div class="framework-flow">
-                <div class="flow-box">Business Goals</div>
-                <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                <div class="flow-box">Current State Assessment</div>
-                <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                <div class="flow-box">AI Workload Evaluation</div>
-                <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                <div class="flow-box">Architecture Strategy</div>
-                <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                <div class="flow-box">Target Blueprint</div>
-                <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                <div class="flow-box">Implementation Guidance</div>
-            </div>
-        </section>
-
-        <section class="deliverables-section" style="border-top: 1px solid rgba(255, 255, 255, 0.04);">
-            <div class="section-header" style="text-align: center; margin-bottom: 40px;">
-                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; font-weight: 700; margin: 0 0 10px 0; color: #fff;">What We Deliver</h2>
-            </div>
-
-            <div class="grid-3">
-                <div class="deliverable-card">AI Readiness Assessment</div>
-                <div class="deliverable-card">Architecture Blueprint</div>
-                <div class="deliverable-card">Capacity Planning Report</div>
-                <div class="deliverable-card">Storage & Network Guidance</div>
-                <div class="deliverable-card">Implementation Roadmap</div>
-                <div class="deliverable-card">Executive Summary</div>
-            </div>
-        </section>
-
-        <section class="architecture-preview">
-            <div class="section-header" style="text-align: center; margin-bottom: 40px;">
-                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; font-weight: 700; margin: 0 0 12px 0; color: #fff;">Reference Architecture View</h2>
-                <p style="color: var(--text-secondary); max-width: 700px; margin: 0 auto; font-size: 1rem; line-height: 1.6;">Illustrative high-level logical representation of technology layers for scalable enterprise AI platform modernization.</p>
-            </div>
-
-            <div class="architecture-container">
-                <img src="/images/ai-gpu_sol.png" alt="High Level AI Infrastructure & GPU Cloud Reference Architecture Blueprint" class="architecture-image">
-            </div>
-
-            <div class="architecture-overview" style="max-width: 850px; width: 100%; margin: 15px auto 25px auto; box-sizing: border-box; text-align: left;">
-                <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; color: #fff; margin: 0 0 10px 0; font-weight: 600; letter-spacing: -0.3px;">Architecture Overview</h3>
-                <p style="color: var(--text-secondary); font-family: 'Inter', sans-serif; font-size: 0.92rem; line-height: 1.6; margin: 0; font-weight: 400;">
-                    Enterprise AI platforms typically require coordinated integration across compute, storage, networking, security, and operational domains. Vakratron assists organizations in evaluating these components and defining scalable architectures aligned with performance, governance, and business requirements.
-                </p>
-            </div>
-
-            <div class="architecture-note">
-                <i class="fas fa-info-circle"></i>
-                <span>This reference architecture is intended for conceptual guidance only. Actual platform designs are developed following detailed workload assessment, capacity planning, data residency data residency mapping, and architecture review engagements.</span>
-            </div>
-        </section>
-
-        <section class="why-vakratron" style="border-top: 1px solid rgba(255, 255, 255, 0.04); background: radial-gradient(circle at 50% 100%, rgba(194, 24, 91, 0.02) 0%, transparent 60%);">
-            <div class="section-header" style="text-align: center; margin-bottom: 40px;">
-                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; font-weight: 700; margin: 0 0 10px 0; color: #fff;">Why Vakratron</h2>
-            </div>
-
-            <div class="grid-4">
-                <div class="info-card">
-                    <h3>Vendor Neutral</h3>
-                    <p>Recommendations driven completely by distinct business objectives and processing efficiency goals.</p>
-                </div>
-                <div class="info-card">
-                    <h3>Architecture First</h3>
-                    <p>Rigorous strategic planning, benchmark simulations, and structure blueprints completed before execution loops setup.</p>
-                </div>
-                <div class="info-card">
-                    <h3>Enterprise Focused</h3>
-                    <p>Framework layouts meticulously designed around core scalability thresholds, secure governance layers, and platform resilience.</p>
-                </div>
-                <div class="info-card">
-                    <h3>Outcome Driven</h3>
-                    <p>Infrastructure strategies bound directly with measurable performance statistics, low-latency, and business metrics results.</p>
+        </div></div>
+        <div class="vk-sec" id="gpucalc"><div class="vk-wrap">
+            <span class="vk-eyebrow">Try it</span>
+            <h2>How many GPUs do I need?</h2>
+            <p class="vk-prose">Pick a model size and what you want to do with it. The estimate shows GPU memory, number of GPUs and servers, and roughly how much power they draw.</p>
+            <div class="vk-tool vk-gpucalc"></div>
+            <noscript><p class="vk-muted">This calculator needs JavaScript.</p></noscript>
+        </div></div>
+        <div class="vk-sec" id="layers"><div class="vk-wrap"><span class="vk-eyebrow">The building blocks</span><h2>Six layers of a GPU platform</h2><div class="vk-table-wrap"><table><thead><tr><th>Layer</th><th>What it is</th><th>What goes wrong if it is weak</th></tr></thead><tbody><tr><td>GPU servers</td><td>8-GPU servers (HGX H100, H200 and similar), or PCIe servers with L40S-class GPUs for lighter work</td><td>Wrong GPU for the job: paying for training-class GPUs to serve small models, or the reverse</td></tr><tr><td><a href="/solutions/ai-infra/ai-network-fabric">GPU fabric</a></td><td>A dedicated network between GPUs, usually 400 Gb/s per GPU over InfiniBand or RoCE Ethernet</td><td>Multi-server training runs at a fraction of its potential speed</td></tr><tr><td><a href="/solutions/ai-infra/ai-storage">Storage</a></td><td>A fast parallel file system for datasets and checkpoints, plus object storage for raw data</td><td>GPUs idle while data loads or checkpoints write</td></tr><tr><td>Scheduling</td><td>Slurm for training, Kubernetes with the NVIDIA GPU Operator for serving, or both</td><td>Queues, idle GPUs and arguments about who gets access</td></tr><tr><td>Monitoring</td><td>GPU health and utilisation (DCGM), job metrics and cost per team</td><td>Failing GPUs and wasted capacity go unnoticed</td></tr><tr><td><a href="/solutions/ai-infra/power-and-cooling">Power and cooling</a></td><td>High-density racks, often 30 kW or more, with rear-door or liquid cooling</td><td>The cluster cannot be installed, or runs throttled because it overheats</td></tr></tbody></table></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><span class="vk-eyebrow">Go deeper</span><h2>Guides and examples</h2><div class="vk-grid" style="margin-top:22px"><a class="vk-card" href="/solutions/ai-infra/gpu-training-cluster"><h3>Training cluster</h3><p>How a multi-server training cluster is laid out, with an animated job that survives a node failure.</p><span class="vk-go">Read the guide &rarr;</span></a><a class="vk-card" href="/solutions/ai-infra/gpu-inference-platform"><h3>Inference platform</h3><p>Serving models to users: GPU choice, model servers, sharing GPUs and scaling.</p><span class="vk-go">Read the guide &rarr;</span></a><a class="vk-card" href="/solutions/ai-infra/ai-network-fabric"><h3>GPU network fabric</h3><p>InfiniBand or Ethernet, rail-optimised design, and how many switches you need.</p><span class="vk-go">Read the guide &rarr;</span></a><a class="vk-card" href="/solutions/ai-infra/ai-storage"><h3>Storage for AI</h3><p>Parallel file systems, checkpoint sizes and how fast storage really needs to be.</p><span class="vk-go">Read the guide &rarr;</span></a><a class="vk-card" href="/solutions/ai-infra/power-and-cooling"><h3>Power and cooling</h3><p>kW per server and per rack, air vs liquid cooling, and checking your data centre.</p><span class="vk-go">Read the guide &rarr;</span></a><a class="vk-card" href="/use_cases/private-llm-gpu-platform"><h3>Use case: private LLM platform</h3><p>An illustrative scenario: 32 GPUs for inference and fine-tuning, sized end to end.</p><span class="vk-go">Read the use case &rarr;</span></a><a class="vk-card" href="/solutions/ai-infra/faq"><h3>GPU questions, answered</h3><p>Buy or rent, H100 vs H200 vs L40S, lead times, InfiniBand and more.</p><span class="vk-go">Read the FAQ &rarr;</span></a></div><p class="vk-muted vk-small" style="margin-top:18px">For the full technical reference, see the <a href="/solutions/master_gpu-cluster">GPU cluster whitepaper</a>.</p>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><span class="vk-eyebrow">Ways to get GPUs</span><h2>Buy, host or rent</h2><div class="vk-table-wrap"><table><thead><tr><th>Option</th><th>Good for</th><th>Trade-off</th></tr></thead><tbody><tr><td>Buy and host in your own data centre</td><td>Steady, long-term use; data that must stay on your premises</td><td>Large upfront cost, lead times, and your data centre must handle the power</td></tr><tr><td>Buy and place in a colocation facility</td><td>Same as above when your own data centre cannot take the power density</td><td>Colocation contract and remote hands; still a capital purchase</td></tr><tr><td>Rent from a GPU cloud</td><td>Short projects, experiments, bursts of training</td><td>Highest cost per GPU-hour over time; capacity can be limited at busy times</td></tr></tbody></table></div><p class="vk-small vk-muted">Many organisations start in a GPU cloud to learn their real usage, then buy for the steady part.</p>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><span class="vk-eyebrow">How we work</span><h2>How a GPU engagement runs</h2><ol class="vk-steps"><li><strong>Workload first.</strong> Which models, training or inference, how many users, what latency. This decides everything else.</li><li><strong>Sizing.</strong> GPUs, servers, fabric, storage and software, with the assumptions written down.</li><li><strong>Data-centre readiness.</strong> Power per rack, cooling, floor loading and cabling, checked before anything is ordered.</li><li><strong>Bill of materials.</strong> Vendor-neutral, with alternatives where lead times or budget require them.</li><li><strong>Build and burn-in.</strong> Installation, fabric validation and stress tests before users get access.</li><li><strong>Handover.</strong> Scheduler, monitoring and runbooks in place, with your team trained to run them.</li></ol>
+        </div></div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Planning a GPU cluster?</h2>
+                <p class="vk-muted">Tell us the models you want to run or train, how many users, and where it will be hosted. We will come back with a first sizing: GPUs, servers, network, storage, and the power and cooling your data centre will need.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book a GPU sizing review</a>
+                    <a class="vk-btn" href="/portfolio/ai-gpu-cloud">Back to AI infrastructure</a>
                 </div>
             </div>
-        </section>
-
-        <section class="final-cta" style="border-top: 1px solid rgba(255, 255, 255, 0.04); background: radial-gradient(circle at 50% 0%, rgba(194, 24, 91, 0.03) 0%, transparent 70%); display: flex; justify-content: center; width: 100%; box-sizing: border-box;">
-            <div style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(3, 7, 18, 0.95) 100%); border: 1px solid rgba(194, 24, 91, 0.2); border-radius: 20px; padding: 50px 40px; text-align: center; max-width: 950px; width: 100%; box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8); box-sizing: border-box;">
-                <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.3rem; font-weight: 700; margin: 0 0 15px 0; color: #fff; letter-spacing: -0.5px;">Planning Your AI Infrastructure Journey?</h2>
-                <p style="color: var(--text-secondary); max-width: 720px; margin: 0 auto 30px auto; font-size: 1rem; line-height: 1.6; font-family: 'Inter', sans-serif;">Engage with Vakratron's architecture advisory team to define a scalable, and hyper-performance AI infrastructure roadmap.</p>
-                <div class="hero-actions">
-                    <a href="contact.html" class="btn-primary">Schedule Discovery Workshop</a>
-                    <a href="contact.html" class="btn-secondary">Request Assessment</a>
-                </div>
-            </div>
-        </section>
-
+        </div></div>
     </main>
 
     <footer></footer>
-
     <script src="/vakra-loader.js"></script>
+    <script src="/vk-ai-tools.js" defer></script>
 </body>
 </html>
