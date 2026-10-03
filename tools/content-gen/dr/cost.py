@@ -1,25 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>What Disaster Recovery Costs: Planning Ranges and a Worked Example | Vakratron Systems</title>
-    <meta name="description" content="Where disaster recovery money goes, rough cost ranges for each DR pattern, a worked tiering example, and the costs teams usually forget.">
-    <link rel="canonical" href="https://vakratronsys.com/solutions/dc-dr/cost-comparison">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/vk-content.css">
-</head>
-<body>
-    <header></header>
-
-    <main class="vk">
-
+from tpl import *
+body = f'''
         <div class="vk-wrap vk-hero">
-            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/dr-solutions">Disaster Recovery</a> <span>/</span> <span>What DR costs</span></div>
+            {crumb(("Home","/"),("Disaster Recovery","/portfolio/dr-solutions"),("What DR costs",None))}
             <span class="vk-eyebrow">DR guide</span>
             <h1>What disaster recovery really costs</h1>
             <p class="vk-lead">DR cost comes down to one question: how much of your production setup has to be running at the DR site before a disaster happens? Answer that for each application and most of the budget follows.</p>
@@ -82,20 +64,6 @@
                 <li><strong>Licence clauses.</strong> Running a standby database or hypervisor may need its own licence, depending on the vendor and how the standby is used.</li>
             </ul>
         </div></div></div>
-
-        <div class="vk-sec"><div class="vk-wrap">
-            <div class="vk-cta">
-                <h2>Not sure where your DR stands?</h2>
-                <p class="vk-muted">Send us your application list and a short note on how backups work today. We will come back with a plain gap review: which systems are exposed, what a realistic recovery time looks like, and what it would take to close the gap.</p>
-                <div class="vk-actions">
-                    <a class="vk-btn primary" href="/contact">Book a DR review</a>
-                    <a class="vk-btn" href="/portfolio/dr-solutions">Back to DR overview</a>
-                </div>
-            </div>
-        </div></div>
-    </main>
-
-    <footer></footer>
-    <script src="/vakra-loader.js"></script>
-</body>
-</html>
+{CTA}'''
+page('solutions/dc-dr/cost-comparison.html', 'What Disaster Recovery Costs: Planning Ranges and a Worked Example | Vakratron Systems',
+     'Where disaster recovery money goes, rough cost ranges for each DR pattern, a worked tiering example, and the costs teams usually forget.', body)

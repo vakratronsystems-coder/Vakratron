@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disaster Recovery FAQ: RPO, RTO, Site Distance, Cloud DR and Ransomware | Vakratron Systems</title>
+    <meta name="description" content="Plain answers to common disaster recovery questions: backup vs DR, RPO and RTO, how far apart sites should be, cloud DR, ransomware, testing and project timelines.">
+    <link rel="canonical" href="https://vakratronsys.com/solutions/dc-dr/faq">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
+</head>
+<body>
+    <header></header>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/dr-solutions">Disaster Recovery</a> <span>/</span> <span>FAQ</span></div>
+            <span class="vk-eyebrow">DR guide</span>
+            <h1>Disaster recovery questions, answered</h1>
+            <p class="vk-lead">Short answers to the questions IT heads and business owners ask us most often about DR.</p>
+        </div>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose"><details><summary>What is the difference between backup and disaster recovery?</summary><div><p>A backup is a copy of your data. Disaster recovery is the plan and the infrastructure that let you run your services somewhere else when the main site is lost. You need both. Replication on its own copies mistakes and ransomware just as fast as good data, so backups with older versions are still essential.</p></div></details><details><summary>What do RPO and RTO mean?</summary><div><p><strong>RPO</strong> is how much data you can afford to lose, measured in time. <strong>RTO</strong> is how long the service can be down. An RPO of 15 minutes and an RTO of 2 hours means: lose at most the last 15 minutes of work, and be running again within 2 hours.</p></div></details><details><summary>Do we need a second data centre?</summary><div><p>Not always. A colocation rack, a cloud account, or a well-powered room at another office can all work as a DR site, depending on the tier. What matters is that it does not share the same risks as the main site: same building, same power feed, same flood zone.</p></div></details><details><summary>How far apart should the two sites be?</summary><div><p>It is a trade-off. Synchronous replication, which gives near-zero data loss, generally needs the sites within about 100 km because every write waits for the other site. Protection against regional events such as floods or a grid failure needs more distance, which means asynchronous replication and a small amount of possible data loss. Some organisations use both: a nearby site in sync and a distant site behind it.</p></div></details><details><summary>Can our DR site be in the public cloud?</summary><div><p>For many workloads, yes. Check three things first: whether the data is allowed to sit with that provider and in that region, what it will cost to move data back after a failover, and whether your applications run properly on the cloud's virtual machines without changes.</p></div></details><details><summary>Does DR protect us from ransomware?</summary><div><p>Replication alone does not. Encrypted files replicate to DR like any other change. Ransomware protection needs immutable or offline backups, separate admin credentials for the DR and backup systems, and a tested way to restore from a point before the attack.</p></div></details><details><summary>How often should we test?</summary><div><p>A tabletop review every quarter, a restore test every month, an isolated failover for each tier twice a year, and a full failover of the critical systems once a year. See <a href='/solutions/dc-dr/best-practices'>Testing DR</a> for details.</p></div></details><details><summary>How long does a DR project take?</summary><div><p>For a mid-sized environment, the assessment and design usually take three to six weeks. The build depends mostly on procurement: hardware lead times, network links and the DR site contract. The first drill normally follows a few weeks after the build.</p></div></details><details><summary>What do you need from us to start?</summary><div><p>A list of your applications and their owners, a short description of how backups work today, a network diagram if you have one, and any regulatory or contractual DR requirements. That is enough for a first gap review.</p></div></details></div></div></div>
+
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Not sure where your DR stands?</h2>
+                <p class="vk-muted">Send us your application list and a short note on how backups work today. We will come back with a plain gap review: which systems are exposed, what a realistic recovery time looks like, and what it would take to close the gap.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book a DR review</a>
+                    <a class="vk-btn" href="/portfolio/dr-solutions">Back to DR overview</a>
+                </div>
+            </div>
+        </div></div>
+    </main>
+
+    <footer></footer>
+    <script src="/vakra-loader.js"></script>
+</body>
+</html>

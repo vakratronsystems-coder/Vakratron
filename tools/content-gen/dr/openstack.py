@@ -1,25 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Disaster Recovery on OpenStack: Ceph Mirroring, Neutron and Failover Runbooks | Vakratron Systems</title>
-    <meta name="description" content="How to build site-level disaster recovery on OpenStack: Ceph RBD mirroring, Nova, Neutron and Keystone at the DR site, automation, and a step-by-step failover.">
-    <link rel="canonical" href="https://vakratronsys.com/solutions/dc-dr/openstack-mapping">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/vk-content.css">
-</head>
-<body>
-    <header></header>
-
-    <main class="vk">
-
+from tpl import *
+body = f'''
         <div class="vk-wrap vk-hero">
-            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/dr-solutions">Disaster Recovery</a> <span>/</span> <span>DR on OpenStack</span></div>
+            {crumb(("Home","/"),("Disaster Recovery","/portfolio/dr-solutions"),("DR on OpenStack",None))}
             <span class="vk-eyebrow">DR guide</span>
             <h1>Disaster recovery on OpenStack</h1>
             <p class="vk-lead">OpenStack has no single &ldquo;DR button&rdquo;. Site-level recovery is built from three things: storage replication to a second OpenStack deployment, the project's setup kept as code, and a runbook that brings instances up in the right order. This page explains how those pieces fit.</p>
@@ -70,20 +52,6 @@
                 <li><strong>Failback is never tested.</strong> Teams test failing over, then discover that getting back is the harder half. Test both directions.</li>
             </ul>
         </div></div></div>
-
-        <div class="vk-sec"><div class="vk-wrap">
-            <div class="vk-cta">
-                <h2>Not sure where your DR stands?</h2>
-                <p class="vk-muted">Send us your application list and a short note on how backups work today. We will come back with a plain gap review: which systems are exposed, what a realistic recovery time looks like, and what it would take to close the gap.</p>
-                <div class="vk-actions">
-                    <a class="vk-btn primary" href="/contact">Book a DR review</a>
-                    <a class="vk-btn" href="/portfolio/dr-solutions">Back to DR overview</a>
-                </div>
-            </div>
-        </div></div>
-    </main>
-
-    <footer></footer>
-    <script src="/vakra-loader.js"></script>
-</body>
-</html>
+{CTA}'''
+page('solutions/dc-dr/openstack-mapping.html', 'Disaster Recovery on OpenStack: Ceph Mirroring, Neutron and Failover Runbooks | Vakratron Systems',
+     'How to build site-level disaster recovery on OpenStack: Ceph RBD mirroring, Nova, Neutron and Keystone at the DR site, automation, and a step-by-step failover.', body)

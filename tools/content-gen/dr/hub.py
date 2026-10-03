@@ -1,25 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Disaster Recovery (DC-DR) Design and Testing | Vakratron Systems</title>
-    <meta name="description" content="We help organisations decide what needs disaster recovery and how fast it must come back, then design, build and test it. Plain guidance on RPO, RTO, DR patterns and cost.">
-    <link rel="canonical" href="https://vakratronsys.com/portfolio/dr-solutions">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/vk-content.css">
-</head>
-<body>
-    <header></header>
-
-    <main class="vk">
-
+from tpl import *
+body = f'''
         <div class="vk-wrap vk-hero">
-            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/solutions">Solutions</a> <span>/</span> <span>Disaster Recovery</span></div>
+            {crumb(("Home","/"),("Solutions","/solutions"),("Disaster Recovery",None))}
             <span class="vk-eyebrow">Disaster Recovery &amp; Business Continuity</span>
             <h1>Disaster recovery that has actually been tested</h1>
             <p class="vk-lead">Most organisations have a DR site. Far fewer know how long it really takes to bring their applications back, or whether it works at all. We help you decide what needs protection and how fast it must recover, then design and build it and run the first drill with your team.</p>
@@ -114,20 +96,6 @@
             </div>
             <p class="vk-muted vk-small" style="margin-top:18px">For the full technical reference, see the <a href="/solutions/master_dc-dr">DC-DR whitepaper</a>.</p>
         </div></div>
-
-        <div class="vk-sec"><div class="vk-wrap">
-            <div class="vk-cta">
-                <h2>Not sure where your DR stands?</h2>
-                <p class="vk-muted">Send us your application list and a short note on how backups work today. We will come back with a plain gap review: which systems are exposed, what a realistic recovery time looks like, and what it would take to close the gap.</p>
-                <div class="vk-actions">
-                    <a class="vk-btn primary" href="/contact">Book a DR review</a>
-                    <a class="vk-btn" href="/portfolio/dr-solutions">Back to DR overview</a>
-                </div>
-            </div>
-        </div></div>
-    </main>
-
-    <footer></footer>
-    <script src="/vakra-loader.js"></script>
-</body>
-</html>
+{CTA}'''
+page('portfolio/dr-solutions.html', 'Disaster Recovery (DC-DR) Design and Testing | Vakratron Systems',
+     'We help organisations decide what needs disaster recovery and how fast it must come back, then design, build and test it. Plain guidance on RPO, RTO, DR patterns and cost.', body)

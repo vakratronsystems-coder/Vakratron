@@ -3,226 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Choosing the Right DR Strategy | DC-DR</title>
-    <meta name="description" content="A simple and clear guidance layout on selecting the ideal disaster recovery framework based on risk and business requirements.">
-    
+    <title>Choosing a DR Pattern: Backup, Pilot Light, Warm Standby, Active-Passive, Active-Active | Vakratron Systems</title>
+    <meta name="description" content="A plain comparison of the five common disaster recovery patterns: what each one keeps ready, typical RPO and RTO, relative cost, and where each one fits.">
+    <link rel="canonical" href="https://vakratronsys.com/solutions/dc-dr/strategy-selection">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        :root {
-            --bg-main: #020617;
-            --bg-surface: rgba(15, 23, 42, 0.6);
-            --border-glow: rgba(56, 189, 248, 0.2);
-            --accent-blue: #38bdf8;
-            --accent-neon: #C2185B;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --glass-gradient: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(2, 6, 23, 0.9) 100%);
-        }
-
-        html {
-            scroll-behavior: smooth;
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-main);
-            color: var(--text-primary);
-            background-image: radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.05) 0%, transparent 50%);
-        }
-
-        body { margin: 0; padding: 0; overflow-x: hidden; }
-        section { padding: 120px 8% 60px 8%; box-sizing: border-box; }
-        
-        .content-card {
-            background: var(--glass-gradient);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 24px; padding: 50px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-            margin-top: 30px;
-        }
-
-        h1, h2, h3 { font-family: 'Poppins', sans-serif; color: #fff; }
-        p { color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem; font-weight: 300; text-align: justify; margin-bottom: 20px; }
-        
-        .tech-badge {
-            background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.25);
-            color: var(--accent-blue); padding: 6px 14px; border-radius: 6px; font-family: monospace; font-size: 0.85rem;
-        }
-
-        .tech-step-box {
-            background: rgba(15, 23, 42, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 30px;
-            border-radius: 16px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .tech-step-box h4 {
-            font-family: 'Poppins', sans-serif;
-            color: #fff;
-            font-size: 1.25rem;
-            margin: 0 0 15px 0;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .tech-step-box h4 i { color: var(--accent-blue); }
-        .tech-step-box ul { margin: 15px 0 0 0; padding-left: 20px; color: var(--text-secondary); }
-        .tech-step-box li { margin-bottom: 10px; line-height: 1.6; font-size: 1rem; font-weight: 300; }
-        
-        /* Table Dynamic Theme Tuning */
-        table tbody tr {
-            transition: background 0.3s;
-        }
-        table tbody tr:hover {
-            background: rgba(255, 255, 255, 0.01);
-        }
-
-        /* 🕹️ COMMAND CONSOLE NAV */
-        .central-nav-container { position: relative; display: inline-block; }
-        .console-trigger-btn {
-            background: rgba(194, 24, 91, 0.05); border: 1px solid rgba(194, 24, 91, 0.3);
-            color: #fff; padding: 10px 22px; border-radius: 8px; font-size: 0.9rem; font-weight: 600;
-            cursor: pointer; display: flex; align-items: center; gap: 12px; transition: all 0.3s;
-        }
-        .console-dropdown-dashboard {
-            position: absolute; top: 100%; right: -120px; width: 780px; background: #030712;
-            border: 1px solid rgba(194, 24, 91, 0.25); border-radius: 16px; padding: 30px;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.95); opacity: 0; pointer-events: none;
-            transform: translateY(10px) scale(0.98); transition: all 0.3s ease; z-index: 2000; margin-top: 10px;
-        }
-        .central-nav-container:hover .console-trigger-btn { background: rgba(194, 24, 91, 0.15); border-color: rgba(194, 24, 91, 0.8); }
-        .central-nav-container:hover .console-dropdown-dashboard { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
-        .dashboard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
-        .dashboard-col { display: flex; flex-direction: column; gap: 6px; }
-        .dashboard-col h4 { font-family: 'Poppins', sans-serif; color: #fff; font-size: 0.85rem; font-weight: 700; margin: 0 0 12px 0; padding-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
-        .dashboard-col a { display: flex; align-items: center; gap: 10px; color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; padding: 6px 10px; border-radius: 6px; transition: all 0.2s; }
-        .dashboard-col a:hover { background: rgba(255, 255, 255, 0.03); color: #fff; padding-left: 14px; }
-    </style>
-    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
 </head>
 <body>
     <header></header>
-    <section>
-        <div style="margin-bottom: 20px;">
-            <a href="/solutions/master_dc-dr.html" style="color: var(--accent-blue); text-decoration: none; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 6px;"><i class="fa-solid fa-chevron-left"></i> Architecture Hub</a>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <a href="/portfolio/dr-solutions">Disaster Recovery</a> <span>/</span> <span>Choosing a DR pattern</span></div>
+            <span class="vk-eyebrow">DR guide</span>
+            <h1>Choosing a DR pattern</h1>
+            <p class="vk-lead">There are five common ways to set up disaster recovery. They differ in how much data you can lose, how quickly you come back, and how much you pay to keep the DR site ready. Most organisations end up using two or three of them at once, one for each tier of applications.</p>
         </div>
 
-        <h1 style="font-size: 2.5rem; font-weight: 700; margin: 10px 0 10px 0;">Strategy Selection Framework</h1>
-        <div style="display: flex; gap: 10px; margin-bottom: 30px;">
-            <span class="tech-badge">Business Continuity</span>
-            <span class="tech-badge">Risk Assessment</span>
-        </div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <h2>The five patterns side by side</h2>
+            <div class="vk-table-wrap"><table>
+                <thead><tr><th>Pattern</th><th>What is ready at the DR site</th><th>Typical RPO</th><th>Typical RTO</th><th>Relative cost</th><th>Usually fits</th></tr></thead>
+                <tbody>
+                    <tr><td><a href="#backup-restore">Backup &amp; restore</a></td><td>Backup copies only. Servers are rebuilt after the disaster.</td><td>Hours (time since last backup)</td><td>Hours to days</td><td>Low</td><td>Internal tools, archives, dev and test</td></tr>
+                    <tr><td><a href="#pilot-light">Pilot light</a></td><td>Data is replicated. Core services such as the database and directory run small. Application servers are off.</td><td>Minutes</td><td>A few hours</td><td>Low to medium</td><td>Business systems that can be down for half a day</td></tr>
+                    <tr><td><a href="#warm-standby">Warm standby</a></td><td>The full stack runs at reduced size and is scaled up on failover.</td><td>Seconds to minutes</td><td>Under an hour to a few hours</td><td>Medium to high</td><td>ERP, hospital systems, customer portals</td></tr>
+                    <tr><td><a href="#active-passive">Active-passive</a></td><td>A full-size copy is ready to take over.</td><td>Near zero (synchronous) to minutes (asynchronous)</td><td>Minutes</td><td>High</td><td>Core banking, payments, billing</td></tr>
+                    <tr><td><a href="#active-active">Active-active</a></td><td>Both sites serve users at the same time.</td><td>Near zero</td><td>Near zero for users</td><td>Very high, plus application changes</td><td>Services built for two sites from day one</td></tr>
+                </tbody>
+            </table></div>
+            <p class="vk-muted vk-small">These are typical ranges. Your real numbers depend on the replication method, data volume, distance between sites, and how well the runbook has been rehearsed.</p>
+        </div></div>
 
-        <div class="content-card">
-            <h3 style="font-family:'Poppins',sans-serif;color:var(--accent-blue);font-size:1.5rem;margin-bottom:15px; font-weight: 600;">
-                Choosing the Right Disaster Recovery Strategy
-            </h3>
-
-            <p>
-                Not every workload requires the same level of protection.
-            </p>
-
-            <p>
-                Some applications can tolerate a few hours of downtime, while others must remain available continuously.
-            </p>
-
-            <p>
-                The right disaster recovery model depends on business requirements, recovery objectives, budget, and application criticality.
-            </p>
-
-            <div class="tech-step-box" style="margin-top: 35px;">
-                <h4><i class="fa-solid fa-table"></i> Decision</h4>
-                <div style="overflow-x:auto;">
-                    <table style="width:100%; border-collapse:collapse; margin-top:15px;">
-                        <thead>
-                            <tr style="background:rgba(56,189,248,.08);">
-                                <th style="padding:14px; text-align:left; border:1px solid rgba(255,255,255,.08); color: #fff; font-weight: 600;">Business Requirement</th>
-                                <th style="padding:14px; text-align:left; border:1px solid rgba(255,255,255,.08); color: #fff; font-weight: 600;">Recommended Model</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td style="padding:14px; border:1px solid rgba(255,255,255,.08);">Lowest Cost</td>
-                                <td style="padding:14px; border:1px solid rgba(255,255,255,.08); color: var(--accent-blue); font-weight: 500;">Backup & Restore</td>
-                            </tr>
-                            <tr>
-                                <td style="padding:14px; border:1px solid rgba(255,255,255,.08);">Cost Optimized Recovery</td>
-                                <td style="padding:14px; border:1px solid rgba(255,255,255,.08); color: var(--accent-blue); font-weight: 500;">Pilot Light</td>
-                            </tr>
-                            <tr>
-                                <td style="padding:14px; border:1px solid rgba(255,255,255,.08);">Fast Recovery</td>
-                                <td style="padding:14px; border:1px solid rgba(255,255,255,.08); color: var(--accent-blue); font-weight: 500;">Warm Standby</td>
-                            </tr>
-                            <tr>
-                                <td style="padding:14px; border:1px solid rgba(255,255,255,.08);">Enterprise Applications</td>
-                                <td style="padding:14px; border:1px solid rgba(255,255,255,.08); color: var(--accent-blue); font-weight: 500;">Active Passive</td>
-                            </tr>
-                            <tr>
-                                <td style="padding:14px; border:1px solid rgba(255,255,255,.08);">Mission Critical Services</td>
-                                <td style="padding:14px; border:1px solid rgba(255,255,255,.08); color: var(--accent-blue); font-weight: 500;">Active Active</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="tech-step-box">
-                <h4><i class="fa-solid fa-lightbulb"></i> Key Takeaway</h4>
-                <p style="margin-bottom: 10px;">
-                    If downtime directly impacts revenue, customer experience, or regulatory compliance, organizations should consider Warm Standby, Active Passive, or Active Active architectures.
-                </p>
-                <p style="margin-bottom: 0;">
-                    For development, testing, and non-critical applications, Backup & Restore or Pilot Light may be sufficient.
-                </p>
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose">
+            <h2>How each pattern works</h2>
+            
+            <div id="backup-restore" style="scroll-margin-top:110px; margin-top:34px">
+                <h3>Backup and restore</h3>
+                <p>Data is backed up on a schedule and a copy is kept away from the main site. After a disaster you build or rent servers, restore the data and start the applications. Nothing runs at the DR site until you need it.</p>
+                <p><strong>Good fit:</strong> Systems where a day or two of downtime is acceptable, and the cheapest layer of protection for everything else.</p>
+                <p><strong>Watch out for:</strong></p>
+                <ul><li>Restore time grows with data size. Restoring 20 TB over a 1 Gbps link takes roughly two days before you even start the applications.</li><li>Ransomware. Keep at least one copy that is immutable or offline, so an attacker who reaches your backup server cannot delete it.</li><li>Restores that have never been tried. Test a full restore of one system every month.</li></ul>
             </div>
             
-        </div>
-    </section>
-
-    <footer style="background: #01040f; padding: 40px 8%; border-top: 1px solid rgba(255,255,255,0.04); text-align: center; font-size: 0.85rem; color: #475569;">
-        &copy; <footer style="background: #020810; padding: 60px 8% 30px 8%; border-top: 1px solid rgba(255,255,255,0.05); box-sizing: border-box; width: 100%; clear: both; position: relative; z-index: 999; font-family: 'Inter', sans-serif;">
-    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; flex-wrap: wrap; text-align: left; max-width: 1200px; margin: 0 auto;">
-        
-        <div style="flex: 2; min-width: 280px;">
-            <h2 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1.4rem; font-weight: 700; margin: 0 0 12px 0; letter-spacing: 1px;">
-                VAKRATRON <span style="color: #C2185B; font-size: 0.8rem; letter-spacing: 3px; font-weight: 600; display: block; margin-top: 2px;">SYSTEMS</span>
-            </h2>
-            <p style="color: #64748b; font-size: 0.9rem; line-height: 1.6; margin: 0 0 20px 0; text-align: justify;">
-                Architecting resilient, hyper-secure, and dynamically scaled AI compute frameworks and cloud automation systems for enterprise governance tables.
-            </p>
-            <div style="display: flex; flex-direction: column; gap: 6px; font-size: 0.85rem; color: #64748b;">
-                <span><i class="fa-solid fa-phone" style="color: #C2185B; margin-right: 8px;"></i> +91 93196 66864</span>
-                <span><i class="fa-solid fa-envelope" style="color: #C2185B; margin-right: 8px;"></i> connect@vakratronsys.com</span>
+            <div id="pilot-light" style="scroll-margin-top:110px; margin-top:34px">
+                <h3>Pilot light</h3>
+                <p>Data is replicated continuously. The pieces that take longest to rebuild, usually the database and directory services, run at the DR site in a small configuration. Application and web servers exist as templates and are started only during a failover.</p>
+                <p><strong>Good fit:</strong> Important business systems that can tolerate a few hours of downtime but not a day of lost data.</p>
+                <p><strong>Watch out for:</strong></p>
+                <ul><li>Templates going stale. The application server images at DR must get the same patches and configuration changes as production.</li><li>Manual start-up steps. Use automation such as Terraform, Heat or Ansible to start the stopped tiers, or failover will be slow and error-prone.</li><li>Licences. Check whether your software vendor allows a standby copy without a full licence.</li></ul>
             </div>
-        </div>
-        
-        <div style="flex: 1; min-width: 200px; display: flex; flex-direction: column; gap: 10px;">
-            <h4 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1rem; margin: 0 0 5px 0; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Compliance table</h4>
-            <span style="color: #64748b; font-size: 0.85rem;"><i class="fa-solid fa-building" style="color: #C2185B; margin-right: 6px;"></i> LLPIN: AAT-3851</span>
-            <span style="color: #64748b; font-size: 0.85rem;"><i class="fa-solid fa-certificate" style="color: #C2185B; margin-right: 6px;"></i> DIPP No: DIPP247647</span>
-            <span style="color: #38bdf8; font-size: 0.85rem; font-weight: 600;"><i class="fa-solid fa-shield-halved" style="margin-right: 6px;"></i> Data Protection Secure</span>
-        </div>
-        
-        <div style="flex: 1; min-width: 150px; display: flex; flex-direction: column; gap: 10px;">
-            <h4 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1rem; margin: 0 0 5px 0; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Structure Links</h4>
-            <a href="/index.html" style="color: #64748b; text-decoration: none; font-size: 0.85rem;">Home</a>
-            <a href="/about.html" style="color: #64748b; text-decoration: none; font-size: 0.85rem;">About Corporate</a>
-            <a href="/products.html" style="color: #64748b; text-decoration: none; font-size: 0.85rem;">Portfolio Offerings</a>
-            <a href="/fabric.html" style="color: #38bdf8; text-decoration: none; font-size: 0.85rem; font-weight: 600;">Fabric Lab Hub</a>
-        </div>
-    </div>
-    
-    <div style="border-top: 1px solid rgba(255,255,255,0.05); margin-top: 30px; padding-top: 20px; text-align: center; font-size: 0.8rem; color: #475569;">
-        &copy; 2026 Vakratron Systems LLP | All Rights Reserved.
-    </div>
-</footer>
-    </footer>
+            
+            <div id="warm-standby" style="scroll-margin-top:110px; margin-top:34px">
+                <h3>Warm standby</h3>
+                <p>A complete, working copy of the application runs at the DR site at reduced size, for example two application servers instead of eight. On failover you scale it up and point users to it.</p>
+                <p><strong>Good fit:</strong> Customer-facing and operations-critical systems where recovery has to happen within an hour or two.</p>
+                <p><strong>Watch out for:</strong></p>
+                <ul><li>The scale-up step. If DR runs at a quarter of production size, you must be sure the extra capacity is actually available on the day.</li><li>Configuration drift. Because DR is running, people sometimes change it directly. Manage both sites from the same code.</li></ul>
+            </div>
+            
+            <div id="active-passive" style="scroll-margin-top:110px; margin-top:34px">
+                <h3>Active-passive</h3>
+                <p>A full-size copy of production sits at the DR site, kept in sync with storage or database replication. If the primary fails, the passive site takes over.</p>
+                <p><strong>Good fit:</strong> Systems where even an hour of downtime causes serious financial, regulatory or safety impact.</p>
+                <p><strong>Watch out for:</strong></p>
+                <ul><li>Distance and latency. Synchronous replication, which gives near-zero data loss, needs low latency between sites. In practice that usually means the sites are within about 100 km. Beyond that, replication is asynchronous and a few seconds to minutes of data can be lost.</li><li>Split brain. If the two sites lose contact, both may try to act as primary. Use a witness or quorum at a third location.</li><li>Paying for idle capacity. The passive site is full-size and mostly unused. Some teams run reporting or test workloads there to make use of it.</li></ul>
+            </div>
+            
+            <div id="active-active" style="scroll-margin-top:110px; margin-top:34px">
+                <h3>Active-active</h3>
+                <p>Both sites serve live users at the same time. If one site fails, the other carries the full load.</p>
+                <p><strong>Good fit:</strong> Applications designed for multiple sites, typically stateless web and API tiers with a database built for multi-site writes.</p>
+                <p><strong>Watch out for:</strong></p>
+                <ul><li>The database. Writing to the same data from two sites at once is hard. Many setups described as active-active are active-active for the web and application tiers and active-passive for the database. That is often the right call.</li><li>Capacity. Each site must be able to carry the full load alone, so in normal running each is at most half used.</li><li>Application changes. Most existing applications need rework before they can run safely at two sites at once.</li></ul>
+            </div>
+        </div></div></div>
 
+        <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose">
+            <h2>Four questions to pick the right one</h2>
+            <ol class="vk-steps">
+                <li><strong>What does one hour of downtime cost?</strong> Lost revenue, penalties, patient safety, citizen services. If nobody can put a number or a consequence on it, it probably does not need the expensive patterns.</li>
+                <li><strong>How much recent data can be re-entered by hand?</strong> If staff can re-key the last 30 minutes from paper or email, an asynchronous pattern is usually enough.</li>
+                <li><strong>Does a regulator or contract set the number?</strong> Banks, insurers, market intermediaries and many government systems have business continuity requirements written down. Start from those.</li>
+                <li><strong>Can the application be changed?</strong> If not, active-active is usually off the table, and active-passive or warm standby is the realistic ceiling.</li>
+            </ol>
+            <div class="vk-note"><p>Most organisations land on three tiers: active-passive or warm standby for a handful of critical systems, pilot light for important business applications, and backup and restore for everything else. The <a href="/use_cases/dr-hospital-group">hospital group use case</a> shows what that looks like in practice.</p></div>
+        </div></div></div>
 
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Not sure where your DR stands?</h2>
+                <p class="vk-muted">Send us your application list and a short note on how backups work today. We will come back with a plain gap review: which systems are exposed, what a realistic recovery time looks like, and what it would take to close the gap.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact">Book a DR review</a>
+                    <a class="vk-btn" href="/portfolio/dr-solutions">Back to DR overview</a>
+                </div>
+            </div>
+        </div></div>
+    </main>
+
+    <footer></footer>
     <script src="/vakra-loader.js"></script>
 </body>
 </html>

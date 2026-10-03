@@ -992,6 +992,15 @@ const LEGACY_REDIRECTS = {
     'solution_arch/cloud_solutions': '/solutions/cloud-solutions',
     'solutions/dc-dr/dc-dr_chat': '/solutions/master_dc-dr',
     'solutions/dc-dr/dc_dr_gem': '/solutions/master_dc-dr',
+    // DC-DR consolidation: five thin pattern pages merged into one guide
+    'solutions/dc-dr/dc-dr': '/portfolio/dr-solutions',
+    'solutions/dc-dr/active-active': '/solutions/dc-dr/strategy-selection#active-active',
+    'solutions/dc-dr/active-passive': '/solutions/dc-dr/strategy-selection#active-passive',
+    'solutions/dc-dr/warm-standby': '/solutions/dc-dr/strategy-selection#warm-standby',
+    'solutions/dc-dr/pilot-light': '/solutions/dc-dr/strategy-selection#pilot-light',
+    'solutions/dc-dr/backup-restore': '/solutions/dc-dr/strategy-selection#backup-restore',
+    'solutions/dc-dr/industry-use-cases': '/use_cases/dr-hospital-group',
+    'solutions/dc-dr/feq': '/solutions/dc-dr/faq',
 };
 
 app.use((req, res, next) => {
