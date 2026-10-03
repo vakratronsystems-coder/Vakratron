@@ -1,6 +1,7 @@
 /* vk-content.css: plain-language content pages (Oct 2026 rewrite).
    Scoped under main.vk so it does not disturb older pages.
    Theme is fixed: #020617 background, #C2185B accent. */
+html, body { font-family: 'Inter', sans-serif !important; }
 main.vk {
   --vk-bg: #020617;
   --vk-surface: #0b1224;
@@ -11,7 +12,7 @@ main.vk {
   --vk-blue: #38bdf8;
   --vk-text: #e2e8f0;
   --vk-muted: #94a3b8;
-  --vk-head: "Space Grotesk", sans-serif;
+  --vk-head: "Inter", sans-serif;
   --vk-body: "Inter", sans-serif;
   display: block;
   background: var(--vk-bg) !important;
@@ -234,3 +235,21 @@ main.vk a.vk-pill.on { background: var(--vk-accent); border-color: var(--vk-acce
 main.vk .vk-pager { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 main.vk .vk-pager h3 { margin: 4px 0 0 !important; }
 @media (max-width: 600px) { main.vk .vk-pager { grid-template-columns: 1fr; } }
+
+/* ---------- Pattern cards with mini diagrams (hub) ---------- */
+main.vk .vk-patterns { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; margin-top: 22px; }
+main.vk a.vk-pat { display: flex; flex-direction: column; padding: 14px; }
+main.vk .vk-pat-thumb { background: #070d1c; border: 1px solid var(--vk-line); border-radius: 10px; padding: 6px; margin-bottom: 12px; }
+main.vk .vk-pat-thumb svg { width: 100%; height: auto; display: block; }
+main.vk a.vk-pat h3 { margin: 2px 0 6px !important; }
+main.vk a.vk-pat p { font-size: 0.88rem !important; line-height: 1.5 !important; margin-bottom: 10px; }
+main.vk .vk-pat-meta { display: grid; gap: 2px; margin-bottom: 8px; }
+main.vk .vk-pat-meta span, main.vk .vk-pat-meta b { font-size: 0.82rem !important; color: var(--vk-muted) !important; }
+main.vk .vk-pat-meta b { color: #fff !important; font-weight: 600 !important; margin-right: 4px; }
+main.vk .vk-pat-cost { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+main.vk .vk-pat .vk-go { margin-top: auto; padding-top: 8px; }
+main.vk .vk-dots { display: inline-flex !important; gap: 5px; }
+main.vk .vk-dots span { width: 10px; height: 10px; border-radius: 50%; border: 1px solid #475569; display: inline-block; }
+main.vk .vk-dots span.on { background: var(--vk-accent); border-color: var(--vk-accent); }
+.vk-refarch .vk-flow.vk-batch3 { stroke-dasharray: 10 120; animation: vkBatch3 2.6s linear infinite; }
+@keyframes vkBatch3 { from { stroke-dashoffset: 10; } to { stroke-dashoffset: -120; } }

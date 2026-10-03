@@ -1,4 +1,5 @@
 from tpl import *
+import thumbs
 body = f'''
         <div class="vk-wrap vk-hero">
             {crumb(("Home","/"),("Solutions","/solutions"),("Disaster Recovery",None))}
@@ -7,7 +8,7 @@ body = f'''
             <p class="vk-lead">Most organisations have a DR site. Far fewer know how long it really takes to bring their applications back, or whether it works at all. We help you decide what needs protection and how fast it must recover, then design and build it and run the first drill with your team.</p>
             <div class="vk-actions">
                 <a class="vk-btn primary" href="/contact">Book a DR review</a>
-                <a class="vk-btn" href="#see-it-work">See how DR patterns work</a>
+                <a class="vk-btn" href="#see-it-work">Explore the DR patterns</a>
             </div>
         </div>
 
@@ -44,18 +45,13 @@ body = f'''
 
 
         <div class="vk-sec" id="see-it-work"><div class="vk-wrap">
-            <span class="vk-eyebrow">See it working</span>
-            <h2>What happens to each pattern in a disaster</h2>
-            <p class="vk-prose">Pick a pattern to see what is running at the DR site on a normal day. Then press <strong>Simulate a disaster</strong> to watch the primary site go down and the DR site take over, step by step. Notice how much longer the cheaper patterns take to recover.</p>
-            <div class="vk-drsim" data-start="pilot-light"></div>
-            <noscript><p class="vk-muted">This interactive diagram needs JavaScript. The <a href="/solutions/dc-dr/strategy-selection">DR patterns guide</a> compares the same five patterns in a table.</p></noscript>
-            <p class="vk-small" style="margin-top:18px">Each pattern in detail, with its own reference architecture and runbook:
-                <a href="/solutions/dc-dr/backup-restore">Backup and restore</a> &middot;
-                <a href="/solutions/dc-dr/pilot-light">Pilot light</a> &middot;
-                <a href="/solutions/dc-dr/warm-standby">Warm standby</a> &middot;
-                <a href="/solutions/dc-dr/active-passive">Active-passive</a> &middot;
-                <a href="/solutions/dc-dr/active-active">Active-active</a></p>
+            <span class="vk-eyebrow">The five DR patterns</span>
+            <h2>Pick a pattern to see how it works</h2>
+            <p class="vk-prose">Each pattern keeps a different amount ready at the DR site. Open one to see its reference architecture and to watch an animated simulation of what happens when the primary site is lost.</p>
+                {thumbs.cards()}
+            <p class="vk-small vk-muted" style="margin-top:16px">Comparing options side by side? See the <a href="/solutions/dc-dr/strategy-selection">DR patterns guide</a>.</p>
         </div></div>
+
         <div class="vk-sec"><div class="vk-wrap"><div class="vk-prose">
             <span class="vk-eyebrow">How we work</span>
             <h2>How a DR engagement runs</h2>
@@ -112,4 +108,4 @@ body = f'''
         </div></div>
 {CTA}'''
 page('portfolio/dr-solutions.html', 'Disaster Recovery (DC-DR) Design and Testing | Vakratron Systems',
-     'We help organisations decide what needs disaster recovery and how fast it must come back, then design, build and test it. Plain guidance on RPO, RTO, DR patterns and cost.', body, scripts=['/vk-dr-sim.js'])
+     'We help organisations decide what needs disaster recovery and how fast it must come back, then design, build and test it. Plain guidance on RPO, RTO, DR patterns and cost.', body)

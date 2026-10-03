@@ -236,6 +236,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (!DEEP_TECH_PATHS.some(p => path.includes(p))) return;
+        // Rewritten pages (main.vk) already end with a CTA that links to /contact,
+        // so the injected form would be a second, duplicate form.
+        if (document.querySelector('main.vk')) return;
         if (document.getElementById('vakra-consult-cta')) return;
 
         injectCtaStyles();
