@@ -886,7 +886,7 @@ app.post('/api/verify-otp', verifyLimiter, async (req, res) => {
                                 <h4 style="margin: 0 0 6px 0; color: #f8fafc;">${escapeHtml(leadData.pageRequested || 'Deep-Tech Solution Blueprint')}</h4>
                                 <p style="margin: 0; color: #94a3b8; font-size: 0.85rem;">Status: <b>Unlocked &amp; Verified</b></p>
                             </div>
-                            <p>If you'd like to discuss deployment or workload sizing with our Principal Solutions Architect, just reply to this email or visit <a href="https://vakratronsys.com" style="color: #38bdf8; text-decoration: none;">vakratronsys.com</a>.</p>
+                            <p>If you'd like to discuss deployment or workload sizing with our architecture team, just reply to this email or visit <a href="https://vakratronsys.com" style="color: #38bdf8; text-decoration: none;">vakratronsys.com</a>.</p>
                             <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 24px 0;" />
                             <p style="color: #64748b; font-size: 0.8rem; margin: 0;">Best Regards,<br><strong style="color: #cbd5e1;">Enterprise Architecture Team</strong><br>Vakratron Systems</p>
                         </div>

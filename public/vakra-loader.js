@@ -255,7 +255,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="vk-cta-accent"></div>
                 <h3 class="vk-cta-title">Want this mapped to your own environment?</h3>
                 <p class="vk-cta-sub">
-                    Share a few details and our Principal Solutions Architect will come back with a
+                    Share a few details and our architecture team will come back with a
                     sizing view, HLD outline or BoQ direction for your specific workload. No obligation.
                 </p>
 
