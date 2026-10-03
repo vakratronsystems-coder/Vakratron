@@ -1,0 +1,248 @@
+        .vakra-chat-trigger {
+            position: fixed !important;
+            bottom: 30px !important;
+            right: 30px !important;
+            width: 60px !important;
+            height: 60px !important;
+            border-radius: 50% !important;
+            background: linear-gradient(135deg, var(--accent-neon) 0%, #9d174d 100%) !important;
+            box-shadow: 0 4px 25px rgba(194, 24, 91, 0.5), inset 0 0 10px rgba(255,255,255,0.2) !important;
+            border: 1px solid rgba(255,255,255,0.2) !important;
+            color: #fff !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-size: 1.6rem !important;
+            cursor: pointer !important;
+            z-index: 999999 !important;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+            
+            /* 🔒 ANTI-STRETCH GUARDRAILS */
+            max-width: 60px !important;
+            max-height: 60px !important;
+            min-width: 60px !important;
+            min-height: 60px !important;
+            transform: none !important;
+            flex-direction: row !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        .vakra-chat-trigger:hover {
+            transform: scale(1.1) rotate(15deg) !important;
+            box-shadow: 0 6px 30px rgba(194, 24, 91, 0.7) !important;
+        }
+
+        /* 🦾 VIEWPORT-ISOLATED CORE ANTI-STRETCH MATRIX */
+        .vakra-chat-window {
+            position: fixed !important;
+            bottom: 105px !important;
+            right: 30px !important;
+            
+            /* 🔒 PHYSICAL PIXEL FORCED LAYER - NO OVERRIDES ALLOWED */
+            width: 360px !important;
+            height: 500px !important;
+            min-width: 360px !important;
+            min-height: 500px !important;
+            max-width: 360px !important;
+            max-height: 500px !important;
+            
+            /* 🔒 VIEWPORT REGULATION GUARDRAILS */
+            flex-basis: 360px !important;
+            flex-grow: 0 !important;
+            flex-shrink: 0 !important;
+            display: none !important; /* Managed by JS inline style display logic */
+            flex-direction: column !important;
+            
+            background: rgba(15, 23, 42, 0.98) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border: 1px solid rgba(194, 24, 91, 0.5) !important;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 40px rgba(194, 24, 91, 0.2) !important;
+            border-radius: 20px !important;
+            z-index: 99999999 !important; /* Push above all active canvases/headers */
+            overflow: hidden !important;
+            box-sizing: border-box !important;
+            
+            /* Layout Grid Cleansing */
+            margin: 0 !important;
+            padding: 0 !important;
+            left: auto !important;
+            top: auto !important;
+            transform: none !important;
+        }
+
+        /* Active class handling override */
+        .vakra-chat-window.active {
+            display: flex !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+        }
+
+        .vakra-chat-window.active {
+            opacity: 1 !important;
+            transform: translateY(0) scale(1) !important;
+            pointer-events: auto !important;
+        }
+
+        .vakra-chat-header {
+            background: rgba(194, 24, 91, 0.2) !important;
+            border-bottom: 1px solid rgba(194, 24, 91, 0.4) !important;
+            padding: 15px 20px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            flex-shrink: 0 !important;
+        }
+
+        .vakra-chat-header h3 {
+            margin: 0 !important;
+            font-family: 'Poppins', sans-serif !important;
+            font-size: 1.05rem !important;
+            font-weight: 600 !important;
+            color: #fff !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 10px !important;
+        }
+
+        .vakra-chat-header h3 span {
+            width: 8px !important;
+            height: 8px !important;
+            background: #10b981 !important;
+            border-radius: 50% !important;
+            display: inline-block !important;
+            box-shadow: 0 0 8px #10b981 !important;
+        }
+
+        .vakra-chat-close {
+            background: transparent !important;
+            border: none !important;
+            color: var(--text-secondary) !important;
+            cursor: pointer !important;
+            font-size: 1.1rem !important;
+            transition: color 0.2s !important;
+        }
+
+        .vakra-chat-close:hover {
+            color: #fff !important;
+        }
+
+        .vakra-chat-messages {
+            flex: 1 !important;
+            padding: 20px !important;
+            overflow-y: auto !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 15px !important;
+            background: rgba(2, 6, 23, 0.4) !important;
+        }
+
+        .vakra-msg {
+            max-width: 85% !important;
+            padding: 12px 16px !important;
+            border-radius: 14px !important;
+            font-size: 0.92rem !important;
+            line-height: 1.5 !important;
+            word-wrap: break-word !important;
+            box-sizing: border-box !important;
+        }
+
+        .vakra-msg.system {
+            background: rgba(30, 41, 59, 0.7) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            color: #e2e8f0 !important;
+            align-self: flex-start !important;
+            border-top-left-radius: 2px !important;
+        }
+
+        .vakra-msg.user {
+            background: linear-gradient(135deg, var(--accent-neon) 0%, #9d174d 100%) !important;
+            border: 1px solid rgba(194, 24, 91, 0.4) !important;
+            color: #fff !important;
+            align-self: flex-end !important;
+            border-top-right-radius: 2px !important;
+        }
+
+        .vakra-chat-input-area {
+            padding: 15px 20px !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+            background: #0f172a !important;
+            display: flex !important;
+            gap: 10px !important;
+            align-items: center !important;
+            flex-shrink: 0 !important;
+        }
+
+        .vakra-chat-input {
+            flex: 1 !important;
+            background: rgba(2, 6, 23, 0.8) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            border-radius: 10px !important;
+            padding: 12px !important;
+            color: #fff !important;
+            font-size: 0.9rem !important;
+            outline: none !important;
+            font-family: 'Inter', sans-serif !important;
+            transition: border-color 0.2s !important;
+            box-sizing: border-box !important;
+        }
+
+        .vakra-chat-input:focus {
+            border-color: var(--accent-blue) !important;
+        }
+
+        .vakra-chat-send {
+            background: rgba(56, 189, 248, 0.1) !important;
+            border: 1px solid rgba(56, 189, 248, 0.3) !important;
+            color: var(--accent-blue) !important;
+            width: 44px !important;
+            height: 44px !important;
+            border-radius: 10px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            cursor: pointer !important;
+            font-size: 1rem !important;
+            transition: all 0.2s !important;
+            flex-shrink: 0 !important;
+        }
+
+        .vakra-chat-send:hover {
+            background: var(--accent-blue) !important;
+            color: #020617 !important;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4) !important;
+        }
+
+        .vakra-typing {
+            display: flex;
+            gap: 4px;
+            padding: 5px 0;
+            align-items: center;
+        }
+
+        .vakra-typing span {
+            width: 6px;
+            height: 6px;
+            background: var(--text-secondary);
+            border-radius: 50%;
+            animation: vakraBounce 1.4s infinite ease-in-out both;
+        }
+
+        .vakra-typing span:nth-child(1) { animation-delay: -0.32s; }
+        .vakra-typing span:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes vakraBounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1.0); }
+        }
+
+        @media (max-width: 480px) {
+            .vakra-chat-window {
+                width: calc(100% - 40px);
+                right: 20px;
+                bottom: 95px;
+                height: 450px;
+            }
+            .vakra-chat-trigger { right: 20px; bottom: 20px; }
+        }
