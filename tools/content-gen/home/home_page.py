@@ -1,8 +1,11 @@
 """Home page (Oct 2026 rewrite). Run from tools/content-gen/home/.
 Keeps the existing chat widget (HTML, CSS and script extracted from the old page) with plain-language copy."""
-import os
+import os, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 VIEWS = os.path.join(HERE, '..', '..', '..', 'views')
+
+sys.path.insert(0, HERE)
+import orbit
 
 def rd(n): return open(os.path.join(HERE, n), encoding='utf-8').read()
 
@@ -102,7 +105,7 @@ def body():
                         <a class="vk-btn" href="/solutions">Explore our solutions</a>
                     </div>
                 </div>
-                {stack()}
+                {orbit.html()}
             </div>
         </div>
 
@@ -234,10 +237,12 @@ def build():
     <footer></footer>
 
     ''' + chat_js + '''    <script src="/vakra-loader.js"></script>
+    <script src="/vk-home.js" defer></script>
 </body>
 </html>
 '''
     open(os.path.join(VIEWS, 'index.html'), 'w', encoding='utf-8', newline='\n').write(html)
+    open(os.path.join(VIEWS, '..', 'public', 'vk-home.js'), 'w', encoding='utf-8', newline='\n').write(orbit.JS)
     print('wrote index.html', len(html))
 
 CSS = """

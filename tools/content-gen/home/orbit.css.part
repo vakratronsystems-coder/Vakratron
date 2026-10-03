@@ -1,0 +1,33 @@
+
+/* ---------- Home hero orbit visual ---------- */
+main.vk .vk-orbit { position: relative; }
+main.vk .vk-home-grid { grid-template-columns: 1fr 1.12fr !important; gap: 36px !important; }
+@media (max-width: 1000px) { main.vk .vk-home-grid { grid-template-columns: 1fr !important; } }
+main.vk .vk-orbit-svg { width: 100%; height: auto; display: block; overflow: visible; }
+.vk-orbit .vk-ring { transform-box: view-box; transform-origin: 380px 330px; }
+.vk-orbit .vk-ring.r1 { animation: vkSpin 120s linear infinite; }
+.vk-orbit .vk-ring.r2 { animation: vkSpin 14s linear infinite; }
+.vk-orbit .vk-ring.r3 { animation: vkSpin 40s linear infinite reverse; }
+.vk-orbit .vk-spoke { stroke-dasharray: 8 220; stroke-dashoffset: 228; animation: vkSpoke 3.6s ease-in-out infinite; }
+.vk-orbit .vk-pulse1, .vk-orbit .vk-pulse2 { transform-box: view-box; transform-origin: 380px 330px; animation: vkPulse 3.2s ease-out infinite; }
+.vk-orbit .vk-pulse2 { animation-delay: 1.6s; }
+.vk-orbit .vk-ctext { font-family: 'Space Grotesk', 'Inter', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 3px; fill: #94a3b8; }
+.vk-orbit .vk-nlabel { font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600; fill: #cbd5e1; transition: fill .3s; }
+.vk-orbit .vk-node { cursor: pointer; }
+.vk-orbit .vk-node .disc, .vk-orbit .vk-node .halo { transition: all .35s ease; transform-box: fill-box; transform-origin: center; }
+.vk-orbit .vk-node.on .disc { stroke-opacity: 1; fill: #111a2e; transform: scale(1.1); filter: url(#vkglow); }
+.vk-orbit .vk-node.on .halo { opacity: 0.12; transform: scale(1.12); }
+.vk-orbit .vk-node.on .vk-nlabel { fill: #fff; }
+@keyframes vkSpin { to { transform: rotate(360deg); } }
+@keyframes vkSpoke { 0% { stroke-dashoffset: 228; opacity: 0; } 10% { opacity: 1; } 70% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+@keyframes vkPulse { 0% { transform: scale(1); opacity: .7; } 100% { transform: scale(1.7); opacity: 0; } }
+main.vk .vk-orbit-cap { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin: 4px auto 0; max-width: 520px; padding: 12px 16px; border: 1px solid var(--vk-line); border-radius: 12px; background: rgba(11, 18, 36, 0.8); min-height: 64px; }
+main.vk .vk-orbit-cap .vk-cdot { width: 9px; height: 9px; border-radius: 50%; background: #38bdf8; box-shadow: 0 0 10px currentColor; flex: none; }
+main.vk .vk-orbit-cap .n { font-weight: 700 !important; color: #fff !important; font-size: 0.98rem !important; }
+main.vk .vk-orbit-cap .d { flex: 1 1 100%; font-size: 0.88rem !important; color: #94a3b8 !important; line-height: 1.45 !important; order: 3; }
+main.vk .vk-orbit-cap .go { margin-left: auto; font-size: 0.85rem !important; font-weight: 600 !important; }
+@media (prefers-reduced-motion: reduce) {
+  .vk-orbit .vk-ring, .vk-orbit .vk-spoke, .vk-orbit .vk-pulse1, .vk-orbit .vk-pulse2 { animation: none !important; }
+  .vk-orbit .vk-spoke { stroke-dasharray: none; stroke-dashoffset: 0; opacity: .35; }
+}
+@media (max-width: 640px) { .vk-orbit .vk-nlabel { font-size: 23px; } }
