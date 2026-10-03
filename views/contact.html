@@ -3,152 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Contact Us | Vakratron Systems</title>
-    <meta name="description" content="Initiate secure data transmission regarding enterprise infrastructure deployment blueprints or comprehensive technical consultations with Vakratron Systems.">
-    <meta name="robots" content="index, follow">
-    
+    <title>Contact Vakratron Systems | Tell us what you are planning</title>
+    <meta name="description" content="Tell us about your GPU cluster, cloud move, DR plan, AI pilot or tender. Four quick steps; an architect replies within one working day.">
+    <link rel="canonical" href="https://vakratronsys.com/contact">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        :root {
-            --bg-main: #020617;
-            --bg-surface: rgba(15, 23, 42, 0.6);
-            --border-glow: rgba(194, 24, 91, 0.3);
-            --accent-neon: #C2185B;
-            --accent-blue: #38bdf8;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --glass-gradient: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(2, 6, 23, 0.9) 100%);
-        }
-
-        html {
-            scroll-behavior: smooth;
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-main) !important;
-            color: var(--text-primary);
-            background-image: 
-                radial-gradient(circle at 50% 50%, rgba(194, 24, 91, 0.05) 0%, transparent 70%) !important;
-            background-size: 200% 200% !important;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            background: transparent !important;
-            background-image: linear-gradient(rgba(255, 255, 255, 0.002) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(255, 255, 255, 0.002) 1px, transparent 1px) !important;
-            background-size: 50px 50px !important;
-        }
-
-        section {
-            padding: 100px 8% !important;
-            box-sizing: border-box;
-        }
-    </style>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
 </head>
 <body>
-
     <header></header>
 
-    <section id="contact" style="position: relative; padding-top: 160px !important; padding-bottom: 100px !important;">
-        
- <script>
-    async function submitToMongoDB(event) {
-        event.preventDefault(); // Browser refresh block karein
-        
-        const button = document.getElementById('submitBtn'); 
-        const form = document.getElementById('vakratronMongoForm'); 
-        
-        // UI Loading Trigger States
-        button.innerHTML = 'Transmitting Secure Packet... <i class="fa-solid fa-spinner fa-spin" style="color:#fff;"></i>'; 
-        button.disabled = true; 
-        button.style.opacity = '0.7';
-        
-        // Direct inputs values extraction
-        const payload = {
-            name: form.querySelector('input[name="name"]').value,
-            email: form.querySelector('input[name="email"]').value,
-            phone: form.querySelector('input[name="phone"]').value,
-            reason: form.querySelector('select[name="reason"]').value
-        };
-        
-        try {
-            const response = await fetch('/api/contact', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(payload)
-            });
-            
-            const result = await response.json();
-            
-            if (result.success) {
-                // Premium, Client-Facing Corporate Message
-                alert('🔒 Transmission Successful!\n\nYour architectural inquiry vector has been securely received by the Vakratron Systems Core Cluster. Our engineering team will analyze your requirements and establish a communication uplink within 24 operational hours.'); 
-                form.reset(); 
-            } else {
-                alert('❌ Transmission Rejected: ' + (result.error || 'Security boundary validation fault.'));
-            }
-        } catch (error) {
-            console.error('Data pipeline error:', error); 
-            alert('❌ Transmission Failure: Unable to establish handshake with the secure backend node.'); 
-        } finally {
-            button.innerHTML = 'Transmit Secure Packet &nbsp;<i class="fa-solid fa-paper-plane"></i>'; 
-            button.disabled = false; 
-            button.style.opacity = '1'; 
-        }
-    }
-</script>
-        <div style="max-width: 1000px; margin: 0 auto; background: var(--glass-gradient); padding: 55px; border-radius: 24px; border: 1px solid rgba(194,24,91,0.25); box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.8); box-sizing: border-box; position: relative; overflow: hidden;">
-            <div style="text-align: center; margin-bottom: 45px;">
-                <span style="color: #C2185B; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; display: block; margin-bottom: 10px;">Contact Interface Portal</span>
-                <h2 style="font-family: 'Poppins', sans-serif; font-size: 2.3rem; color: #fff; margin: 0 0 12px 0; font-weight: 700;">Connect With Us</h2>
-                <p style="color: #94a3b8; max-width: 580px; margin: 0 auto; font-size: 1rem; line-height: 1.6; font-weight: 300;">Initiate secure data transmission regarding enterprise infrastructure deployment blueprints or comprehensive technical consultations.</p>
-            </div>
-            
-            <form id="vakratronMongoForm" onsubmit="submitToMongoDB(event)" style="display: flex; flex-direction: column; gap: 25px; width: 100%;">
-                <div style="display: flex; gap: 25px; width: 100%; flex-wrap: wrap;">
-                    <div style="flex: 1; min-width: 280px; display: flex; flex-direction: column; gap: 8px;">
-                        <label style="color: #cbd5e1; font-size: 0.9rem;">Your Full Name *</label>
-                        <input type="text" name="name" placeholder="e.g., Enter your full name" required style="width: 100%; padding: 15px 18px; background: #070d1e; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; color: #fff; box-sizing: border-box;">
-                    </div>
-                    <div style="flex: 1; min-width: 280px; display: flex; flex-direction: column; gap: 8px;">
-                        <label style="color: #cbd5e1; font-size: 0.9rem;">Email Address *</label>
-                        <input type="email" name="email" placeholder="e.g., name@company.com" required style="width: 100%; padding: 15px 18px; background: #070d1e; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; color: #fff; box-sizing: border-box;">
-                    </div>
-                </div>
-                <div style="display: flex; gap: 25px; width: 100%; flex-wrap: wrap;">
-                    <div style="flex: 1; min-width: 280px; display: flex; flex-direction: column; gap: 8px;">
-                        <label style="color: #cbd5e1; font-size: 0.9rem;">Phone Number *</label>
-                        <input type="tel" name="phone" placeholder="e.g., +91 XXXXX XXXXX" required style="width: 100%; padding: 15px 18px; background: #070d1e; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; color: #fff; box-sizing: border-box;">
-                    </div>
-                    <div style="flex: 1; min-width: 280px; display: flex; flex-direction: column; gap: 8px;">
-                        <label style="color: #cbd5e1; font-size: 0.9rem;">Primary Inquiry *</label>
-                        <select name="reason" required style="width: 100%; padding: 15px 18px; background: #070d1e; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; color: #fff; box-sizing: border-box;">
-                            <option value="" disabled selected>Select Operational</option>
-                            <option value="AI Infrastructure & GPU Clusters Planning">AI Infrastructure & GPU Clusters Planning</option>
-                            <option value="Hybrid/Private Cloud Solutions Architecture">Hybrid/Private Cloud Solutions Architecture</option>
-                            <option value="Data Centre & Life Safety Security Design">Data Centre & Life Safety Security Design</option>
-                            <option value="General Corporate Inquiry">General Corporate Inquiry</option>
-                        </select>
-                    </div>
-                </div>
-                <div style="width: 100%; display: flex; justify-content: center; margin-top: 15px;">
-                    <button type="submit" id="submitBtn" style="width: 100%; max-width: 420px; padding: 16px; background: linear-gradient(135deg, #C2185B 0%, #9d174d 100%); color: #fff; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.transform='translateY(-2px)';" onmouseout="this.style.transform='translateY(0)';">Transmit Secure Packet &nbsp;<i class="fa-solid fa-paper-plane"></i></button>
-                </div>
-            </form>
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero vk-cf-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <span>Contact</span></div>
+            <span class="vk-eyebrow">Contact</span>
+            <h1>Tell us what you are planning</h1>
+            <p class="vk-lead">Four quick steps, mostly taps. It takes about a minute, and it means our first reply can be useful instead of a list of questions.</p>
         </div>
-    </section>
+        <div class="vk-sec vk-cf-sec"><div class="vk-wrap"><div class="vk-cf-layout">
+<div class="vk-cf" id="vk-contact">
+  <div class="vk-cf-top">
+    <div class="vk-cf-progress" aria-hidden="true"><span id="cfBar"></span></div>
+    <div class="vk-cf-count"><span id="cfStepNo">1</span> of 4 &middot; about a minute</div>
+  </div>
+  <form id="cfForm" novalidate>
+    <input type="text" name="website" class="vk-cf-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+    <div class="vk-cf-step on" data-step="1">
+      <h2>What is it about?</h2>
+      <p class="vk-muted">Pick the closest one. You can add detail in a moment.</p>
+      <div class="vk-chips vk-chips-lg" role="group"><button type="button" class="vk-chip vk-chip-lg" data-group="reason" data-key="ai" data-value="AI infrastructure and GPU clusters" aria-pressed="false"><i class="fa-solid fa-microchip"></i><span>AI infrastructure and GPU clusters</span></button><button type="button" class="vk-chip vk-chip-lg" data-group="reason" data-key="dr" data-value="Data centre and disaster recovery" aria-pressed="false"><i class="fa-solid fa-shield-halved"></i><span>Data centre and disaster recovery</span></button><button type="button" class="vk-chip vk-chip-lg" data-group="reason" data-key="cloud" data-value="Private, hybrid or multi-cloud" aria-pressed="false"><i class="fa-solid fa-cloud"></i><span>Private, hybrid or multi-cloud</span></button><button type="button" class="vk-chip vk-chip-lg" data-group="reason" data-key="vmware" data-value="VMware exit or migration" aria-pressed="false"><i class="fa-solid fa-right-left"></i><span>VMware exit or migration</span></button><button type="button" class="vk-chip vk-chip-lg" data-group="reason" data-key="llm" data-value="Enterprise LLM" aria-pressed="false"><i class="fa-solid fa-brain"></i><span>Enterprise LLM</span></button><button type="button" class="vk-chip vk-chip-lg" data-group="reason" data-key="rag" data-value="RAG or document assistant" aria-pressed="false"><i class="fa-solid fa-file-lines"></i><span>RAG or document assistant</span></button><button type="button" class="vk-chip vk-chip-lg" data-group="reason" data-key="agents" data-value="Agentic AI" aria-pressed="false"><i class="fa-solid fa-robot"></i><span>Agentic AI</span></button><button type="button" class="vk-chip vk-chip-lg" data-group="reason" data-key="k8s" data-value="Kubernetes and platform engineering" aria-pressed="false"><i class="fa-solid fa-cubes"></i><span>Kubernetes and platform engineering</span></button><button type="button" class="vk-chip vk-chip-lg" data-group="reason" data-key="api" data-value="APIs and microservices" aria-pressed="false"><i class="fa-solid fa-plug"></i><span>APIs and microservices</span></button><button type="button" class="vk-chip vk-chip-lg" data-group="reason" data-key="tender" data-value="Tender or RFP specification" aria-pressed="false"><i class="fa-solid fa-file-signature"></i><span>Tender or RFP specification</span></button><button type="button" class="vk-chip vk-chip-lg" data-group="reason" data-key="review" data-value="Architecture review or second opinion" aria-pressed="false"><i class="fa-solid fa-magnifying-glass"></i><span>Architecture review or second opinion</span></button><button type="button" class="vk-chip vk-chip-lg" data-group="reason" data-key="other" data-value="Something else" aria-pressed="false"><i class="fa-solid fa-ellipsis"></i><span>Something else</span></button></div>
+      <p class="vk-cf-err" data-err="1">Please pick one, or choose &ldquo;Something else&rdquo;.</p>
+    </div>
+
+    <div class="vk-cf-step" data-step="2">
+      <h2>Where are you with it?</h2>
+      <p class="vk-muted">Tap what fits. Each one helps us send the right person and the right first reply.</p>
+      <h3>Stage</h3><div class="vk-chips" role="group"><button type="button" class="vk-chip" data-group="stage" data-value="Just exploring" aria-pressed="false">Just exploring</button><button type="button" class="vk-chip" data-group="stage" data-value="Building a budget or business case" aria-pressed="false">Building a budget or business case</button><button type="button" class="vk-chip" data-group="stage" data-value="Writing a tender or RFP" aria-pressed="false">Writing a tender or RFP</button><button type="button" class="vk-chip" data-group="stage" data-value="Have a vendor proposal to check" aria-pressed="false">Have a vendor proposal to check</button><button type="button" class="vk-chip" data-group="stage" data-value="Live system needs fixing" aria-pressed="false">Live system needs fixing</button></div>
+      <h3>When do you need it?</h3><div class="vk-chips" role="group"><button type="button" class="vk-chip" data-group="timeline" data-value="This month" aria-pressed="false">This month</button><button type="button" class="vk-chip" data-group="timeline" data-value="1 to 3 months" aria-pressed="false">1 to 3 months</button><button type="button" class="vk-chip" data-group="timeline" data-value="3 to 6 months" aria-pressed="false">3 to 6 months</button><button type="button" class="vk-chip" data-group="timeline" data-value="Later, or not fixed" aria-pressed="false">Later, or not fixed</button></div>
+      <h3>You are</h3><div class="vk-chips" role="group"><button type="button" class="vk-chip" data-group="orgType" data-value="Government or PSU" aria-pressed="false">Government or PSU</button><button type="button" class="vk-chip" data-group="orgType" data-value="Enterprise" aria-pressed="false">Enterprise</button><button type="button" class="vk-chip" data-group="orgType" data-value="Startup or product company" aria-pressed="false">Startup or product company</button><button type="button" class="vk-chip" data-group="orgType" data-value="System integrator or partner" aria-pressed="false">System integrator or partner</button></div>
+    </div>
+
+    <div class="vk-cf-step" data-step="3">
+      <h2>Anything we should know?</h2>
+      <p class="vk-muted">Optional, but a few lines here save a whole call. Tap a prompt to add it.</p>
+      <div class="vk-cf-hints" id="cfHints"></div>
+      <textarea name="message" id="cfMsg" rows="6" maxlength="2000" placeholder="For example: 3 data centres, about 400 VMs, VMware renewal due in March, need a plan the board can approve."></textarea>
+      <div class="vk-cf-small"><span id="cfMsgCount">0</span> / 2000</div>
+    </div>
+
+    <div class="vk-cf-step" data-step="4">
+      <h2>Where should we reply?</h2>
+      <div class="vk-cf-summary" id="cfSummary"></div>
+      <div class="vk-cf-grid">
+        <label>Full name *<input type="text" name="name" autocomplete="name" required placeholder="Your name"></label>
+        <label>Work email *<input type="email" name="email" autocomplete="email" required placeholder="name@company.com"></label>
+        <label>Phone, with country code *<input type="tel" name="phone" autocomplete="tel" required value="+91 " placeholder="+91 98xxx xxxxx"></label>
+        <label>Organisation<input type="text" name="company" autocomplete="organization" placeholder="Company or department"></label>
+        <label class="wide">Your role<input type="text" name="role" autocomplete="organization-title" placeholder="For example: IT head, CTO, procurement, consultant"></label>
+      </div>
+      <p class="vk-cf-err" data-err="4" id="cfErr4"></p>
+    </div>
+
+    <div class="vk-cf-nav">
+      <button type="button" class="vk-btn" id="cfBack">&larr; Back</button>
+      <button type="button" class="vk-btn primary" id="cfNext">Next &rarr;</button>
+      <button type="submit" class="vk-btn primary" id="cfSend">Send enquiry</button>
+    </div>
+  </form>
+
+  <div class="vk-cf-done" id="cfDone" hidden>
+    <div class="vk-cf-tick">&#10003;</div>
+    <h2 id="cfDoneTitle">Thank you. We have it.</h2>
+    <p class="vk-muted" id="cfDoneText"></p>
+    <ol class="vk-steps">
+      <li>An architect reads your note and checks what you have told us.</li>
+      <li>You get a reply within one working day, usually with a first view or two or three sharp questions.</li>
+      <li>If it makes sense, we set up a short call at a time that suits you.</li>
+    </ol>
+    <div class="vk-actions"><a class="vk-btn" href="/solutions">Explore solutions</a><a class="vk-btn" href="/">Back to home</a></div>
+  </div>
+</div>
+<aside class="vk-cf-side">
+  <div class="vk-card">
+    <h3>What happens next</h3>
+    <ol class="vk-steps">
+      <li>An architect reads your note, not a sales queue.</li>
+      <li>Reply within one working day.</li>
+      <li>A short call only if it is useful to you.</li>
+    </ol>
+  </div>
+  <div class="vk-card">
+    <h3>Prefer email?</h3>
+    <p class="vk-muted">Write to <a href="mailto:connect@vakratronsys.com">connect@vakratronsys.com</a>. Attachments such as an RVTools export, a vendor proposal or a tender draft are welcome.</p>
+  </div>
+  <div class="vk-card">
+    <h3>Your details</h3>
+    <p class="vk-muted">Used only to reply to this enquiry. We are happy to sign an NDA before you share anything sensitive.</p>
+  </div>
+</aside></div></div></div>
+    </main>
 
     <footer></footer>
-
     <script src="/vakra-loader.js"></script>
+    <script src="/vk-contact.js" defer></script>
 </body>
 </html>

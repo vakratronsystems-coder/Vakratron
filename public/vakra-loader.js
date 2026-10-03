@@ -164,6 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // redirecting to /contact.html instead of letting the form post,
             // so every enquiry from these pages was silently lost.
             if (btn.closest && btn.closest('#vakra-consult-cta')) return;
+            if (btn.closest && btn.closest('#vk-contact')) return;
 
             const btnText = (btn.innerText || btn.textContent || "").toLowerCase();
 

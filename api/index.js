@@ -300,6 +300,13 @@ const contactSchema = new mongoose.Schema({
     phone:     { type: String, required: true, trim: true },
     company:   { type: String, trim: true, default: '' },
     reason:    { type: String, required: true, trim: true },
+    // Optional detail from the step-by-step contact page (Oct 2026). All additive.
+    stage:      { type: String, trim: true, default: '' },
+    timeline:   { type: String, trim: true, default: '' },
+    orgType:    { type: String, trim: true, default: '' },
+    role:       { type: String, trim: true, default: '' },
+    message:    { type: String, trim: true, default: '' },
+    sourcePage: { type: String, trim: true, default: '' },
     emailType: { type: String, enum: ['corporate', 'personal'], default: 'personal' },
     source:    { type: String, default: 'contact-form' },
     flagged:   { type: Boolean, default: false },   // odd-looking, worth a human glance
@@ -426,6 +433,18 @@ const TOPIC_MAP = [
     ['/platform_engineering/',  'platform engineering'],
     ['/api_services/',          'API & integration services'],
     ['/sta/',                   'technology assessment'],
+    // Topic names used by the new contact page (Oct 2026)
+    ['gpu clusters',            'AI & GPU cluster infrastructure'],
+    ['disaster recovery',       'data centre & disaster recovery'],
+    ['multi-cloud',             'cloud deployment models'],
+    ['vmware',                  'VMware exit and migration'],
+    ['enterprise llm',          'enterprise LLM deployment'],
+    ['document assistant',      'document assistants (RAG)'],
+    ['agentic ai',              'agentic AI systems'],
+    ['kubernetes',              'platform engineering'],
+    ['microservices',           'API & integration services'],
+    ['tender or rfp',           'tender and RFP specifications'],
+    ['second opinion',          'an independent architecture review'],
 ];
 
 function topicFromReason(reason) {
@@ -582,6 +601,25 @@ app.get('/robots.txt', (req, res) => {
 app.post('/api/contact', contactLimiter, async (req, res) => {
     try {
         const { name, email, phone, reason, company } = req.body;
+        // Optional extras from the new contact page. Clipped, never required,
+        // so older forms (consult card, chat) keep working unchanged.
+        const clip = (v, n) => (v == null ? '' : String(v).replace(/\s+$/,'').trim().slice(0, n));
+        const extra = {
+            stage:      clip(req.body.stage, 120),
+            timeline:   clip(req.body.timeline, 60),
+            orgType:    clip(req.body.orgType, 80),
+            role:       clip(req.body.role, 120),
+            message:    clip(req.body.message, 2000),
+            sourcePage: clip(req.body.sourcePage, 200)
+        };
+        const extraSummary = [
+            extra.stage && ('Stage: ' + extra.stage),
+            extra.timeline && ('When: ' + extra.timeline),
+            extra.orgType && ('Org: ' + extra.orgType),
+            extra.role && ('Role: ' + extra.role),
+            extra.sourcePage && ('From page: ' + extra.sourcePage),
+            extra.message && ('Note: ' + extra.message)
+        ].filter(Boolean).join(' | ');
 
         // 🛡️ Bot traps first — silently accept so the bot never learns why it failed
         const botSignal = detectBot(req.body);
@@ -619,6 +657,7 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
                 phone: String(phone).trim(),
                 company: company ? String(company).trim() : '',
                 reason: String(reason).trim(),
+                ...extra,
                 emailType: emailCheck.type,
                 source: 'contact-form',
                 flagged: nameCheck.suspicious,
@@ -639,7 +678,10 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
             flagged: nameCheck.suspicious ? 'REVIEW' : '',
             verified: 'No',
             source: 'contact-form',
-            submittedAt: new Date().toISOString()
+            submittedAt: new Date().toISOString(),
+            // New keys (additive). Existing sheet columns above are unchanged.
+            ...extra,
+            details: extraSummary
         });
 
         res.status(200).json({ success: true });
@@ -682,6 +724,12 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
                                 <p><strong>Phone:</strong> ${escapeHtml(phone)}</p>
                                 <p><strong>Company:</strong> ${escapeHtml(company || 'Not provided')}</p>
                                 <p><strong>Interested in:</strong> <span style="color: #f43f5e; font-weight: bold;">${escapeHtml(reason)}</span></p>
+                                ${extra.stage ? `<p><strong>Stage:</strong> ${escapeHtml(extra.stage)}</p>` : ''}
+                                ${extra.timeline ? `<p><strong>When:</strong> ${escapeHtml(extra.timeline)}</p>` : ''}
+                                ${extra.orgType ? `<p><strong>Organisation type:</strong> ${escapeHtml(extra.orgType)}</p>` : ''}
+                                ${extra.role ? `<p><strong>Role:</strong> ${escapeHtml(extra.role)}</p>` : ''}
+                                ${extra.sourcePage ? `<p><strong>Came from page:</strong> ${escapeHtml(extra.sourcePage)}</p>` : ''}
+                                ${extra.message ? `<p><strong>Their note:</strong></p><div style="white-space: pre-wrap; background: rgba(255,255,255,0.05); padding: 12px; border-radius: 6px;">${escapeHtml(extra.message)}</div>` : ''}
                             </div>
                         `
                     })
