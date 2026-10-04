@@ -260,25 +260,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     sizing view, HLD outline or BoQ direction for your specific workload. No obligation.
                 </p>
 
-                <div id="vakra-cta-alert" class="vk-cta-alert"></div>
-
-                <form id="vakra-cta-form" novalidate>
-                    <!-- 🐝 HONEYPOT: invisible to humans, irresistible to bots -->
-                    <input type="text" name="website" id="vakra-cta-website" tabindex="-1"
-                           autocomplete="off" aria-hidden="true" class="vk-cta-hp">
-                    <!-- ⏱️ TIMING TRAP: humans never submit within 3 seconds of load -->
-                    <input type="hidden" id="vakra-cta-loadedat" value="">
-
-                    <div class="vk-cta-grid">
-                        <input type="text"  id="vakra-cta-name"    class="vk-cta-input" placeholder="Full Name *" required>
-                        <input type="email" id="vakra-cta-email"   class="vk-cta-input" placeholder="Email *" required>
-                        <input type="tel"   id="vakra-cta-phone"   class="vk-cta-input" placeholder="Phone with country code *" required>
-                        <input type="text"  id="vakra-cta-company" class="vk-cta-input" placeholder="Company / Organization">
-                    </div>
-
-                    <button type="submit" id="vakra-cta-btn" class="vk-cta-submit">Request Consultation</button>
-                    <p class="vk-cta-note">We usually reply within one business day.</p>
-                </form>
+                <!-- Every enquiry now goes through the contact page, which confirms the
+                     email address with a one-time code (see api/leadGuard.js). -->
+                <a href="/contact" class="vk-cta-submit" style="display:inline-block;text-align:center;text-decoration:none;">Tell us about your project &rarr;</a>
+                <p class="vk-cta-note">Takes about a minute. We usually reply within one business day.</p>
             </div>
         `;
 

@@ -76,6 +76,12 @@ FORM = '''
         <label>Organisation<input type="text" name="company" autocomplete="organization" placeholder="Company or department"></label>
         <label class="wide">Your role<input type="text" name="role" autocomplete="organization-title" placeholder="For example: IT head, CTO, procurement, consultant"></label>
       </div>
+      <div class="vk-cf-otp" id="cfOtp" hidden>
+        <p class="vk-cf-otp-h">Check your email</p>
+        <p class="vk-muted">We sent a 6-digit code to <strong id="cfOtpMail"></strong>. Enter it below to send your enquiry. This is how we make sure every reply reaches a real inbox.</p>
+        <input type="text" name="otp" id="cfOtpIn" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="6-digit code">
+        <div class="vk-cf-otp-actions"><button type="button" class="vk-cf-link" id="cfResend">Send a new code</button><button type="button" class="vk-cf-link" id="cfChange">Change email</button></div>
+      </div>
       <p class="vk-cf-err" data-err="4" id="cfErr4"></p>
     </div>
 
@@ -130,4 +136,4 @@ body = '''
 
 page('contact.html', 'Contact Vakratron Systems | Tell us what you are planning',
      'Tell us about your GPU cluster, cloud move, DR plan, AI pilot or tender. Four quick steps; an architect replies within one working day.',
-     body, scripts=['/vk-contact.js?v=2'])
+     body, scripts=['/vk-contact.js?v=3'])

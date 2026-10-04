@@ -633,79 +633,168 @@ app.get('/api/form-token', (req, res) => {
     res.json({ token: leadGuard.issueFormToken() });
 });
 
+// ======================================================================
+// Shared screening for /api/contact/start and /api/contact.
+// Returns { drop: why } for bots (answer them with a silent success),
+// { status, error } for a person to fix, or { ok: true, ...clean fields }.
+// ======================================================================
+async function screenEnquiry(req) {
+    const { name, email, phone, reason, company } = req.body;
+    // Optional extras from the new contact page. Clipped, never required,
+    // so older forms (consult card, chat) keep working unchanged.
+    const clip = (v, n) => (v == null ? '' : String(v).replace(/\s+$/,'').trim().slice(0, n));
+    const extra = {
+        stage:      clip(req.body.stage, 120),
+        timeline:   clip(req.body.timeline, 60),
+        orgType:    clip(req.body.orgType, 80),
+        role:       clip(req.body.role, 120),
+        message:    clip(req.body.message, 2000),
+        sourcePage: clip(req.body.sourcePage, 200)
+    };
+    const extraSummary = [
+        extra.stage && ('Stage: ' + extra.stage),
+        extra.timeline && ('When: ' + extra.timeline),
+        extra.orgType && ('Org: ' + extra.orgType),
+        extra.role && ('Role: ' + extra.role),
+        extra.sourcePage && ('From page: ' + extra.sourcePage),
+        extra.message && ('Note: ' + extra.message)
+    ].filter(Boolean).join(' | ');
+
+    // 🛡️ Bot traps first — silently accept so the bot never learns why it failed
+    const botSignal = detectBot(req.body);
+    if (botSignal) return { drop: 'bot trap: ' + botSignal };
+
+    // 🛡️ Lead-quality guard (see api/leadGuard.js). Bots get a silent
+    // "success" so they never learn which check stopped them.
+    const silentDrop = (why) => ({ drop: why });
+    const tokenState = leadGuard.checkFormToken(req.body.formToken);
+    if (tokenState === 'invalid' || tokenState === 'too-fast') return silentDrop('token ' + tokenState);
+    const hasToken = tokenState === 'valid';
+    if (!hasToken) {
+        if (leadGuard.tokenRequired()) return silentDrop('no token');
+        if (leadGuard.LEGACY_REASONS.has(String(reason || '').trim())) return silentDrop('old-form topic, no token');
+    }
+    if (leadGuard.nameLooksRandom(name)) {
+        if (!hasToken) return silentDrop('random name, no token');
+        return { status: 400, error: 'Please enter your real full name.' };
+    }
+    if (!leadGuard.phoneLooksReal(phone)) {
+        if (!hasToken) return silentDrop('phone shape, no token');
+        return { status: 400, error: 'Please enter a valid mobile number with country code, for example +91 98xxx xxxxx.' };
+    }
+    if (leadGuard.emailLooksThrowaway(email)) {
+        if (!hasToken) return silentDrop('throwaway email, no token');
+        return { status: 400, error: 'Please use your usual email address.' };
+    }
+
+    const nameCheck = checkHumanName(name);
+    if (!nameCheck.ok) {
+        return { status: 400, error: nameCheck.error };
+    }
+    if (!isValidGlobalMobile(phone)) {
+        return { status: 400, error: 'Please enter a valid phone number with country code.' };
+    }
+
+    const emailCheck = classifyEmail(email);
+    if (!emailCheck.ok) {
+        return { status: 400, error: emailCheck.error };
+    }
+    if (leadGuard.emailDomainLooksFake(emailCheck.email)) {
+        if (!hasToken) return silentDrop('placeholder email domain, no token');
+        return { status: 400, error: 'Please use your real email address. We send a code to it.' };
+    }
+    if (!(await leadGuard.emailDomainReceives(emailCheck.email))) {
+        if (!hasToken) return silentDrop('email domain has no mail servers, no token');
+        return { status: 400, error: 'This email domain cannot receive mail. Please check the address.' };
+    }
+    const trust = hasToken ? (nameCheck.suspicious ? 'review' : 'verified-form') : 'no-token';
+
+    if (!reason || !String(reason).trim()) {
+        return { status: 400, error: 'Please tell us what you need.' };
+    }
+
+    return { ok: true, name, email, phone, reason, company, extra, extraSummary, nameCheck, emailCheck, trust, hasToken };
+}
+
+// Per-address cooldown for code emails (stops anyone using the form to spam an inbox)
+const codeSentAt = new Map();
+async function sendEnquiryCode(email, name, code) {
+    const apiKey = process.env.RESEND_OTP_API_KEY || process.env.RESEND_API_KEY;
+    if (!apiKey) {
+        if (process.env.VERCEL) return { ok: false };
+        console.log(`🔑 [dev] enquiry code for ${email}: ${code}`);
+        return { ok: true, devCode: code };
+    }
+    const last = codeSentAt.get(email);
+    if (last && Date.now() - last < 45 * 1000) return { ok: false, error: 'A code was just sent. Please wait a moment before asking again.' };
+    codeSentAt.set(email, Date.now());
+    const first = escapeHtml(String(name).trim().split(' ')[0]);
+    try {
+        const r = await fetchWithTimeout('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                from: FROM_ADDRESS,
+                to: [email],
+                subject: `${code} is your Vakratron verification code`,
+                html: `<div style="font-family:Arial,sans-serif;max-width:520px;padding:24px;color:#0f172a">
+                    <p>Hi ${first},</p>
+                    <p>Use this code to confirm your enquiry to Vakratron Systems:</p>
+                    <p style="font-size:30px;font-weight:700;letter-spacing:6px;margin:18px 0;color:#C2185B">${code}</p>
+                    <p style="color:#475569">The code is valid for 20 minutes. If you did not contact us, you can ignore this email.</p>
+                    <p style="color:#475569">Vakratron Systems</p></div>`,
+                text: `Your Vakratron verification code is ${code}. It is valid for 20 minutes.`
+            })
+        }, 6000);
+        if (!r.ok) { console.error('❌ Code email HTTP', r.status, (await r.text().catch(() => '')).slice(0, 200)); return { ok: false }; }
+        return { ok: true };
+    } catch (err) {
+        console.error('❌ Code email failed:', err.message);
+        return { ok: false };
+    }
+}
+
+// Step 1: check the details and email a 6-digit code.
+app.post('/api/contact/start', contactLimiter, async (req, res) => {
+    try {
+        const sc = await screenEnquiry(req);
+        if (sc.drop) {
+            console.log(`🤖 Enquiry dropped at start (${sc.drop}) from ${req.ip}`);
+            return res.json({ success: true, otpToken: 'x.' + crypto.randomBytes(16).toString('base64url') });
+        }
+        if (sc.error) return res.status(sc.status).json({ success: false, error: sc.error });
+        const { code, token } = leadGuard.issueEmailCode(sc.emailCheck.email);
+        const sent = await sendEnquiryCode(sc.emailCheck.email, sc.nameCheck.name, code);
+        if (!sent.ok) return res.status(sent.error ? 429 : 502).json({ success: false, error: sent.error || 'We could not send a code to this address. Please check it, or write to connect@vakratronsys.com.' });
+        const out = { success: true, otpToken: token };
+        if (sent.devCode) out.devCode = sent.devCode;
+        res.json(out);
+    } catch (error) {
+        console.error('❌ /api/contact/start:', error);
+        res.status(500).json({ success: false, error: 'Something went wrong. Please try again.' });
+    }
+});
+
+// Step 2: the enquiry itself, accepted only with the right code.
 app.post('/api/contact', contactLimiter, async (req, res) => {
     try {
-        const { name, email, phone, reason, company } = req.body;
-        // Optional extras from the new contact page. Clipped, never required,
-        // so older forms (consult card, chat) keep working unchanged.
-        const clip = (v, n) => (v == null ? '' : String(v).replace(/\s+$/,'').trim().slice(0, n));
-        const extra = {
-            stage:      clip(req.body.stage, 120),
-            timeline:   clip(req.body.timeline, 60),
-            orgType:    clip(req.body.orgType, 80),
-            role:       clip(req.body.role, 120),
-            message:    clip(req.body.message, 2000),
-            sourcePage: clip(req.body.sourcePage, 200)
-        };
-        const extraSummary = [
-            extra.stage && ('Stage: ' + extra.stage),
-            extra.timeline && ('When: ' + extra.timeline),
-            extra.orgType && ('Org: ' + extra.orgType),
-            extra.role && ('Role: ' + extra.role),
-            extra.sourcePage && ('From page: ' + extra.sourcePage),
-            extra.message && ('Note: ' + extra.message)
-        ].filter(Boolean).join(' | ');
-
-        // 🛡️ Bot traps first — silently accept so the bot never learns why it failed
-        const botSignal = detectBot(req.body);
-        if (botSignal) {
-            console.log(`🤖 Bot submission blocked (${botSignal}) from ${req.ip}`);
+        const sc = await screenEnquiry(req);
+        if (sc.drop) {
+            console.log(`🤖 Enquiry dropped (${sc.drop}) from ${req.ip}`);
             return res.status(200).json({ success: true });
         }
-
-        // 🛡️ Lead-quality guard (see api/leadGuard.js). Bots get a silent
-        // "success" so they never learn which check stopped them.
-        const silentDrop = (why) => {
-            console.log(`🤖 Enquiry dropped (${why}) from ${req.ip}`);
-            return res.status(200).json({ success: true });
-        };
-        const tokenState = leadGuard.checkFormToken(req.body.formToken);
-        if (tokenState === 'invalid' || tokenState === 'too-fast') return silentDrop('token ' + tokenState);
-        const hasToken = tokenState === 'valid';
-        if (!hasToken) {
-            if (leadGuard.tokenRequired()) return silentDrop('no token');
-            if (leadGuard.LEGACY_REASONS.has(String(reason || '').trim())) return silentDrop('old-form topic, no token');
+        if (sc.error) return res.status(sc.status).json({ success: false, error: sc.error });
+        const otpState = leadGuard.checkEmailCode(sc.emailCheck.email, req.body.otp, req.body.otpToken);
+        if (otpState !== 'valid') {
+            const msg = {
+                missing: 'Please confirm your email address with the code we send you.',
+                expired: 'This code has expired. Please ask for a new one.',
+                wrong: 'That code is not right. Please check the email and try again.'
+            }[otpState];
+            return res.status(400).json({ success: false, error: msg, otp: otpState });
         }
-        if (leadGuard.nameLooksRandom(name)) {
-            if (!hasToken) return silentDrop('random name, no token');
-            return res.status(400).json({ success: false, error: 'Please enter your real full name.' });
-        }
-        if (!leadGuard.phoneLooksReal(phone)) {
-            if (!hasToken) return silentDrop('phone shape, no token');
-            return res.status(400).json({ success: false, error: 'Please include your country code, for example +91 98xxx xxxxx.' });
-        }
-        if (leadGuard.emailLooksThrowaway(email)) {
-            if (!hasToken) return silentDrop('throwaway email, no token');
-            return res.status(400).json({ success: false, error: 'Please use your usual email address.' });
-        }
-
-        const nameCheck = checkHumanName(name);
-        if (!nameCheck.ok) {
-            return res.status(400).json({ success: false, error: nameCheck.error });
-        }
-        if (!isValidGlobalMobile(phone)) {
-            return res.status(400).json({ success: false, error: 'Please enter a valid phone number with country code.' });
-        }
-
-        const emailCheck = classifyEmail(email);
-        if (!emailCheck.ok) {
-            return res.status(400).json({ success: false, error: emailCheck.error });
-        }
-        const trust = hasToken ? (nameCheck.suspicious ? 'review' : 'verified-form') : 'no-token';
-
-        if (!reason || !String(reason).trim()) {
-            return res.status(400).json({ success: false, error: 'Please tell us what you need.' });
-        }
+        const { name, email, phone, reason, company, extra, extraSummary, nameCheck, emailCheck } = sc;
+        const trust = sc.trust === 'verified-form' ? 'verified-email' : sc.trust;
 
         console.log(`📥 Lead received: ${nameCheck.name} (${emailCheck.type}${nameCheck.suspicious ? ', flagged' : ''})`);
 
@@ -766,7 +855,7 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
             //    Only for enquiries typed into our own pages (valid form token)
             //    with a normal-looking name. Otherwise a bot could make us mail
             //    strangers whose addresses it typed in.
-            const welcomeP = trust === 'verified-form' ? sendWelcomeEmail({
+            const welcomeP = trust === 'verified-email' ? sendWelcomeEmail({
                 name: nameCheck.name,
                 email: emailCheck.email,
                 reason: String(reason).trim()
@@ -785,7 +874,7 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
                         from: FROM_ADDRESS,
                         to: NOTIFY_TO,
                         reply_to: emailCheck.email,
-                        subject: `${trust === 'verified-form' ? '' : '[Check] '}🚨 New Enquiry: ${nameCheck.name} — ${topicFromReason(reason) || String(reason).trim()}`,
+                        subject: `${trust === 'verified-email' ? '' : '[Check] '}🚨 New Enquiry: ${nameCheck.name} — ${topicFromReason(reason) || String(reason).trim()}`,
                         html: `
                             <div style="font-family: Arial, sans-serif; padding: 20px; background: #0f172a; color: #fff; border-radius: 8px;">
                                 <h2 style="color: #38bdf8;">⚡ Inbound Lead</h2>

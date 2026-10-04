@@ -61,4 +61,11 @@ main.vk .vk-cf-side .vk-steps li { font-size: 0.88rem !important; }
   main.vk button.vk-chip-lg i { width: 28px; height: 28px; flex-basis: 28px; }
   main.vk .vk-cf-count { font-size: 0.72rem !important; }
 }
+main.vk .vk-cf-otp[hidden], main.vk .vk-cf-grid[hidden] { display: none !important; }
+main.vk .vk-cf-otp { background: rgba(194,24,91,0.06); border: 1px solid rgba(194,24,91,0.3); border-radius: 12px; padding: 18px; }
+main.vk .vk-cf-otp-h { font-weight: 700 !important; color: #fff !important; margin: 0 0 6px !important; font-size: 1.05rem !important; }
+main.vk .vk-cf-otp input#cfOtpIn { max-width: 220px; font-size: 1.4rem !important; letter-spacing: 0.4em; text-align: center; font-weight: 700; }
+main.vk .vk-cf-otp input#cfOtpIn::placeholder { letter-spacing: 0.05em; font-size: 0.95rem; font-weight: 500; }
+main.vk .vk-cf-otp-actions { display: flex; gap: 16px; margin-top: 10px; }
+main.vk button.vk-cf-link { background: none !important; border: 0 !important; padding: 0 !important; margin: 0 !important; color: #38bdf8 !important; font-size: 0.85rem !important; cursor: pointer; width: auto !important; text-transform: none !important; letter-spacing: 0 !important; box-shadow: none !important; }
 /* === END CONTACT PAGE === */

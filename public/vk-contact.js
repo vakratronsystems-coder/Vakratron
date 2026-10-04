@@ -144,15 +144,23 @@
     return null;
   }
 
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    if (cur !== 4) { go(cur + 1); return; }
-    hideErr(4);
-    form.querySelectorAll('.bad').forEach(function (x) { x.classList.remove('bad'); });
-    var bad = clientCheck();
-    if (bad) { field(bad[0]).classList.add('bad'); field(bad[0]).focus(); showErr(4, bad[1]); return; }
-
-    var payload = {
+  // ---- Step 4: email code. The enquiry is only delivered after the person
+  // types the 6-digit code we email them (stops made-up addresses).
+  var otpToken = null, otpEmail = '';
+  var otpBox = document.getElementById('cfOtp'), otpIn = document.getElementById('cfOtpIn');
+  var grid = root.querySelector('.vk-cf-grid');
+  var sendLabel = send.innerHTML;
+  function setSending(on, text) {
+    send.disabled = on; back.disabled = on;
+    send.innerHTML = on ? text : (otpToken ? 'Verify and send &rarr;' : sendLabel);
+  }
+  function showOtp(on) {
+    otpBox.hidden = !on; grid.hidden = on;
+    send.innerHTML = on ? 'Verify and send &rarr;' : sendLabel;
+    if (on) { document.getElementById('cfOtpMail').textContent = otpEmail; otpIn.value = ''; setTimeout(function () { otpIn.focus(); }, 50); }
+  }
+  function buildPayload() {
+    return {
       name: field('name').value.trim(),
       email: field('email').value.trim(),
       phone: field('phone').value.trim(),
@@ -165,31 +173,68 @@
       website: field('website').value,
       formLoadedAt: loadedAt
     };
-    send.disabled = true; back.disabled = true;
-    var label = send.innerHTML;
-    send.innerHTML = 'Sending&hellip;';
-    tokenP.then(function (t) {
+  }
+  function withToken(payload) {
+    return tokenP.then(function (t) {
       if (t) return t;
       return getToken().then(function (t2) { return new Promise(function (ok) { setTimeout(function () { ok(t2); }, 3200); }); });
-    }).then(function (t) {
-      payload.formToken = t;
-      return fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-    })
-      .then(function (r) { return r.json().catch(function () { return { success: false }; }); })
+    }).then(function (t) { payload.formToken = t; return payload; });
+  }
+  function post(url, payload) {
+    return fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+      .then(function (r) { return r.json().catch(function () { return { success: false }; }); });
+  }
+  function requestCode() {
+    hideErr(4);
+    form.querySelectorAll('.bad').forEach(function (x) { x.classList.remove('bad'); });
+    var bad = clientCheck();
+    if (bad) { field(bad[0]).classList.add('bad'); field(bad[0]).focus(); showErr(4, bad[1]); return; }
+    setSending(true, 'Sending code&hellip;');
+    withToken(buildPayload()).then(function (p) { return post('/api/contact/start', p); })
       .then(function (res) {
-        if (res && res.success) {
-          var first = payload.name.split(' ')[0];
-          document.getElementById('cfDoneTitle').textContent = 'Thank you, ' + first + '. We have it.';
-          document.getElementById('cfDoneText').textContent = 'Your note about “' + payload.reason + '” has reached us. A confirmation is on its way to ' + payload.email + '.';
-          form.hidden = true;
-          root.querySelector('.vk-cf-top').hidden = true;
-          document.getElementById('cfDone').hidden = false;
-          root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (res && res.success && res.otpToken) {
+          otpToken = res.otpToken; otpEmail = field('email').value.trim();
+          if (res.devCode) console.log('[dev] code', res.devCode);
+          showOtp(true);
         } else {
           showErr(4, (res && res.error) || 'Something went wrong. Please try again, or email connect@vakratronsys.com.');
         }
       })
       .catch(function () { showErr(4, 'Could not reach the server. Please check your connection, or email connect@vakratronsys.com.'); })
-      .then(function () { send.disabled = false; back.disabled = false; send.innerHTML = label; });
+      .then(function () { setSending(false); });
+  }
+  function submitWithCode() {
+    hideErr(4);
+    var code = otpIn.value.replace(/\D/g, '');
+    if (code.length !== 6) { otpIn.classList.add('bad'); otpIn.focus(); showErr(4, 'Please enter the 6-digit code from the email.'); return; }
+    var payload = buildPayload();
+    payload.otp = code; payload.otpToken = otpToken;
+    setSending(true, 'Sending&hellip;');
+    withToken(payload).then(function (p) { return post('/api/contact', p); })
+      .then(function (res) {
+        if (res && res.success) {
+          var first = payload.name.split(' ')[0];
+          document.getElementById('cfDoneTitle').textContent = 'Thank you, ' + first + '. We have it.';
+          document.getElementById('cfDoneText').textContent = 'Your note about “' + payload.reason + '” has reached us. We will reply to ' + payload.email + '.';
+          form.hidden = true;
+          root.querySelector('.vk-cf-top').hidden = true;
+          document.getElementById('cfDone').hidden = false;
+          root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          if (res && res.otp === 'expired') { otpToken = null; showOtp(false); }
+          showErr(4, (res && res.error) || 'Something went wrong. Please try again, or email connect@vakratronsys.com.');
+        }
+      })
+      .catch(function () { showErr(4, 'Could not reach the server. Please check your connection, or email connect@vakratronsys.com.'); })
+      .then(function () { setSending(false); });
+  }
+  document.getElementById('cfResend').addEventListener('click', function () { otpToken = null; requestCode(); });
+  document.getElementById('cfChange').addEventListener('click', function () { otpToken = null; hideErr(4); showOtp(false); field('email').focus(); });
+  otpIn.addEventListener('input', function () { otpIn.classList.remove('bad'); otpIn.value = otpIn.value.replace(/\D/g, '').slice(0, 6); });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (cur !== 4) { go(cur + 1); return; }
+    if (otpToken) submitWithCode(); else requestCode();
   });
 })();

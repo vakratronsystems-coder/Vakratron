@@ -12,9 +12,13 @@
  *  2. Gibberish-name check: letter pairs that do not occur in real names
  *     (tuned to accept Indian compound names such as Rajkumar, Sukhpreet, Iqbal).
  *  3. Phone shape: country code, or a valid Indian number.
- *  4. Email shape: Gmail dot-alias throwaways ("u.fodo.xi.no32").
+ *  4. Email shape: Gmail dot-alias throwaways ("u.fodo.xi.no32"), placeholder
+ *     domains (xyz.com, example.com) and domains with no mail servers.
+ *  5. Email one-time code: the enquiry is only delivered once the person types
+ *     the 6-digit code we emailed them, so a made-up address can never get through.
  */
 const crypto = require('crypto');
+const dns = require('dns').promises;
 
 const SECRET = process.env.FORM_TOKEN_SECRET ||
     crypto.createHash('sha256').update('vk-form-token|' + (process.env.MONGO_URI || '') + '|' + (process.env.RESEND_API_KEY || '')).digest('hex');
@@ -89,7 +93,11 @@ function nameLooksRandom(name) {
 function phoneLooksReal(phone) {
     const s = String(phone || '').trim();
     const d = s.replace(/\D/g, '');
-    if (s.startsWith('+') || s.startsWith('00')) return d.length >= 8 && d.length <= 15;
+    if (s.startsWith('+') || s.startsWith('00')) {
+        const intl = s.startsWith('00') ? d.slice(2) : d;
+        if (intl.startsWith('91')) return /^91[6-9]\d{9}$/.test(intl);   // India: real mobile only
+        return intl.length >= 8 && intl.length <= 15;
+    }
     if (d.length === 10) return /^[6-9]/.test(d);                 // Indian mobile
     if (d.length === 11) return /^0[1-9]/.test(d);                // 0 + mobile or STD landline
     if (d.length === 12) return /^91[6-9]/.test(d);               // 91 + mobile
@@ -105,6 +113,50 @@ function emailLooksThrowaway(email) {
     return parts.length >= 4 && tiny >= 3;
 }
 
+// Domains people type when they do not want to give a real address.
+const PLACEHOLDER_DOMAINS = new Set([
+    'example.com', 'example.org', 'example.net', 'example.in', 'test.com', 'test.in', 'testing.com',
+    'xyz.com', 'abc.com', 'abcd.com', 'abc.in', 'xyz.in', 'domain.com', 'yourdomain.com',
+    'company.com', 'yourcompany.com', 'sample.com', 'demo.com', 'fake.com', 'none.com',
+    'asdf.com', 'qwerty.com', '123.com', 'aaa.com', 'email.example', 'noemail.com', 'na.com',
+    // common misspellings that bounce
+    'gmial.com', 'gamil.com', 'gmai.com', 'gmail.co', 'gmail.con', 'gmail.cm', 'yaho.com', 'yahooo.com', 'hotmial.com', 'outlok.com'
+]);
+function emailDomainLooksFake(email) {
+    const domain = String(email || '').toLowerCase().split('@')[1] || '';
+    return PLACEHOLDER_DOMAINS.has(domain);
+}
+
+/** true if the domain publishes mail servers. Fails OPEN on DNS timeouts so a slow resolver never loses a lead. */
+async function emailDomainReceives(email, timeoutMs = 2500) {
+    const domain = String(email || '').toLowerCase().split('@')[1] || '';
+    if (!domain) return false;
+    const lookup = dns.resolveMx(domain).then(mx => Array.isArray(mx) && mx.some(r => r && r.exchange && r.exchange !== '.'))
+        .catch(err => (err && (err.code === 'ENOTFOUND' || err.code === 'ENODATA' || err.code === 'NXDOMAIN')) ? false : true);
+    const timer = new Promise(r => setTimeout(() => r(true), timeoutMs));
+    return Promise.race([lookup, timer]);
+}
+
+// Email one-time code, stateless: the server signs (email, code, expiry) and
+// hands back only the signature. Works across serverless instances, no store.
+const OTP_TTL_MS = 20 * 60 * 1000;
+function issueEmailCode(email) {
+    const code = String(crypto.randomInt(0, 1000000)).padStart(6, '0');
+    const exp = (Date.now() + OTP_TTL_MS).toString(36);
+    const token = exp + '.' + sign('otp|' + String(email).toLowerCase().trim() + '|' + code + '|' + exp);
+    return { code, token };
+}
+/** 'valid' | 'missing' | 'expired' | 'wrong' */
+function checkEmailCode(email, code, token, now = Date.now()) {
+    if (!code || !token) return 'missing';
+    const [exp, sig] = String(token).split('.');
+    if (!exp || !sig) return 'wrong';
+    if (now > parseInt(exp, 36)) return 'expired';
+    const expect = sign('otp|' + String(email).toLowerCase().trim() + '|' + String(code).replace(/\D/g, '') + '|' + exp);
+    const a = Buffer.from(sig); const b = Buffer.from(expect);
+    return (a.length === b.length && crypto.timingSafeEqual(a, b)) ? 'valid' : 'wrong';
+}
+
 // Topic strings from the OLD contact form. That form is gone from the site,
 // so a submission carrying one of these was not typed into our current pages.
 const LEGACY_REASONS = new Set([
@@ -114,4 +166,4 @@ const LEGACY_REASONS = new Set([
     'General Corporate Inquiry',
 ]);
 
-module.exports = { issueFormToken, checkFormToken, tokenRequired, nameLooksRandom, phoneLooksReal, emailLooksThrowaway, LEGACY_REASONS, wordLooksRandom };
+module.exports = { issueFormToken, checkFormToken, tokenRequired, nameLooksRandom, phoneLooksReal, emailLooksThrowaway, emailDomainLooksFake, emailDomainReceives, issueEmailCode, checkEmailCode, LEGACY_REASONS, wordLooksRandom };
