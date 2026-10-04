@@ -364,17 +364,44 @@ const fetchWithTimeout = async (url, options, timeout = 6000) => {
 };
 
 // Fire-and-forget push to the Google Sheet, with the lead-quality columns
-function pushToSheet(payload) {
+// Returns 'ok' | 'failed' | 'skipped'. CALLERS MUST AWAIT IT before sending the
+// HTTP response: on Vercel the function can be frozen the moment the response
+// goes out, and a slow Apps Script call (often 3 to 8 s) was being cut off
+// mid-flight. That is how a real lead reached the inbox but not the sheet.
+async function pushToSheet(payload) {
     const sheetWebhook = process.env.GOOGLE_SHEET_WEBHOOK_URL;
-    if (!sheetWebhook) return;
-    fetchWithTimeout(sheetWebhook, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-    })
-    .then(() => console.log('✅ [Google Sheet Success]: Lead Row Inserted!'))
-    .catch(err => console.error('⚠️ [Google Sheet Error]:', err.message));
+    if (!sheetWebhook) return 'skipped';
+    const body = JSON.stringify(payload);
+    const started = Date.now();
+    for (let attempt = 1; attempt <= 2; attempt++) {
+        try {
+            const r = await fetchWithTimeout(sheetWebhook, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body,
+                redirect: 'follow'
+            }, attempt === 1 ? 6500 : 2500);
+            if (r.ok) {
+                console.log(`✅ [Google Sheet] row sent (${Date.now() - started} ms, attempt ${attempt})`);
+                return 'ok';
+            }
+            const text = await r.text().catch(() => '');
+            console.error(`⚠️ [Google Sheet] HTTP ${r.status} on attempt ${attempt}: ${text.slice(0, 200)}`);
+        } catch (err) {
+            console.error(`⚠️ [Google Sheet] attempt ${attempt} failed after ${Date.now() - started} ms:`, err.message);
+        }
+        // Retry only if there is still time inside the function's budget
+        if (Date.now() - started > 3000) break;
+    }
+    return 'failed';
 }
+
+// Resolve after `ms` even if the promise has not settled, so one slow
+// dependency can never hold the response past the platform time limit.
+const capped = (promise, ms, label) => Promise.race([
+    Promise.resolve(promise).catch(e => console.error(`⚠️ ${label}:`, e && e.message)),
+    new Promise(r => setTimeout(() => r('timeout'), ms))
+]);
 
 // ======================================================================
 // ✉️ AUTO-ACKNOWLEDGEMENT TO THE ENQUIRER
@@ -474,7 +501,7 @@ function sendWelcomeEmail({ name, email, reason }) {
         ? `We can see you were looking at our ${escapeHtml(topic)} material.`
         : '';
 
-    fetchWithTimeout('https://api.resend.com/emails', {
+    return fetchWithTimeout('https://api.resend.com/emails', {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -685,25 +712,29 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
         // NEVER let a database problem lose a lead. If Mongo is down or slow,
         // we log it and still fire the sheet push + the notification email —
         // an enquiry sitting in your inbox is worth more than a clean stack trace.
-        try {
-            await new Contact({
-                name: nameCheck.name,
-                email: emailCheck.email,
-                phone: String(phone).trim(),
-                company: company ? String(company).trim() : '',
-                reason: String(reason).trim(),
-                ...extra,
-                emailType: emailCheck.type,
-                source: 'contact-form',
-                flagged: nameCheck.suspicious,
-                verified: false,
-                ip: req.ip
-            }).save();
-        } catch (dbErr) {
-            console.error('⚠️ DB save failed, continuing with sheet + email:', dbErr.message);
-        }
+        const dbP = (async () => {
+            try {
+                await new Contact({
+                    name: nameCheck.name,
+                    email: emailCheck.email,
+                    phone: String(phone).trim(),
+                    company: company ? String(company).trim() : '',
+                    reason: String(reason).trim(),
+                    ...extra,
+                    emailType: emailCheck.type,
+                    source: 'contact-form',
+                    flagged: nameCheck.suspicious,
+                    verified: false,
+                    ip: req.ip
+                }).save();
+                return 'ok';
+            } catch (dbErr) {
+                console.error('⚠️ DB save failed, continuing with sheet + email:', dbErr.message);
+                return 'failed';
+            }
+        })();
 
-        pushToSheet({
+        const sheetP = pushToSheet({
             name: nameCheck.name,
             email: emailCheck.email,
             phone: String(phone).trim(),
@@ -720,24 +751,26 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
             details: extraSummary
         });
 
-        res.status(200).json({ success: true });
+        // Wait for the sheet and the database (in parallel) before anything else.
+        const [sheetResult, dbResult] = await Promise.all([capped(sheetP, 6800, 'sheet'), capped(dbP, 6000, 'db')]);
+        if (sheetResult !== 'ok' && sheetResult !== 'skipped') console.error(`❌ Lead NOT in sheet (${sheetResult}): ${nameCheck.name} <${emailCheck.email}>`);
 
-        // Email Dispatch (after responding — the user never waits on it)
-        setImmediate(async () => {
+        // Emails are sent BEFORE responding, for the same reason as the sheet.
+        await capped((async () => {
             const apiKey = process.env.RESEND_OTP_API_KEY || process.env.RESEND_API_KEY;
             if (!apiKey) return;
+            const sheetNote = (sheetResult === 'ok' || sheetResult === 'skipped') ? '' :
+                '<p style="background:#7f1d1d;color:#fee2e2;padding:8px 12px;border-radius:6px;"><strong>Not saved to the Google Sheet</strong> (' + escapeHtml(String(sheetResult)) + '). Please add this lead manually.</p>';
 
             // 1. Acknowledgement to the enquirer, from our own domain.
             //    Only for enquiries typed into our own pages (valid form token)
             //    with a normal-looking name. Otherwise a bot could make us mail
             //    strangers whose addresses it typed in.
-            if (trust === 'verified-form') {
-                sendWelcomeEmail({
-                    name: nameCheck.name,
-                    email: emailCheck.email,
-                    reason: String(reason).trim()
-                });
-            }
+            const welcomeP = trust === 'verified-form' ? sendWelcomeEmail({
+                name: nameCheck.name,
+                email: emailCheck.email,
+                reason: String(reason).trim()
+            }) : null;
 
             // 2. Notification to us
             const badge = emailCheck.type === 'corporate'
@@ -756,6 +789,7 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
                         html: `
                             <div style="font-family: Arial, sans-serif; padding: 20px; background: #0f172a; color: #fff; border-radius: 8px;">
                                 <h2 style="color: #38bdf8;">⚡ Inbound Lead</h2>
+                                ${sheetNote}
                                 <p style="margin:0 0 14px 0;">${badge}</p>
                                 <hr style="border-color: rgba(255,255,255,0.1);" />
                                 <p><strong>Name:</strong> ${escapeHtml(name)}</p>
@@ -776,7 +810,10 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
             } catch (mailError) {
                 console.error('❌ Resend HTTP Network Fault:', mailError.message);
             }
-        });
+            if (welcomeP) await welcomeP;
+        })(), 2500, 'emails');
+
+        res.status(200).json({ success: true });
 
     } catch (error) {
         console.error('❌ Runtime Ingestion Defect:', error);
@@ -835,7 +872,7 @@ app.post('/api/send-otp', otpLimiter, async (req, res) => {
             expiresAt: Date.now() + 10 * 60 * 1000
         });
 
-        pushToSheet({
+        await capped(pushToSheet({
             name: nameCheck.name,
             email: emailCheck.email,
             phone: String(phone).trim(),
@@ -846,7 +883,7 @@ app.post('/api/send-otp', otpLimiter, async (req, res) => {
             verified: 'No',
             source: 'resource-request',
             submittedAt: new Date().toISOString()
-        });
+        }), 6800, 'sheet');
 
         const apiKey = process.env.RESEND_OTP_API_KEY || process.env.RESEND_API_KEY;
         if (!apiKey) {
@@ -941,7 +978,7 @@ app.post('/api/verify-otp', verifyLimiter, async (req, res) => {
             console.error('⚠️ Verified lead save error:', dbErr.message);
         }
 
-        pushToSheet({
+        await capped(pushToSheet({
             name: leadData.name,
             email: key,
             phone: leadData.phone,
@@ -952,7 +989,7 @@ app.post('/api/verify-otp', verifyLimiter, async (req, res) => {
             verified: 'YES',
             source: 'resource-request',
             submittedAt: new Date().toISOString()
-        });
+        }), 6800, 'sheet');
 
         const apiKey = process.env.RESEND_OTP_API_KEY || process.env.RESEND_API_KEY;
         if (apiKey) {
