@@ -130,4 +130,4 @@ body = '''
 
 page('contact.html', 'Contact Vakratron Systems | Tell us what you are planning',
      'Tell us about your GPU cluster, cloud move, DR plan, AI pilot or tender. Four quick steps; an architect replies within one working day.',
-     body, scripts=['/vk-contact.js'])
+     body, scripts=['/vk-contact.js?v=2'])

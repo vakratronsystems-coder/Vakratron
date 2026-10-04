@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const crypto = require('crypto');
 const { SitemapStream, streamToPromise } = require('sitemap');
 const rateLimit = require('express-rate-limit');
+const leadGuard = require('./leadGuard');
 
 // Environment variables loading configuration mapping one step back to root directory
 if (process.env.NODE_ENV !== 'production') {
@@ -598,6 +599,13 @@ app.get('/robots.txt', (req, res) => {
 // ======================================================================
 // ⚡ 4. CONTACT FORM SUBMISSION ENDPOINT
 // ======================================================================
+// Signed, short-lived form token. Pages ask for it on load and send it back
+// with the enquiry; scripts that post straight to the API never have one.
+app.get('/api/form-token', (req, res) => {
+    res.set('Cache-Control', 'no-store');
+    res.json({ token: leadGuard.issueFormToken() });
+});
+
 app.post('/api/contact', contactLimiter, async (req, res) => {
     try {
         const { name, email, phone, reason, company } = req.body;
@@ -628,6 +636,32 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
             return res.status(200).json({ success: true });
         }
 
+        // 🛡️ Lead-quality guard (see api/leadGuard.js). Bots get a silent
+        // "success" so they never learn which check stopped them.
+        const silentDrop = (why) => {
+            console.log(`🤖 Enquiry dropped (${why}) from ${req.ip}`);
+            return res.status(200).json({ success: true });
+        };
+        const tokenState = leadGuard.checkFormToken(req.body.formToken);
+        if (tokenState === 'invalid' || tokenState === 'too-fast') return silentDrop('token ' + tokenState);
+        const hasToken = tokenState === 'valid';
+        if (!hasToken) {
+            if (leadGuard.tokenRequired()) return silentDrop('no token');
+            if (leadGuard.LEGACY_REASONS.has(String(reason || '').trim())) return silentDrop('old-form topic, no token');
+        }
+        if (leadGuard.nameLooksRandom(name)) {
+            if (!hasToken) return silentDrop('random name, no token');
+            return res.status(400).json({ success: false, error: 'Please enter your real full name.' });
+        }
+        if (!leadGuard.phoneLooksReal(phone)) {
+            if (!hasToken) return silentDrop('phone shape, no token');
+            return res.status(400).json({ success: false, error: 'Please include your country code, for example +91 98xxx xxxxx.' });
+        }
+        if (leadGuard.emailLooksThrowaway(email)) {
+            if (!hasToken) return silentDrop('throwaway email, no token');
+            return res.status(400).json({ success: false, error: 'Please use your usual email address.' });
+        }
+
         const nameCheck = checkHumanName(name);
         if (!nameCheck.ok) {
             return res.status(400).json({ success: false, error: nameCheck.error });
@@ -640,6 +674,7 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
         if (!emailCheck.ok) {
             return res.status(400).json({ success: false, error: emailCheck.error });
         }
+        const trust = hasToken ? (nameCheck.suspicious ? 'review' : 'verified-form') : 'no-token';
 
         if (!reason || !String(reason).trim()) {
             return res.status(400).json({ success: false, error: 'Please tell us what you need.' });
@@ -679,6 +714,7 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
             verified: 'No',
             source: 'contact-form',
             submittedAt: new Date().toISOString(),
+            trust,
             // New keys (additive). Existing sheet columns above are unchanged.
             ...extra,
             details: extraSummary
@@ -692,13 +728,16 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
             if (!apiKey) return;
 
             // 1. Acknowledgement to the enquirer, from our own domain.
-            //    Runs only for submissions that already cleared every bot trap
-            //    and validator above — a blocked bot never reaches this line.
-            sendWelcomeEmail({
-                name: nameCheck.name,
-                email: emailCheck.email,
-                reason: String(reason).trim()
-            });
+            //    Only for enquiries typed into our own pages (valid form token)
+            //    with a normal-looking name. Otherwise a bot could make us mail
+            //    strangers whose addresses it typed in.
+            if (trust === 'verified-form') {
+                sendWelcomeEmail({
+                    name: nameCheck.name,
+                    email: emailCheck.email,
+                    reason: String(reason).trim()
+                });
+            }
 
             // 2. Notification to us
             const badge = emailCheck.type === 'corporate'
@@ -713,7 +752,7 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
                         from: FROM_ADDRESS,
                         to: NOTIFY_TO,
                         reply_to: emailCheck.email,
-                        subject: `🚨 New Enquiry: ${nameCheck.name} — ${topicFromReason(reason) || String(reason).trim()}`,
+                        subject: `${trust === 'verified-form' ? '' : '[Check] '}🚨 New Enquiry: ${nameCheck.name} — ${topicFromReason(reason) || String(reason).trim()}`,
                         html: `
                             <div style="font-family: Arial, sans-serif; padding: 20px; background: #0f172a; color: #fff; border-radius: 8px;">
                                 <h2 style="color: #38bdf8;">⚡ Inbound Lead</h2>

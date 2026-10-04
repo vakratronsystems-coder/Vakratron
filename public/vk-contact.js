@@ -11,6 +11,11 @@
   var msg = document.getElementById('cfMsg'), msgCount = document.getElementById('cfMsgCount');
   var hintsBox = document.getElementById('cfHints');
   var loadedAt = Date.now();
+  function getToken() {
+    return fetch('/api/form-token', { cache: 'no-store' }).then(function (r) { return r.json(); })
+      .then(function (d) { return d && d.token; }).catch(function () { return null; });
+  }
+  var tokenP = getToken();
   var cur = 1;
   var sel = { reason: '', reasonKey: '', stage: '', timeline: '', orgType: '' };
 
@@ -163,7 +168,13 @@
     send.disabled = true; back.disabled = true;
     var label = send.innerHTML;
     send.innerHTML = 'Sending&hellip;';
-    fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+    tokenP.then(function (t) {
+      if (t) return t;
+      return getToken().then(function (t2) { return new Promise(function (ok) { setTimeout(function () { ok(t2); }, 3200); }); });
+    }).then(function (t) {
+      payload.formToken = t;
+      return fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+    })
       .then(function (r) { return r.json().catch(function () { return { success: false }; }); })
       .then(function (res) {
         if (res && res.success) {

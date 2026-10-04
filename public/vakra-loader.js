@@ -300,6 +300,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const loadedAt = document.getElementById('vakra-cta-loadedat');
         if (loadedAt) loadedAt.value = String(Date.now());
 
+        // Signed form token (see api/leadGuard.js). Fetched on load so it is
+        // already a few seconds old by the time a real person submits.
+        window.__vkFormToken = window.__vkFormToken || fetch('/api/form-token', { cache: 'no-store' })
+            .then(r => r.json()).then(d => d && d.token).catch(() => null);
+
         bindCtaForm();
     };
 
@@ -471,6 +476,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 website: document.getElementById('vakra-cta-website').value,
                 formLoadedAt: document.getElementById('vakra-cta-loadedat').value
             };
+            payload.formToken = await (window.__vkFormToken || Promise.resolve(null));
+            if (!payload.formToken) {
+                // Token fetch failed earlier: get a fresh one and wait out the 3-second floor.
+                payload.formToken = await fetch('/api/form-token', { cache: 'no-store' }).then(r => r.json()).then(d => d && d.token).catch(() => null);
+                await new Promise(r => setTimeout(r, 3200));
+            }
 
             try {
                 const res = await fetch('/api/contact', {
