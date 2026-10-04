@@ -371,7 +371,14 @@ const fetchWithTimeout = async (url, options, timeout = 6000) => {
 async function pushToSheet(payload) {
     const sheetWebhook = process.env.GOOGLE_SHEET_WEBHOOK_URL;
     if (!sheetWebhook) return 'skipped';
-    const body = JSON.stringify(payload);
+    // Google Sheets treats text starting with + = - @ as a formula: "+91 98..."
+    // showed up as #ERROR!. A leading apostrophe stores it as plain text (and
+    // also stops anyone injecting a formula through the contact form).
+    const safe = {};
+    for (const [k, v] of Object.entries(payload)) {
+        safe[k] = (typeof v === 'string' && /^[=+\-@]/.test(v)) ? "'" + v : v;
+    }
+    const body = JSON.stringify(safe);
     const started = Date.now();
     for (let attempt = 1; attempt <= 2; attempt++) {
         try {
