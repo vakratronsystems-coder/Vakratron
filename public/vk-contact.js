@@ -182,7 +182,11 @@
   }
   function post(url, payload) {
     return fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
-      .then(function (r) { return r.json().catch(function () { return { success: false }; }); });
+      .then(function (r) {
+        return r.json().catch(function () {
+          return { success: false, error: 'The server sent an unexpected reply (HTTP ' + r.status + '). Please try again in a minute, or email connect@vakratronsys.com.' };
+        });
+      });
   }
   function requestCode() {
     hideErr(4);
