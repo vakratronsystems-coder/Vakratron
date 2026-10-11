@@ -3,237 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Expertise | Vakratron Systems</title>
-    
+    <title>Advisory | Architecture reviews, technology assessments, discovery workshops | Vakratron</title>
+    <meta name="description" content="Fixed-scope advisory engagements: architecture reviews of designs and vendor proposals, technology assessments with a 12 to 18 month roadmap, discovery workshops and vendor-neutral tender support.">
+    <link rel="canonical" href="https://vakratronsys.com/advisory">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        :root {
-            --bg-main: #020617;
-            --bg-surface: rgba(15, 23, 42, 0.6);
-            --border-glow: rgba(194, 24, 91, 0.3);
-            --accent-neon: #C2185B;
-            --accent-blue: #38bdf8;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --glass-gradient: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(2, 6, 23, 0.9) 100%);
-        }
-
-        html {
-            scroll-behavior: smooth;
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-main) !important;
-            color: var(--text-primary);
-            
-            background-image: 
-                radial-gradient(circle at 50% 30%, rgba(194, 24, 91, 0.06) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(56, 189, 248, 0.06) 0%, transparent 50%) !important;
-            background-size: 200% 200% !important;
-            animation: cyberBackgroundMotion 20s ease infinite alternate !important;
-        }
-
-        @keyframes cyberBackgroundMotion {
-            0% { background-position: 0% 20%; }
-            50% { background-position: 100% 80%; }
-            100% { background-position: 20% 100%; }
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            background: transparent !important;
-            background-image: linear-gradient(rgba(255, 255, 255, 0.002) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(255, 255, 255, 0.002) 1px, transparent 1px) !important;
-            background-size: 50px 50px !important;
-        }
-
-        section {
-            padding: 100px 8% !important;
-            box-sizing: border-box;
-        }
-
-        .premium-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(194, 24, 91, 0.1);
-            border: 1px solid rgba(194, 24, 91, 0.3);
-            color: #f472b6;
-            padding: 6px 16px;
-            border-radius: 100px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
-        }
-
-        .section-header-modern {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-header-modern h2 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin: 10px 0;
-            background: linear-gradient(135deg, #fff 0%, var(--text-secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .section-header-modern p {
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-    </style>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/vk-content.css">
 </head>
 <body>
     <header></header>
-       <section class="services-section" id="services" style="position: relative; padding-top: 160px !important; padding-bottom: 100px !important;">
-        <div class="section-header-modern">
-            <span class="premium-badge"><i class="fa-solid fa-layer-group"></i> Architecture Execution Layers</span>
-            <h2>Core Services Architecture</h2>
-            <p>Next-generation cloud definitions, advanced compute deployment tables, and autonomous business continuity solutions engineered for governance networks.</p>
+
+    <main class="vk">
+
+        <div class="vk-wrap vk-hero">
+            <div class="vk-crumb"><a href="/">Home</a> <span>/</span> <span>Advisory</span></div>
+            <span class="vk-eyebrow">Advisory</span>
+            <h1>An independent view before you commit</h1>
+            <p class="vk-lead">Short, fixed-scope engagements for the moments when a wrong infrastructure decision would be expensive: a vendor proposal to check, an estate to assess, a new platform to scope, or a tender to write. Each one ends with a written report your team can act on.</p>
+            <div class="vk-facts">
+                <div class="vk-fact"><span class="k">Engagements</span><span class="v">4, each fixed scope</span></div>
+                <div class="vk-fact"><span class="k">Length</span><span class="v">2 days to 6 weeks</span></div>
+                <div class="vk-fact"><span class="k">Pricing</span><span class="v">Fixed fee, agreed upfront</span></div>
+                <div class="vk-fact"><span class="k">Approach</span><span class="v">Vendor-neutral</span></div>
+            </div>
+            <div class="vk-dp-jump"><a href="#review">Architecture review</a><a href="#assessment">Technology assessment</a><a href="#discovery">Discovery workshop</a><a href="#tender">Tender and RFP support</a><a href="#faq">Questions</a></div>
         </div>
-
-        <div class="service-grid-custom" style="display: grid; grid-template-columns: repeat(3, 11fr); gap: 35px;">
-            
-            <div class="service-card-custom" style="background: var(--bg-surface); border: 1px solid rgba(255,255,255,0.04); padding: 45px 35px; border-radius: 24px; box-shadow: 0 20px 45px rgba(0,0,0,0.4); transition: all 0.4s ease; display: flex; flex-direction: column; justify-content: space-between; min-height: 440px; box-sizing: border-box;" onmouseover="this.style.borderColor='rgba(56, 189, 248, 0.4)'; this.style.transform='translateY(-5px)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.04)'; this.style.transform='translateY(0)';" >
-                <div>
-                    <div class="s-icon" style="color: var(--accent-blue); font-size: 2.5rem; margin-bottom: 25px;"><i class="fa-solid fa-cloud-sun"></i></div>
-                    <div class="s-content">
-                        <h3 style="font-family: 'Poppins', sans-serif; font-size: 1.4rem; color: #fff; margin: 0 0 15px 0; font-weight: 600;">Enterprise Hybrid & Multi-Cloud Orchestration</h3>
-                        <p style="color: var(--text-secondary); font-size: 0.98rem; line-height: 1.7; margin: 0 0 20px 0; font-weight: 300;">Designing and implementing cross-domain architectures spanning public hyper-scalers (AWS) and secure Private layouts.</p>
-                        <ul style="margin: 0; padding: 0 0 0 18px; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
-                            <li>AWS to Private cloud Migration Pipeline</li>
-                            <li>Automated AWS CLI Credential Configuration & Bedrock Model Invocation Loops</li>
-                        </ul>
-                    </div>
+        <div class="vk-sec" id="choose"><div class="vk-wrap">
+            <span class="vk-eyebrow">Which one do you need?</span>
+            <h2>Start from where you are</h2>
+            <div class="vk-table-wrap"><table><thead><tr><th>If this sounds like you</th><th>Start with</th></tr></thead><tbody><tr><td>A vendor proposal is on your desk and you need to decide soon</td><td><a href="#review">Architecture review</a></td></tr><tr><td>You want a clear picture of your whole estate and a plan for next year</td><td><a href="#assessment">Technology assessment</a></td></tr><tr><td>You have an idea for a new platform but the scope is still loose</td><td><a href="#discovery">Discovery workshop</a></td></tr><tr><td>You need to buy through a tender and want a fair, defensible specification</td><td><a href="#tender">Tender and RFP support</a></td></tr></tbody></table></div>
+            <p class="vk-muted vk-small" style="margin-top:12px">Not sure? Describe the situation on the <a href="/contact">contact page</a> and we will suggest the smallest engagement that answers your question.</p>
+        </div></div>
+        <div class="vk-sec vk-av-offer" id="review"><div class="vk-wrap">
+            <div class="vk-av-head"><span class="vk-av-ic"><i class="fa-solid fa-magnifying-glass-chart"></i></span><div>
+                <span class="vk-eyebrow">Offering 1 of 4</span>
+                <h2>Architecture review</h2>
+                <p class="vk-lead">An independent second opinion on a design, a vendor proposal or a platform that is already running.</p></div></div>
+            <div class="vk-facts"><div class="vk-fact"><span class="k">Duration</span><span class="v">2 to 3 weeks</span></div><div class="vk-fact"><span class="k">Your team&rsquo;s time</span><span class="v">About 6 hours in total</span></div><div class="vk-fact"><span class="k">Format</span><span class="v">Remote, one optional on-site day</span></div></div>
+            <div class="vk-av-grid">
+                <div class="vk-card"><h3>When it fits</h3><ul class="vk-av-list"><li>A vendor or system integrator has sent a proposal and you want to know if the sizing and the price are right before you sign.</li><li>A platform is live but slow, expensive or fragile, and nobody can say exactly why.</li><li>Your board or auditors want an independent view of a design before approving the budget.</li></ul></div>
+                <div class="vk-card"><h3>What we look at</h3><ul class="vk-av-list"><li>Sizing against the real workload: compute, storage, network and GPU, not just the bill of quantities</li><li>Single points of failure and what actually happens when each part fails</li><li>Recovery: whether the promised RTO and RPO are achievable with this design</li><li>Security architecture: segmentation, identity, privileged access, logging</li><li>Licensing and running cost over five years, not just the purchase price</li><li>Operations: monitoring, upgrades, and whether your team can run it</li></ul></div>
+                <div class="vk-card"><h3>How it runs</h3><ol class="vk-av-steps"><li><span class="w">Week 1</span><span>We read the documents and run two short workshops with your architects and the vendor if needed.</span></li><li><span class="w">Week 2</span><span>We check the design against workload data, walk through failure scenarios and model the cost.</span></li><li><span class="w">Week 3</span><span>We walk you through the findings and answer questions from your team and leadership.</span></li></ol></div>
+                <div class="vk-card vk-av-gets"><h3>What you get</h3><ul class="vk-av-list"><li>Findings report with an executive summary a non-technical reader can follow</li><li>Risk table: every issue rated by impact and effort, with what to fix first</li><li>Questions to put back to the vendor before you sign</li><li>Revised sizing or BoQ direction where the original is off</li></ul><h3 class="vk-av-need">What we need from you</h3><ul class="vk-av-list"><li>The proposal, HLD or LLD, and any sizing sheets</li><li>Inventory or monitoring exports for the workloads involved</li><li>Two or three people for short workshops</li></ul></div>
+            </div>
+            <div class="vk-actions"><a class="vk-btn primary" href="/contact?topic=review">Ask for an architecture review</a><a class="vk-btn" href="#choose">Compare the four</a></div>
+        </div></div>
+        <div class="vk-sec vk-av-offer" id="assessment"><div class="vk-wrap">
+            <div class="vk-av-head"><span class="vk-av-ic"><i class="fa-solid fa-clipboard-check"></i></span><div>
+                <span class="vk-eyebrow">Offering 2 of 4</span>
+                <h2>Technology assessment</h2>
+                <p class="vk-lead">A full health check of your infrastructure estate, with a practical roadmap for the next 12 to 18 months.</p></div></div>
+            <div class="vk-facts"><div class="vk-fact"><span class="k">Duration</span><span class="v">4 to 6 weeks</span></div><div class="vk-fact"><span class="k">Your team&rsquo;s time</span><span class="v">6 to 10 interviews of an hour each</span></div><div class="vk-fact"><span class="k">Format</span><span class="v">Mix of on-site and remote</span></div></div>
+            <div class="vk-av-grid">
+                <div class="vk-card"><h3>When it fits</h3><ul class="vk-av-list"><li>You are planning next year&rsquo;s infrastructure budget and want it based on facts.</li><li>A new CIO or IT head wants an honest baseline of what they have inherited.</li><li>You know some things need to change (an ageing data centre, rising cloud bills, untested DR) but not in what order.</li></ul></div>
+                <div class="vk-card"><h3>What we look at</h3><ul class="vk-av-list"><li>Data centre, compute and virtualisation, including hardware nearing end of support</li><li>Storage, backup and the last time a restore was actually tested</li><li>Network and connectivity between sites, offices and cloud</li><li>Cloud usage and spend: what runs where, and what it costs</li><li>Disaster recovery readiness for each critical application</li><li>Security controls and operations maturity</li><li>Readiness for AI workloads: data, GPUs, skills and governance</li></ul></div>
+                <div class="vk-card"><h3>How it runs</h3><ol class="vk-av-steps"><li><span class="w">Weeks 1 to 2</span><span>Discovery: tool exports, inventory, monitoring data and interviews with the people who run each area.</span></li><li><span class="w">Weeks 3 to 4</span><span>Analysis: each area scored for maturity, gaps listed, risks rated, quick wins identified.</span></li><li><span class="w">Weeks 5 to 6</span><span>Roadmap: options with cost ranges, sequencing and a review session with leadership.</span></li></ol></div>
+                <div class="vk-card vk-av-gets"><h3>What you get</h3><ul class="vk-av-list"><li>Current-state report covering every area above</li><li>A maturity score per area, so progress can be measured next year</li><li>Gap and risk list, ranked</li><li>12 to 18 month roadmap with cost ranges and dependencies</li><li>Quick wins that can be done in the first 90 days</li></ul><h3 class="vk-av-need">What we need from you</h3><ul class="vk-av-list"><li>A sponsor who can open doors internally</li><li>Read-only exports from inventory, monitoring and backup tools</li><li>Interviews with infrastructure, application, security and finance owners</li></ul></div>
+            </div>
+            <div class="vk-actions"><a class="vk-btn primary" href="/contact?topic=review">Ask for a technology assessment</a><a class="vk-btn" href="#choose">Compare the four</a></div>
+        </div></div>
+        <div class="vk-sec vk-av-offer" id="discovery"><div class="vk-wrap">
+            <div class="vk-av-head"><span class="vk-av-ic"><i class="fa-solid fa-users-gear"></i></span><div>
+                <span class="vk-eyebrow">Offering 3 of 4</span>
+                <h2>Discovery workshop</h2>
+                <p class="vk-lead">A short, structured workshop to turn an idea into a clear scope before you go to vendors.</p></div></div>
+            <div class="vk-facts"><div class="vk-fact"><span class="k">Duration</span><span class="v">2 to 3 days, plus a week to write up</span></div><div class="vk-fact"><span class="k">Your team&rsquo;s time</span><span class="v">The workshop days</span></div><div class="vk-fact"><span class="k">Format</span><span class="v">On-site preferred</span></div></div>
+            <div class="vk-av-grid">
+                <div class="vk-card"><h3>When it fits</h3><ul class="vk-av-list"><li>You want to start something new, such as a private cloud, a DR site or an AI platform, but the requirements are still loose.</li><li>Different teams want different things and need one agreed direction.</li><li>You need a realistic budget range before writing a tender or asking for quotes.</li></ul></div>
+                <div class="vk-card"><h3>What we look at</h3><ul class="vk-av-list"><li>Business goals and what success looks like in numbers</li><li>The applications and data involved, and how they depend on each other</li><li>Non-functional needs: performance, availability, RTO and RPO, compliance, data location</li><li>Constraints: budget, timelines, skills, existing contracts</li><li>Two or three realistic options, with their trade-offs</li></ul></div>
+                <div class="vk-card"><h3>How it runs</h3><ol class="vk-av-steps"><li><span class="w">Day 1</span><span>Goals, constraints and the current landscape, with business and IT owners in the room.</span></li><li><span class="w">Day 2</span><span>Requirements and options, worked through with architects, security and operations.</span></li><li><span class="w">Day 3 and write-up</span><span>Agree the direction, then we write it up within a week.</span></li></ol></div>
+                <div class="vk-card vk-av-gets"><h3>What you get</h3><ul class="vk-av-list"><li>Workshop summary with decisions and open questions</li><li>Requirements list, functional and non-functional</li><li>First high-level design direction with the options compared</li><li>A budget range and a sensible next step</li></ul><h3 class="vk-av-need">What we need from you</h3><ul class="vk-av-list"><li>Business owner, IT head, application owners, security and finance for the relevant sessions</li><li>Any existing documents, even rough ones</li></ul></div>
+            </div>
+            <div class="vk-actions"><a class="vk-btn primary" href="/contact?topic=other">Plan a discovery workshop</a><a class="vk-btn" href="#choose">Compare the four</a></div>
+        </div></div>
+        <div class="vk-sec vk-av-offer" id="tender"><div class="vk-wrap">
+            <div class="vk-av-head"><span class="vk-av-ic"><i class="fa-solid fa-file-signature"></i></span><div>
+                <span class="vk-eyebrow">Offering 4 of 4</span>
+                <h2>Tender and RFP support</h2>
+                <p class="vk-lead">Help to write a vendor-neutral specification and to evaluate the responses fairly.</p></div></div>
+            <div class="vk-facts"><div class="vk-fact"><span class="k">Duration</span><span class="v">Depends on the tender</span></div><div class="vk-fact"><span class="k">Your team&rsquo;s time</span><span class="v">Review cycles at each stage</span></div><div class="vk-fact"><span class="k">Format</span><span class="v">Remote, with meetings as needed</span></div></div>
+            <div class="vk-av-grid">
+                <div class="vk-card"><h3>When it fits</h3><ul class="vk-av-list"><li>A government department or PSU needs a technical specification for GeM or an open tender.</li><li>An enterprise is running an RFP and wants the requirements and scoring to be fair and defensible.</li><li>Bids have come in and you need an independent technical comparison.</li></ul></div>
+                <div class="vk-card"><h3>What we look at</h3><ul class="vk-av-list"><li>Requirements written as outcomes, not as one vendor&rsquo;s datasheet</li><li>Eligibility and technical criteria that do not exclude capable bidders without reason</li><li>A bill of quantities that matches the workload</li><li>Scoring that can be defended in a pre-bid meeting or an audit</li></ul></div>
+                <div class="vk-card"><h3>How it runs</h3><ol class="vk-av-steps"><li><span class="w">Before release</span><span>Specification, BoQ, eligibility and evaluation criteria drafted and reviewed with you.</span></li><li><span class="w">Pre-bid</span><span>Help with responses to bidder queries and any corrigendum.</span></li><li><span class="w">Evaluation</span><span>Technical comparison of bids against the published criteria.</span></li></ol></div>
+                <div class="vk-card vk-av-gets"><h3>What you get</h3><ul class="vk-av-list"><li>Vendor-neutral technical specification</li><li>Bill of quantities with sizing workings</li><li>Evaluation criteria and scoring sheet</li><li>Technical comparison report on the bids received</li></ul><h3 class="vk-av-need">What we need from you</h3><ul class="vk-av-list"><li>The purpose and budget of the procurement</li><li>Any earlier specifications or reference documents</li><li>A named officer for review cycles</li></ul></div>
+            </div>
+            <div class="vk-actions"><a class="vk-btn primary" href="/contact?topic=tender">Discuss tender support</a><a class="vk-btn" href="#choose">Compare the four</a></div>
+        </div></div>
+        <div class="vk-sec" id="method"><div class="vk-wrap">
+            <span class="vk-eyebrow">How every engagement works</span>
+            <h2>Same four steps, whatever the size</h2>
+            <div class="vk-phases">
+                <div class="vk-phase"><span class="n">1</span><h3>Understand</h3><p>Your goals, constraints and deadlines, in your words, before any technology is discussed.</p></div>
+                <div class="vk-phase"><span class="n">2</span><h3>Measure</h3><p>Real data from your environment: utilisation, growth, failure history, cost. Not assumptions.</p></div>
+                <div class="vk-phase"><span class="n">3</span><h3>Compare</h3><p>Realistic options side by side, each with cost, risk and what it asks of your team.</p></div>
+                <div class="vk-phase"><span class="n">4</span><h3>Recommend</h3><p>A written recommendation with the reasoning shown, and a plan you can act on.</p></div>
+            </div>
+        </div></div>
+        <div class="vk-sec" id="sample"><div class="vk-wrap">
+            <span class="vk-eyebrow">What you receive</span>
+            <h2>A report your team can act on the next morning</h2>
+            <div class="vk-av-sample">
+                <div class="vk-av-doc">
+                    <div class="vk-av-doc-top"><span>Architecture review: findings</span><span class="tag">Sample, illustrative</span></div>
+                    <p class="vk-av-doc-sum"><strong>Summary.</strong> The proposed design meets the stated capacity, but recovery depends on one storage array, and GPU nodes are sized for a model twice the size of the one planned. Fixing the first is essential before sign-off; the second saves about a fifth of the hardware cost.</p>
+                    <table><thead><tr><th>#</th><th>Finding</th><th>Impact</th><th>Effort</th><th>When</th></tr></thead><tbody>
+                        <tr><td>1</td><td>All tiers share one storage array: a single failure stops every application</td><td><span class="r hi">High</span></td><td><span class="r lo">Low</span></td><td>Before sign-off</td></tr>
+                        <tr><td>2</td><td>GPU count sized for a 140B model; plan is a 70B model with batching</td><td><span class="r hi">High</span></td><td><span class="r lo">Low</span></td><td>Before sign-off</td></tr>
+                        <tr><td>3</td><td>DR runbook assumes a network path that does not exist in the LLD</td><td><span class="r md">Medium</span></td><td><span class="r md">Medium</span></td><td>Before go-live</td></tr>
+                        <tr><td>4</td><td>Admin access to hypervisors not routed through the PAM tool</td><td><span class="r md">Medium</span></td><td><span class="r lo">Low</span></td><td>Before go-live</td></tr>
+                        <tr><td>5</td><td>Monitoring covers servers but not storage latency</td><td><span class="r lo">Low</span></td><td><span class="r lo">Low</span></td><td>First 90 days</td></tr>
+                    </tbody></table>
+                </div>
+                <div class="vk-av-doc-notes">
+                    <h3>What a report looks like</h3>
+                    <p class="vk-muted">Every finding says what is wrong, why it matters, how hard it is to fix and when it should be fixed. No padding, no generic best-practice lists.</p>
+                    <ul class="vk-av-list"><li>Written for two readers: a one-page summary for leadership, detail for engineers</li><li>Every number shows its working, so your team can check it</li><li>Findings ranked, so you know what to do first</li></ul>
                 </div>
             </div>
-
-            <div class="service-card-custom" style="background: var(--bg-surface); border: 1px solid rgba(255,255,255,0.04); padding: 45px 35px; border-radius: 24px; box-shadow: 0 20px 45px rgba(0,0,0,0.4); transition: all 0.4s ease; display: flex; flex-direction: column; justify-content: space-between; min-height: 440px; box-sizing: border-box;" onmouseover="this.style.borderColor='rgba(56, 189, 248, 0.4)'; this.style.transform='translateY(-5px)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.04)'; this.style.transform='translateY(0)';" >
-                <div>
-                    <div class="s-icon" style="color: var(--accent-blue); font-size: 2.5rem; margin-bottom: 25px;"><i class="fa-solid fa-server"></i></div>
-                    <div class="s-content">
-                        <h3 style="font-family: 'Poppins', sans-serif; font-size: 1.4rem; color: #fff; margin: 0 0 15px 0; font-weight: 600;">Accelerated GPU Compute & AI Factories</h3>
-                        <p style="color: var(--text-secondary); font-size: 0.98rem; line-height: 1.7; margin: 0 0 20px 0; font-weight: 300;">Deployment tables for raw bare-metal deep tech infrastructure provisioning scalable multi-node compute Workloads.</p>
-                        <ul style="margin: 0; padding: 0 0 0 18px; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
-                            <li>Large Scale Provisioning (Featuring NVIDIA H200 clusters)</li>
-                            <li>Advanced AI Stack Integrations (LangChain, LangGraph, Multi-Agent & RAG Architectures)</li>
-                        </ul>
-                    </div>
+        </div></div>
+        <div class="vk-sec" id="faq"><div class="vk-wrap">
+            <span class="vk-eyebrow">Common questions</span>
+            <h2>Before you get in touch</h2>
+            <div class="vk-av-faq"><details><summary>How is an engagement priced?</summary><p>Each one is a fixed fee for a fixed scope, agreed before work starts. The fee depends mainly on the size of the estate or design involved. A 30-minute call is usually enough for us to quote.</p></details><details><summary>Do you need access to our systems?</summary><p>No admin access is needed. We work from documents, read-only exports from your tools and conversations with your team. Anything sensitive can be shared after an NDA is signed.</p></details><details><summary>Will you push us towards a particular vendor?</summary><p>No. Recommendations are based on your workload and constraints. Where more than one product would work, we say so and compare them. If we have a commercial relationship with any vendor we mention, we tell you upfront.</p></details><details><summary>What happens after the engagement?</summary><p>The report is yours to use however you like, including with another partner. If you want, we can stay involved to oversee the build, but there is no obligation.</p></details><details><summary>Can you work with our existing system integrator?</summary><p>Yes. We often review an integrator&rsquo;s design or work alongside them. Our job is to make the design right, not to replace anyone.</p></details><details><summary>Is this only for large organisations?</summary><p>No. A review of a single proposal or a two-day workshop suits mid-size organisations well. The scope is sized to the decision you need to make.</p></details></div>
+        </div></div>
+        <div class="vk-sec"><div class="vk-wrap">
+            <div class="vk-cta">
+                <h2>Have a decision coming up?</h2>
+                <p class="vk-muted">Tell us what you are deciding and by when. We will come back within one working day with the engagement that fits and a fixed quote.</p>
+                <div class="vk-actions">
+                    <a class="vk-btn primary" href="/contact?topic=review">Talk to us</a>
+                    <a class="vk-btn" href="/deployment-scenarios">See worked designs</a>
                 </div>
             </div>
+        </div></div>
+    </main>
 
-            <div class="service-card-custom" style="background: var(--bg-surface); border: 1px solid rgba(255,255,255,0.04); padding: 45px 35px; border-radius: 24px; box-shadow: 0 20px 45px rgba(0,0,0,0.4); transition: all 0.4s ease; display: flex; flex-direction: column; justify-content: space-between; min-height: 440px; box-sizing: border-box;" onmouseover="this.style.borderColor='rgba(56, 189, 248, 0.4)'; this.style.transform='translateY(-5px)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.04)'; this.style.transform='translateY(0)';" >
-                <div>
-                    <div class="s-icon" style="color: var(--accent-blue); font-size: 2.5rem; margin-bottom: 25px;"><i class="fa-solid fa-shield-nodes"></i></div>
-                    <div class="s-content">
-                        <h3 style="font-family: 'Poppins', sans-serif; font-size: 1.4rem; color: #fff; margin: 0 0 15px 0; font-weight: 600;">Data Centre Design & Disaster Recovery (DRaaS)</h3>
-                        <p style="color: var(--text-secondary); font-size: 0.98rem; line-height: 1.7; margin: 0 0 20px 0; font-weight: 300;">Engineering tier-compliant structural isolation blueprints with near-zero RTO active-passive replication mechanisms.</p>
-                        <ul style="margin: 0; padding: 0 0 0 18px; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
-                            <li>Nutanix Hypervisor Active-Passive Continuous Protection Blueprinting</li>
-                            <li>Automated Cross-Hypervisor Orchestration & Secure Enterprise Cloud DR Failover Solutions</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="service-card-custom" style="background: var(--bg-surface); border: 1px solid rgba(255,255,255,0.04); padding: 45px 35px; border-radius: 24px; box-shadow: 0 20px 45px rgba(0,0,0,0.4); transition: all 0.4s ease; display: flex; flex-direction: column; justify-content: space-between; min-height: 440px; box-sizing: border-box;" onmouseover="this.style.borderColor='var(--border-glow)'; this.style.transform='translateY(-5px)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.04)'; this.style.transform='translateY(0)';" >
-                <div>
-                    <div class="s-icon" style="color: var(--accent-neon); font-size: 2.5rem; margin-bottom: 25px;"><i class="fa-solid fa-screwdriver-wrench"></i></div>
-                    <div class="s-content">
-                        <h3 style="font-family: 'Poppins', sans-serif; font-size: 1.4rem; color: #fff; margin: 0 0 15px 0; font-weight: 600;">SLA-Driven O&M for Data Center EMSS</h3>
-                        <p style="color: var(--text-secondary); font-size: 0.98rem; line-height: 1.7; margin: 0 0 20px 0; font-weight: 300;">Comprehensive 24x7 Operations & Maintenance lifecycle management for mission-critical environmental facility safety assets.</p>
-                        <ul style="margin: 0; padding: 0 0 0 18px; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
-                            <li>Industrial CCTV, Surveillance Telemetry, and Unified Physical Access Controls maintenance.</li>
-                            <li>Honeywell Addressable Fire Alarm and critical early-warning smoke detection systems support.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="service-card-custom" style="background: var(--bg-surface); border: 1px solid rgba(255,255,255,0.04); padding: 45px 35px; border-radius: 24px; box-shadow: 0 20px 45px rgba(0,0,0,0.4); transition: all 0.4s ease; display: flex; flex-direction: column; justify-content: space-between; min-height: 440px; box-sizing: border-box;" onmouseover="this.style.borderColor='var(--border-glow)'; this.style.transform='translateY(-5px)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.04)'; this.style.transform='translateY(0)';" >
-                <div>
-                    <div class="s-icon" style="color: var(--accent-neon); font-size: 2.5rem; margin-bottom: 25px;"><i class="fa-solid fa-network-wired"></i></div>
-                    <div class="s-content">
-                        <h3 style="font-family: 'Poppins', sans-serif; font-size: 1.4rem; color: #fff; margin: 0 0 15px 0; font-weight: 600;">Core Switching, Routing & Secure Edge Delivery</h3>
-                        <p style="color: var(--text-secondary); font-size: 0.98rem; line-height: 1.7; margin: 0 0 20px 0; font-weight: 300;">Strategic backplane loop setups, automated balancing metrics, and persistent data path sanitization deployment layers.</p>
-                        <ul style="margin: 0; padding: 0 0 0 18px; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
-                            <li>Enterprise Multi-Gigabit Switching cores and software-defined network (SD-WAN) mapping.</li>
-                            <li>Zero-Trust Next-Generation Firewall (NGFW) continuous tracking and automated threat mitigation.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="service-card-custom" style="background: var(--bg-surface); border: 1px solid rgba(255,255,255,0.04); padding: 45px 35px; border-radius: 24px; box-shadow: 0 20px 45px rgba(0,0,0,0.4); transition: all 0.4s ease; display: flex; flex-direction: column; justify-content: space-between; min-height: 440px; box-sizing: border-box;" onmouseover="this.style.borderColor='var(--border-glow)'; this.style.transform='translateY(-5px)';" onmouseout="this.style.borderColor='rgba(255,255,255,0.04)'; this.style.transform='translateY(0)';" >
-                <div>
-                    <div class="s-icon" style="color: var(--accent-neon); font-size: 2.5rem; margin-bottom: 25px;"><i class="fa-solid fa-arrows-spin"></i></div>
-                    <div class="s-content">
-                        <h3 style="font-family: 'Poppins', sans-serif; font-size: 1.4rem; color: #fff; margin: 0 0 15px 0; font-weight: 600;">Workload Mobilization & Migration</h3>
-                        <p style="color: var(--text-secondary); font-size: 0.98rem; line-height: 1.7; margin: 0 0 20px 0; font-weight: 300;">Zero-downtime structural asset transformations, decoupling workloads from legacy vendor traps without security leaks.</p>
-                        <ul style="margin: 0; padding: 0 0 0 18px; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
-                            <li>Risk-free Physical to Virtual (P2V) hardware virtualization and state data migrations.</li>
-                            <li>Virtual to Virtual (V2V) cross-hypervisor transfers into secure, localized OpenStack structures.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <footer style="background: #01040f; padding: 60px 8% 30px 8%; border-top: 1px solid rgba(255,255,255,0.04); box-sizing: border-box; position: relative;">
-        <div class="footer-content" style="display: flex; justify-content: space-between; align-items: flex-start; gap: 50px; flex-wrap: wrap; margin-bottom: 40px;">
-            <div class="footer-brand" style="max-width: 450px; flex: 2;">
-                <h2 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1.5rem; font-weight: 700; margin: 0 0 15px 0; letter-spacing: 1px;">VAKRATRON <span style="color: var(--accent-neon); font-size: 0.85rem; letter-spacing: 3px; font-weight: 600; display: block; margin-top: 2px;">SYSTEMS</span></h2>
-                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin: 0 0 25px 0;">Architecting resilient, hyper-secure, and dynamically scaled AI compute frameworks and cloud automation systems for enterprise governance tables.</p>
-                <div class="social-channels" style="display: flex; gap: 15px; margin-bottom: 25px;">
-                    <a href="https://linkedin.com" target="_blank" style="width: 40px; height: 40px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #0077b5;"><i class="fa-brands fa-linkedin-in"></i></a>
-                    <a href="https://wa.me/919319666864" target="_blank" style="width: 40px; height: 40px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #25d366;"><i class="fa-brands fa-whatsapp"></i></a>
-                    <a href="https://instagram.com" target="_blank" style="width: 40px; height: 40px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #e1306c;"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="https://facebook.com" target="_blank" style="width: 40px; height: 40px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #1877f2;"><i class="fa-brands fa-facebook-f"></i></a>
-                </div>
-                <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.9rem; color: var(--text-secondary);"><span><i class="fa-solid fa-phone" style="color: var(--accent-neon); margin-right: 10px;"></i> +91 93196 66864</span><span><i class="fa-solid fa-envelope" style="color: var(--accent-neon); margin-right: 10px;"></i> connect@vakratronsys.com</span></div>
-            </div>
-            <div class="footer-links" style="flex: 1; min-width: 180px; display: flex; flex-direction: column; gap: 12px;">
-                <h4 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1.1rem; margin: 0 0 8px 0; font-weight: 600;">Compliance table</h4>
-                <span style="color: var(--text-secondary); font-size: 0.9rem;"><i class="fa-solid fa-building" style="color: var(--accent-neon); margin-right: 8px;"></i> LLPIN: AAT-3851</span>
-                <span style="color: var(--text-secondary); font-size: 0.9rem;"><i class="fa-solid fa-certificate" style="color: var(--accent-neon); margin-right: 8px;"></i> DIPP No: DIPP247647</span>
-                <span style="color: var(--text-secondary); font-size: 0.9rem;"><i class="fa-solid fa-shield-halved" style="color: var(--accent-blue); margin-right: 8px;"></i> Data Protection Secure</span>
-            </div>
-            <div class="footer-links" style="flex: 1; min-width: 150px; display: flex; flex-direction: column; gap: 12px;">
-                <h4 style="font-family: 'Poppins', sans-serif; color: #fff; font-size: 1.1rem; margin: 0 0 8px 0; font-weight: 600;">Structure Links</h4>
-                <a href="index.html" target="v_home" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Home</a>
-                <a href="about.html" target="v_about" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">About</a>
-                <a href="products.html" target="v_products" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Portfolio Offerings</a>
-                <a href="services.html" target="v_services" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Expertise</a>
-                <a href="fabric.html" target="v_fabric" style="color: var(--text-secondary); text-decoration: none; font-size: 0.95rem; transition: color 0.3s; display: block;" onmouseover="this.style.color='var(--accent-neon)'" onmouseout="this.style.color='var(--text-secondary)'">Fabric Lab</a>
-                <a href="credentials.html" target="v_credentials" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Credentials</a>
-                <a href="contact.html" target="v_contact" style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">Contact</a>
-            </div>
-        </div>
-        
-        <div style="position: absolute; bottom: 25px; right: 8%; background: rgba(255,255,255,0.05); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #f43f5e; font-size: 1.1rem; cursor: pointer;">
-            <i class="fa-solid fa-file-pdf"></i>
-        </div>
-
-        <div class="footer-bottom" style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 25px; text-align: center; font-size: 0.85rem; color: #475569;"><p style="margin:0;">&copy; 2026 Vakratron Systems LLP | New Delhi, India. All Rights Reserved.</p></div>
-    </footer>
-
+    <footer></footer>
     <script src="/vakra-loader.js"></script>
 </body>
 </html>

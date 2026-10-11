@@ -1270,6 +1270,20 @@ const LEGACY_REDIRECTS = {
     'solutions/dc-dr/dc-dr': '/portfolio/dr-solutions',
     'solutions/dc-dr/industry-use-cases': '/use_cases/dr-hospital-group',
     'solutions/dc-dr/feq': '/solutions/dc-dr/faq',
+    // Strategic Technology Advisory (STA) pages folded into /advisory (Oct 2026)
+    'sta/architec_review': '/advisory#review',
+    'sta/tech_assess': '/advisory#assessment',
+    'sta/discover_work': '/advisory#discovery',
+    'sta/frameworks': '/advisory#method',
+    'frameworks': '/advisory#method',
+    'sta/v-map': '/advisory#method',
+    'sta/v-review': '/advisory#review',
+    'sta/v-scan': '/advisory#assessment',
+    'sta/v-discover': '/advisory#discovery',
+    'sta/v-recover': '/solutions/dc-dr/strategy-selection',
+    'sta/v-cloud': '/portfolio/cloud-solutions',
+    'sta/v-platform': '/portfolio/kubernetes-platform',
+    'sta/v-ai-blueprint': '/portfolio/ai-gpu-cloud',
 };
 
 app.use((req, res, next) => {
