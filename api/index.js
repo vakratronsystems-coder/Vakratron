@@ -1353,6 +1353,9 @@ app.get('/footer.html', (req, res) => {
 // engines merge the duplicates instead of splitting ranking between them.
 const LEGACY_REDIRECTS = {
     'solution_arch/cloud_solutions': '/solutions/cloud-solutions',
+    'blueprints': '/deployment-scenarios',
+    'reference-architectures': '/deployment-scenarios',
+    'research-insights': '/whitepapers',
     'solutions/dc-dr/dc-dr_chat': '/solutions/master_dc-dr',
     'solutions/dc-dr/dc_dr_gem': '/solutions/master_dc-dr',
     // Kubernetes and API consolidation (Oct 2026)
