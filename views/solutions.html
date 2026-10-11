@@ -235,6 +235,15 @@
             border-color: var(--accent-neon);
             box-shadow: 0 4px 15px rgba(194, 24, 91, 0.3);
         }
+
+        @media (max-width: 900px) {
+            .why-grid { grid-template-columns: repeat(2, 1fr) !important; }
+            .framework-timeline { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 560px) {
+            .why-grid { grid-template-columns: 1fr !important; }
+            .framework-timeline { grid-template-columns: 1fr !important; }
+        }
     </style>
     <link rel="stylesheet" href="style.css">
 </head>
