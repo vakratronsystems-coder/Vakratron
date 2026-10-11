@@ -193,9 +193,31 @@
         const inputEl = document.getElementById('chatInput');
         const messagesContainer = document.getElementById('chatMessages');
 
+        const QUICK_REPLIES = ['GPU sizing', 'Disaster recovery', 'Cloud migration', 'Talk to the team'];
+
+        function renderQuickReplies() {
+            const wrap = document.createElement('div');
+            wrap.className = 'vakra-quick-replies';
+            wrap.style.cssText = 'display:flex !important;flex-wrap:wrap !important;gap:8px !important;padding:4px 0 10px !important;';
+            QUICK_REPLIES.forEach(label => {
+                const chip = document.createElement('button');
+                chip.type = 'button';
+                chip.textContent = label;
+                chip.style.cssText = 'background:rgba(56,189,248,0.08) !important;border:1px solid rgba(56,189,248,0.3) !important;color:#38bdf8 !important;border-radius:999px !important;padding:7px 14px !important;font-size:0.82rem !important;cursor:pointer !important;font-family:Inter,sans-serif !important;';
+                chip.onclick = function() {
+                    wrap.remove();
+                    inputEl.value = label === 'Talk to the team' ? 'I would like to connect with your team' : label;
+                    dispatchUserPrompt();
+                };
+                wrap.appendChild(chip);
+            });
+            messagesContainer.appendChild(wrap);
+        }
+
         function renderConversation() {
             messagesContainer.innerHTML = '';
             appendBubble(OPENING_LINE, 'system', { record: false });
+            if (chatHistory.length === 0) renderQuickReplies();
             chatHistory.forEach(turn => {
                 appendBubble(turn.content, turn.role === 'user' ? 'user' : 'system', { record: false });
             });
@@ -203,9 +225,30 @@
 
         renderConversation();
 
+        let nudgeShown = false;
+        function dismissNudge() {
+            const n = document.getElementById('vakraNudge');
+            if (n) n.remove();
+        }
+        function maybeShowNudge() {
+            if (nudgeShown || windowEl.style.display === 'flex') return;
+            nudgeShown = true;
+            const nudge = document.createElement('div');
+            nudge.id = 'vakraNudge';
+            nudge.textContent = 'Questions about this page? Ask me.';
+            nudge.style.cssText = 'position:fixed !important;bottom:96px !important;right:30px !important;background:#0f172a !important;color:#fff !important;border:1px solid rgba(194,24,91,0.5) !important;border-radius:12px !important;padding:10px 14px !important;font-size:0.82rem !important;font-family:Inter,sans-serif !important;box-shadow:0 6px 24px rgba(0,0,0,0.4) !important;z-index:99998 !important;max-width:220px !important;cursor:pointer !important;';
+            nudge.onclick = function() { dismissNudge(); trigger.click(); };
+            document.body.appendChild(nudge);
+            setTimeout(dismissNudge, 9000);
+        }
+        if (!/\/wp\//.test(location.pathname)) {
+            setTimeout(maybeShowNudge, 22000);
+        }
+
         trigger.onclick = function(e) {
             e.preventDefault();
             e.stopPropagation();
+            dismissNudge();
             if (windowEl.style.display === 'flex') {
                 windowEl.style.setProperty('display', 'none', 'important');
             } else {

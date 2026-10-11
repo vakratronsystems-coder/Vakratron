@@ -1321,7 +1321,18 @@ app.post('/api/chat', chatLimiter, async (req, res) => {
 ======================================================================
 5. PAGE AWARENESS
 ======================================================================
-- You are told below which page of the site the visitor is currently reading. If it is relevant to their question, use it naturally (e.g. refer to what that page covers); do not announce that you were "told" their page.` + (pageContext ? `\n\nThe visitor is currently on: ${pageContext}` : '');
+- You are told below which page of the site the visitor is currently reading. If it is relevant to their question, use it naturally (e.g. refer to what that page covers); do not announce that you were "told" their page.
+
+======================================================================
+6. SUGGEST THE RIGHT WHITEPAPER
+======================================================================
+- We have free whitepapers (PDF, after an email check) at /whitepapers/<slug>: disaster-recovery-strategy, private-cloud-strategy, gpu-ai-infrastructure, enterprise-llm-strategy, rag-and-agentic-ai, kubernetes-platform-engineering, api-microservices-architecture.
+- If the conversation is clearly about one of these topics, mention the matching whitepaper once, naturally, as something they can read or download — do not repeat it every message.
+
+======================================================================
+7. OFFER TO CONNECT, AT THE RIGHT MOMENT
+======================================================================
+- Once you have had a real technical back-and-forth (roughly 3 or more of their messages) and they seem to have a genuine need, offer once to pass their details to the team for a proper follow-up. Do not ask on the first message, and do not ask twice.` + (pageContext ? `\n\nThe visitor is currently on: ${pageContext}` : '');
 
         const groqRawFetch = await fetchWithTimeout('https://api.groq.com/openai/v1/chat/completions', {
             method: 'POST',
