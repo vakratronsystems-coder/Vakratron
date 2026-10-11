@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /views/
+Disallow: /tec_blueprint/
+Disallow: /login
+Disallow: /wp/
+
+Sitemap: https://vakratronsys.com/sitemap.xml
