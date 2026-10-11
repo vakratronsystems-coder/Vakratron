@@ -725,7 +725,7 @@ async function screenEnquiry(req) {
 
 // Per-address cooldown for code emails (stops anyone using the form to spam an inbox)
 const codeSentAt = new Map();
-async function sendEnquiryCode(email, name, code) {
+async function sendEnquiryCode(email, name, code, purpose) {
     const apiKey = process.env.RESEND_OTP_API_KEY || process.env.RESEND_API_KEY;
     if (!apiKey) {
         if (process.env.VERCEL) return { ok: false };
@@ -746,7 +746,7 @@ async function sendEnquiryCode(email, name, code) {
                 subject: `${code} is your Vakratron verification code`,
                 html: `<div style="font-family:Arial,sans-serif;max-width:520px;padding:24px;color:#0f172a">
                     <p>Hi ${first},</p>
-                    <p>Use this code to confirm your enquiry to Vakratron Systems:</p>
+                    <p>Use this code to ${purpose || 'confirm your enquiry to Vakratron Systems'}:</p>
                     <p style="font-size:30px;font-weight:700;letter-spacing:6px;margin:18px 0;color:#C2185B">${code}</p>
                     <p style="color:#475569">The code is valid for 20 minutes. If you did not contact us, you can ignore this email.</p>
                     <p style="color:#475569">Vakratron Systems</p></div>`,
@@ -779,6 +779,125 @@ app.post('/api/contact/start', contactLimiter, async (req, res) => {
     } catch (error) {
         console.error('❌ /api/contact/start:', error);
         res.status(500).json({ success: false, error: 'Something went wrong. Please try again.' });
+    }
+});
+
+// ======================================================================
+// 📄 WHITEPAPER DOWNLOADS (lead capture)
+// The PDF sits under /wp/ with an unguessable file name, and the link is
+// only handed out after the reader confirms their email with a code.
+// Every download lands in the sheet (source 'whitepaper') and in our inbox.
+// ======================================================================
+const WHITEPAPERS = {
+    'disaster-recovery-strategy': {
+        title: 'Disaster Recovery That Works on the Day',
+        file: '/wp/vakratron-disaster-recovery-22ffa7f0f1.pdf'
+    }
+};
+
+app.post('/api/whitepaper/start', contactLimiter, async (req, res) => {
+    try {
+        const wp = WHITEPAPERS[String(req.body.slug || '')];
+        if (!wp) return res.status(400).json({ success: false, error: 'Unknown whitepaper.' });
+        req.body.reason = 'Whitepaper: ' + wp.title;
+        const sc = await screenEnquiry(req);
+        if (sc.drop) {
+            console.log(`🤖 Whitepaper request dropped (${sc.drop}) from ${req.ip}`);
+            return res.json({ success: true, otpToken: 'x.' + crypto.randomBytes(16).toString('base64url') });
+        }
+        if (sc.error) return res.status(sc.status).json({ success: false, error: sc.error });
+        const { code, token } = leadGuard.issueEmailCode(sc.emailCheck.email);
+        const sent = await sendEnquiryCode(sc.emailCheck.email, sc.nameCheck.name, code, 'confirm your email and download “' + wp.title + '”');
+        if (!sent.ok) return res.status(sent.error ? 429 : 502).json({ success: false, error: sent.error || 'We could not send a code to this address. Please check it.' });
+        const out = { success: true, otpToken: token };
+        if (sent.devCode) out.devCode = sent.devCode;
+        res.json(out);
+    } catch (error) {
+        console.error('❌ /api/whitepaper/start:', error);
+        res.status(500).json({ success: false, error: 'Something went wrong. Please try again.' });
+    }
+});
+
+app.post('/api/whitepaper/download', contactLimiter, async (req, res) => {
+    try {
+        const wp = WHITEPAPERS[String(req.body.slug || '')];
+        if (!wp) return res.status(400).json({ success: false, error: 'Unknown whitepaper.' });
+        req.body.reason = 'Whitepaper: ' + wp.title;
+        const sc = await screenEnquiry(req);
+        if (sc.drop) return res.json({ success: false, error: 'That code is not right. Please check the email and try again.', otp: 'wrong' });
+        if (sc.error) return res.status(sc.status).json({ success: false, error: sc.error });
+        const otpState = leadGuard.checkEmailCode(sc.emailCheck.email, req.body.otp, req.body.otpToken);
+        if (otpState !== 'valid') {
+            const msg = { missing: 'Please enter the code we emailed you.', expired: 'This code has expired. Please ask for a new one.', wrong: 'That code is not right. Please check the email and try again.' }[otpState];
+            return res.status(400).json({ success: false, error: msg, otp: otpState });
+        }
+        const { nameCheck, emailCheck, phone, company, extra } = sc;
+        const trust = sc.trust === 'verified-form' ? 'verified-email' : sc.trust;
+        const link = 'https://vakratronsys.com' + wp.file;
+
+        const dbP = (async () => {
+            try {
+                await new Contact({
+                    name: nameCheck.name, email: emailCheck.email, phone: String(phone).trim(),
+                    company: company ? String(company).trim() : '', reason: 'Whitepaper: ' + wp.title,
+                    role: extra.role, sourcePage: extra.sourcePage,
+                    emailType: emailCheck.type, source: 'whitepaper', flagged: nameCheck.suspicious, verified: true, ip: req.ip
+                }).save();
+                return 'ok';
+            } catch (e) { console.error('⚠️ Whitepaper lead DB save failed:', e.message); return 'failed'; }
+        })();
+        const sheetP = pushToSheet({
+            name: nameCheck.name, email: emailCheck.email, phone: String(phone).trim(),
+            company: company ? String(company).trim() : '', pageRequested: 'Whitepaper: ' + wp.title,
+            emailType: emailCheck.type, flagged: nameCheck.suspicious ? 'REVIEW' : '', verified: 'YES',
+            source: 'whitepaper', submittedAt: new Date().toISOString(), trust,
+            role: extra.role, sourcePage: extra.sourcePage,
+            details: [extra.role && ('Role: ' + extra.role), extra.sourcePage && ('From page: ' + extra.sourcePage)].filter(Boolean).join(' | ')
+        });
+        const [sheetResult] = await Promise.all([capped(sheetP, 6800, 'sheet'), capped(dbP, 6000, 'db')]);
+
+        await capped((async () => {
+            const apiKey = process.env.RESEND_OTP_API_KEY || process.env.RESEND_API_KEY;
+            if (!apiKey) return;
+            const sheetNote = (sheetResult === 'ok' || sheetResult === 'skipped') ? '' :
+                '<p style="background:#7f1d1d;color:#fee2e2;padding:8px 12px;border-radius:6px;"><strong>Not saved to the Google Sheet</strong>. Please add this lead manually.</p>';
+            const send = (body) => fetchWithTimeout('https://api.resend.com/emails', {
+                method: 'POST', headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' }, body: JSON.stringify(body)
+            }).catch(e => console.error('❌ Whitepaper mail:', e.message));
+            const first = escapeHtml(String(nameCheck.name).split(' ')[0]);
+            await Promise.all([
+                send({
+                    from: FROM_ADDRESS, to: NOTIFY_TO, reply_to: emailCheck.email,
+                    subject: `${trust === 'verified-email' ? '' : '[Check] '}📄 Whitepaper download: ${nameCheck.name} — ${wp.title}`,
+                    html: `<div style="font-family: Arial, sans-serif; padding: 20px; background: #0f172a; color: #fff; border-radius: 8px;">
+                        <h2 style="color: #38bdf8;">📄 Whitepaper download</h2>${sheetNote}
+                        <p><strong>Whitepaper:</strong> ${escapeHtml(wp.title)}</p>
+                        <p><strong>Name:</strong> ${escapeHtml(nameCheck.name)}</p>
+                        <p><strong>Email:</strong> ${escapeHtml(emailCheck.email)} (${emailCheck.type}, verified by code)</p>
+                        <p><strong>Phone:</strong> ${escapeHtml(phone)}</p>
+                        <p><strong>Company:</strong> ${escapeHtml(company || 'Not provided')}</p>
+                        ${extra.role ? `<p><strong>Role:</strong> ${escapeHtml(extra.role)}</p>` : ''}
+                        ${extra.sourcePage ? `<p><strong>Came from:</strong> ${escapeHtml(extra.sourcePage)}</p>` : ''}
+                        <p style="color:#94a3b8;font-size:0.85rem;">Tip: a short, helpful follow-up within a day works best, for example offering a DR gap review.</p></div>`
+                }),
+                send({
+                    from: FROM_ADDRESS, to: [emailCheck.email],
+                    subject: `Your copy: ${wp.title}`,
+                    html: `<div style="font-family:Arial,sans-serif;max-width:560px;padding:24px;color:#0f172a">
+                        <p>Hi ${first},</p>
+                        <p>Thank you for your interest. Here is your copy of <strong>${escapeHtml(wp.title)}</strong>:</p>
+                        <p><a href="${link}" style="display:inline-block;background:#C2185B;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:bold">Download the PDF</a></p>
+                        <p>If any of it applies to a decision you are working on, reply to this email. We are happy to give a plain first view, with no obligation.</p>
+                        <p style="color:#475569">Vakratron Systems<br>vakratronsys.com</p></div>`,
+                    text: `Hi ${String(nameCheck.name).split(' ')[0]}, here is your copy of ${wp.title}: ${link}`
+                })
+            ]);
+        })(), 3000, 'whitepaper emails');
+
+        res.json({ success: true, url: wp.file });
+    } catch (error) {
+        console.error('❌ /api/whitepaper/download:', error);
+        if (!res.headersSent) res.status(500).json({ success: false, error: 'Something went wrong. Please try again.' });
     }
 });
 
