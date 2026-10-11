@@ -921,4 +921,10 @@ main.vk .wp-about { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 2
   main.vk .wp-inline-cta { flex-direction: column; align-items: flex-start; }
   main.vk .wp-dl { padding: 16px; }
 }
+main.vk .wp-libgrid { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) !important; }
+main.vk a.wp-libcard { display: flex; flex-direction: column; }
+main.vk a.wp-libcard h3 { margin: 4px 0 6px !important; font-size: 1.2rem !important; }
+main.vk a.wp-libcard .vk-go { margin-top: auto; }
+main.vk .wp-libic { width: 44px; height: 44px; border-radius: 12px; background: rgba(194,24,91,0.14); color: #f472b6; display: inline-flex; align-items: center; justify-content: center; font-size: 1.15rem; margin-bottom: 12px; }
+@media (max-width: 420px) { main.vk .wp-libgrid { grid-template-columns: minmax(0, 1fr) !important; } }
 /* === END WHITEPAPERS === */

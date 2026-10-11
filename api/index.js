@@ -792,6 +792,30 @@ const WHITEPAPERS = {
     'disaster-recovery-strategy': {
         title: 'Disaster Recovery That Works on the Day',
         file: '/wp/vakratron-disaster-recovery-22ffa7f0f1.pdf'
+    },
+    'private-cloud-strategy': {
+        title: 'Private Cloud Without the Lock-in',
+        file: '/wp/vakratron-private-cloud-strategy-4b37679c97.pdf'
+    },
+    'gpu-ai-infrastructure': {
+        title: 'GPU Infrastructure for Enterprise AI',
+        file: '/wp/vakratron-gpu-ai-infrastructure-c080c67467.pdf'
+    },
+    'enterprise-llm-strategy': {
+        title: 'Running LLMs in the Enterprise',
+        file: '/wp/vakratron-enterprise-llm-strategy-16d6ea42ea.pdf'
+    },
+    'rag-and-agentic-ai': {
+        title: 'From Document Assistant to AI Agent',
+        file: '/wp/vakratron-rag-and-agentic-ai-91188113f8.pdf'
+    },
+    'kubernetes-platform-engineering': {
+        title: 'Kubernetes and Platform Engineering: When, Why and How',
+        file: '/wp/vakratron-kubernetes-platform-engineering-2af826b23a.pdf'
+    },
+    'api-microservices-architecture': {
+        title: 'APIs and Microservices Without the Distributed Monolith',
+        file: '/wp/vakratron-api-microservices-architecture-ef46f01f03.pdf'
     }
 };
 

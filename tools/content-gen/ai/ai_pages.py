@@ -76,7 +76,7 @@ def hub():
     b = hero((HOME, ("Solutions", "/solutions"), ("AI infrastructure", None)), 'AI infrastructure and GPU cloud',
              'GPU clusters that are busy, not waiting',
              'GPUs are the most expensive part of an AI platform, and also the easiest to waste. They sit idle when the network is too slow, when storage cannot feed them data, or when the data centre cannot power and cool them. We design the whole stack around the GPUs: servers, fabric, storage, scheduling, power and cooling.',
-             actions=[('Book a GPU sizing review', '/contact'), ('How many GPUs do I need?', '#gpucalc')])
+             actions=[('Book a GPU sizing review', '/contact'), ('How many GPUs do I need?', '#gpucalc'), ('<i class="fa-solid fa-file-pdf"></i>&nbsp; GPU whitepaper', '/whitepapers/gpu-ai-infrastructure')])
     b += sec('''
             <span class="vk-eyebrow">What usually goes wrong</span>
             <h2>Why GPU projects disappoint</h2>

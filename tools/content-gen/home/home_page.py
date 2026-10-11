@@ -131,7 +131,7 @@ def body():
             <div class="vk-sols">{sols}</div>
         </div></div>
 
-        <div class="vk-sec"><div class="vk-wrap">
+        <div class="vk-sec" id="tools" style="scroll-margin-top:90px"><div class="vk-wrap">
             <span class="vk-eyebrow">Try them now, no sign-up</span>
             <h2>Interactive tools and simulations</h2>
             <p class="vk-prose">Most consulting websites describe. Ours lets you try: size a GPU cluster, compare cloud costs with your own numbers, watch a disaster recovery or a VMware migration play out, or see how an AI agent is kept within limits.</p>

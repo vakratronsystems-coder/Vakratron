@@ -23,7 +23,7 @@ def kmore(cur): return more_links('More Kubernetes guides:', KB, KP, cur, '<a hr
 def k_hub():
     b = hero((HOME, ("Solutions", "/solutions"), ("Kubernetes", None)), 'Kubernetes and platform engineering', 'Kubernetes where it helps, and an honest no where it does not',
              'Kubernetes is excellent at running many services for many teams, deploying often and scaling automatically. It is also complex. We help you decide whether you need it, then build a platform your developers like using and your team can actually run and upgrade.',
-             actions=[('Book a platform review', '/contact'), ('Do we need Kubernetes?', '#k8scheck')])
+             actions=[('Book a platform review', '/contact'), ('Do we need Kubernetes?', '#k8scheck'), ('<i class="fa-solid fa-file-pdf"></i>&nbsp; Kubernetes whitepaper', '/whitepapers/kubernetes-platform-engineering')])
     b += sec('''<span class="vk-eyebrow">What usually goes wrong</span><h2>Why Kubernetes platforms disappoint</h2>
             <div class="vk-grid" style="margin-top:22px">
                 <div class="vk-card"><h3>Clusters everywhere</h3><p class="vk-muted">Every team built its own cluster its own way. Nobody knows which ones are patched.</p></div>
@@ -216,7 +216,7 @@ def pmore(cur): return more_links('More API guides:', PB, PP, cur, '<a href="/so
 def p_hub():
     b = hero((HOME, ("Solutions", "/solutions"), ("APIs and microservices", None)), 'APIs and microservices', 'APIs that are easy to use, safe to open, and hard to break',
              'Most integration problems are not about technology. They come from point-to-point connections nobody documented, services split too early, and one slow system dragging others down with it. We help you design APIs and services that stay understandable as they grow.',
-             actions=[('Book an integration review', '/contact'), ('See a gateway and circuit breaker at work', '#apisim')])
+             actions=[('Book an integration review', '/contact'), ('See a gateway and circuit breaker at work', '#apisim'), ('<i class="fa-solid fa-file-pdf"></i>&nbsp; API whitepaper', '/whitepapers/api-microservices-architecture')])
     b += sec('''<span class="vk-eyebrow">What usually goes wrong</span><h2>Why integration gets painful</h2>
             <div class="vk-grid" style="margin-top:22px">
                 <div class="vk-card"><h3>Spaghetti connections</h3><p class="vk-muted">Every system talks directly to every other. Change one, and you find out what breaks in production.</p></div>

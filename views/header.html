@@ -186,4 +186,27 @@ main, .solution-page, .solutions-hero {
     .nav-matrix-link:hover i {
         color: #fff;
     }
+
+/* 📱 Mobile header and menu (Oct 2026): keep everything inside the screen width */
+@media (max-width: 1150px) {
+  .console-dropdown-dashboard { position: fixed !important; top: 74px !important; left: 12px !important; right: 12px !important; width: auto !important; max-height: calc(100vh - 90px); overflow-y: auto !important; padding: 22px !important; }
+  .console-dropdown-dashboard .console-footer { margin: 18px -22px -22px -22px !important; padding: 12px 22px !important; }
+}
+@media (max-width: 900px) {
+  .console-dropdown-dashboard .dashboard-grid { grid-template-columns: 1fr 1fr !important; gap: 18px !important; }
+}
+@media (max-width: 600px) {
+  .console-dropdown-dashboard .dashboard-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
+  header { padding: 14px 14px !important; }
+  .header-action { min-width: 0 !important; }
+  .header-action a { padding: 9px 12px !important; font-size: 0.78rem !important; }
+  .logo-area { gap: 8px !important; }
+  .logo-area img { width: 30px !important; height: 30px !important; }
+  .logo-text h2 { font-size: 1.02rem !important; letter-spacing: 1.5px !important; }
+  .logo-text span { font-size: 0.58rem !important; letter-spacing: 3px !important; }
+}
+@media (max-width: 420px) {
+  .header-action a { font-size: 0 !important; padding: 9px 11px !important; }
+  .header-action a::before { content: 'Contact'; font-size: 0.76rem; }
+}
 </style>

@@ -8,10 +8,13 @@ sys.path.insert(0, os.path.join(HERE, '..', 'deployments'))
 from tpl import page, crumb
 from diagram import render as render_diagram
 
+def n_check():
+    return sum(len(i) for _, i in MOD.CHECKLIST)
+
 def form_box(m, where):
     return '''
             <div class="wp-dl" data-wp="''' + m['slug'] + '''" data-where="''' + where + '''">
-                <div class="wp-dl-head"><i class="fa-solid fa-file-pdf"></i><div><strong>Download the full PDF</strong><span>''' + m['pages'] + ''', including the 40-point readiness checklist</span></div></div>
+                <div class="wp-dl-head"><i class="fa-solid fa-file-pdf"></i><div><strong>Download the full PDF</strong><span>''' + m['pages'] + ''', including the ''' + str(n_check()) + '''-point checklist</span></div></div>
                 <form class="wp-dl-form" novalidate>
                     <input type="text" name="website" class="vk-cf-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
                     <div class="wp-dl-fields">
@@ -80,7 +83,7 @@ def build_web():
                 <div class="wp-inline-cta"><div><strong>Taking this to a meeting?</strong> Get the PDF to share with your team: same content, printable checklist, no clutter.</div><a class="vk-btn primary" href="#download">Download the PDF</a></div>'''
     body += '''
                 <div class="wp-sec wp-about"><h2>About Vakratron Systems</h2><p>Vakratron Systems is a vendor-neutral infrastructure design firm. We design data centre, disaster recovery, cloud, GPU and AI platforms for enterprises and government buyers, write our assumptions down, and stay with a design until it is running and tested.</p>
-                <div class="vk-actions"><a class="vk-btn primary" href="/advisory#review">Ask for a DR review</a><a class="vk-btn" href="/portfolio/dr-solutions">DR solutions</a><a class="vk-btn" href="/deployments/core-banking-dr">See a worked DR design</a></div></div>
+                <div class="vk-actions">''' + ''.join('<a class="vk-btn' + (' primary' if i == 0 else '') + '" href="' + h + '">' + t + '</a>' for i, (t, h) in enumerate(m['help_links'])) + '''</div></div>
             </article>
         </div></div></div>'''
     page('whitepapers/' + m['slug'] + '.html', m['title'] + ' | Whitepaper | Vakratron', m['desc'], body, scripts=['/vk-whitepaper.js?v=1'])
@@ -97,10 +100,7 @@ def build_print(out):
         parts.append('<section class="sec' + (' break' if s['id'] in ('summary', 'checklist') else '') + '" id="' + s['id'] + '"><span class="num">' + str(i + 1).zfill(2) + '</span><h2>' + s['title'] + '</h2>' + section_html(s, web=False) + '</section>')
     parts.append('''<section class="sec break about"><h2>About Vakratron Systems</h2>
 <p>Vakratron Systems LLP is a vendor-neutral infrastructure design firm, recognised as a startup by DPIIT. We design data centre, disaster recovery, cloud, GPU and AI platforms for enterprises and government buyers. Every design starts from the workload, compares realistic options with their costs, writes its assumptions down, and is tested before handover.</p>
-<h3>How we can help with disaster recovery</h3><ul>
-<li><strong>DR review:</strong> an independent gap review of your current set-up in two to three weeks, with a ranked list of what to fix.</li>
-<li><strong>DR design:</strong> tiering, pattern per tier, reference architecture, sizing and a cost model you can take to vendors.</li>
-<li><strong>Drill support:</strong> planning and running your first isolated or full failover, with measured RPO and RTO.</li></ul>
+<h3>''' + m['help_title'] + '''</h3><ul>''' + ''.join('<li>' + h + '</li>' for h in m['help_items']) + '''</ul>
 <div class="contact"><div><strong>Talk to us</strong><br>connect@vakratronsys.com</div><div><strong>Online</strong><br>vakratronsys.com/advisory</div></div>
 <p class="fine">This paper gives general guidance based on common enterprise requirements. Figures are planning ranges, not quotations. Apply them to your environment with care, or ask us to help. &copy; 2026 Vakratron Systems LLP.</p></section></body></html>''')
     import re

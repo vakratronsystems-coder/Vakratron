@@ -63,7 +63,7 @@ def lmore(cur): return more_links('More LLM guides:', LB, LP, cur, '<a href="/so
 def llm_hub():
     b = hero((HOME, ("Solutions", "/solutions"), ("Enterprise LLM", None)), 'Enterprise LLM', 'Large language models your business can actually trust',
              'Most organisations already use AI chatbots, often on personal accounts and with company data. The question is not whether to use LLMs, but how: which model, where it runs, what data it may see, and how you know the answers are good enough. We help you decide, then build it.',
-             actions=[('Book an LLM review', '/contact'), ('API or self-hosted: compare cost', '#llmcost')])
+             actions=[('Book an LLM review', '/contact'), ('API or self-hosted: compare cost', '#llmcost'), ('<i class="fa-solid fa-file-pdf"></i>&nbsp; LLM whitepaper', '/whitepapers/enterprise-llm-strategy')])
     b += sec('''<span class="vk-eyebrow">What usually goes wrong</span><h2>Why LLM projects stall</h2>
             <div class="vk-grid" style="margin-top:22px">
                 <div class="vk-card"><h3>Staff paste data into public tools</h3><p class="vk-muted">Without an approved option, people use whatever is free. Customer data and internal documents leave the company without anyone deciding they should.</p></div>
@@ -251,7 +251,7 @@ def rmore(cur): return more_links('More RAG guides:', RB, RP, cur, '<a href="/so
 def rag_hub():
     b = hero((HOME, ("Solutions", "/solutions"), ("RAG", None)), 'Retrieval-augmented generation (RAG)', 'Answers from your documents, with sources, for the right people',
              'An LLM on its own does not know your policies, products or procedures. RAG fixes that: before answering, the system looks up the relevant passages in your documents and gives them to the model, which answers from them and shows where the answer came from. Done well, it is the most useful thing most organisations can build with AI.',
-             actions=[('Book a RAG review', '/contact'), ('See how it works', '#ragflow')])
+             actions=[('Book a RAG review', '/contact'), ('See how it works', '#ragflow'), ('<i class="fa-solid fa-file-pdf"></i>&nbsp; RAG and agents whitepaper', '/whitepapers/rag-and-agentic-ai')])
     b += sec('''<span class="vk-eyebrow">See it working</span><h2>Ask a question, and watch what happens</h2>
             <p class="vk-prose">Choose who is asking and a question. Watch the system search, remove documents the user is not allowed to see, prefer current documents over archived ones, and answer with sources. Then ask the salary question as an employee and as an HR manager.</p>
             <div class="vk-tool vk-ragflow"></div><noscript><p class="vk-muted">This demonstration needs JavaScript.</p></noscript>
@@ -440,7 +440,7 @@ def amore(cur): return more_links('More agent guides:', AB, AP, cur, '<a href="/
 def ag_hub():
     b = hero((HOME, ("Solutions", "/solutions"), ("Agentic AI", None)), 'Agentic AI and MCP', 'AI agents that do real work, within clear limits',
              'An AI agent does not just answer. It plans steps, uses tools such as your ticketing, directory or ERP systems, and checks its own results. That makes it useful, and it also makes limits essential: what it may read, what it may change, and what a person must approve.',
-             actions=[('Book an agent review', '/contact'), ('Watch an agent work', '#agentloop')])
+             actions=[('Book an agent review', '/contact'), ('Watch an agent work', '#agentloop'), ('<i class="fa-solid fa-file-pdf"></i>&nbsp; AI agents whitepaper', '/whitepapers/rag-and-agentic-ai')])
     b += sec('''<span class="vk-eyebrow">See it working</span><h2>An IT service desk agent, step by step</h2>
             <p class="vk-prose">The agent fixes a VPN problem on its own, is blocked when it tries something outside its permissions, and stops to ask a manager before granting access to financial data. You decide whether the manager approves.</p>
             <div class="vk-tool vk-agentloop"></div><noscript><p class="vk-muted">This demonstration needs JavaScript.</p></noscript>''', sid='agentloop')

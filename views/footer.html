@@ -124,4 +124,14 @@
         color: #fff !important; 
         padding-left: 12px !important;
     }
+
+/* 📱 Mobile footer (Oct 2026) */
+@media (max-width: 1050px) {
+  #vakra-terminal-popup { width: calc(100vw - 24px) !important; max-height: 70vh; overflow-y: auto !important; padding: 22px !important; }
+  #vakra-terminal-popup > div[style*="grid-template-columns"] { grid-template-columns: 1fr !important; gap: 18px !important; }
+}
+@media (max-width: 760px) {
+  footer > div > div[style*="grid-template-columns: 1fr auto 1fr"] { grid-template-columns: 1fr !important; text-align: center !important; padding: 24px !important; gap: 12px !important; }
+  footer > div > div[style*="grid-template-columns: 1fr auto 1fr"] > div { text-align: center !important; }
+}
 </style>

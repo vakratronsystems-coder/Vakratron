@@ -90,7 +90,7 @@ def hub():
     b = hero((HOME, ("Solutions", "/solutions"), ("Cloud", None)), 'Cloud solutions',
              'Cloud that fits the workload, not the other way round',
              'Some workloads belong in a public cloud. Some run better and cheaper on a private platform you control. Most organisations end up with both. We help you decide what goes where, then design, build and migrate it, including moving off VMware.',
-             actions=[('Book a cloud review', '/contact'), ('Where should my workload run?', '#placer')])
+             actions=[('Book a cloud review', '/contact'), ('Where should my workload run?', '#placer'), ('<i class="fa-solid fa-file-pdf"></i>&nbsp; Private cloud whitepaper', '/whitepapers/private-cloud-strategy')])
     b += sec('''
             <span class="vk-eyebrow">What usually goes wrong</span>
             <h2>Four problems we see again and again</h2>
