@@ -15,10 +15,15 @@
     '405': { p: 405, layers: 126, kvh: 8, hd: 128, name: '~405B (Llama 3.1 405B class)' }
   };
   var GPUS = {
-    h100: { name: 'NVIDIA H100 SXM 80 GB', mem: 80, nodeKw: 10.2, perNode: 8 },
+    b300: { name: 'NVIDIA B300 SXM 288 GB (Blackwell Ultra)', mem: 288, nodeKw: 15.0, perNode: 8 },
+    b200: { name: 'NVIDIA B200 SXM 180 GB (Blackwell)', mem: 180, nodeKw: 14.3, perNode: 8 },
+    h200nvl: { name: 'NVIDIA H200 NVL 141 GB (PCIe)', mem: 141, nodeKw: 7.6, perNode: 8 },
     h200: { name: 'NVIDIA H200 SXM 141 GB', mem: 141, nodeKw: 10.2, perNode: 8 },
+    h100nvl: { name: 'NVIDIA H100 NVL 94 GB (PCIe)', mem: 94, nodeKw: 7.0, perNode: 8 },
+    h100: { name: 'NVIDIA H100 SXM 80 GB', mem: 80, nodeKw: 10.2, perNode: 8 },
     a100: { name: 'NVIDIA A100 SXM 80 GB', mem: 80, nodeKw: 6.5, perNode: 8 },
-    l40s: { name: 'NVIDIA L40S 48 GB (PCIe)', mem: 48, nodeKw: 4.5, perNode: 8 }
+    l40s: { name: 'NVIDIA L40S 48 GB (PCIe)', mem: 48, nodeKw: 4.5, perNode: 8 },
+    l4: { name: 'NVIDIA L4 24 GB (PCIe)', mem: 24, nodeKw: 0.9, perNode: 8 }
   };
   var PREC = { '2': 'BF16 / FP16 (2 bytes)', '1': 'FP8 / INT8 (1 byte)', '0.5': 'INT4 (0.5 byte)' };
 

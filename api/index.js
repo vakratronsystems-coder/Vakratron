@@ -1382,6 +1382,7 @@ app.get('/footer.html', (req, res) => {
 // engines merge the duplicates instead of splitting ranking between them.
 const LEGACY_REDIRECTS = {
     'solution_arch/cloud_solutions': '/solutions/cloud-solutions',
+    'technology-domains': '/solutions',
     'blueprints': '/deployment-scenarios',
     'reference-architectures': '/deployment-scenarios',
     'research-insights': '/whitepapers',
