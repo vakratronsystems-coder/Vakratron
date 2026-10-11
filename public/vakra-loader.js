@@ -38,6 +38,17 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch(err => console.error('Footer Load Error:', err));
     }
 
+    // ==================== AI ASSISTANT WIDGET (every page) ====================
+    const vkPath = location.pathname.replace(/\/+$/, '') || '/';
+    const vkIsHome = vkPath === '/' || vkPath.toLowerCase() === '/index';
+    if (!document.getElementById('vk-chat-script') && !vkIsHome && !/\/wp\//.test(vkPath)) {
+        const chatScript = document.createElement('script');
+        chatScript.id = 'vk-chat-script';
+        chatScript.src = '/vakra-chat.js';
+        chatScript.defer = true;
+        document.body.appendChild(chatScript);
+    }
+
     // ==================== TERMINAL POPUP LOGIC ====================
     function setupTerminalPopup() {
         const terminalBtn = document.getElementById("vakra-terminal-btn");

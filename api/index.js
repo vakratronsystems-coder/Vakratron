@@ -1271,7 +1271,7 @@ app.post('/api/verify-otp', verifyLimiter, async (req, res) => {
 // ======================================================================
 app.post('/api/chat', chatLimiter, async (req, res) => {
     try {
-        const { message } = req.body;
+        const { message, history, page } = req.body;
         if (!message || typeof message !== 'string' || !message.trim()) {
             return res.status(400).json({ error: 'Missing message.' });
         }
@@ -1279,6 +1279,18 @@ app.post('/api/chat', chatLimiter, async (req, res) => {
         if (message.length > 2000) {
             return res.status(400).json({ error: 'Message too long. Please keep it under 2000 characters.' });
         }
+
+        // Conversation history: keep the last few turns so the assistant
+        // can actually follow the thread instead of resetting every message.
+        const priorTurns = [];
+        if (Array.isArray(history)) {
+            for (const turn of history.slice(-8)) {
+                if (!turn || typeof turn.content !== 'string' || !turn.content.trim()) continue;
+                const role = turn.role === 'assistant' ? 'assistant' : 'user';
+                priorTurns.push({ role, content: turn.content.slice(0, 2000) });
+            }
+        }
+        const pageContext = (typeof page === 'string' && page.trim()) ? page.trim().slice(0, 200) : '';
 
         const apiKey = process.env.GROQ_API_KEY;
         if (!apiKey) return res.status(500).json({ error: 'Chat service is not configured.' });
@@ -1304,7 +1316,12 @@ app.post('/api/chat', chatLimiter, async (req, res) => {
 ======================================================================
 4. HONESTY
 ======================================================================
-- Never invent client names, case studies, certifications, or project references. If you do not know something, say so and offer to connect them with the team.`;
+- Never invent client names, case studies, certifications, or project references. If you do not know something, say so and offer to connect them with the team.
+
+======================================================================
+5. PAGE AWARENESS
+======================================================================
+- You are told below which page of the site the visitor is currently reading. If it is relevant to their question, use it naturally (e.g. refer to what that page covers); do not announce that you were "told" their page.` + (pageContext ? `\n\nThe visitor is currently on: ${pageContext}` : '');
 
         const groqRawFetch = await fetchWithTimeout('https://api.groq.com/openai/v1/chat/completions', {
             method: 'POST',
@@ -1313,6 +1330,7 @@ app.post('/api/chat', chatLimiter, async (req, res) => {
                 model: 'openai/gpt-oss-120b',
                 messages: [
                     { role: 'system', content: systemDirectives },
+                    ...priorTurns,
                     { role: 'user', content: message }
                 ],
                 temperature: 0.3,

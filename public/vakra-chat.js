@@ -256,7 +256,8 @@
                         message: promptValue,
                         // Everything said before this message, so the model can
                         // actually follow the conversation.
-                        history: chatHistory.slice(0, -1).slice(-MAX_CLIENT_TURNS)
+                        history: chatHistory.slice(0, -1).slice(-MAX_CLIENT_TURNS),
+                        page: (document.title || '') + ' (' + location.pathname + ')'
                     })
                 });
 
