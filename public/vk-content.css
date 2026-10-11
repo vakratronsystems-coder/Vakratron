@@ -774,6 +774,7 @@ main.vk .vk-refdep { margin: 4px 0 14px; display: inline-flex; }
 main.vk .vk-dp-jump { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
 main.vk .vk-dp-jump a { font-size: 0.8rem !important; color: #94a3b8 !important; border: 1px solid rgba(255,255,255,0.1); border-radius: 99px; padding: 5px 12px; text-decoration: none !important; }
 main.vk .vk-dp-jump a:hover { color: #fff !important; border-color: rgba(194,24,91,0.6); }
+main.vk .vk-dp-jump a em { font-style: normal; color: #f472b6; margin-left: 4px; }
 main.vk .vk-dp-constraints { align-self: start; }
 main.vk .vk-dp-constraints h3 { margin-top: 0 !important; }
 main.vk .vk-dp-constraints ul.vk-dd .mk { color: #fbbf24; background: rgba(251,191,36,0.12); }
@@ -787,5 +788,14 @@ main.vk .vk-dp-outcomes td:last-child { color: #34d399 !important; font-weight: 
 main.vk .vk-dp-skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin-top: 18px; }
 main.vk .vk-dp-skills .vk-card h3 { margin-top: 0 !important; font-size: 1rem !important; }
 main.vk .vk-dp-disclaimer { font-size: 0.88rem !important; }
+main.vk .vk-hubgrid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important; }
+main.vk a.vk-hubcard { display: flex; flex-direction: column; }
+main.vk a.vk-hubcard .vk-label { align-self: flex-start; }
+main.vk a.vk-hubcard h3 { margin: 8px 0 6px !important; }
+main.vk .vk-hubchips { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 12px; }
+main.vk .vk-hubchips span { font-size: 0.75rem !important; color: #cbd5e1 !important; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 99px; padding: 3px 9px; }
+main.vk a.vk-hubcard .vk-go { margin-top: auto; }
+main.vk .vk-hubhow .vk-card h3 { margin-top: 2px !important; font-size: 1rem !important; }
 @media (max-width: 760px) { main.vk figure.vk-dgfig svg.vk-dg { min-width: 820px; } }
+@media (max-width: 420px) { main.vk .vk-hubgrid { grid-template-columns: 1fr !important; } }
 /* === END DEPLOYMENT SCENARIOS === */
